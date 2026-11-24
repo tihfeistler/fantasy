@@ -1,4 +1,5 @@
 import type { Temporada } from "../engine/campeonato";
+import { LIMITE_CARTAS_INICIAL } from "../engine/pacotes";
 
 /**
  * Progresso do jogador no modo solo: moedas, cartas no estoque e lendas
@@ -23,6 +24,8 @@ export interface Progresso {
   escalacao?: { formacao: string; titulares: string[] };
   /** ids de lendas no elenco, por clube. */
   noElenco: Record<string, string[]>;
+  /** Quantas cartas cabem no total (estoque + lendas no elenco). Sem valor: LIMITE_CARTAS_INICIAL. */
+  limiteCartas?: number;
   /** Brasileirão em andamento (calendário, rodada atual e placares). */
   temporada?: Temporada;
   /** Temporadas encerradas. */
@@ -49,3 +52,8 @@ export function salvarProgresso(p: Progresso) {
     /* ignora: o jogo segue sem salvar */
   }
 }
+
+export const limiteCartas = (p: Progresso) => p.limiteCartas ?? LIMITE_CARTAS_INICIAL;
+/** Cartas que o manager tem: estoque mais lendas levadas a qualquer elenco. */
+export const totalCartas = (p: Progresso) =>
+  p.estoque.length + Object.values(p.noElenco).reduce((n, ids) => n + ids.length, 0);

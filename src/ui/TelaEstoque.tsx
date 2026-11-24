@@ -1,6 +1,15 @@
-import { CARTAS_POR_PACOTE, CHANCES, faixa, MAX_LENDAS_NO_ELENCO, PRECO_PACOTE, VALOR_VENDA } from "../engine/pacotes";
+import {
+  AMPLIACAO,
+  CARTAS_POR_PACOTE,
+  CHANCES,
+  faixa,
+  LIMITE_CARTAS_MAXIMO,
+  MAX_LENDAS_EM_CAMPO,
+  PRECO_PACOTE,
+  VALOR_VENDA,
+} from "../engine/pacotes";
 import type { Jogador, Time } from "../engine/types";
-import type { Progresso } from "../data/progresso";
+import { limiteCartas, totalCartas, type Progresso } from "../data/progresso";
 import { CartaJogador } from "./CartaJogador";
 import { Modal } from "./Modal";
 
@@ -11,6 +20,7 @@ interface Props {
   pacoteAberto: Jogador[] | null;
   onFecharPacote: () => void;
   onComprar: () => void;
+  onAmpliar: () => void;
   onVender: (indice: number) => void;
   onLevar: (indice: number) => void;
   onDevolver: (id: string) => void;
@@ -25,8 +35,11 @@ export function TelaEstoque(p: Props) {
     .map((id, i) => ({ j: lendas.get(id), i }))
     .filter((x): x is { j: Jogador; i: number } => !!x.j)
     .sort((a, b) => b.j.geral - a.j.geral);
-  const cheio = noElenco.length >= MAX_LENDAS_NO_ELENCO;
+  const total = totalCartas(progresso);
+  const limite = limiteCartas(progresso);
+  const semEspaco = total + CARTAS_POR_PACOTE > limite;
   const semMoedas = progresso.moedas < PRECO_PACOTE;
+  const ampliavel = limite < LIMITE_CARTAS_MAXIMO;
 
   return (
     <section className="tela">
@@ -45,15 +58,39 @@ export function TelaEstoque(p: Props) {
             Você ganha moedas jogando: {300} por vitória, {150} por empate e {50} por derrota.
           </p>
         </div>
-        <button className="botao primario" onClick={p.onComprar} disabled={semMoedas}>
-          {semMoedas ? "Moedas insuficientes" : `Abrir pacote · ${PRECO_PACOTE}`}
+        <button className="botao primario" onClick={p.onComprar} disabled={semMoedas || semEspaco}>
+          {semEspaco ? "Estoque cheio" : semMoedas ? "Moedas insuficientes" : `Abrir pacote · ${PRECO_PACOTE}`}
         </button>
+      </div>
+
+      <div className={`espaco-cartas${semEspaco ? " cheio" : ""}`}>
+        <div className="espaco-info">
+          <span className="rotulo">Espaço para cartas</span>
+          <b>
+            {total} de {limite}
+          </b>
+          <div className="espaco-barra" aria-hidden="true">
+            <i style={{ width: `${Math.min(100, (total / limite) * 100)}%` }} />
+          </div>
+          <span className="suave">
+            {semEspaco
+              ? `Falta espaço para um pacote de ${CARTAS_POR_PACOTE} cartas. Venda cartas ou amplie o espaço.`
+              : "Conta o estoque e as lendas no elenco."}
+          </span>
+        </div>
+        {ampliavel ? (
+          <button className="botao" onClick={p.onAmpliar} disabled={progresso.moedas < AMPLIACAO.preco}>
+            Ampliar +{AMPLIACAO.cartas} · {AMPLIACAO.preco}
+          </button>
+        ) : (
+          <span className="suave">Espaço máximo</span>
+        )}
       </div>
 
       <h2>
         Lendas no elenco do {meuTime.nome}{" "}
         <span className="suave">
-          {noElenco.length} de {MAX_LENDAS_NO_ELENCO}
+          {noElenco.length} {noElenco.length === 1 ? "lenda" : "lendas"} · até {MAX_LENDAS_EM_CAMPO} jogam como titulares
         </span>
       </h2>
       {noElenco.length ? (
@@ -84,8 +121,7 @@ export function TelaEstoque(p: Props) {
                 <button
                   className="botao"
                   onClick={() => p.onLevar(i)}
-                  disabled={cheio || jaNoElenco}
-                  title={cheio ? `Limite de ${MAX_LENDAS_NO_ELENCO} lendas no elenco` : undefined}
+                  disabled={jaNoElenco}
                 >
                   {jaNoElenco ? "Já está no elenco" : "Levar para o elenco"}
                 </button>

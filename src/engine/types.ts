@@ -75,6 +75,8 @@ export interface Time {
   formacao: Formacao;
   /** ids dos 11 titulares; se vazio, o jogo escala automaticamente. */
   titulares: string[];
+  /** Máximo de lendas (jogadores clássicos) entre os titulares; sem valor, não há limite. */
+  maxLendas?: number;
 }
 
 export type TipoEvento = "gol" | "chance" | "defesa" | "cartao" | "inicio" | "intervalo" | "fim";
@@ -95,3 +97,6 @@ export interface ResultadoPartida {
   eventos: EventoPartida[];
   seed: number;
 }
+
+/** Jogador clássico (carta de lenda)? Sem `tipo`, o jogador é clássico. */
+export const ehLenda = (j: Jogador) => (j.tipo ?? "classico") === "classico";

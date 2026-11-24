@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { escalar, FORMACOES, forcaSetores, vagasDaFormacao, type Vaga } from "../engine/ratings";
-import { ATRIBUTOS, POSICOES, SIGLA_ATRIBUTO, type Posicao, type Time } from "../engine/types";
+import { ATRIBUTOS, ehLenda, POSICOES, SIGLA_ATRIBUTO, type Posicao, type Time } from "../engine/types";
 import type { Jogador } from "../engine/types";
 import { CartaJogador, setor } from "./CartaJogador";
 import { Modal } from "./Modal";
@@ -16,6 +16,7 @@ const LINHAS: Posicao[][] = [["ATA"], ["MEI"], ["VOL"], ["LAT", "ZAG"], ["GOL"]]
 export function TelaElenco({ time, onChange }: Props) {
   const [modo, setModo] = useState<"formacao" | "elenco">("formacao");
   const [aberto, setAberto] = useState<Jogador | null>(null);
+  const [aviso, setAviso] = useState<string | null>(null);
   const vagas = escalar(time);
   const naEscalacao = new Map(vagas.map((v) => [v.jogador.id, v.pos]));
   const forca = forcaSetores(vagas);
@@ -31,8 +32,16 @@ export function TelaElenco({ time, onChange }: Props) {
     const atuais = manual ? time.titulares : vagas.map((v) => v.jogador.id);
     let novos: string[];
     if (atuais.includes(id)) novos = atuais.filter((x) => x !== id);
-    else if (atuais.length < 11) novos = [...atuais, id];
-    else return;
+    else if (atuais.length < 11) {
+      const j = time.elenco.find((x) => x.id === id);
+      const lendasEmCampo = time.elenco.filter((x) => atuais.includes(x.id) && ehLenda(x)).length;
+      if (j && ehLenda(j) && lendasEmCampo >= (time.maxLendas ?? Infinity)) {
+        setAviso(`Já há ${time.maxLendas} lendas entre os titulares. Tire uma para escalar ${j.nome}.`);
+        return;
+      }
+      novos = [...atuais, id];
+    } else return;
+    setAviso(null);
     onChange({ ...time, titulares: novos });
   };
 
@@ -90,6 +99,7 @@ export function TelaElenco({ time, onChange }: Props) {
         </div>
       </div>
 
+      {aviso && modo === "formacao" && <p className="aviso">{aviso}</p>}
       {incompleto && modo === "formacao" && (
         <p className="aviso">
           {time.titulares.length} de 11 titulares escolhidos. Clique num reserva para completar, ou use a escalação

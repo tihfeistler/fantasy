@@ -1,4 +1,4 @@
-import type { Atributos, Formacao, Jogador, Posicao, Time } from "./types";
+import { ehLenda, type Atributos, type Formacao, type Jogador, type Posicao, type Time } from "./types";
 
 /**
  * Pesos dos atributos por posição para calcular o "geral".
@@ -68,24 +68,31 @@ export function escalar(time: Time): Vaga[] {
       : [...time.elenco];
   const usados = new Set<string>();
   const resultado: Vaga[] = [];
+  // Limite de lendas em campo: as que passarem do limite ficam de fora.
+  let lendas = 0;
+  const cabe = (j: Jogador) => !ehLenda(j) || lendas < (time.maxLendas ?? Infinity);
+  const usar = (j: Jogador) => {
+    usados.add(j.id);
+    if (ehLenda(j)) lendas++;
+  };
   // Preenche primeiro as vagas com jogadores da posição natural.
   const pendentes: Posicao[] = [];
   for (const pos of vagas) {
     const melhor = pool
-      .filter((j) => !usados.has(j.id) && j.posicao === pos)
+      .filter((j) => !usados.has(j.id) && j.posicao === pos && cabe(j))
       .sort((a, b) => b.geral - a.geral)[0];
     if (melhor) {
-      usados.add(melhor.id);
+      usar(melhor);
       resultado.push({ pos, jogador: melhor });
     } else pendentes.push(pos);
   }
   // Depois improvisa quem sobrou.
   for (const pos of pendentes) {
     const melhor = pool
-      .filter((j) => !usados.has(j.id))
+      .filter((j) => !usados.has(j.id) && cabe(j))
       .sort((a, b) => forcaNaPosicao(b, pos) - forcaNaPosicao(a, pos))[0];
     if (!melhor) break;
-    usados.add(melhor.id);
+    usar(melhor);
     resultado.push({ pos, jogador: melhor });
   }
   const ordem = (p: Posicao) => vagas.indexOf(p);

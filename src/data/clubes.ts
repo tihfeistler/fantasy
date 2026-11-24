@@ -1,3 +1,4 @@
+import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
 import clubesJson from "../../data/clubes.json";
 import atuaisJson from "../../data/atuais.json";
 import { FORMACOES } from "../engine/ratings";
@@ -30,6 +31,7 @@ export function montarTimesAtuais(): Time[] {
     elenco: ATUAIS.filter((j) => j.clubeId === c.id),
     formacao: FORMACOES[0],
     titulares: [],
+    maxLendas: MAX_LENDAS_EM_CAMPO,
   }));
 }
 

@@ -12,7 +12,12 @@ export const CHANCES: Record<Faixa, number> = { comum: 0.7, rara: 0.25, icone: 0
 export const PRECO_PACOTE = 500;
 export const CARTAS_POR_PACOTE = 5;
 export const VALOR_VENDA: Record<Faixa, number> = { comum: 100, rara: 200, icone: 400 };
-export const MAX_LENDAS_NO_ELENCO = 3;
+/** Lendas que podem jogar juntas entre os titulares. No elenco não há limite. */
+export const MAX_LENDAS_EM_CAMPO = 3;
+/** Espaço para cartas (estoque + lendas no elenco), e como ampliá-lo. */
+export const LIMITE_CARTAS_INICIAL = 30;
+export const LIMITE_CARTAS_MAXIMO = 100;
+export const AMPLIACAO = { cartas: 10, preco: 1000 };
 
 /** Prêmio em moedas por resultado de partida. */
 export const PREMIO = { vitoria: 300, empate: 150, derrota: 50 };

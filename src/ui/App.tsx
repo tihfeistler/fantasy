@@ -3,8 +3,24 @@ import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
 import { estiloEscudo, montarTimesAtuais } from "../data/clubes";
 import { calcularTabela, chaveJogo, novaTemporada, premioFinal, simularRodada, type Temporada } from "../engine/campeonato";
 import { FORMACOES } from "../engine/ratings";
-import { carregarProgresso, PROGRESSO_INICIAL, salvarProgresso, type Progresso } from "../data/progresso";
-import { abrirPacote, faixa, MAX_LENDAS_NO_ELENCO, PRECO_PACOTE, PREMIO, VALOR_VENDA } from "../engine/pacotes";
+import {
+  carregarProgresso,
+  limiteCartas,
+  PROGRESSO_INICIAL,
+  salvarProgresso,
+  totalCartas,
+  type Progresso,
+} from "../data/progresso";
+import {
+  abrirPacote,
+  AMPLIACAO,
+  CARTAS_POR_PACOTE,
+  faixa,
+  LIMITE_CARTAS_MAXIMO,
+  PRECO_PACOTE,
+  PREMIO,
+  VALOR_VENDA,
+} from "../engine/pacotes";
 import { criarRng } from "../engine/rng";
 import type { Jogador, ResultadoPartida, Time } from "../engine/types";
 import { TelaCampeonato } from "./TelaCampeonato";
@@ -87,10 +103,17 @@ export function App() {
 
   const comprarPacote = () => {
     if (progresso.moedas < PRECO_PACOTE || !lendasLista.length) return;
+    if (totalCartas(progresso) + CARTAS_POR_PACOTE > limiteCartas(progresso)) return;
     const cartas = abrirPacote(lendasLista, criarRng(Date.now() ^ (Math.random() * 2 ** 31)));
     mudar((p) => ({ ...p, moedas: p.moedas - PRECO_PACOTE, estoque: [...p.estoque, ...cartas.map((c) => c.id)] }));
     setPacoteAberto(cartas);
   };
+  const ampliar = () =>
+    mudar((p) =>
+      p.moedas < AMPLIACAO.preco || limiteCartas(p) >= LIMITE_CARTAS_MAXIMO
+        ? p
+        : { ...p, moedas: p.moedas - AMPLIACAO.preco, limiteCartas: limiteCartas(p) + AMPLIACAO.cartas },
+    );
   const vender = (i: number) =>
     mudar((p) => {
       const j = lendas.get(p.estoque[i]);
@@ -104,7 +127,7 @@ export function App() {
     mudar((p) => {
       const id = p.estoque[i];
       const atual = p.noElenco[meuTimeId] ?? [];
-      if (atual.length >= MAX_LENDAS_NO_ELENCO || atual.includes(id)) return p;
+      if (atual.includes(id)) return p;
       return {
         ...p,
         estoque: p.estoque.filter((_, k) => k !== i),
@@ -273,6 +296,7 @@ export function App() {
             pacoteAberto={pacoteAberto}
             onFecharPacote={() => setPacoteAberto(null)}
             onComprar={comprarPacote}
+            onAmpliar={ampliar}
             onVender={vender}
             onLevar={levar}
             onDevolver={devolver}

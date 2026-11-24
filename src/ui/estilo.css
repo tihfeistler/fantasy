@@ -740,3 +740,16 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
   .tabela-classif .col-extra { display: none; }
   .rodada-titulo b { font-size: 20px; }
 }
+
+/* ---------- Espaço para cartas ---------- */
+.espaco-cartas {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 14px 0 22px; padding: 12px 16px; border: 1px solid var(--linha); border-radius: 12px; background: var(--painel);
+}
+.espaco-info { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 4px 12px; flex: 1; min-width: 240px; }
+.espaco-info b { font-family: var(--fonte-titulo); font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.espaco-info .suave { grid-column: 1 / -1; font-size: 12px; }
+.espaco-barra { height: 8px; border-radius: 999px; background: var(--fundo-2); overflow: hidden; min-width: 80px; }
+.espaco-barra i { display: block; height: 100%; background: var(--setor-mei); }
+.espaco-cartas.cheio { border-color: #8a6b12; }
+.espaco-cartas.cheio .espaco-barra i { background: var(--alerta); }

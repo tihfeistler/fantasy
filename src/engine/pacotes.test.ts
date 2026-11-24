@@ -20,3 +20,24 @@ describe("abrirPacote", () => {
     expect(cont.icone / total).toBeLessThan(CHANCES.icone * 1.6);
   });
 });
+
+describe("limite de lendas em campo", () => {
+  it("a escalação automática usa no máximo maxLendas clássicos", async () => {
+    const { escalar } = await import("./ratings");
+    const { montarTimesAtuais } = await import("../data/clubes");
+    const { ehLenda } = await import("./types");
+    const base = montarTimesAtuais()[0];
+    // Seis lendas fortes de linha, mais fortes que todo o elenco atual.
+    const lendas = ["ZAG", "LAT", "VOL", "MEI", "ATA", "ATA"].map((posicao, i) => ({
+      ...base.elenco.find((j) => j.posicao === posicao)!,
+      id: `lenda-${i}`,
+      tipo: "classico" as const,
+      geral: 99,
+    }));
+    const time = { ...base, elenco: [...base.elenco, ...lendas] };
+    const vagas = escalar(time);
+    expect(vagas).toHaveLength(11);
+    expect(vagas.filter((v) => ehLenda(v.jogador))).toHaveLength(3);
+    expect(escalar({ ...time, maxLendas: undefined }).filter((v) => ehLenda(v.jogador)).length).toBeGreaterThan(3);
+  });
+});
