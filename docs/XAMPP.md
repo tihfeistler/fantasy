@@ -1,0 +1,68 @@
+# Rodar o Fantasy no XAMPP
+
+O jogo tem duas partes:
+
+- **Front** (telas e motor de partidas): React + TypeScript, compilado para
+  HTML/JS estático.
+- **API** (`api/*.php`) + **banco MySQL/MariaDB** (`sql/schema.sql`): guarda
+  jogadores, clubes e, mais adiante, contas, cartas e saves.
+
+## 1. Preparar (uma vez)
+
+1. Instale o [XAMPP](https://www.apachefriends.org/) (PHP 8.1 ou mais novo)
+   e o [Node.js](https://nodejs.org/) 20 ou mais novo.
+2. Clone o repositório **dentro do htdocs**, na pasta `fantasy`:
+   ```
+   cd C:\xampp\htdocs
+   git clone https://github.com/tihfeistler/fantasy
+   ```
+3. No painel do XAMPP, ligue **Apache** e **MySQL**.
+4. Crie o banco: abra http://localhost/phpmyadmin, aba **Importar**, escolha
+   `sql/schema.sql` e clique em Executar. (Ou pela linha de comando:
+   `C:\xampp\mysql\bin\mysql -u root < sql\schema.sql`.)
+5. Importe os jogadores de `data/jogadores.json` (e `data/clubes.json`,
+   quando existir):
+   ```
+   cd C:\xampp\htdocs\fantasy
+   C:\xampp\php\php.exe scripts\importar.php
+   ```
+   Pode rodar de novo sempre que os arquivos de dados mudarem.
+6. Instale as dependências do front: `npm install`.
+
+Se o seu MySQL tiver senha ou outra porta, crie `api/config.local.php`:
+
+```php
+<?php return ['db_usuario' => 'root', 'db_senha' => 'minhasenha'];
+```
+
+Teste a API: http://localhost/fantasy/api/jogadores.php deve mostrar a lista
+em JSON.
+
+## 2. Jogar / desenvolver
+
+**Modo desenvolvimento** (recarrega sozinho ao editar o código):
+
+```
+npm run dev
+```
+
+Abra http://localhost:5173. As chamadas para `/api` são repassadas ao
+Apache em `http://localhost/fantasy` (configurado em `vite.config.ts`; mude
+lá se usar outra pasta).
+
+**Modo "publicado" no Apache**:
+
+```
+npm run build
+```
+
+Abra http://localhost/fantasy/dist/. O build usa caminhos relativos e
+chama a API em `../api/`.
+
+## 3. Problemas comuns
+
+- *"Não consegui falar com a API PHP"* na aba Lendas: Apache ou MySQL
+  desligado, banco não criado ou importador não rodado.
+- Erro 500 na API: veja `C:\xampp\apache\logs\error.log`.
+- Porta 80 ocupada (Skype/IIS): mude a porta do Apache no XAMPP e ajuste
+  `API_XAMPP` em `vite.config.ts`.

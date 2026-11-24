@@ -2,9 +2,10 @@ import { useState } from "react";
 import { TIMES_EXEMPLO } from "../data/exemplo";
 import type { Time } from "../engine/types";
 import { TelaElenco } from "./TelaElenco";
+import { TelaLendas } from "./TelaLendas";
 import { TelaPartida } from "./TelaPartida";
 
-type Aba = "elenco" | "partida";
+type Aba = "elenco" | "partida" | "lendas";
 
 export function App() {
   const [times, setTimes] = useState<Time[]>(TIMES_EXEMPLO);
@@ -28,10 +29,14 @@ export function App() {
           <button className={aba === "partida" ? "ativo" : ""} onClick={() => setAba("partida")}>
             Partida
           </button>
+          <button className={aba === "lendas" ? "ativo" : ""} onClick={() => setAba("lendas")}>
+            Lendas
+          </button>
         </nav>
       </header>
       <main>
         {aba === "elenco" && <TelaElenco time={meuTime} onChange={atualizar} />}
+        {aba === "lendas" && <TelaLendas />}
         {aba === "partida" && (
           <TelaPartida meuTime={meuTime} adversarios={times.filter((t) => t.id !== meuTimeId)} />
         )}

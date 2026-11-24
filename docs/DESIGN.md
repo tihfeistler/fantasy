@@ -117,14 +117,23 @@ Fase posterior:
 
 - Ligas privadas com amigos, completadas pela IA.
 - Rodadas em horário fixo ou quando todos confirmam.
-- Servidor autoritativo roda as partidas com o mesmo motor.
+- Servidor autoritativo roda as partidas (ver seção 8 sobre o motor em PHP).
 - Mercado de cartas e de jogadores entre técnicos.
-- Stack sugerida: Node + PostgreSQL (ou Supabase). **[suposição]**
 
 ## 8. Plataforma, stack e roteiro
 
-Vite + React + TypeScript, Vitest para o motor, PWA (manifest já incluso;
-falta service worker), save local em IndexedDB.
+- **Front**: Vite + React + TypeScript, Vitest para o motor, PWA (manifest
+  já incluso; falta service worker).
+- **Backend**: **PHP 8 + MySQL/MariaDB**, para rodar e testar fácil no
+  XAMPP (ver [`XAMPP.md`](XAMPP.md)). API simples em `api/*.php` com PDO;
+  schema em `sql/schema.sql` (clubes, jogadores, usuários, cartas, saves);
+  importador `scripts/importar.php` carrega os JSON de `data/` no banco.
+- **Onde roda a partida**: no modo solo, o motor TypeScript roda no
+  navegador (rápido, funciona offline). No modo online, o servidor precisa
+  decidir o resultado para ninguém trapacear, então o motor será **portado
+  para PHP**, com testes que garantem que a mesma seed dá o mesmo placar nas
+  duas versões. **[suposição]** A alternativa seria trocar o backend para
+  Node e reaproveitar o motor sem portar, mas isso tira a facilidade do XAMPP.
 
 | Fase | Entrega |
 | --- | --- |

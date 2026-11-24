@@ -64,3 +64,17 @@ table.elenco { width: 100%; border-collapse: collapse; font-size: 14px; font-var
 .narracao .ev-cartao { color: #ffd166; }
 .narracao .ev-intervalo, .narracao .ev-fim, .narracao .ev-inicio { color: var(--suave); font-style: italic; }
 .seed { color: var(--suave); font-size: 12px; }
+
+input.busca { background: var(--painel); color: var(--texto); border: 1px solid var(--linha); border-radius: 6px; padding: 6px 10px; }
+.suave { color: var(--suave); }
+.cartas { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.carta { border-radius: 10px; padding: 10px 12px; color: #111; min-height: 120px; box-shadow: 0 2px 6px #0006; }
+.carta-topo { display: flex; justify-content: space-between; align-items: baseline; }
+.carta-topo strong { font-size: 28px; }
+.carta-topo span { font-weight: 700; }
+.carta-nome { font-weight: 700; font-size: 16px; margin-top: 8px; }
+.carta-info { font-size: 12px; opacity: 0.8; }
+.raridade-icone { background: linear-gradient(135deg, #f5f0e1, #d9c27a); }
+.raridade-ouro { background: linear-gradient(135deg, #f7d774, #c9a227); }
+.raridade-prata { background: linear-gradient(135deg, #e3e6ea, #a9b0b8); }
+.raridade-bronze { background: linear-gradient(135deg, #e0b48a, #a8704a); }
