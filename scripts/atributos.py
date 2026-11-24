@@ -14,7 +14,7 @@ PESOS = {
 
 
 def geral(atr, pos):
-    return max(1, min(100, round(sum(atr[k] * p for k, p in PESOS[pos].items()))))
+    return max(1, min(100, int(sum(atr[k] * p for k, p in PESOS[pos].items()) + 0.5)))  # igual ao Math.round do JS
 
 
 def ruido(chave, a, b):

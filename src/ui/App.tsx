@@ -18,9 +18,14 @@ export function App() {
   return (
     <div className="app">
       <header className="topo">
-        <div className="marca">Fantasy</div>
-        <label className="clube" style={{ borderColor: meuTime.cor }}>
-          <select value={meuTimeId} onChange={(e) => setMeuTimeId(e.target.value)} title="Seu clube">
+        <div className="marca">
+          Fantasy<span>Manager</span>
+        </div>
+        <label className="clube">
+          <span className="escudo" style={{ background: meuTime.cor }}>
+            {meuTime.sigla}
+          </span>
+          <select id="clube" value={meuTimeId} onChange={(e) => setMeuTimeId(e.target.value)} title="Seu clube">
             {times.map((t) => (
               <option key={t.id} value={t.id}>
                 {t.nome}

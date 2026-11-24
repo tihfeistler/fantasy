@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { buscarJogadores, filtrarLocal, LENDAS_EMBUTIDAS } from "../data/api";
 import { POSICOES, type Jogador, type Posicao } from "../engine/types";
+import { CartaJogador } from "./CartaJogador";
 
-/** Catálogo das lendas vindo do MySQL pela API PHP. */
+/** Catálogo das lendas: vem do MySQL pela API PHP ou, sem servidor, dos dados embutidos. */
 export function TelaLendas() {
   const [posicao, setPosicao] = useState<Posicao | "">("");
   const [busca, setBusca] = useState("");
@@ -20,7 +21,6 @@ export function TelaLendas() {
           setOffline(false);
         })
         .catch((e) => {
-          // Sem API (ex.: sem XAMPP): usa as lendas embutidas no build, se houver.
           if (LENDAS_EMBUTIDAS.length) {
             setLista(filtrarLocal(LENDAS_EMBUTIDAS, filtro));
             setOffline(true);
@@ -34,55 +34,40 @@ export function TelaLendas() {
   return (
     <section className="tela">
       <div className="barra">
-        <label>
-          Posição{" "}
-          <select value={posicao} onChange={(e) => setPosicao(e.target.value as Posicao | "")}>
-            <option value="">Todas</option>
-            {POSICOES.map((p) => (
-              <option key={p}>{p}</option>
-            ))}
-          </select>
-        </label>
+        <div className="alternar" role="group" aria-label="Filtrar por posição">
+          <button className={posicao === "" ? "ativo" : ""} onClick={() => setPosicao("")}>
+            Todas
+          </button>
+          {POSICOES.map((p) => (
+            <button key={p} className={posicao === p ? "ativo" : ""} onClick={() => setPosicao(p)}>
+              {p}
+            </button>
+          ))}
+        </div>
         <input
+          id="busca-lenda"
           className="busca"
-          placeholder="Buscar lenda..."
+          placeholder="Buscar lenda pelo nome"
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
         />
         {lista && (
           <span className="suave">
-            {lista.length} lendas{offline ? " (dados embutidos, sem servidor)" : ""}
+            {lista.length} lendas{offline ? " · dados embutidos, sem servidor" : ""}
           </span>
         )}
       </div>
       {erro && (
         <p className="aviso">
-          Não consegui falar com a API PHP ({erro}). Confira se o Apache e o MySQL do XAMPP estão
-          ligados e se você rodou o importador (veja docs/XAMPP.md).
+          Não consegui falar com a API PHP ({erro}). Confira se o Apache e o MySQL do XAMPP estão ligados e se você
+          rodou o importador (veja docs/XAMPP.md).
         </p>
       )}
-      <div className="cartas">
+      <div className="grade-cartas">
         {lista?.map((j) => (
-          <div key={j.id} className={`carta raridade-${raridade(j.geral)}`}>
-            <div className="carta-topo">
-              <strong>{j.geral}</strong>
-              <span>{j.posicao}</span>
-            </div>
-            <div className="carta-nome">{j.nome}</div>
-            <div className="carta-info">
-              {j.nacionalidade} · {j.auge}
-            </div>
-            <div className="carta-info">{j.clubeMarcante}</div>
-          </div>
+          <CartaJogador key={j.id} jogador={j} />
         ))}
       </div>
     </section>
   );
-}
-
-export function raridade(geral: number) {
-  if (geral >= 90) return "icone";
-  if (geral >= 80) return "ouro";
-  if (geral >= 70) return "prata";
-  return "bronze";
 }

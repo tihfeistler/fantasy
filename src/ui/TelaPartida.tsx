@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { simularPartida } from "../engine/match";
-import type { ResultadoPartida, Time } from "../engine/types";
+import type { ResultadoPartida, Time, TipoEvento } from "../engine/types";
 
 interface Props {
   meuTime: Time;
@@ -8,6 +8,12 @@ interface Props {
 }
 
 const VELOCIDADES = { lenta: 400, normal: 150, rapida: 40 };
+const ROTULO: Partial<Record<TipoEvento, string>> = {
+  gol: "Gol",
+  chance: "Chance",
+  defesa: "Defesa",
+  cartao: "Cartão",
+};
 
 export function TelaPartida({ meuTime, adversarios }: Props) {
   const [advId, setAdvId] = useState(adversarios[0]?.id);
@@ -29,21 +35,21 @@ export function TelaPartida({ meuTime, adversarios }: Props) {
     () => (resultado ? resultado.eventos.filter((e) => e.minuto <= minuto) : []),
     [resultado, minuto],
   );
-  const placar = (timeId: string) =>
-    visiveis.filter((e) => e.tipo === "gol" && e.timeId === timeId).length;
+  const placar = (timeId: string) => visiveis.filter((e) => e.tipo === "gol" && e.timeId === timeId).length;
+  const sigla = (id?: string) => (id === mandante.id ? mandante.sigla : id === visitante.id ? visitante.sigla : "");
 
   const jogar = () => {
-    const seed = Math.floor(Math.random() * 2 ** 31);
-    setResultado(simularPartida(mandante, visitante, seed));
+    setResultado(simularPartida(mandante, visitante, Math.floor(Math.random() * 2 ** 31)));
     setMinuto(0);
   };
+  const emJogo = resultado && minuto < 90;
 
   return (
     <section className="tela partida">
       <div className="barra">
-        <label>
-          Adversário{" "}
-          <select value={adv?.id} onChange={(e) => setAdvId(e.target.value)}>
+        <label className="campo-form">
+          <span className="rotulo">Adversário</span>
+          <select id="adversario" value={adv?.id} onChange={(e) => setAdvId(e.target.value)}>
             {adversarios.map((t) => (
               <option key={t.id} value={t.id}>
                 {t.nome}
@@ -51,44 +57,83 @@ export function TelaPartida({ meuTime, adversarios }: Props) {
             ))}
           </select>
         </label>
-        <label>
-          <input type="checkbox" checked={emCasa} onChange={(e) => setEmCasa(e.target.checked)} /> Jogar em
-          casa
-        </label>
-        <label>
-          Velocidade{" "}
-          <select value={velocidade} onChange={(e) => setVelocidade(e.target.value as keyof typeof VELOCIDADES)}>
-            <option value="lenta">Lenta</option>
-            <option value="normal">Normal</option>
-            <option value="rapida">Rápida</option>
-          </select>
-        </label>
-        <button className="primario" onClick={jogar}>
+        <div className="alternar" role="group" aria-label="Mando de campo">
+          <button className={emCasa ? "ativo" : ""} onClick={() => setEmCasa(true)}>
+            Em casa
+          </button>
+          <button className={!emCasa ? "ativo" : ""} onClick={() => setEmCasa(false)}>
+            Fora
+          </button>
+        </div>
+        <div className="alternar" role="group" aria-label="Velocidade">
+          {(["lenta", "normal", "rapida"] as const).map((v) => (
+            <button key={v} className={velocidade === v ? "ativo" : ""} onClick={() => setVelocidade(v)}>
+              {v === "rapida" ? "Rápida" : v[0].toUpperCase() + v.slice(1)}
+            </button>
+          ))}
+        </div>
+        <button className="botao primario" onClick={jogar}>
           {resultado ? "Jogar de novo" : "Iniciar partida"}
         </button>
-        {resultado && minuto < 90 && <button onClick={() => setMinuto(90)}>Pular para o fim</button>}
+        {emJogo && (
+          <button className="botao" onClick={() => setMinuto(90)}>
+            Ir para o fim
+          </button>
+        )}
       </div>
 
       <div className="placar">
-        <div className="lado" style={{ borderColor: mandante.cor }}>{mandante.nome}</div>
-        <div className="gols">
-          {resultado ? `${placar(resultado.mandanteId)} x ${placar(resultado.visitanteId)}` : "– x –"}
+        <Lado time={mandante} rotulo="Mandante" />
+        <div className="placar-centro">
+          <div className="gols">
+            <span>{resultado ? placar(resultado.mandanteId) : "–"}</span>
+            <span className="x">×</span>
+            <span>{resultado ? placar(resultado.visitanteId) : "–"}</span>
+          </div>
+          <div className={`relogio${emJogo ? " ao-vivo" : ""}`}>
+            {!resultado ? "Antes do jogo" : minuto >= 90 ? "Encerrado" : `${minuto}'`}
+          </div>
         </div>
-        <div className="lado" style={{ borderColor: visitante.cor }}>{visitante.nome}</div>
+        <Lado time={visitante} rotulo="Visitante" />
       </div>
-      <div className="relogio">
-        <div className="progresso" style={{ width: `${(minuto / 90) * 100}%` }} />
-        <span>{resultado ? `${minuto}'` : "Aguardando início"}</span>
+      <div className="progresso">
+        <i style={{ width: `${(minuto / 90) * 100}%` }} />
       </div>
 
-      <ol className="narracao">
-        {[...visiveis].reverse().map((e, i) => (
-          <li key={visiveis.length - i} className={`ev-${e.tipo}`}>
-            <span className="min">{e.minuto}'</span> {e.texto}
-          </li>
-        ))}
-      </ol>
+      {resultado ? (
+        <ol className="narracao">
+          {[...visiveis].reverse().map((e, i) => (
+            <li key={visiveis.length - i} className={`ev ev-${e.tipo}`}>
+              <span className="min">{e.minuto}'</span>
+              {ROTULO[e.tipo] ? (
+                <span className="chip">
+                  {ROTULO[e.tipo]} {sigla(e.timeId)}
+                </span>
+              ) : (
+                <span className="chip vazio" />
+              )}
+              <span className="texto">{e.texto}</span>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p className="vazio-partida">
+          Escolha o adversário e o mando de campo e clique em Iniciar partida. O jogo é narrado lance a lance.
+        </p>
+      )}
       {resultado && minuto >= 90 && <p className="seed">Seed da partida: {resultado.seed}</p>}
     </section>
+  );
+}
+
+function Lado({ time, rotulo }: { time: Time; rotulo: string }) {
+  return (
+    <div className="lado">
+      <span className="escudo" style={{ background: time.cor }}>
+        {time.sigla}
+      </span>
+      <span className="lado-nome">{time.nome}</span>
+      <span className="rotulo">{rotulo}</span>
+    </div>
   );
 }

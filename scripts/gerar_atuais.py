@@ -85,7 +85,7 @@ def main():
         for j in js:
             pos = j["fina"]
             papel = 3 if j["camisa"] <= 11 else (-5 if j["camisa"] >= 40 else 0)
-            N = j["alvo"] or destaques.get((clube, j["nome"])) or nivel + papel + ruido(clube + j["nome"], -7, 4)
+            N = j["alvo"] or destaques.get((clube, j["nome"])) or nivel - 6 + papel + ruido(clube + j["nome"], -6, 3)
             atr = {k: max(1, min(99, v)) for k, v in MODELOS[pos](N).items()}
             ajustar_ao_alvo(atr, pos, N)
             atr = {k: atr[k] for k in ATRIBUTOS}
