@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
-import { montarTimesAtuais } from "../data/clubes";
-import { carregarProgresso, salvarProgresso, type Progresso } from "../data/progresso";
+import { estiloEscudo, montarTimesAtuais } from "../data/clubes";
+import { FORMACOES } from "../engine/ratings";
+import { carregarProgresso, PROGRESSO_INICIAL, salvarProgresso, type Progresso } from "../data/progresso";
 import { abrirPacote, faixa, MAX_LENDAS_NO_ELENCO, PRECO_PACOTE, PREMIO, VALOR_VENDA } from "../engine/pacotes";
 import { criarRng } from "../engine/rng";
 import type { Jogador, ResultadoPartida, Time } from "../engine/types";
 import { TelaElenco } from "./TelaElenco";
 import { TelaEstoque } from "./TelaEstoque";
 import { TelaLendas } from "./TelaLendas";
+import { TelaNovoManager } from "./TelaNovoManager";
 import { TelaPartida } from "./TelaPartida";
 
 type Aba = "elenco" | "partida" | "estoque" | "lendas";
@@ -19,10 +21,23 @@ const ABAS: { id: Aba; nome: string }[] = [
 ];
 
 export function App() {
-  const [times, setTimes] = useState<Time[]>(montarTimesAtuais);
-  const [meuTimeId, setMeuTimeId] = useState("flamengo");
+  // Times atuais; o do manager recebe a escalação salva.
+  const [times, setTimes] = useState<Time[]>(() => {
+    const p = carregarProgresso();
+    return montarTimesAtuais().map((t) =>
+      t.id === p.manager?.clubeId && p.escalacao
+        ? {
+            ...t,
+            formacao: FORMACOES.find((f) => f.nome === p.escalacao!.formacao) ?? t.formacao,
+            titulares: p.escalacao.titulares,
+          }
+        : t,
+    );
+  });
   const [aba, setAba] = useState<Aba>("elenco");
   const [progresso, setProgresso] = useState<Progresso>(carregarProgresso);
+  const [confirmarNova, setConfirmarNova] = useState(false);
+  const meuTimeId = progresso.manager?.clubeId ?? "";
   const [lendasLista, setLendasLista] = useState<Jogador[]>(LENDAS_EMBUTIDAS);
   const [pacoteAberto, setPacoteAberto] = useState<Jogador[] | null>(null);
 
@@ -44,9 +59,11 @@ export function App() {
       }),
     [times, progresso.noElenco, lendas],
   );
-  const meuTime = timesComLendas.find((t) => t.id === meuTimeId)!;
-  const atualizar = (t: Time) =>
+  const meuTime = timesComLendas.find((t) => t.id === meuTimeId);
+  const atualizar = (t: Time) => {
     setTimes((ts) => ts.map((x) => (x.id === t.id ? { ...t, elenco: x.elenco } : x)));
+    setProgresso((p) => ({ ...p, escalacao: { formacao: t.formacao.nome, titulares: t.titulares } }));
+  };
 
   const mudar = (f: (p: Progresso) => Progresso) => setProgresso((p) => f(p));
 
@@ -95,24 +112,42 @@ export function App() {
     return premio;
   };
 
+  const criarManager = (nome: string, clubeId: string) => {
+    setProgresso({
+      ...PROGRESSO_INICIAL,
+      manager: { nome, clubeId, criadoEm: new Date().toISOString().slice(0, 10) },
+    });
+    setTimes(montarTimesAtuais());
+    setAba("elenco");
+  };
+  const novaCarreira = () => {
+    setProgresso(PROGRESSO_INICIAL);
+    setConfirmarNova(false);
+  };
+
+  if (!progresso.manager || !meuTime) {
+    return (
+      <div className="app">
+        <TelaNovoManager times={times} onCriar={criarManager} />
+      </div>
+    );
+  }
+
   return (
     <div className="app">
       <header className="topo">
         <div className="marca">
           Fantasy<span>Manager</span>
         </div>
-        <label className="clube">
-          <span className="escudo" style={{ background: meuTime.cor }}>
+        <div className="clube">
+          <span className="escudo" style={estiloEscudo(meuTime.cor)}>
             {meuTime.sigla}
           </span>
-          <select id="clube" value={meuTimeId} onChange={(e) => setMeuTimeId(e.target.value)} title="Seu clube">
-            {times.map((t) => (
-              <option key={t.id} value={t.id}>
-                {t.nome}
-              </option>
-            ))}
-          </select>
-        </label>
+          <span className="clube-info">
+            <b>{meuTime.nome}</b>
+            <span className="suave">Técnico: {progresso.manager.nome}</span>
+          </span>
+        </div>
         <div className="moedas" title="Moedas para abrir pacotes">
           <span className="moeda" aria-hidden="true" />
           <b>{progresso.moedas.toLocaleString("pt-BR")}</b>
@@ -129,6 +164,17 @@ export function App() {
           ))}
         </nav>
       </header>
+      {confirmarNova && (
+        <div className="aviso aviso-acao">
+          <span>Começar uma nova carreira apaga esta: moedas, estoque e lendas no elenco.</span>
+          <button className="botao" onClick={() => setConfirmarNova(false)}>
+            Cancelar
+          </button>
+          <button className="botao perigo" onClick={novaCarreira}>
+            Apagar e começar de novo
+          </button>
+        </div>
+      )}
       <main>
         {aba === "elenco" && <TelaElenco time={meuTime} onChange={atualizar} />}
         {aba === "partida" && (
@@ -153,6 +199,14 @@ export function App() {
         )}
         {aba === "lendas" && <TelaLendas />}
       </main>
+      <footer className="rodape">
+        Carreira de {progresso.manager.nome} no {meuTime.nome}, desde {progresso.manager.criadoEm.split("-").reverse().join("/")}.
+        {!confirmarNova && (
+          <button className="link-nome" onClick={() => setConfirmarNova(true)}>
+            Nova carreira
+          </button>
+        )}
+      </footer>
     </div>
   );
 }

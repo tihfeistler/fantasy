@@ -32,3 +32,11 @@ export function montarTimesAtuais(): Time[] {
     titulares: [],
   }));
 }
+
+/** Estilo do escudo: fundo na cor do clube e texto legível por cima (preto em cores claras). */
+export function estiloEscudo(cor: string) {
+  const n = parseInt(cor.replace("#", ""), 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  const claro = 0.299 * r + 0.587 * g + 0.114 * b > 160;
+  return { background: cor, color: claro ? "#0b1324" : "#ffffff", textShadow: claro ? "none" : undefined };
+}

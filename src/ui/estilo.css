@@ -595,3 +595,69 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
 @media (prefers-reduced-motion: reduce) {
   .revelar { animation: none; }
 }
+
+/* ---------- Novo manager ---------- */
+.novo-manager { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; padding-top: 12px; }
+.nm-cabeca h1 {
+  font-family: var(--fonte-titulo);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 18px 0 6px;
+  text-wrap: balance;
+}
+.nm-cabeca p { max-width: 62ch; margin: 0; font-size: 15px; }
+.nm-nome { display: flex; flex-direction: column; gap: 6px; max-width: 420px; }
+.nm-nome input { font-size: 18px; padding: 10px 14px; }
+.nm-clubes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.nm-clube {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "escudo nome" "escudo forca" "dif dif";
+  gap: 2px 12px;
+  align-items: center;
+  text-align: left;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid var(--linha);
+  background: var(--painel);
+  cursor: pointer;
+}
+.nm-clube:hover { border-color: var(--suave); }
+.nm-clube.escolhido { border-color: var(--destaque); background: #2a2a1c; box-shadow: 0 0 0 3px #ffc93c33; }
+.nm-clube .escudo { grid-area: escudo; }
+.nm-clube-nome { grid-area: nome; font-family: var(--fonte-titulo); font-size: 20px; font-weight: 800; text-transform: uppercase; line-height: 1.05; }
+.nm-forca { grid-area: forca; color: var(--suave); font-size: 12px; }
+.nm-forca b { color: var(--texto); font-size: 14px; }
+.nm-dif { grid-area: dif; justify-self: start; margin-top: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 5px; }
+.dif-fav { background: #13402c; color: #7cf0b0; }
+.dif-meio { background: #3a3110; color: #ffe08a; }
+.dif-des { background: #4a1c1c; color: #ffb3a8; }
+.nm-rodape {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px;
+  padding-bottom: max(14px, env(safe-area-inset-bottom, 0px));
+  border-radius: 12px;
+  border: 1px solid var(--linha);
+  background: var(--painel-2);
+  box-shadow: 0 -10px 30px #0009;
+}
+.nm-rodape > span { margin-right: auto; }
+.clube-info { display: flex; flex-direction: column; line-height: 1.15; }
+.clube-info b { font-family: var(--fonte-titulo); font-size: 22px; text-transform: uppercase; }
+.clube-info .suave { font-size: 12px; }
+.rodape { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--linha); color: var(--apagado); font-size: 12px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.rodape .link-nome { color: var(--suave); font-size: 12px; }
+.aviso-acao { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+.aviso-acao > span { margin-right: auto; }
+.botao.perigo { background: #7a1d1d; border-color: #b33a3a; color: #fff; }
+@media (max-width: 600px) {
+  .nm-cabeca h1 { font-size: 38px; }
+  .nm-clubes { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}

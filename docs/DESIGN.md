@@ -17,7 +17,9 @@ de confirmação. As perguntas em aberto estão na seção 9.
 
 ## 1. Loop de jogo
 
-1. Escolher um clube real (Brasileirão Série A para começar) com o elenco atual.
+1. Criar o manager: nome do técnico e um clube real da Série A, escolhido uma
+   única vez por carreira (feito na prévia). Para trocar de clube, só começando
+   uma nova carreira.
 2. Entre rodadas: ajustar formação e titulares, negociar no mercado de
    jogadores atuais, abrir pacotes e montar a coleção de lendas.
 3. Rodada: todas as partidas são simuladas; a sua é narrada minuto a minuto.

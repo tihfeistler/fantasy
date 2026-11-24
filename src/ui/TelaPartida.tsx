@@ -1,3 +1,4 @@
+import { estiloEscudo } from "../data/clubes";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { simularPartida } from "../engine/match";
 import type { ResultadoPartida, Time, TipoEvento } from "../engine/types";
@@ -154,7 +155,7 @@ export function TelaPartida({ meuTime, adversarios, onFim }: Props) {
 function Lado({ time, rotulo }: { time: Time; rotulo: string }) {
   return (
     <div className="lado">
-      <span className="escudo" style={{ background: time.cor }}>
+      <span className="escudo" style={estiloEscudo(time.cor)}>
         {time.sigla}
       </span>
       <span className="lado-nome">{time.nome}</span>
