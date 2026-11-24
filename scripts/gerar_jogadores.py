@@ -2,21 +2,21 @@
 
 Uso: python3 scripts/gerar_jogadores.py
 Formato de cada linha do .txt:
-nome|nac|pos|pe|inicio|fim|auge|clube|ataque defesa passe velocidade fisico goleiro
+nome|nac|pos|pe|inicio|fim|auge|clube|finalizacao passe drible velocidade defesa fisico mentalidade goleiro
 """
 import json, re, sys, unicodedata
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-ATRS = ["ataque", "defesa", "passe", "velocidade", "fisico", "goleiro"]
-# Mesmos pesos de src/engine/ratings.ts (PESOS). Mudou lá, mude aqui.
+ATRS = ["finalizacao", "passe", "drible", "velocidade", "defesa", "fisico", "mentalidade", "goleiro"]
+# Mesmos pesos de src/engine/ratings.ts e scripts/atributos.py. Mudou lá, mude aqui.
 PESOS = {
-    "GOL": dict(ataque=0, defesa=0.1, passe=0.05, velocidade=0, fisico=0.05, goleiro=0.8),
-    "ZAG": dict(ataque=0, defesa=0.55, passe=0.1, velocidade=0.1, fisico=0.25, goleiro=0),
-    "LAT": dict(ataque=0.1, defesa=0.35, passe=0.2, velocidade=0.25, fisico=0.1, goleiro=0),
-    "VOL": dict(ataque=0.05, defesa=0.4, passe=0.3, velocidade=0.05, fisico=0.2, goleiro=0),
-    "MEI": dict(ataque=0.3, defesa=0.05, passe=0.45, velocidade=0.1, fisico=0.1, goleiro=0),
-    "ATA": dict(ataque=0.6, defesa=0, passe=0.1, velocidade=0.2, fisico=0.1, goleiro=0),
+    "GOL": dict(goleiro=0.75, mentalidade=0.1, fisico=0.05, passe=0.05, velocidade=0.05),
+    "ZAG": dict(defesa=0.5, fisico=0.2, mentalidade=0.1, velocidade=0.1, passe=0.1),
+    "LAT": dict(defesa=0.3, velocidade=0.25, passe=0.15, drible=0.1, fisico=0.1, mentalidade=0.05, finalizacao=0.05),
+    "VOL": dict(defesa=0.35, passe=0.25, fisico=0.15, mentalidade=0.15, drible=0.05, velocidade=0.05),
+    "MEI": dict(passe=0.35, drible=0.25, finalizacao=0.15, mentalidade=0.15, velocidade=0.05, fisico=0.05),
+    "ATA": dict(finalizacao=0.45, drible=0.15, velocidade=0.15, fisico=0.1, mentalidade=0.1, passe=0.05),
 }
 
 
@@ -26,7 +26,7 @@ def slug(s):
 
 
 def geral(atr, pos):
-    v = sum(atr[k] * PESOS[pos][k] for k in ATRS)
+    v = sum(atr[k] * p for k, p in PESOS[pos].items())
     # Math.round do JS: arredonda .5 para cima
     return max(1, min(100, int(v + 0.5)))
 
@@ -48,7 +48,7 @@ def main():
         if jid in ids: erros.append(f"linha {n}: id repetido {jid}")
         if pos not in PESOS: erros.append(f"linha {n}: posição {pos}")
         if pe not in "DEA" or len(pe) != 1: erros.append(f"linha {n}: pé {pe}")
-        if len(vals) != 6 or not all(1 <= v <= 100 for v in vals): erros.append(f"linha {n}: atributos {notas}")
+        if len(vals) != 8 or not all(1 <= v <= 100 for v in vals): erros.append(f"linha {n}: atributos {notas}")
         if not (ini <= auge <= fim): erros.append(f"linha {n}: auge fora da época")
         if not re.fullmatch(r"[A-Z]{3}", nac): erros.append(f"linha {n}: nacionalidade {nac}")
         ids.add(jid)
