@@ -1,19 +1,99 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
 import { montarTimesAtuais } from "../data/clubes";
-import type { Time } from "../engine/types";
+import { carregarProgresso, salvarProgresso, type Progresso } from "../data/progresso";
+import { abrirPacote, faixa, MAX_LENDAS_NO_ELENCO, PRECO_PACOTE, PREMIO, VALOR_VENDA } from "../engine/pacotes";
+import { criarRng } from "../engine/rng";
+import type { Jogador, ResultadoPartida, Time } from "../engine/types";
 import { TelaElenco } from "./TelaElenco";
+import { TelaEstoque } from "./TelaEstoque";
 import { TelaLendas } from "./TelaLendas";
 import { TelaPartida } from "./TelaPartida";
 
-type Aba = "elenco" | "partida" | "lendas";
+type Aba = "elenco" | "partida" | "estoque" | "lendas";
+const ABAS: { id: Aba; nome: string }[] = [
+  { id: "elenco", nome: "Elenco" },
+  { id: "partida", nome: "Partida" },
+  { id: "estoque", nome: "Estoque" },
+  { id: "lendas", nome: "Lendas" },
+];
 
 export function App() {
   const [times, setTimes] = useState<Time[]>(montarTimesAtuais);
   const [meuTimeId, setMeuTimeId] = useState("flamengo");
   const [aba, setAba] = useState<Aba>("elenco");
+  const [progresso, setProgresso] = useState<Progresso>(carregarProgresso);
+  const [lendasLista, setLendasLista] = useState<Jogador[]>(LENDAS_EMBUTIDAS);
+  const [pacoteAberto, setPacoteAberto] = useState<Jogador[] | null>(null);
 
-  const meuTime = times.find((t) => t.id === meuTimeId)!;
-  const atualizar = (t: Time) => setTimes((ts) => ts.map((x) => (x.id === t.id ? t : x)));
+  useEffect(() => salvarProgresso(progresso), [progresso]);
+  // Sem lendas embutidas no build: busca na API PHP.
+  useEffect(() => {
+    if (lendasLista.length) return;
+    buscarJogadores({ tipo: "classico" }).then(setLendasLista).catch(() => {});
+  }, [lendasLista.length]);
+
+  const lendas = useMemo(() => new Map(lendasLista.map((j) => [j.id, j])), [lendasLista]);
+
+  // O elenco de cada clube = jogadores atuais + lendas levadas do estoque.
+  const timesComLendas = useMemo(
+    () =>
+      times.map((t) => {
+        const extras = (progresso.noElenco[t.id] ?? []).map((id) => lendas.get(id)).filter(Boolean) as Jogador[];
+        return extras.length ? { ...t, elenco: [...t.elenco, ...extras] } : t;
+      }),
+    [times, progresso.noElenco, lendas],
+  );
+  const meuTime = timesComLendas.find((t) => t.id === meuTimeId)!;
+  const atualizar = (t: Time) =>
+    setTimes((ts) => ts.map((x) => (x.id === t.id ? { ...t, elenco: x.elenco } : x)));
+
+  const mudar = (f: (p: Progresso) => Progresso) => setProgresso((p) => f(p));
+
+  const comprarPacote = () => {
+    if (progresso.moedas < PRECO_PACOTE || !lendasLista.length) return;
+    const cartas = abrirPacote(lendasLista, criarRng(Date.now() ^ (Math.random() * 2 ** 31)));
+    mudar((p) => ({ ...p, moedas: p.moedas - PRECO_PACOTE, estoque: [...p.estoque, ...cartas.map((c) => c.id)] }));
+    setPacoteAberto(cartas);
+  };
+  const vender = (i: number) =>
+    mudar((p) => {
+      const j = lendas.get(p.estoque[i]);
+      return {
+        ...p,
+        moedas: p.moedas + (j ? VALOR_VENDA[faixa(j)] : 0),
+        estoque: p.estoque.filter((_, k) => k !== i),
+      };
+    });
+  const levar = (i: number) =>
+    mudar((p) => {
+      const id = p.estoque[i];
+      const atual = p.noElenco[meuTimeId] ?? [];
+      if (atual.length >= MAX_LENDAS_NO_ELENCO || atual.includes(id)) return p;
+      return {
+        ...p,
+        estoque: p.estoque.filter((_, k) => k !== i),
+        noElenco: { ...p.noElenco, [meuTimeId]: [...atual, id] },
+      };
+    });
+  const devolver = (id: string) => {
+    mudar((p) => ({
+      ...p,
+      estoque: [...p.estoque, id],
+      noElenco: { ...p.noElenco, [meuTimeId]: (p.noElenco[meuTimeId] ?? []).filter((x) => x !== id) },
+    }));
+    // Se era titular escolhido à mão, sai da escalação.
+    setTimes((ts) =>
+      ts.map((t) => (t.id === meuTimeId ? { ...t, titulares: t.titulares.filter((x) => x !== id) } : t)),
+    );
+  };
+  const premiar = (r: ResultadoPartida) => {
+    const meus = r.mandanteId === meuTimeId ? r.golsMandante : r.golsVisitante;
+    const deles = r.mandanteId === meuTimeId ? r.golsVisitante : r.golsMandante;
+    const premio = meus > deles ? PREMIO.vitoria : meus === deles ? PREMIO.empate : PREMIO.derrota;
+    mudar((p) => ({ ...p, moedas: p.moedas + premio }));
+    return premio;
+  };
 
   return (
     <div className="app">
@@ -33,24 +113,45 @@ export function App() {
             ))}
           </select>
         </label>
+        <div className="moedas" title="Moedas para abrir pacotes">
+          <span className="moeda" aria-hidden="true" />
+          <b>{progresso.moedas.toLocaleString("pt-BR")}</b>
+          <span className="suave">moedas</span>
+        </div>
         <nav>
-          <button className={aba === "elenco" ? "ativo" : ""} onClick={() => setAba("elenco")}>
-            Elenco
-          </button>
-          <button className={aba === "partida" ? "ativo" : ""} onClick={() => setAba("partida")}>
-            Partida
-          </button>
-          <button className={aba === "lendas" ? "ativo" : ""} onClick={() => setAba("lendas")}>
-            Lendas
-          </button>
+          {ABAS.map((a) => (
+            <button key={a.id} className={aba === a.id ? "ativo" : ""} onClick={() => setAba(a.id)}>
+              {a.nome}
+              {a.id === "estoque" && progresso.estoque.length > 0 && (
+                <span className="contador">{progresso.estoque.length}</span>
+              )}
+            </button>
+          ))}
         </nav>
       </header>
       <main>
         {aba === "elenco" && <TelaElenco time={meuTime} onChange={atualizar} />}
-        {aba === "lendas" && <TelaLendas />}
         {aba === "partida" && (
-          <TelaPartida meuTime={meuTime} adversarios={times.filter((t) => t.id !== meuTimeId)} />
+          <TelaPartida
+            meuTime={meuTime}
+            adversarios={timesComLendas.filter((t) => t.id !== meuTimeId)}
+            onFim={premiar}
+          />
         )}
+        {aba === "estoque" && (
+          <TelaEstoque
+            progresso={progresso}
+            lendas={lendas}
+            meuTime={meuTime}
+            pacoteAberto={pacoteAberto}
+            onFecharPacote={() => setPacoteAberto(null)}
+            onComprar={comprarPacote}
+            onVender={vender}
+            onLevar={levar}
+            onDevolver={devolver}
+          />
+        )}
+        {aba === "lendas" && <TelaLendas />}
       </main>
     </div>
   );

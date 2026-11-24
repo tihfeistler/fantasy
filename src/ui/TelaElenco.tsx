@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { escalar, FORMACOES, forcaSetores, vagasDaFormacao, type Vaga } from "../engine/ratings";
 import { ATRIBUTOS, POSICOES, SIGLA_ATRIBUTO, type Posicao, type Time } from "../engine/types";
+import type { Jogador } from "../engine/types";
 import { CartaJogador, setor } from "./CartaJogador";
+import { Modal } from "./Modal";
 
 interface Props {
   time: Time;
@@ -12,7 +14,8 @@ interface Props {
 const LINHAS: Posicao[][] = [["ATA"], ["MEI"], ["VOL"], ["LAT", "ZAG"], ["GOL"]];
 
 export function TelaElenco({ time, onChange }: Props) {
-  const [modo, setModo] = useState<"cartas" | "tabela">("cartas");
+  const [modo, setModo] = useState<"formacao" | "elenco">("formacao");
+  const [aberto, setAberto] = useState<Jogador | null>(null);
   const vagas = escalar(time);
   const naEscalacao = new Map(vagas.map((v) => [v.jogador.id, v.pos]));
   const forca = forcaSetores(vagas);
@@ -52,6 +55,7 @@ export function TelaElenco({ time, onChange }: Props) {
   return (
     <section className="tela">
       <div className="barra">
+        {modo === "formacao" && (
         <label className="campo-form">
           <span className="rotulo">Formação</span>
           <select
@@ -64,15 +68,18 @@ export function TelaElenco({ time, onChange }: Props) {
             ))}
           </select>
         </label>
-        <button className="botao" onClick={() => onChange({ ...time, titulares: [] })}>
-          Escalação automática
-        </button>
-        <div className="alternar" role="group" aria-label="Modo de exibição">
-          <button className={modo === "cartas" ? "ativo" : ""} onClick={() => setModo("cartas")}>
-            Cartas
+        )}
+        {modo === "formacao" && (
+          <button className="botao" onClick={() => onChange({ ...time, titulares: [] })}>
+            Escalação automática
           </button>
-          <button className={modo === "tabela" ? "ativo" : ""} onClick={() => setModo("tabela")}>
-            Tabela
+        )}
+        <div className="alternar" role="group" aria-label="Modo de exibição">
+          <button className={modo === "formacao" ? "ativo" : ""} onClick={() => setModo("formacao")}>
+            Formação
+          </button>
+          <button className={modo === "elenco" ? "ativo" : ""} onClick={() => setModo("elenco")}>
+            Elenco
           </button>
         </div>
         <div className="forcas">
@@ -83,14 +90,14 @@ export function TelaElenco({ time, onChange }: Props) {
         </div>
       </div>
 
-      {incompleto && (
+      {incompleto && modo === "formacao" && (
         <p className="aviso">
           {time.titulares.length} de 11 titulares escolhidos. Clique num reserva para completar, ou use a escalação
           automática.
         </p>
       )}
 
-      {modo === "cartas" ? (
+      {modo === "formacao" ? (
         <div className="elenco-cartas">
           <div className="campo" aria-label="Titulares em campo">
             {LINHAS.map((ps) => {
@@ -136,6 +143,8 @@ export function TelaElenco({ time, onChange }: Props) {
           </div>
         </div>
       ) : (
+        <>
+        <p className="dica">Clique no nome de um jogador para ver a carta. Para mudar o time, use a aba Formação.</p>
         <div className="rolagem">
           <table className="tabela-elenco">
             <thead>
@@ -154,12 +163,17 @@ export function TelaElenco({ time, onChange }: Props) {
               {elenco.map((j) => {
                 const emCampo = titularIds.has(j.id);
                 return (
-                  <tr key={j.id} className={emCampo ? "titular" : ""} onClick={() => alternarTitular(j.id)}>
+                  <tr key={j.id} className={emCampo ? "titular" : ""}>
                     <td className="marcador">{emCampo ? "Titular" : ""}</td>
                     <td>
                       <span className={`pos setor-${setor(j.posicao)}`}>{j.posicao}</span>
                     </td>
-                    <td className="nome">{j.nome}</td>
+                    <td className="nome">
+                      <button className="link-nome" onClick={() => setAberto(j)}>
+                        {j.nome}
+                      </button>
+                      {j.tipo !== "atual" && <span className="selo-lenda">Lenda</span>}
+                    </td>
                     <td>{j.nacionalidade}</td>
                     <td className="geral">{j.geral}</td>
                     {ATRIBUTOS.map((k) => (
@@ -173,6 +187,12 @@ export function TelaElenco({ time, onChange }: Props) {
             </tbody>
           </table>
         </div>
+        </>
+      )}
+      {aberto && (
+        <Modal titulo={aberto.nome} onFechar={() => setAberto(null)}>
+          <FichaJogador jogador={aberto} titular={titularIds.has(aberto.id)} />
+        </Modal>
       )}
     </section>
   );
@@ -192,3 +212,47 @@ function Forca({ rotulo, setor, v }: { rotulo: string; setor: string; v: number 
     </div>
   );
 }
+
+/** Carta grande + detalhes, usada no modal do elenco e no estoque. */
+export function FichaJogador({ jogador: j, titular }: { jogador: Jogador; titular?: boolean }) {
+  return (
+    <div className="ficha">
+      <div className="ficha-carta">
+        <CartaJogador jogador={j} />
+      </div>
+      <dl className="ficha-dados">
+        <dt>Posição</dt>
+        <dd>{j.posicao}</dd>
+        <dt>Nacionalidade</dt>
+        <dd>{j.nacionalidade}</dd>
+        {j.auge && (
+          <>
+            <dt>Auge</dt>
+            <dd>
+              {j.auge}
+              {j.clubeMarcante ? `, ${j.clubeMarcante}` : ""}
+            </dd>
+          </>
+        )}
+        <dt>Situação</dt>
+        <dd>{titular === undefined ? "No estoque" : titular ? "Titular" : "Reserva"}</dd>
+        {ATRIBUTOS.map((k) => (
+          <div key={k} className="ficha-atr">
+            <dt>{NOME_ATRIBUTO[k]}</dt>
+            <dd>
+              <span className="barra-atr">
+                <i className={nivelClasse(j.atributos[k])} style={{ width: `${j.atributos[k]}%` }} />
+              </span>
+              <b>{j.atributos[k]}</b>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+const NOME_ATRIBUTO: Record<(typeof ATRIBUTOS)[number], string> = {
+  finalizacao: "Finalização", passe: "Passe", drible: "Drible", velocidade: "Velocidade",
+  defesa: "Defesa", fisico: "Físico", mentalidade: "Mentalidade", goleiro: "Goleiro",
+};

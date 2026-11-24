@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { simularPartida } from "../engine/match";
 import type { ResultadoPartida, Time, TipoEvento } from "../engine/types";
 
 interface Props {
   meuTime: Time;
   adversarios: Time[];
+  /** Chamado uma vez quando a partida termina; devolve as moedas ganhas. */
+  onFim?: (r: ResultadoPartida) => number;
 }
 
 const VELOCIDADES = { lenta: 400, normal: 150, rapida: 40 };
@@ -15,12 +17,14 @@ const ROTULO: Partial<Record<TipoEvento, string>> = {
   cartao: "Cartão",
 };
 
-export function TelaPartida({ meuTime, adversarios }: Props) {
+export function TelaPartida({ meuTime, adversarios, onFim }: Props) {
   const [advId, setAdvId] = useState(adversarios[0]?.id);
   const [emCasa, setEmCasa] = useState(true);
   const [velocidade, setVelocidade] = useState<keyof typeof VELOCIDADES>("normal");
   const [resultado, setResultado] = useState<ResultadoPartida | null>(null);
   const [minuto, setMinuto] = useState(0);
+  const [premio, setPremio] = useState<number | null>(null);
+  const premiada = useRef<ResultadoPartida | null>(null);
 
   const adv = adversarios.find((t) => t.id === advId) ?? adversarios[0];
   const [mandante, visitante] = emCasa ? [meuTime, adv] : [adv, meuTime];
@@ -30,6 +34,13 @@ export function TelaPartida({ meuTime, adversarios }: Props) {
     const id = setTimeout(() => setMinuto((m) => m + 1), VELOCIDADES[velocidade]);
     return () => clearTimeout(id);
   }, [resultado, minuto, velocidade]);
+
+  useEffect(() => {
+    if (resultado && minuto >= 90 && premiada.current !== resultado) {
+      premiada.current = resultado;
+      setPremio(onFim ? onFim(resultado) : null);
+    }
+  }, [resultado, minuto, onFim]);
 
   const visiveis = useMemo(
     () => (resultado ? resultado.eventos.filter((e) => e.minuto <= minuto) : []),
@@ -41,6 +52,7 @@ export function TelaPartida({ meuTime, adversarios }: Props) {
   const jogar = () => {
     setResultado(simularPartida(mandante, visitante, Math.floor(Math.random() * 2 ** 31)));
     setMinuto(0);
+    setPremio(null);
   };
   const emJogo = resultado && minuto < 90;
 
@@ -126,6 +138,12 @@ export function TelaPartida({ meuTime, adversarios }: Props) {
       ) : (
         <p className="vazio-partida">
           Escolha o adversário e o mando de campo e clique em Iniciar partida. O jogo é narrado lance a lance.
+        </p>
+      )}
+      {resultado && minuto >= 90 && premio !== null && (
+        <p className="premio">
+          <span className="moeda" aria-hidden="true" /> Você ganhou <b>{premio} moedas</b> nesta partida. Use no
+          Estoque para abrir pacotes de lendas.
         </p>
       )}
       {resultado && minuto >= 90 && <p className="seed">Seed da partida: {resultado.seed}</p>}
