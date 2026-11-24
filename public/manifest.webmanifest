@@ -1,0 +1,11 @@
+{
+  "name": "Fantasy",
+  "short_name": "Fantasy",
+  "description": "Gerenciador de futebol com jogadores clássicos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1410",
+  "theme_color": "#0f3d2e",
+  "lang": "pt-BR",
+  "icons": []
+}

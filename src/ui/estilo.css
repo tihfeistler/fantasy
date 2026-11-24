@@ -1,0 +1,66 @@
+:root {
+  --fundo: #0b1410;
+  --painel: #12201a;
+  --linha: #1f3329;
+  --texto: #e6efe9;
+  --suave: #8fa89a;
+  --destaque: #3ddc84;
+  --gol: #f2c230;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fundo); }
+button, select, input { font: inherit; }
+button, select {
+  background: var(--painel); color: var(--texto);
+  border: 1px solid var(--linha); border-radius: 6px; padding: 6px 12px; cursor: pointer;
+}
+button:hover { border-color: var(--destaque); }
+button.primario { background: var(--destaque); color: #062012; border-color: var(--destaque); font-weight: 600; }
+
+.app { max-width: 1200px; margin: 0 auto; padding: 16px; }
+.topo { display: flex; align-items: center; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--linha); }
+.marca { font-weight: 800; font-size: 20px; color: var(--destaque); letter-spacing: 0.5px; }
+.clube { border-left: 4px solid; padding-left: 8px; font-weight: 600; }
+.topo nav { margin-left: auto; display: flex; gap: 8px; }
+.topo nav button.ativo { border-color: var(--destaque); color: var(--destaque); }
+
+.tela { padding-top: 16px; }
+.barra { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 12px; }
+.forcas { margin-left: auto; display: flex; gap: 8px; }
+.forca { background: var(--painel); border: 1px solid var(--linha); border-radius: 6px; padding: 4px 10px; text-align: center; }
+.forca span { display: block; font-size: 11px; color: var(--suave); }
+.aviso { color: var(--gol); }
+
+table.elenco { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.elenco th { text-align: center; color: var(--suave); font-weight: 500; padding: 6px; border-bottom: 1px solid var(--linha); }
+.elenco td { text-align: center; padding: 6px; border-bottom: 1px solid var(--linha); }
+.elenco .nome { text-align: left; }
+.elenco td.nome small { display: block; color: var(--suave); font-size: 11px; }
+.elenco tbody tr { cursor: pointer; }
+.elenco tbody tr:hover { background: var(--painel); }
+.elenco tr.titular { background: #13281e; }
+.elenco .marcador { color: var(--destaque); width: 20px; }
+.elenco .geral { font-weight: 700; }
+.pos { display: inline-block; min-width: 34px; border-radius: 4px; padding: 1px 4px; font-size: 12px; font-weight: 700; color: #08110c; }
+.pos-GOL { background: #f2c230; }
+.pos-ZAG, .pos-LAT { background: #4ea3ff; }
+.pos-VOL, .pos-MEI { background: #3ddc84; }
+.pos-ATA { background: #ff6b6b; }
+.improviso { margin-left: 4px; font-size: 11px; color: var(--gol); }
+
+.placar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; background: var(--painel); border-radius: 10px; padding: 20px; }
+.placar .lado { font-size: 20px; font-weight: 700; border-bottom: 4px solid; padding-bottom: 4px; text-align: center; }
+.placar .gols { font-size: 40px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.relogio { position: relative; height: 24px; background: var(--painel); border-radius: 6px; margin: 10px 0; overflow: hidden; }
+.relogio .progresso { position: absolute; inset: 0 auto 0 0; background: #1d4a33; transition: width 0.1s linear; }
+.relogio span { position: relative; display: block; text-align: center; line-height: 24px; font-size: 13px; }
+.narracao { list-style: none; padding: 0; margin: 0; max-height: 50vh; overflow-y: auto; }
+.narracao li { padding: 6px 8px; border-bottom: 1px solid var(--linha); }
+.narracao .min { display: inline-block; width: 36px; color: var(--suave); font-variant-numeric: tabular-nums; }
+.narracao .ev-gol { color: var(--gol); font-weight: 700; }
+.narracao .ev-cartao { color: #ffd166; }
+.narracao .ev-intervalo, .narracao .ev-fim, .narracao .ev-inicio { color: var(--suave); font-style: italic; }
+.seed { color: var(--suave); font-size: 12px; }

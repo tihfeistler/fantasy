@@ -1,0 +1,115 @@
+import type { Atributos, Formacao, Jogador, Posicao, Time } from "./types";
+
+/**
+ * Pesos dos atributos por posição para calcular o "geral".
+ * Suposição: a frente da base de dados usa a mesma ideia; se a fórmula
+ * dela for diferente, esta tabela deve ser trocada pela de data/README.md.
+ */
+export const PESOS: Record<Posicao, Atributos> = {
+  GOL: { ataque: 0, defesa: 0.1, passe: 0.05, velocidade: 0, fisico: 0.05, goleiro: 0.8 },
+  ZAG: { ataque: 0, defesa: 0.55, passe: 0.1, velocidade: 0.1, fisico: 0.25, goleiro: 0 },
+  LAT: { ataque: 0.1, defesa: 0.35, passe: 0.2, velocidade: 0.25, fisico: 0.1, goleiro: 0 },
+  VOL: { ataque: 0.05, defesa: 0.4, passe: 0.3, velocidade: 0.05, fisico: 0.2, goleiro: 0 },
+  MEI: { ataque: 0.3, defesa: 0.05, passe: 0.45, velocidade: 0.1, fisico: 0.1, goleiro: 0 },
+  ATA: { ataque: 0.6, defesa: 0, passe: 0.1, velocidade: 0.2, fisico: 0.1, goleiro: 0 },
+};
+
+export function calcularGeral(atr: Atributos, pos: Posicao): number {
+  const p = PESOS[pos];
+  const v =
+    atr.ataque * p.ataque +
+    atr.defesa * p.defesa +
+    atr.passe * p.passe +
+    atr.velocidade * p.velocidade +
+    atr.fisico * p.fisico +
+    atr.goleiro * p.goleiro;
+  return Math.round(Math.min(100, Math.max(1, v)));
+}
+
+/** Força de um jogador atuando numa posição (penaliza improviso). */
+export function forcaNaPosicao(j: Jogador, pos: Posicao): number {
+  if (j.posicao === pos) return j.geral;
+  const base = calcularGeral(j.atributos, pos);
+  if (pos === "GOL" || j.posicao === "GOL") return Math.round(base * 0.5);
+  return Math.round(base * 0.9);
+}
+
+export const FORMACOES: Formacao[] = [
+  { nome: "4-4-2", ZAG: 2, LAT: 2, VOL: 2, MEI: 2, ATA: 2 },
+  { nome: "4-3-3", ZAG: 2, LAT: 2, VOL: 1, MEI: 2, ATA: 3 },
+  { nome: "3-5-2", ZAG: 3, LAT: 2, VOL: 2, MEI: 1, ATA: 2 },
+  { nome: "4-5-1", ZAG: 2, LAT: 2, VOL: 2, MEI: 3, ATA: 1 },
+];
+
+export interface Vaga {
+  pos: Posicao;
+  jogador: Jogador;
+}
+
+/** Vagas da formação na ordem GOL, ZAG, LAT, VOL, MEI, ATA. */
+export function vagasDaFormacao(f: Formacao): Posicao[] {
+  const v: Posicao[] = ["GOL"];
+  for (const p of ["ZAG", "LAT", "VOL", "MEI", "ATA"] as const) {
+    for (let i = 0; i < f[p]; i++) v.push(p);
+  }
+  return v;
+}
+
+/**
+ * Escala os 11 melhores para a formação (guloso por vaga). Se o time já
+ * tiver titulares definidos, respeita-os e só posiciona.
+ */
+export function escalar(time: Time): Vaga[] {
+  const vagas = vagasDaFormacao(time.formacao);
+  const pool =
+    time.titulares.length === 11
+      ? time.elenco.filter((j) => time.titulares.includes(j.id))
+      : [...time.elenco];
+  const usados = new Set<string>();
+  const resultado: Vaga[] = [];
+  // Preenche primeiro as vagas com jogadores da posição natural.
+  const pendentes: Posicao[] = [];
+  for (const pos of vagas) {
+    const melhor = pool
+      .filter((j) => !usados.has(j.id) && j.posicao === pos)
+      .sort((a, b) => b.geral - a.geral)[0];
+    if (melhor) {
+      usados.add(melhor.id);
+      resultado.push({ pos, jogador: melhor });
+    } else pendentes.push(pos);
+  }
+  // Depois improvisa quem sobrou.
+  for (const pos of pendentes) {
+    const melhor = pool
+      .filter((j) => !usados.has(j.id))
+      .sort((a, b) => forcaNaPosicao(b, pos) - forcaNaPosicao(a, pos))[0];
+    if (!melhor) break;
+    usados.add(melhor.id);
+    resultado.push({ pos, jogador: melhor });
+  }
+  const ordem = (p: Posicao) => vagas.indexOf(p);
+  return resultado.sort((a, b) => ordem(a.pos) - ordem(b.pos));
+}
+
+export interface ForcaSetores {
+  goleiro: number;
+  defesa: number;
+  meio: number;
+  ataque: number;
+}
+
+export function forcaSetores(vagas: Vaga[]): ForcaSetores {
+  const media = (ps: Posicao[]) => {
+    const vs = vagas.filter((v) => ps.includes(v.pos));
+    if (vs.length === 0) return 30;
+    return vs.reduce((s, v) => s + forcaNaPosicao(v.jogador, v.pos), 0) / vs.length;
+  };
+  // Menos de 11 em campo derruba todos os setores.
+  const fator = Math.min(1, vagas.length / 11);
+  return {
+    goleiro: media(["GOL"]) * fator,
+    defesa: media(["ZAG", "LAT", "VOL"]) * fator,
+    meio: media(["VOL", "MEI", "LAT"]) * fator,
+    ataque: media(["ATA", "MEI"]) * fator,
+  };
+}
