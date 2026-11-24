@@ -204,7 +204,7 @@ pacote) e **salário por partida**:
 - **Custo da partida** = salário dos 11 titulares e de quem entrar no
   jogo, um quarto do salário mensal de cada (o mesmo que uma rodada da
   carreira). Cartas base de geral alto custam mais.
-- **Lendas cobram cachê por partida [suposição]**: mais caro que um atual
+- **Lendas cobram cachê por partida** (aprovado): mais caro que um atual
   do mesmo geral (ex.: o dobro), para que escalar 3 lendas seja uma
   escolha de custo, não automática.
 - **Sem caixa para o custo, não joga**: o botão de jogar fica bloqueado e o
