@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
-import { estiloEscudo, montarTimesAtuais, NIVEL } from "../data/clubes";
+import { ATUAIS, estiloEscudo, montarTimesAtuais, NIVEL } from "../data/clubes";
+import { DESAFIOS, kitInicial, montarTimeCartas, precoCartaBase, TIME_CARTAS_INICIAL, vendaCartaBase } from "../engine/desafios";
 import { calcularTabela, chaveJogo, novaTemporada, premioFinal, simularRodada, type Temporada } from "../engine/campeonato";
 import { FORMACOES } from "../engine/ratings";
 import {
@@ -42,8 +43,9 @@ import {
   seedDoMercado,
 } from "../engine/mercadoCartas";
 import { criarRng } from "../engine/rng";
-import type { Jogador, ResultadoPartida, Time } from "../engine/types";
+import { ehLenda, type Jogador, type ResultadoPartida, type Time } from "../engine/types";
 import { TelaCampeonato } from "./TelaCampeonato";
+import { TelaDesafios } from "./TelaDesafios";
 import { TelaElenco } from "./TelaElenco";
 import { TelaEstoque } from "./TelaEstoque";
 import { TelaLendas } from "./TelaLendas";
@@ -52,12 +54,13 @@ import { TelaMercadoCartas } from "./TelaMercadoCartas";
 import { TelaNovoManager } from "./TelaNovoManager";
 import { TelaPartida } from "./TelaPartida";
 
-type Aba = "elenco" | "partida" | "campeonato" | "mercado" | "estoque" | "lendas";
+type Aba = "elenco" | "partida" | "campeonato" | "mercado" | "desafios" | "estoque" | "lendas";
 const ABAS: { id: Aba; nome: string }[] = [
   { id: "elenco", nome: "Elenco" },
   { id: "partida", nome: "Partida" },
   { id: "campeonato", nome: "Campeonato" },
   { id: "mercado", nome: "Mercado" },
+  { id: "desafios", nome: "Desafios" },
   { id: "estoque", nome: "Estoque" },
   { id: "lendas", nome: "Lendas" },
 ];
@@ -70,6 +73,12 @@ const criarTemporada = (ano: number) =>
     (Date.now() ^ (Math.random() * 2 ** 31)) >>> 0,
   );
 
+/** Time de cartas novo: caixa inicial e um kit de cartas base fracas. */
+const timeCartasInicial = () => ({
+  timeCartas: TIME_CARTAS_INICIAL,
+  cartasBase: kitInicial(ATUAIS, (Date.now() ^ (Math.random() * 2 ** 31)) >>> 0),
+});
+
 const financasDoClube = (clubeId: string): Financas =>
   financasIniciais(montarTimesAtuais().find((t) => t.id === clubeId)!);
 
@@ -80,6 +89,7 @@ export function App() {
     // Saves antigos ganham o que faltar: temporada e finanças.
     if (p.manager && !p.temporada) p = { ...p, temporada: criarTemporada(ANO_INICIAL) };
     if (p.manager && !p.financas) p = { ...p, financas: financasDoClube(p.manager.clubeId) };
+    if (p.manager && !p.timeCartas) p = { ...p, ...timeCartasInicial() };
     return p;
   });
   const [confirmarNova, setConfirmarNova] = useState(false);
@@ -134,6 +144,77 @@ export function App() {
   const mapaTimes = useMemo(() => new Map(timesComLendas.map((t) => [t.id, t])), [timesComLendas]);
   const temporada = progresso.temporada;
   const oferta = useMemo(() => criarOferta(timesComLendas), [timesComLendas]);
+
+  // ---- Time de cartas e desafios ----
+  const atuaisPorId = useMemo(() => new Map(ATUAIS.map((j) => [j.id, j])), []);
+  const cartasBase = useMemo(() => new Set(progresso.cartasBase ?? []), [progresso.cartasBase]);
+  const timeCartas = useMemo(() => {
+    if (!progresso.timeCartas) return null;
+    const base = [...cartasBase].map((id) => atuaisPorId.get(id)).filter(Boolean) as Jogador[];
+    // Lendas suas: estoque e elenco do clube (cada lenda uma vez).
+    const idsLendas = new Set([...progresso.estoque, ...(progresso.noElenco[meuTimeId] ?? [])]);
+    const minhasLendas = [...idsLendas].map((id) => lendas.get(id)).filter(Boolean) as Jogador[];
+    return montarTimeCartas(progresso.timeCartas, [...base, ...minhasLendas]);
+  }, [progresso.timeCartas, progresso.estoque, progresso.noElenco, cartasBase, atuaisPorId, lendas, meuTimeId]);
+  const mudarTimeCartas = (f: (tc: NonNullable<Progresso["timeCartas"]>) => NonNullable<Progresso["timeCartas"]>) =>
+    mudar((p) => (p.timeCartas ? { ...p, timeCartas: f(p.timeCartas) } : p));
+  const atualizarTimeCartas = (t: Time) =>
+    mudarTimeCartas((tc) => ({ ...tc, formacao: t.formacao.nome, titulares: t.titulares }));
+  const comprarBase = (id: string) =>
+    mudar((p) => {
+      const j = atuaisPorId.get(id);
+      if (!j || (p.cartasBase ?? []).includes(id) || p.moedas < precoCartaBase(j)) return p;
+      return { ...p, moedas: p.moedas - precoCartaBase(j), cartasBase: [...(p.cartasBase ?? []), id] };
+    });
+  const venderBase = (id: string) =>
+    mudar((p) => {
+      const j = atuaisPorId.get(id);
+      if (!j || !(p.cartasBase ?? []).includes(id)) return p;
+      return {
+        ...p,
+        moedas: p.moedas + vendaCartaBase(j),
+        cartasBase: (p.cartasBase ?? []).filter((x) => x !== id),
+        timeCartas: p.timeCartas && { ...p.timeCartas, titulares: p.timeCartas.titulares.filter((x) => x !== id) },
+      };
+    });
+  const iniciarDesafio = (_id: string, custo: number) => {
+    if (!progresso.timeCartas || progresso.timeCartas.caixa < custo) return false;
+    mudarTimeCartas((tc) => ({ ...tc, caixa: tc.caixa - custo }));
+    return true;
+  };
+  const concluirDesafio = (desafioId: string, r: ResultadoPartida, adversario: Time): string => {
+    const d = DESAFIOS.find((x) => x.id === desafioId)!;
+    const meus = r.mandanteId === "time-cartas" ? r.golsMandante : r.golsVisitante;
+    const deles = r.mandanteId === "time-cartas" ? r.golsVisitante : r.golsMandante;
+    const res = meus > deles ? "vitoria" : meus === deles ? "empate" : "derrota";
+    const h = progresso.timeCartas?.desafios[desafioId];
+    // Primeira vitória: uma lenda do adversário vai para o estoque.
+    let carta: Jogador | null = null;
+    if (res === "vitoria" && d.cartaNaPrimeiraVitoria && !h?.vitorias && totalCartas(progresso) < limiteCartas(progresso)) {
+      const pool = adversario.elenco.filter(ehLenda);
+      carta = pool[Math.floor(Math.random() * pool.length)] ?? null;
+    }
+    mudar((p) => ({
+      ...p,
+      moedas: p.moedas + d.moedas[res],
+      estoque: carta ? [...p.estoque, carta.id] : p.estoque,
+      timeCartas: p.timeCartas && {
+        ...p.timeCartas,
+        caixa: p.timeCartas.caixa + d.premio[res],
+        desafios: {
+          ...p.timeCartas.desafios,
+          [desafioId]: {
+            jogos: (p.timeCartas.desafios[desafioId]?.jogos ?? 0) + 1,
+            vitorias: (p.timeCartas.desafios[desafioId]?.vitorias ?? 0) + (res === "vitoria" ? 1 : 0),
+          },
+        },
+      },
+    }));
+    const titulo = res === "vitoria" ? "Vitória!" : res === "empate" ? "Empate." : "Derrota.";
+    return `${titulo} Prêmio: ${formatarDinheiro(d.premio[res])} no caixa e ${d.moedas[res]} moedas.${
+      carta ? ` E ${carta.nome} (${carta.geral}) foi para o seu estoque!` : ""
+    }`;
+  };
 
   const atualizar = (t: Time) =>
     setProgresso((p) => ({ ...p, escalacao: { formacao: t.formacao.nome, titulares: t.titulares } }));
@@ -438,6 +519,7 @@ export function App() {
       manager: { nome, clubeId, criadoEm: new Date().toISOString().slice(0, 10) },
       temporada: criarTemporada(ANO_INICIAL),
       financas: financasDoClube(clubeId),
+      ...timeCartasInicial(),
     });
     setAba("elenco");
   };
@@ -574,6 +656,23 @@ export function App() {
             ) : (
               <p className="vazio-bloco">Carregando o mercado de cartas…</p>
             )}
+          </section>
+        )}
+        {aba === "desafios" && timeCartas && progresso.timeCartas && (
+          <section className="tela">
+            <TelaDesafios
+              timeCartas={progresso.timeCartas}
+              meuTime={timeCartas}
+              atuais={ATUAIS}
+              lendas={lendasLista}
+              cartasBase={cartasBase}
+              moedas={progresso.moedas}
+              onAtualizarTime={atualizarTimeCartas}
+              onComprarBase={comprarBase}
+              onVenderBase={venderBase}
+              onIniciar={iniciarDesafio}
+              onConcluir={concluirDesafio}
+            />
           </section>
         )}
         {aba === "estoque" && (

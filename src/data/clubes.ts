@@ -20,7 +20,7 @@ export interface Clube {
 }
 
 export const CLUBES = clubesJson as Clube[];
-const ATUAIS = atuaisJson as Jogador[];
+export const ATUAIS = atuaisJson as Jogador[];
 
 export const NIVEL = new Map(CLUBES.map((c) => [c.id, c.nivel]));
 

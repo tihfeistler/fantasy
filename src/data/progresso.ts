@@ -1,6 +1,7 @@
 import type { Temporada } from "../engine/campeonato";
 import type { Financas } from "../engine/mercado";
 import type { MercadoCartas } from "../engine/mercadoCartas";
+import type { TimeCartas } from "../engine/desafios";
 import { LIMITE_CARTAS_INICIAL } from "../engine/pacotes";
 
 /**
@@ -36,6 +37,10 @@ export interface Progresso {
   mercadoCartas?: MercadoCartas;
   /** Jogadores atuais já negociados com a IA, e em qual rodada (uma negociação por rodada). */
   negociacoes?: Record<string, number>;
+  /** Cartas base (ids de jogadores atuais) compradas do sistema para o time de cartas. */
+  cartasBase?: string[];
+  /** Time de cartas dos desafios (e do online): caixa, escalação e histórico. */
+  timeCartas?: TimeCartas;
   /** Brasileirão em andamento (calendário, rodada atual e placares). */
   temporada?: Temporada;
   /** Temporadas encerradas. */

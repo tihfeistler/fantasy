@@ -196,6 +196,21 @@ com moedas; **lendas** vêm de pacotes ou do mercado entre técnicos. Vale o
 mesmo limite de 3 lendas em campo. **[suposição]** Na carreira, o elenco é
 o do clube; as cartas base não entram lá.
 
+### Desafios PvE e time de cartas (prévia feita)
+
+- Ao começar, o técnico ganha um **kit de 16 cartas base** fracas (geral
+  58 a 68, todas as posições) e **R$ 2 mi** de caixa no time de cartas.
+- **Cartas base** se compram do sistema com moedas (geral 60 = 20, 75 =
+  110, 84 = 300) e se vendem de volta por 40% do preço. As lendas do time
+  de cartas são as que você tem (estoque e elenco do clube), até 3 em campo.
+- **Custo por partida**: um quarto do salário mensal de cada titular;
+  lendas cobram o dobro. Sem caixa, o botão mostra quanto falta.
+- **7 desafios**, em ordem de força: treino contra os reservas da
+  Chapecoense (grátis), Seleção do Nordeste, Flamengo, Seleção do
+  Brasileirão, Brasil de 1970, Holanda e Lendas do Milan. Prêmio em caixa
+  e moedas pela dificuldade (vitória de R$ 150 mil a R$ 2,5 mi); os três de
+  lendas dão uma lenda do adversário na primeira vitória.
+
 ### Caixa e salário no online (decidido em 24/11/2026)
 
 O time de cartas também tem **caixa** (em R$, separado das moedas de

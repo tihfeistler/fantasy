@@ -846,3 +846,21 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
 }
 .ml-linha .proposta-form .botao { width: auto; flex: 0 0 auto; }
 .proposta-form input { width: 0; }
+
+/* ---------- Desafios e time de cartas ---------- */
+.desafios { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.desafio { display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); }
+.desafio p { margin: 0; font-size: 13px; }
+.desafio-topo { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
+.desafio-topo h3 { margin: 0; font-family: var(--fonte-titulo); font-size: 20px; font-weight: 800; text-transform: uppercase; line-height: 1.1; }
+.dificuldade { color: var(--destaque); font-size: 13px; letter-spacing: 1px; }
+.dificuldade .apagada { color: var(--linha); }
+.forca-adv { font-family: var(--fonte-titulo); font-size: 30px; font-weight: 800; color: var(--texto); }
+.desafio-premios { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; font-size: 12px; }
+.desafio-premios div { display: contents; }
+.desafio-premios dt { color: var(--apagado); font-weight: 700; text-transform: uppercase; font-size: 10px; align-self: center; }
+.desafio-premios dd { margin: 0; }
+.desafio-rodape { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+.desafio-rodape .suave { font-size: 12px; }
+.check { display: inline-flex; align-items: center; gap: 6px; color: var(--suave); }
+.jogo-narrado .placar .lado.meu .lado-nome { color: var(--destaque); }
