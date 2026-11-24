@@ -6,8 +6,9 @@ import {
   formatarDinheiro,
   MAX_ELENCO,
   MIN_ELENCO,
+  criarOferta,
+  detalharPreco,
   podeComprar,
-  precoDeCompra,
   propostaPor,
   salarioMensal,
   valorDeMercado,
@@ -42,6 +43,7 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
   const [limite, setLimite] = useState(POR_PAGINA);
   const [confirmando, setConfirmando] = useState<string | null>(null);
 
+  const oferta = useMemo(() => criarOferta(times), [times]);
   const meus = meuTime.elenco.filter((j) => !ehLenda(j)).sort((a, b) => b.geral - a.geral);
   const folha = folhaMensal(meuTime);
   const ultimo = financas.extrato[0]?.rodada;
@@ -89,7 +91,8 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
         />
       </div>
       <p className="suave nota-financas">
-        A cada rodada entram {formatarDinheiro(financas.receitaPorRodada)} de TV e patrocínio, mais{" "}
+        Os preços seguem oferta e procura: posição e nível com muitos jogadores na liga saem mais baratos, e raros
+        saem mais caros. Clube com sobra na posição vende mais barato; com carência, cobra mais. A cada rodada entram {formatarDinheiro(financas.receitaPorRodada)} de TV e patrocínio, mais{" "}
         {formatarDinheiro(financas.bilheteria)} de bilheteria nos jogos em casa. Saem os salários (um quarto da folha
         mensal). No fim do campeonato há premiação pela posição. Lendas não recebem salário.
       </p>
@@ -140,13 +143,13 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
         <>
           <ul className="mercado-lista">
             {outros.slice(0, limite).map(({ j, dono }) => {
-              const motivo = podeComprar(j, dono, meuTime, financas.caixa);
-              const preco = precoDeCompra(j, dono);
+              const motivo = podeComprar(j, dono, meuTime, financas.caixa, oferta);
+              const d = detalharPreco(j, dono, oferta);
               return (
-                <Linha key={j.id} j={j} clube={dono}>
+                <Linha key={j.id} j={j} clube={dono} etiquetas={etiquetas(d.liga, d.clube)}>
                   <span className="ml-preco">
                     <span className="rotulo">Preço</span>
-                    {formatarDinheiro(preco)}
+                    {formatarDinheiro(d.preco)}
                   </span>
                   <button
                     className={`botao${confirmando === j.id ? " primario" : ""}`}
@@ -173,11 +176,11 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
           </p>
           <ul className="mercado-lista">
             {meus.map((j) => {
-              const prop = propostaPor(j, meuTime.id, times, NIVEL, temporada.rodadaAtual, temporada.seed);
+              const prop = propostaPor(j, meuTime.id, times, NIVEL, temporada.rodadaAtual, temporada.seed, oferta);
               const comprador = times.find((t) => t.id === prop.clubeId)!;
               const curto = meus.length <= MIN_ELENCO;
               return (
-                <Linha key={j.id} j={j} clube={meuTime}>
+                <Linha key={j.id} j={j} clube={meuTime} etiquetas={etiquetas(oferta(j), 1)}>
                   <span className="ml-preco">
                     <span className="rotulo">Proposta do {comprador.sigla}</span>
                     {formatarDinheiro(prop.valor)}
@@ -214,7 +217,25 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
   );
 }
 
-function Linha({ j, clube, children }: { j: Jogador; clube: Time; children: React.ReactNode }) {
+interface Etiqueta {
+  texto: string;
+  tipo: "barato" | "caro";
+  dica: string;
+}
+
+/** Etiquetas de oferta e procura que explicam o preço. */
+function etiquetas(liga: number, clube: number): Etiqueta[] {
+  const es: Etiqueta[] = [];
+  if (liga <= 0.93)
+    es.push({ texto: "Muitos parecidos", tipo: "barato", dica: "Há muitos jogadores da mesma posição e nível na liga: preço menor." });
+  if (liga >= 1.07)
+    es.push({ texto: "Raro", tipo: "caro", dica: "Poucos jogadores da mesma posição e nível na liga: preço maior." });
+  if (clube < 1) es.push({ texto: "Sobra no clube", tipo: "barato", dica: "O clube tem jogadores demais nessa posição e vende mais barato." });
+  if (clube > 1) es.push({ texto: "Clube precisa", tipo: "caro", dica: "O clube tem poucos jogadores nessa posição e cobra mais." });
+  return es;
+}
+
+function Linha({ j, clube, etiquetas = [], children }: { j: Jogador; clube: Time; etiquetas?: Etiqueta[]; children: React.ReactNode }) {
   return (
     <li className="ml-linha">
       <span className={`pos ml-pos setor-${setor(j.posicao)}`}>{j.posicao}</span>
@@ -223,6 +244,11 @@ function Linha({ j, clube, children }: { j: Jogador; clube: Time; children: Reac
         <b>{j.nome}</b>
         <span className="suave">
           {clube.sigla} · {j.nacionalidade}
+          {etiquetas.map((e) => (
+            <span key={e.texto} className={`etiqueta ${e.tipo}`} title={e.dica}>
+              {e.texto}
+            </span>
+          ))}
         </span>
       </span>
       <span className="ml-num">

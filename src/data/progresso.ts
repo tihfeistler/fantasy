@@ -62,3 +62,7 @@ export const limiteCartas = (p: Progresso) => Math.max(p.limiteCartas ?? 0, LIMI
 /** Cartas que o manager tem: estoque mais lendas levadas a qualquer elenco. */
 export const totalCartas = (p: Progresso) =>
   p.estoque.length + Object.values(p.noElenco).reduce((n, ids) => n + ids.length, 0);
+
+/** Cópias de uma lenda que o manager tem (estoque + elencos). */
+export const copias = (p: Progresso, id: string) =>
+  p.estoque.filter((x) => x === id).length + Object.values(p.noElenco).filter((ids) => ids.includes(id)).length;

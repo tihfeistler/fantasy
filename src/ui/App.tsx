@@ -5,6 +5,7 @@ import { calcularTabela, chaveJogo, novaTemporada, premioFinal, simularRodada, t
 import { FORMACOES } from "../engine/ratings";
 import {
   carregarProgresso,
+  copias,
   limiteCartas,
   PROGRESSO_INICIAL,
   salvarProgresso,
@@ -15,14 +16,14 @@ import {
   abrirPacote,
   AMPLIACAO,
   CARTAS_POR_PACOTE,
-  faixa,
   LIMITE_CARTAS_MAXIMO,
   PRECO_PACOTE,
   PREMIO,
-  VALOR_VENDA,
+  valorDeVenda,
 } from "../engine/pacotes";
 import {
   balancoDaRodada,
+  criarOferta,
   financasIniciais,
   formatarDinheiro,
   lancar,
@@ -111,6 +112,7 @@ export function App() {
   const meuTime = timesComLendas.find((t) => t.id === meuTimeId);
   const mapaTimes = useMemo(() => new Map(timesComLendas.map((t) => [t.id, t])), [timesComLendas]);
   const temporada = progresso.temporada;
+  const oferta = useMemo(() => criarOferta(timesComLendas), [timesComLendas]);
 
   const atualizar = (t: Time) =>
     setProgresso((p) => ({ ...p, escalacao: { formacao: t.formacao.nome, titulares: t.titulares } }));
@@ -123,8 +125,8 @@ export function App() {
       const dono = timesComLendas.find((t) => t.elenco.some((j) => j.id === jogadorId));
       const j = dono?.elenco.find((x) => x.id === jogadorId);
       if (!dono || !j || !p.financas || !meuTime || dono.id === meuTimeId) return p;
-      if (podeComprar(j, dono, meuTime, p.financas.caixa)) return p;
-      const preco = precoDeCompra(j, dono);
+      if (podeComprar(j, dono, meuTime, p.financas.caixa, oferta)) return p;
+      const preco = precoDeCompra(j, dono, oferta);
       const rodada = (p.temporada?.rodadaAtual ?? 0) + 1;
       return {
         ...p,
@@ -136,7 +138,7 @@ export function App() {
     mudar((p) => {
       const j = meuTime?.elenco.find((x) => x.id === jogadorId);
       if (!j || !p.financas || !p.temporada) return p;
-      const prop = propostaPor(j, meuTimeId, timesComLendas, NIVEL, p.temporada.rodadaAtual, p.temporada.seed);
+      const prop = propostaPor(j, meuTimeId, timesComLendas, NIVEL, p.temporada.rodadaAtual, p.temporada.seed, oferta);
       const comprador = mapaTimes.get(prop.clubeId)!;
       return semTitular(
         {
@@ -170,7 +172,7 @@ export function App() {
       const j = lendas.get(p.estoque[i]);
       return {
         ...p,
-        moedas: p.moedas + (j ? VALOR_VENDA[faixa(j)] : 0),
+        moedas: p.moedas + (j ? valorDeVenda(j, copias(p, j.id)) : 0),
         estoque: p.estoque.filter((_, k) => k !== i),
       };
     });

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { TIMES_EXEMPLO } from "../data/exemplo";
-import { abrirPacote, CHANCES, faixa } from "./pacotes";
+import { abrirPacote, CHANCES, faixa, valorDeVenda, VALOR_VENDA } from "./pacotes";
 import { criarRng } from "./rng";
 
 const lendas = TIMES_EXEMPLO.flatMap((t) => t.elenco);
@@ -39,5 +39,16 @@ describe("limite de lendas em campo", () => {
     expect(vagas).toHaveLength(11);
     expect(vagas.filter((v) => ehLenda(v.jogador))).toHaveLength(3);
     expect(escalar({ ...time, maxLendas: undefined }).filter((v) => ehLenda(v.jogador)).length).toBeGreaterThan(3);
+  });
+});
+
+describe("valor de venda das cartas", () => {
+  it("cai 15% por cópia repetida, até a metade", () => {
+    const j = TIMES_EXEMPLO[0].elenco[0];
+    const cheio = VALOR_VENDA[faixa(j)];
+    expect(valorDeVenda(j, 1)).toBe(cheio);
+    expect(valorDeVenda(j, 2)).toBeLessThan(cheio);
+    expect(valorDeVenda(j, 3)).toBeLessThan(valorDeVenda(j, 2));
+    expect(valorDeVenda(j, 20)).toBe(cheio / 2);
   });
 });

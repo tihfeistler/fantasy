@@ -113,6 +113,13 @@ um pouco mais **[suposição]**).
 
 ## 6. Mercado de jogadores atuais
 
+- **Oferta e procura** (prévia feita): o preço pedido e as propostas
+  variam entre 0,85x e 1,2x conforme quantos jogadores da mesma posição e
+  nível (geral ±2) existem na liga: muitos parecidos barateiam, raros
+  encarecem. Clube com sobra na posição vende 15% mais barato; com
+  carência, cobra 20% a mais (e paga 10% a mais nas propostas).
+- Cartas de lenda repetidas valem menos na venda: cada cópia a mais tira
+  15%, até a metade do valor.
 - Valor de mercado derivado do geral (dobra a cada 5 pontos: geral 60 vale
   R$ 2 mi, 80 vale R$ 32 mi). Idade e potencial entram quando a base tiver
   datas de nascimento. Salário mensal de 1% do valor.

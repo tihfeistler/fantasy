@@ -799,3 +799,7 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
   .indicador b { font-size: 22px; }
   .financas { grid-template-columns: 1fr 1fr; }
 }
+
+.etiqueta { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; vertical-align: 1px; }
+.etiqueta.barato { background: #123d2a; color: #8ff0c0; }
+.etiqueta.caro { background: #4a1f1a; color: #ffb3a8; }

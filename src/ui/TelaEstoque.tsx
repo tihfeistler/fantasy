@@ -6,10 +6,10 @@ import {
   LIMITE_CARTAS_MAXIMO,
   MAX_LENDAS_EM_CAMPO,
   PRECO_PACOTE,
-  VALOR_VENDA,
+  valorDeVenda,
 } from "../engine/pacotes";
 import type { Jogador, Time } from "../engine/types";
-import { limiteCartas, totalCartas, type Progresso } from "../data/progresso";
+import { copias, limiteCartas, totalCartas, type Progresso } from "../data/progresso";
 import { CartaJogador } from "./CartaJogador";
 import { Modal } from "./Modal";
 
@@ -126,7 +126,7 @@ export function TelaEstoque(p: Props) {
                   {jaNoElenco ? "Já está no elenco" : "Levar para o elenco"}
                 </button>
                 <button className="botao discreto" onClick={() => p.onVender(i)}>
-                  Vender · {VALOR_VENDA[faixa(j)]}
+                  Vender · {valorDeVenda(j, copias(progresso, j.id))}
                 </button>
               </div>
             );
