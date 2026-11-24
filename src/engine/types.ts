@@ -77,6 +77,8 @@ export interface Time {
   titulares: string[];
   /** Máximo de lendas (jogadores clássicos) entre os titulares; sem valor, não há limite. */
   maxLendas?: number;
+  /** ids do banco de reservas (até VAGAS_BANCO); sem valor, o jogo escolhe. */
+  banco?: string[];
 }
 
 export type TipoEvento = "gol" | "chance" | "defesa" | "cartao" | "inicio" | "intervalo" | "fim";

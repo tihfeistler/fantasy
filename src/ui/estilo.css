@@ -864,3 +864,6 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
 .desafio-rodape .suave { font-size: 12px; }
 .check { display: inline-flex; align-items: center; gap: 6px; color: var(--suave); }
 .jogo-narrado .placar .lado.meu .lado-nome { color: var(--destaque); }
+
+.fora-lista .carta { opacity: 0.8; }
+.fora-lista .carta:hover { opacity: 1; }

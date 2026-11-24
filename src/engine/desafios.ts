@@ -175,6 +175,7 @@ export interface TimeCartas {
   caixa: number;
   formacao: string;
   titulares: string[];
+  banco?: string[];
   /** Por desafio: jogos e vitórias. */
   desafios: Record<string, { jogos: number; vitorias: number }>;
 }
@@ -191,6 +192,7 @@ export function montarTimeCartas(tc: TimeCartas, cartas: Jogador[]): Time {
     elenco: cartas,
     formacao: FORMACOES.find((f) => f.nome === tc.formacao) ?? FORMACOES[0],
     titulares: tc.titulares.filter((id) => cartas.some((j) => j.id === id)),
+    banco: tc.banco,
     maxLendas: MAX_LENDAS_EM_CAMPO,
   };
 }

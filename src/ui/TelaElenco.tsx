@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { escalar, FORMACOES, forcaSetores, vagasDaFormacao, type Vaga } from "../engine/ratings";
+import { escalar, FORMACOES, forcaSetores, montarBanco, vagasDaFormacao, VAGAS_BANCO, type Vaga } from "../engine/ratings";
 import { ATRIBUTOS, ehLenda, POSICOES, SIGLA_ATRIBUTO, type Posicao, type Time } from "../engine/types";
 import type { Jogador } from "../engine/types";
 import { CartaJogador, setor } from "./CartaJogador";
@@ -26,23 +26,43 @@ export function TelaElenco({ time, onChange }: Props) {
   const elenco = [...time.elenco].sort(
     (a, b) => POSICOES.indexOf(a.posicao) - POSICOES.indexOf(b.posicao) || b.geral - a.geral,
   );
-  const reservas = elenco.filter((j) => !titularIds.has(j.id));
+  const banco = montarBanco(time, titularIds);
+  const bancoIds = new Set(banco.map((j) => j.id));
+  const foraDaLista = elenco.filter((j) => !titularIds.has(j.id) && !bancoIds.has(j.id));
 
-  const alternarTitular = (id: string) => {
-    const atuais = manual ? time.titulares : vagas.map((v) => v.jogador.id);
-    let novos: string[];
-    if (atuais.includes(id)) novos = atuais.filter((x) => x !== id);
-    else if (atuais.length < 11) {
-      const j = time.elenco.find((x) => x.id === id);
-      const lendasEmCampo = time.elenco.filter((x) => atuais.includes(x.id) && ehLenda(x)).length;
-      if (j && ehLenda(j) && lendasEmCampo >= (time.maxLendas ?? Infinity)) {
+  /**
+   * Clique numa carta:
+   * - titular sai do campo e vai para o banco (ou para fora, se o banco estiver cheio);
+   * - do banco ou de fora, entra no campo se houver vaga; senão, quem está fora vai
+   *   para o banco, e quem está no banco sai da lista.
+   */
+  const clicar = (id: string) => {
+    const tit = manual ? time.titulares : vagas.map((v) => v.jogador.id);
+    const ban = banco.map((j) => j.id);
+    const j = time.elenco.find((x) => x.id === id)!;
+    let novosTit = tit;
+    let novoBanco = ban;
+    if (tit.includes(id)) {
+      novosTit = tit.filter((x) => x !== id);
+      if (ban.length < VAGAS_BANCO) novoBanco = [...ban, id];
+    } else if (tit.length < 11) {
+      const lendasEmCampo = time.elenco.filter((x) => tit.includes(x.id) && ehLenda(x)).length;
+      if (ehLenda(j) && lendasEmCampo >= (time.maxLendas ?? Infinity)) {
         setAviso(`Já há ${time.maxLendas} lendas entre os titulares. Tire uma para escalar ${j.nome}.`);
         return;
       }
-      novos = [...atuais, id];
-    } else return;
+      novosTit = [...tit, id];
+      novoBanco = ban.filter((x) => x !== id);
+    } else if (ban.includes(id)) {
+      novoBanco = ban.filter((x) => x !== id);
+    } else if (ban.length < VAGAS_BANCO) {
+      novoBanco = [...ban, id];
+    } else {
+      setAviso(`O banco está cheio (${VAGAS_BANCO} vagas). Tire alguém do banco para relacionar ${j.nome}.`);
+      return;
+    }
     setAviso(null);
-    onChange({ ...time, titulares: novos });
+    onChange({ ...time, titulares: novosTit, banco: novoBanco });
   };
 
   // Cada linha do campo mostra as vagas da formação; vaga sem jogador fica vazia.
@@ -79,7 +99,7 @@ export function TelaElenco({ time, onChange }: Props) {
         </label>
         )}
         {modo === "formacao" && (
-          <button className="botao" onClick={() => onChange({ ...time, titulares: [] })}>
+          <button className="botao" onClick={() => onChange({ ...time, titulares: [], banco: undefined })}>
             Escalação automática
           </button>
         )}
@@ -122,7 +142,7 @@ export function TelaElenco({ time, onChange }: Props) {
                         jogador={v.jogador}
                         tamanho="mini"
                         posEmCampo={v.pos}
-                        onClick={() => alternarTitular(v.jogador!.id)}
+                        onClick={() => clicar(v.jogador!.id)}
                       />
                     ) : (
                       <div key={`vazia-${v.pos}-${i}`} className={`vaga-vazia setor-${setor(v.pos)}`}>
@@ -136,18 +156,36 @@ export function TelaElenco({ time, onChange }: Props) {
             })}
             {vagasVazias > 0 && (
               <p className="campo-aviso">
-                {vagasVazias === 1 ? "1 vaga vazia" : `${vagasVazias} vagas vazias`}: clique num reserva para escalar
+                {vagasVazias === 1 ? "1 vaga vazia" : `${vagasVazias} vagas vazias`}: clique num jogador do banco ou de fora para escalar
               </p>
             )}
           </div>
           <div className="reservas">
             <h2>
-              Reservas <span className="suave">{reservas.length}</span>
+              Banco de reservas{" "}
+              <span className="suave">
+                {banco.length} de {VAGAS_BANCO}
+              </span>
             </h2>
-            <p className="dica">Clique numa carta para colocar ou tirar do time titular.</p>
-            <div className="grade-cartas">
-              {reservas.map((j) => (
-                <CartaJogador key={j.id} jogador={j} onClick={() => alternarTitular(j.id)} />
+            <p className="dica">
+              Clique num titular para mandar ao banco. Com o time completo, clicar no banco tira o jogador da lista.
+            </p>
+            {banco.length ? (
+              <div className="grade-cartas">
+                {banco.map((j) => (
+                  <CartaJogador key={j.id} jogador={j} onClick={() => clicar(j.id)} />
+                ))}
+              </div>
+            ) : (
+              <p className="vazio-bloco">Banco vazio.</p>
+            )}
+            <h2 className="espaco-topo">
+              Fora da lista <span className="suave">{foraDaLista.length}</span>
+            </h2>
+            <p className="dica">Não vão para o jogo. Clique para escalar ou colocar no banco.</p>
+            <div className="grade-cartas fora-lista">
+              {foraDaLista.map((j) => (
+                <CartaJogador key={j.id} jogador={j} onClick={() => clicar(j.id)} />
               ))}
             </div>
           </div>
@@ -174,7 +212,7 @@ export function TelaElenco({ time, onChange }: Props) {
                 const emCampo = titularIds.has(j.id);
                 return (
                   <tr key={j.id} className={emCampo ? "titular" : ""}>
-                    <td className="marcador">{emCampo ? "Titular" : ""}</td>
+                    <td className="marcador">{emCampo ? "Titular" : bancoIds.has(j.id) ? "Banco" : ""}</td>
                     <td>
                       <span className={`pos setor-${setor(j.posicao)}`}>{j.posicao}</span>
                     </td>
@@ -201,7 +239,10 @@ export function TelaElenco({ time, onChange }: Props) {
       )}
       {aberto && (
         <Modal titulo={aberto.nome} onFechar={() => setAberto(null)}>
-          <FichaJogador jogador={aberto} titular={titularIds.has(aberto.id)} />
+          <FichaJogador
+            jogador={aberto}
+            situacao={titularIds.has(aberto.id) ? "Titular" : bancoIds.has(aberto.id) ? "Banco de reservas" : "Fora da lista"}
+          />
         </Modal>
       )}
     </section>
@@ -224,7 +265,7 @@ function Forca({ rotulo, setor, v }: { rotulo: string; setor: string; v: number 
 }
 
 /** Carta grande + detalhes, usada no modal do elenco e no estoque. */
-export function FichaJogador({ jogador: j, titular }: { jogador: Jogador; titular?: boolean }) {
+export function FichaJogador({ jogador: j, situacao }: { jogador: Jogador; situacao?: string }) {
   return (
     <div className="ficha">
       <div className="ficha-carta">
@@ -245,7 +286,7 @@ export function FichaJogador({ jogador: j, titular }: { jogador: Jogador; titula
           </>
         )}
         <dt>Situação</dt>
-        <dd>{titular === undefined ? "No estoque" : titular ? "Titular" : "Reserva"}</dd>
+        <dd>{situacao ?? "No estoque"}</dd>
         {ATRIBUTOS.map((k) => (
           <div key={k} className="ficha-atr">
             <dt>{NOME_ATRIBUTO[k]}</dt>

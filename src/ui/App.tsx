@@ -103,6 +103,7 @@ export function App() {
             ...t,
             formacao: FORMACOES.find((f) => f.nome === esc.formacao) ?? t.formacao,
             titulares: esc.titulares,
+            banco: esc.banco,
           }
         : t,
     );
@@ -159,7 +160,7 @@ export function App() {
   const mudarTimeCartas = (f: (tc: NonNullable<Progresso["timeCartas"]>) => NonNullable<Progresso["timeCartas"]>) =>
     mudar((p) => (p.timeCartas ? { ...p, timeCartas: f(p.timeCartas) } : p));
   const atualizarTimeCartas = (t: Time) =>
-    mudarTimeCartas((tc) => ({ ...tc, formacao: t.formacao.nome, titulares: t.titulares }));
+    mudarTimeCartas((tc) => ({ ...tc, formacao: t.formacao.nome, titulares: t.titulares, banco: t.banco }));
   const comprarBase = (id: string) =>
     mudar((p) => {
       const j = atuaisPorId.get(id);
@@ -217,7 +218,7 @@ export function App() {
   };
 
   const atualizar = (t: Time) =>
-    setProgresso((p) => ({ ...p, escalacao: { formacao: t.formacao.nome, titulares: t.titulares } }));
+    setProgresso((p) => ({ ...p, escalacao: { formacao: t.formacao.nome, titulares: t.titulares, banco: t.banco } }));
   /** Tira um jogador da escalação escolhida à mão (vendido ou devolvido ao estoque). */
   const semTitular = (p: Progresso, id: string): Progresso =>
     p.escalacao ? { ...p, escalacao: { ...p.escalacao, titulares: p.escalacao.titulares.filter((x) => x !== id) } } : p;

@@ -24,7 +24,7 @@ export interface Progresso {
   /** ids de lendas no estoque (pode repetir). */
   estoque: string[];
   /** Formação e titulares escolhidos para o clube do manager. */
-  escalacao?: { formacao: string; titulares: string[] };
+  escalacao?: { formacao: string; titulares: string[]; banco?: string[] };
   /** ids de lendas no elenco, por clube. */
   noElenco: Record<string, string[]>;
   /** Quantas cartas cabem no total (estoque + lendas no elenco). Sem valor: LIMITE_CARTAS_INICIAL. */

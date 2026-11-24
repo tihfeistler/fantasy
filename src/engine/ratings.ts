@@ -121,3 +121,22 @@ export function forcaSetores(vagas: Vaga[]): ForcaSetores {
     ataque: media(["ATA", "MEI"]) * fator,
   };
 }
+
+/** Vagas no banco de reservas. Quem não é titular nem está no banco fica fora da partida. */
+export const VAGAS_BANCO = 7;
+
+/**
+ * Banco de reservas: o escolhido pelo técnico (sem titulares, até
+ * VAGAS_BANCO) ou, se não escolheu, um goleiro e os melhores que sobraram.
+ */
+export function montarBanco(time: Time, titulares: Set<string>): Jogador[] {
+  const livres = time.elenco.filter((j) => !titulares.has(j.id));
+  if (time.banco) {
+    const porId = new Map(livres.map((j) => [j.id, j]));
+    return time.banco.map((id) => porId.get(id)).filter((j): j is Jogador => !!j).slice(0, VAGAS_BANCO);
+  }
+  const ordenados = [...livres].sort((a, b) => b.geral - a.geral);
+  const goleiro = ordenados.find((j) => j.posicao === "GOL");
+  const resto = ordenados.filter((j) => j !== goleiro);
+  return [...(goleiro ? [goleiro] : []), ...resto].slice(0, VAGAS_BANCO);
+}

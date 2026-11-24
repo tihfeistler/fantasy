@@ -203,6 +203,7 @@ o do clube; as cartas base não entram lá.
 - **Cartas base** se compram do sistema com moedas (geral 60 = 20, 75 =
   110, 84 = 300) e se vendem de volta por 40% do preço. As lendas do time
   de cartas são as que você tem (estoque e elenco do clube), até 3 em campo.
+- **Banco de reservas** com 7 vagas no clube e no time de cartas; o resto fica fora da lista.
 - **Custo por partida**: um quarto do salário mensal de cada titular;
   lendas cobram o dobro. Sem caixa, o botão mostra quanto falta.
 - **7 desafios**, em ordem de força: treino contra os reservas da

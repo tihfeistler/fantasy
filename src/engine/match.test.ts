@@ -67,3 +67,19 @@ describe("escalar", () => {
     expect(new Set(v.map((x) => x.jogador.id)).size).toBe(11);
   });
 });
+
+describe("banco de reservas", () => {
+  it("automático: até 7, com um goleiro; escolhido: respeita a ordem e o limite", async () => {
+    const { montarBanco, VAGAS_BANCO, escalar } = await import("./ratings");
+    const { montarTimesAtuais } = await import("../data/clubes");
+    const t = montarTimesAtuais()[0];
+    const tit = new Set(escalar(t).map((v) => v.jogador.id));
+    const auto = montarBanco(t, tit);
+    expect(auto).toHaveLength(VAGAS_BANCO);
+    expect(auto.filter((j) => j.posicao === "GOL")).toHaveLength(1);
+    expect(auto.some((j) => tit.has(j.id))).toBe(false);
+    const livres = t.elenco.filter((j) => !tit.has(j.id)).map((j) => j.id);
+    const escolhido = montarBanco({ ...t, banco: [...livres.slice(0, 9), [...tit][0]] }, tit);
+    expect(escolhido.map((j) => j.id)).toEqual(livres.slice(0, VAGAS_BANCO));
+  });
+});
