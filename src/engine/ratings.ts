@@ -123,7 +123,7 @@ export function forcaSetores(vagas: Vaga[]): ForcaSetores {
 }
 
 /** Vagas no banco de reservas. Quem não é titular nem está no banco fica fora da partida. */
-export const VAGAS_BANCO = 7;
+export const VAGAS_BANCO = 12;
 
 /**
  * Banco de reservas: o escolhido pelo técnico (sem titulares, até

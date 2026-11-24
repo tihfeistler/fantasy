@@ -30,39 +30,59 @@ export function TelaElenco({ time, onChange }: Props) {
   const bancoIds = new Set(banco.map((j) => j.id));
   const foraDaLista = elenco.filter((j) => !titularIds.has(j.id) && !bancoIds.has(j.id));
 
-  /**
-   * Clique numa carta:
-   * - titular sai do campo e vai para o banco (ou para fora, se o banco estiver cheio);
-   * - do banco ou de fora, entra no campo se houver vaga; senão, quem está fora vai
-   *   para o banco, e quem está no banco sai da lista.
-   */
-  const clicar = (id: string) => {
-    const tit = manual ? time.titulares : vagas.map((v) => v.jogador.id);
-    const ban = banco.map((j) => j.id);
-    const j = time.elenco.find((x) => x.id === id)!;
-    let novosTit = tit;
-    let novoBanco = ban;
-    if (tit.includes(id)) {
-      novosTit = tit.filter((x) => x !== id);
-      if (ban.length < VAGAS_BANCO) novoBanco = [...ban, id];
-    } else if (tit.length < 11) {
-      const lendasEmCampo = time.elenco.filter((x) => tit.includes(x.id) && ehLenda(x)).length;
-      if (ehLenda(j) && lendasEmCampo >= (time.maxLendas ?? Infinity)) {
-        setAviso(`Já há ${time.maxLendas} lendas entre os titulares. Tire uma para escalar ${j.nome}.`);
-        return;
-      }
-      novosTit = [...tit, id];
-      novoBanco = ban.filter((x) => x !== id);
-    } else if (ban.includes(id)) {
-      novoBanco = ban.filter((x) => x !== id);
-    } else if (ban.length < VAGAS_BANCO) {
-      novoBanco = [...ban, id];
-    } else {
-      setAviso(`O banco está cheio (${VAGAS_BANCO} vagas). Tire alguém do banco para relacionar ${j.nome}.`);
+  /** Carta escolhida para mexer (titular, reserva ou vaga vazia). */
+  const [escolha, setEscolha] = useState<
+    { tipo: "titular" | "banco"; jogador: Jogador } | { tipo: "vaga-campo"; pos: Posicao } | { tipo: "vaga-banco" } | null
+  >(null);
+
+  const listas = () => ({ tit: manual ? [...time.titulares] : vagas.map((v) => v.jogador.id), ban: banco.map((j) => j.id) });
+  const aplicar = (tit: string[], ban: string[]) => {
+    const lendasEmCampo = time.elenco.filter((x) => tit.includes(x.id) && ehLenda(x)).length;
+    if (lendasEmCampo > (time.maxLendas ?? Infinity)) {
+      setAviso(`Só ${time.maxLendas} lendas podem jogar juntas. Tire uma do campo antes.`);
       return;
     }
     setAviso(null);
-    onChange({ ...time, titulares: novosTit, banco: novoBanco });
+    setEscolha(null);
+    onChange({ ...time, titulares: tit, banco: ban });
+  };
+  /** Troca a carta escolhida pela carta `id` (do banco ou do depósito). */
+  const trocar = (id: string) => {
+    if (!escolha) return;
+    const { tit, ban } = listas();
+    const noBanco = ban.includes(id);
+    if (escolha.tipo === "titular") {
+      const a = escolha.jogador.id;
+      const t2 = tit.map((x) => (x === a ? id : x));
+      // Do banco: os dois trocam de lugar. Do depósito: o titular vai para o depósito.
+      const b2 = noBanco ? ban.map((x) => (x === id ? a : x)) : ban;
+      aplicar(t2, b2);
+    } else if (escolha.tipo === "banco") {
+      const a = escolha.jogador.id;
+      aplicar(tit, ban.map((x) => (x === a ? id : x)));
+    } else if (escolha.tipo === "vaga-campo") {
+      aplicar([...tit, id], ban.filter((x) => x !== id));
+    } else {
+      aplicar(tit, [...ban, id]);
+    }
+  };
+  const paraOBanco = (id: string) => {
+    const { tit, ban } = listas();
+    aplicar(
+      tit.filter((x) => x !== id),
+      ban.length < VAGAS_BANCO ? [...ban, id] : ban,
+    );
+  };
+  const paraOCampo = (id: string) => {
+    const { tit, ban } = listas();
+    aplicar([...tit, id], ban.filter((x) => x !== id));
+  };
+  const paraODeposito = (id: string) => {
+    const { tit, ban } = listas();
+    aplicar(
+      tit.filter((x) => x !== id),
+      ban.filter((x) => x !== id),
+    );
   };
 
   // Cada linha do campo mostra as vagas da formação; vaga sem jogador fica vazia.
@@ -142,13 +162,17 @@ export function TelaElenco({ time, onChange }: Props) {
                         jogador={v.jogador}
                         tamanho="mini"
                         posEmCampo={v.pos}
-                        onClick={() => clicar(v.jogador!.id)}
+                        onClick={() => setEscolha({ tipo: "titular", jogador: v.jogador! })}
                       />
                     ) : (
-                      <div key={`vazia-${v.pos}-${i}`} className={`vaga-vazia setor-${setor(v.pos)}`}>
+                      <button
+                        key={`vazia-${v.pos}-${i}`}
+                        className={`vaga-vazia setor-${setor(v.pos)}`}
+                        onClick={() => setEscolha({ tipo: "vaga-campo", pos: v.pos })}
+                      >
                         <span className="carta-pos">{v.pos}</span>
                         <span>Vaga</span>
-                      </div>
+                      </button>
                     ),
                   )}
                 </div>
@@ -156,7 +180,7 @@ export function TelaElenco({ time, onChange }: Props) {
             })}
             {vagasVazias > 0 && (
               <p className="campo-aviso">
-                {vagasVazias === 1 ? "1 vaga vazia" : `${vagasVazias} vagas vazias`}: clique num jogador do banco ou de fora para escalar
+                {vagasVazias === 1 ? "1 vaga vazia" : `${vagasVazias} vagas vazias`}: clique na vaga para escalar alguém
               </p>
             )}
           </div>
@@ -168,25 +192,21 @@ export function TelaElenco({ time, onChange }: Props) {
               </span>
             </h2>
             <p className="dica">
-              Clique num titular para mandar ao banco. Com o time completo, clicar no banco tira o jogador da lista.
+              Clique numa carta do campo ou do banco para trocar por outra. Os outros {foraDaLista.length} jogadores ficam
+              no depósito e não vão para o jogo.
             </p>
-            {banco.length ? (
-              <div className="grade-cartas">
-                {banco.map((j) => (
-                  <CartaJogador key={j.id} jogador={j} onClick={() => clicar(j.id)} />
-                ))}
-              </div>
-            ) : (
-              <p className="vazio-bloco">Banco vazio.</p>
-            )}
-            <h2 className="espaco-topo">
-              Fora da lista <span className="suave">{foraDaLista.length}</span>
-            </h2>
-            <p className="dica">Não vão para o jogo. Clique para escalar ou colocar no banco.</p>
-            <div className="grade-cartas fora-lista">
-              {foraDaLista.map((j) => (
-                <CartaJogador key={j.id} jogador={j} onClick={() => clicar(j.id)} />
+            <div className="grade-cartas">
+              {banco.map((j) => (
+                <CartaJogador key={j.id} jogador={j} onClick={() => setEscolha({ tipo: "banco", jogador: j })} />
               ))}
+              {banco.length < VAGAS_BANCO && foraDaLista.length > 0 && (
+                <button className="vaga-banco" onClick={() => setEscolha({ tipo: "vaga-banco" })}>
+                  <b>+</b>
+                  <span>
+                    {VAGAS_BANCO - banco.length} {VAGAS_BANCO - banco.length === 1 ? "vaga" : "vagas"} no banco
+                  </span>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -236,6 +256,35 @@ export function TelaElenco({ time, onChange }: Props) {
           </table>
         </div>
         </>
+      )}
+      {escolha && (
+        <Modal
+          titulo={
+            escolha.tipo === "titular" || escolha.tipo === "banco"
+              ? escolha.jogador.nome
+              : escolha.tipo === "vaga-campo"
+                ? `Escalar na vaga de ${escolha.pos}`
+                : "Colocar no banco"
+          }
+          onFechar={() => setEscolha(null)}
+        >
+          {aviso && <p className="aviso">{aviso}</p>}
+          <Troca
+            escolha={escolha}
+            banco={banco}
+            deposito={foraDaLista}
+            titularesCompletos={vagas.length >= 11}
+            bancoCheio={banco.length >= VAGAS_BANCO}
+            onTrocar={trocar}
+            onParaOBanco={paraOBanco}
+            onParaOCampo={paraOCampo}
+            onParaODeposito={paraODeposito}
+            onVerCarta={(j) => {
+              setEscolha(null);
+              setAberto(j);
+            }}
+          />
+        </Modal>
       )}
       {aberto && (
         <Modal titulo={aberto.nome} onFechar={() => setAberto(null)}>
@@ -307,3 +356,85 @@ const NOME_ATRIBUTO: Record<(typeof ATRIBUTOS)[number], string> = {
   finalizacao: "Finalização", passe: "Passe", drible: "Drible", velocidade: "Velocidade",
   defesa: "Defesa", fisico: "Físico", mentalidade: "Mentalidade", goleiro: "Goleiro",
 };
+
+type Escolha =
+  | { tipo: "titular" | "banco"; jogador: Jogador }
+  | { tipo: "vaga-campo"; pos: Posicao }
+  | { tipo: "vaga-banco" };
+
+/** Janela de troca: ações da carta escolhida e a lista de quem pode entrar no lugar dela. */
+function Troca(p: {
+  escolha: Escolha;
+  banco: Jogador[];
+  deposito: Jogador[];
+  titularesCompletos: boolean;
+  bancoCheio: boolean;
+  onTrocar: (id: string) => void;
+  onParaOBanco: (id: string) => void;
+  onParaOCampo: (id: string) => void;
+  onParaODeposito: (id: string) => void;
+  onVerCarta: (j: Jogador) => void;
+}) {
+  const e = p.escolha;
+  const pos = e.tipo === "titular" || e.tipo === "banco" ? e.jogador.posicao : e.tipo === "vaga-campo" ? e.pos : null;
+  // Candidatos: do campo, vêm do banco e do depósito; do banco, só do depósito.
+  const ordenar = (js: Jogador[]) =>
+    [...js].sort((a, b) => Number(b.posicao === pos) - Number(a.posicao === pos) || b.geral - a.geral);
+  const grupos: { titulo: string; js: Jogador[] }[] =
+    e.tipo === "titular" || e.tipo === "vaga-campo"
+      ? [
+          { titulo: "Do banco", js: ordenar(p.banco) },
+          { titulo: "Do depósito", js: ordenar(p.deposito) },
+        ]
+      : [{ titulo: "Do depósito", js: ordenar(p.deposito) }];
+
+  return (
+    <div className="troca">
+      {(e.tipo === "titular" || e.tipo === "banco") && (
+        <div className="troca-acoes">
+          <CartaJogador jogador={e.jogador} tamanho="mini" />
+          <div className="troca-botoes">
+            {e.tipo === "titular" && (
+              <button className="botao" onClick={() => p.onParaOBanco(e.jogador.id)} disabled={p.bancoCheio}>
+                {p.bancoCheio ? "Banco cheio" : "Mandar para o banco"}
+              </button>
+            )}
+            {e.tipo === "banco" && !p.titularesCompletos && (
+              <button className="botao primario" onClick={() => p.onParaOCampo(e.jogador.id)}>
+                Escalar como titular
+              </button>
+            )}
+            <button className="botao discreto" onClick={() => p.onParaODeposito(e.jogador.id)}>
+              Tirar da lista (vai para o depósito)
+            </button>
+            <button className="botao discreto" onClick={() => p.onVerCarta(e.jogador)}>
+              Ver carta completa
+            </button>
+          </div>
+        </div>
+      )}
+      <h3 className="troca-titulo">
+        {e.tipo === "titular" || e.tipo === "banco" ? `Trocar ${e.jogador.nome} por` : "Escolha quem entra"}
+      </h3>
+      {grupos.map((g) =>
+        g.js.length ? (
+          <div key={g.titulo}>
+            <h4 className="rotulo">{g.titulo}</h4>
+            <ul className="troca-lista">
+              {g.js.map((j) => (
+                <li key={j.id}>
+                  <button onClick={() => p.onTrocar(j.id)}>
+                    <span className={`pos setor-${setor(j.posicao)}`}>{j.posicao}</span>
+                    <b className="troca-geral">{j.geral}</b>
+                    <span className="troca-nome">{j.nome}</span>
+                    {ehLenda(j) && <span className="selo-lenda">Lenda</span>}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null,
+      )}
+    </div>
+  );
+}

@@ -867,3 +867,26 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
 
 .fora-lista .carta { opacity: 0.8; }
 .fora-lista .carta:hover { opacity: 1; }
+
+/* ---------- Troca de cartas ---------- */
+.vaga-banco {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 120px;
+  border: 2px dashed var(--linha); border-radius: 12px; background: transparent; color: var(--suave); cursor: pointer;
+}
+.vaga-banco b { font-size: 32px; line-height: 1; color: var(--destaque); }
+.vaga-banco:hover, button.vaga-vazia:hover { border-color: var(--destaque); }
+button.vaga-vazia { cursor: pointer; font: inherit; }
+.troca-acoes { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.troca-acoes .carta-mini { width: 90px; flex: none; }
+.troca-botoes { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.troca-titulo { margin: 6px 0 8px; font-family: var(--fonte-titulo); font-size: 18px; text-transform: uppercase; }
+.troca h4 { margin: 10px 0 6px; }
+.troca-lista { list-style: none; margin: 0; padding: 0; max-height: 46vh; overflow-y: auto; border: 1px solid var(--linha); border-radius: 10px; }
+.troca-lista li + li { border-top: 1px solid var(--linha); }
+.troca-lista button {
+  display: grid; grid-template-columns: 44px 32px minmax(0, 1fr) auto; align-items: center; gap: 10px;
+  width: 100%; padding: 8px 10px; background: transparent; border: 0; color: var(--texto); text-align: left; cursor: pointer;
+}
+.troca-lista button:hover { background: var(--painel-2); }
+.troca-geral { font-family: var(--fonte-titulo); font-size: 20px; }
+.troca-nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
