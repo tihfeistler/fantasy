@@ -22,13 +22,20 @@ export interface Clube {
 export const CLUBES = clubesJson as Clube[];
 const ATUAIS = atuaisJson as Jogador[];
 
-export function montarTimesAtuais(): Time[] {
+export const NIVEL = new Map(CLUBES.map((c) => [c.id, c.nivel]));
+
+/**
+ * Times com os elencos atuais. `transferencias` (jogadorId -> clubeId)
+ * aplica as compras e vendas feitas na carreira.
+ */
+export function montarTimesAtuais(transferencias: Record<string, string> = {}): Time[] {
+  const clubeDe = (j: Jogador) => transferencias[j.id] ?? j.clubeId;
   return CLUBES.map((c) => ({
     id: c.id,
     nome: c.nome,
     sigla: c.sigla,
     cor: c.cor,
-    elenco: ATUAIS.filter((j) => j.clubeId === c.id),
+    elenco: ATUAIS.filter((j) => clubeDe(j) === c.id),
     formacao: FORMACOES[0],
     titulares: [],
     maxLendas: MAX_LENDAS_EM_CAMPO,

@@ -753,3 +753,49 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
 .espaco-barra i { display: block; height: 100%; background: var(--setor-mei); }
 .espaco-cartas.cheio { border-color: #8a6b12; }
 .espaco-cartas.cheio .espaco-barra i { background: var(--alerta); }
+
+/* ---------- Mercado e finanças ---------- */
+.moedas.caixa b { color: #8ff0c0; }
+.financas { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.indicador { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); }
+.indicador b { font-family: var(--fonte-titulo); font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.indicador.destaque b { color: #8ff0c0; }
+.indicador.alta b { color: #8ff0c0; }
+.indicador.baixa b { color: #ff9b8f; }
+.nota-financas { font-size: 13px; margin: 10px 0 16px; }
+.mercado-lista { list-style: none; margin: 0; padding: 0; border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); overflow: hidden; }
+.ml-linha {
+  display: grid; grid-template-columns: 44px 36px minmax(0, 1fr) 110px 130px 140px 170px;
+  align-items: center; gap: 10px; padding: 9px 14px; border-top: 1px solid var(--linha);
+}
+.ml-linha:first-child { border-top: 0; }
+.ml-geral { font-family: var(--fonte-titulo); font-size: 22px; font-weight: 800; text-align: center; }
+.ml-nome { display: flex; flex-direction: column; min-width: 0; }
+.ml-nome b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ml-nome .suave { font-size: 12px; }
+.ml-num, .ml-preco { display: flex; flex-direction: column; font-variant-numeric: tabular-nums; font-size: 13px; }
+.ml-num .rotulo, .ml-preco .rotulo { font-size: 10px; }
+.ml-preco { font-weight: 700; color: var(--texto); }
+.ml-linha .botao { width: 100%; }
+.botao.mais { display: block; margin: 14px auto 0; }
+.extrato { margin-top: 22px; border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); padding: 12px 14px; }
+.extrato h2 { margin: 0 0 8px; font-family: var(--fonte-titulo); font-size: 20px; font-weight: 800; text-transform: uppercase; }
+.extrato ul { list-style: none; margin: 0; padding: 0; }
+.extrato li { display: grid; grid-template-columns: 40px 1fr auto; gap: 10px; padding: 6px 0; border-top: 1px solid var(--linha); font-size: 13px; }
+.extrato li:first-child { border-top: 0; }
+.extrato .ent { color: #8ff0c0; font-variant-numeric: tabular-nums; }
+.extrato .sai { color: #ff9b8f; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 900px) {
+  .ml-linha { grid-template-columns: 44px 36px minmax(0, 1fr) 120px; }
+  .ml-linha .ml-num { display: none; }
+  .ml-linha .botao { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .topo .moedas b { font-size: 17px; }
+  .topo nav { flex-wrap: wrap; justify-content: flex-start; }
+  .ml-linha { grid-template-columns: 40px 30px minmax(0, 1fr); padding: 9px 10px; }
+  .ml-preco { grid-column: 3; }
+  .indicador b { font-size: 22px; }
+  .financas { grid-template-columns: 1fr 1fr; }
+}

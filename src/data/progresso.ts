@@ -1,4 +1,5 @@
 import type { Temporada } from "../engine/campeonato";
+import type { Financas } from "../engine/mercado";
 import { LIMITE_CARTAS_INICIAL } from "../engine/pacotes";
 
 /**
@@ -26,6 +27,10 @@ export interface Progresso {
   noElenco: Record<string, string[]>;
   /** Quantas cartas cabem no total (estoque + lendas no elenco). Sem valor: LIMITE_CARTAS_INICIAL. */
   limiteCartas?: number;
+  /** Compras e vendas de jogadores atuais: jogadorId -> clube atual. */
+  transferencias?: Record<string, string>;
+  /** Caixa, receitas e extrato do clube do manager. */
+  financas?: Financas;
   /** Brasileirão em andamento (calendário, rodada atual e placares). */
   temporada?: Temporada;
   /** Temporadas encerradas. */

@@ -113,9 +113,19 @@ um pouco mais **[suposição]**).
 
 ## 6. Mercado de jogadores atuais
 
-- Valor de mercado derivado do geral, idade e potencial.
-- Compra, venda, empréstimo; propostas da IA.
-- Orçamento do clube: bilheteria, patrocínio, premiação; folha salarial.
+- Valor de mercado derivado do geral (dobra a cada 5 pontos: geral 60 vale
+  R$ 2 mi, 80 vale R$ 32 mi). Idade e potencial entram quando a base tiver
+  datas de nascimento. Salário mensal de 1% do valor.
+- **Compra** (prévia feita): qualquer jogador de outro clube, por 20% acima
+  do valor (60% acima se for um dos 3 melhores do clube). O clube não vende
+  se ficar com menos de 18; seu elenco vai até 45 jogadores atuais.
+- **Venda** (prévia feita): cada jogador seu recebe uma proposta da IA por
+  rodada, de 75% a 105% do valor, de um clube do nível dele.
+- **Finanças** (prévia feita): caixa inicial de 10% do valor do elenco; por
+  rodada entram TV/patrocínio (75% de um quarto da folha) e bilheteria nos
+  jogos em casa, e saem os salários. Premiação em dinheiro pela posição.
+- Depois: empréstimos, contratos com duração, negociação de valor, IA
+  comprando e vendendo entre si.
 
 ## 7. Modo online
 
@@ -146,7 +156,7 @@ Fase posterior:
 | 0 (feito) | Esqueleto: elenco, partida narrada, formato de jogador, base de clássicos |
 | 1 | Base de **clubes e elencos atuais** da Série A (rascunho feito: 20 clubes, 720 jogadores); escolher clube (feito); liga com tabela e calendário (prévia feita: 38 rodadas em turno e returno, sua partida narrada e as outras simuladas, classificação com zonas, premiação de fim de temporada e temporada seguinte) |
 | 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (prévia feita: estoque, pacote de 5 cartas por 500 moedas, prêmio por partida, até 3 lendas entre os titulares, espaço de 300 cartas ampliável, progresso salvo no navegador) |
-| 3 | Carreira completa: mercado de atuais, finanças, temporadas, objetivos, save local |
+| 3 | Carreira completa: mercado de atuais e finanças (prévia feita: compra, venda com propostas da IA, caixa, folha, extrato), temporadas, objetivos, save local |
 | 4 | Mais ligas (Série B, Europa), copas; PWA offline; polimento visual |
 | 5 | Modo online: contas, ligas privadas, mercado de cartas entre técnicos |
 
