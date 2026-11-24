@@ -31,6 +31,8 @@ export interface PropostaCarta {
   anuncioId: string;
   jogadorId: string;
   valor: number;
+  /** Máximo que o técnico simulado aceita pagar numa contraproposta (escondido do jogador). */
+  teto?: number;
 }
 
 export interface MovimentoCarta {
@@ -130,7 +132,8 @@ export function rodadaDoMercado(
     if (!jaTem && rng() < 0.45) {
       const valor = arred(Math.min(a.preco * 0.95, ref * (0.7 + rng() * 0.35)));
       if (valor < a.preco) {
-        recebidas.push({ id: novoId(), de: sortear(rng, TECNICOS_SIMULADOS), anuncioId: a.id, jogadorId: a.jogadorId, valor });
+        const teto = arred(Math.min(a.preco, valor * (1.08 + rng() * 0.22)));
+        recebidas.push({ id: novoId(), de: sortear(rng, TECNICOS_SIMULADOS), anuncioId: a.id, jogadorId: a.jogadorId, valor, teto });
       }
     }
   }
@@ -158,14 +161,24 @@ export function mercadoInicial(lendas: Map<string, Jogador>, seed: number): Merc
   return rodadaDoMercado(MERCADO_CARTAS_INICIAL, lendas, 0, criarRng(seedDoMercado(seed, 0))).mercado;
 }
 
+export type Resposta = { tipo: "aceita" } | { tipo: "contra"; valor: number } | { tipo: "recusa" };
+
 /**
  * Resposta de um técnico simulado à sua proposta por uma carta anunciada:
- * aceita a partir de 90% do preço; entre 75% e 90%, depende da sorte;
- * abaixo disso, recusa.
+ * aceita a partir de 90% do preço; de 60% a 90%, faz uma contraproposta
+ * (o meio do caminho até o preço, no mínimo 90% dele); abaixo de 60%, recusa.
  */
-export function respostaSimulada(preco: number, valor: number, rng: Rng): boolean {
+export function respostaSimulada(preco: number, valor: number): Resposta {
   const r = valor / preco;
-  if (r >= 0.9) return true;
-  if (r < 0.75) return false;
-  return rng() < (r - 0.75) / 0.15;
+  if (r >= 0.9) return { tipo: "aceita" };
+  if (r < 0.6) return { tipo: "recusa" };
+  return { tipo: "contra", valor: Math.min(preco, arred(Math.max(preco * 0.9, (valor + preco) / 2))) };
+}
+
+/**
+ * Sua contraproposta a uma proposta recebida: o técnico simulado aceita
+ * até o teto dele; acima disso, desiste da compra.
+ */
+export function aceitaContraproposta(p: PropostaCarta, valor: number): boolean {
+  return valor <= (p.teto ?? Math.round(p.valor * 1.15));
 }

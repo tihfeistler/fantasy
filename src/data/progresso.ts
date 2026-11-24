@@ -34,6 +34,8 @@ export interface Progresso {
   financas?: Financas;
   /** Mercado de cartas entre técnicos (na prévia, com técnicos simulados). */
   mercadoCartas?: MercadoCartas;
+  /** Jogadores atuais já negociados com a IA, e em qual rodada (uma negociação por rodada). */
+  negociacoes?: Record<string, number>;
   /** Brasileirão em andamento (calendário, rodada atual e placares). */
   temporada?: Temporada;
   /** Temporadas encerradas. */

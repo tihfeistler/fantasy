@@ -827,3 +827,22 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
   .ml-linha.ml-proposta { grid-template-columns: 1fr 1fr; }
   .ml-linha.ml-proposta .ml-nome { grid-column: 1 / -1; }
 }
+
+/* ---------- Negociação ---------- */
+.ml-acoes { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ml-acoes .botao { width: 100%; }
+.proposta-form .unidade { align-self: center; font-size: 12px; }
+.ml-linha.ml-proposta { grid-template-columns: minmax(0, 1fr) 110px 140px 100px; }
+.ml-linha.ml-proposta .ml-contra { grid-column: 2 / -1; }
+.aviso.contra { border-color: #4ea8ff; background: #0f2440; color: #cfe5ff; }
+@media (max-width: 900px) {
+  .ml-linha .ml-acoes { grid-column: 1 / -1; flex-direction: row; }
+  .ml-linha .ml-acoes > * { flex: 1; }
+  .ml-linha.ml-proposta .botao { grid-column: auto; }
+}
+@media (max-width: 600px) {
+  .ml-linha.ml-proposta { grid-template-columns: 1fr 1fr 1fr; }
+  .ml-linha.ml-proposta .ml-contra { grid-column: 1 / -1; }
+}
+.ml-linha .proposta-form .botao { width: auto; flex: 0 0 auto; }
+.proposta-form input { width: 0; }

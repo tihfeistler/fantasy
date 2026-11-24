@@ -34,6 +34,7 @@ import {
   type Financas,
 } from "../engine/mercado";
 import {
+  aceitaContraproposta,
   comTaxa,
   mercadoInicial,
   respostaSimulada,
@@ -100,6 +101,9 @@ export function App() {
   const [pacoteAberto, setPacoteAberto] = useState<Jogador[] | null>(null);
   const [modoMercado, setModoMercado] = useState<"jogadores" | "cartas">("jogadores");
   const [avisoCartas, setAvisoCartas] = useState<string | null>(null);
+  /** Contraproposta de um técnico simulado à sua oferta, esperando sua resposta. */
+  const [contraDoVendedor, setContraDoVendedor] = useState<{ anuncioId: string; valor: number } | null>(null);
+  const [avisoMercado, setAvisoMercado] = useState<string | null>(null);
 
   useEffect(() => salvarProgresso(progresso), [progresso]);
   // Sem lendas embutidas no build: busca na API PHP.
@@ -151,11 +155,29 @@ export function App() {
         financas: lancar(p.financas, [{ rodada, descricao: `Compra de ${j.nome} (${dono.sigla})`, valor: -preco }]),
       };
     });
-  const venderJogador = (jogadorId: string) =>
+  /** Pede mais do que a IA ofereceu. Uma tentativa por jogador por rodada. */
+  const negociarVenda = (jogadorId: string, valor: number) => {
+    const j = meuTime?.elenco.find((x) => x.id === jogadorId);
+    const t = progresso.temporada;
+    if (!j || !t || progresso.negociacoes?.[jogadorId] === t.rodadaAtual) return;
+    const prop = propostaPor(j, meuTimeId, timesComLendas, NIVEL, t.rodadaAtual, t.seed, oferta);
+    const comprador = mapaTimes.get(prop.clubeId)!;
+    if (valor <= prop.teto) {
+      setAvisoMercado(`O ${comprador.nome} aceitou: ${j.nome} vendido por ${formatarDinheiro(valor)}.`);
+      venderJogador(jogadorId, valor);
+    } else {
+      setAvisoMercado(
+        `O ${comprador.nome} não aceitou ${formatarDinheiro(valor)} por ${j.nome}. A proposta de ${formatarDinheiro(prop.valor)} continua até o fim da rodada.`,
+      );
+      mudar((p) => ({ ...p, negociacoes: { ...p.negociacoes, [jogadorId]: t.rodadaAtual } }));
+    }
+  };
+  const venderJogador = (jogadorId: string, valorNegociado?: number) =>
     mudar((p) => {
       const j = meuTime?.elenco.find((x) => x.id === jogadorId);
       if (!j || !p.financas || !p.temporada) return p;
-      const prop = propostaPor(j, meuTimeId, timesComLendas, NIVEL, p.temporada.rodadaAtual, p.temporada.seed, oferta);
+      const prop0 = propostaPor(j, meuTimeId, timesComLendas, NIVEL, p.temporada.rodadaAtual, p.temporada.seed, oferta);
+      const prop = valorNegociado ? { ...prop0, valor: valorNegociado } : prop0;
       const comprador = mapaTimes.get(prop.clubeId)!;
       return semTitular(
         {
@@ -240,33 +262,68 @@ export function App() {
     const a = p.mercadoCartas?.anuncios.find((x) => x.id === anuncioId);
     if (!a || p.moedas < valor || totalCartas(p) >= limiteCartas(p)) return;
     const nome = lendas.get(a.jogadorId)?.nome ?? a.jogadorId;
-    // Resposta estável: a mesma proposta no mesmo anúncio dá a mesma resposta.
-    const aceita = respostaSimulada(a.preco, valor, criarRng(seedDoMercado(Number(a.id.slice(1)) * 7919 + valor, rodadaAtual)));
-    if (aceita) {
+    const r = respostaSimulada(a.preco, valor);
+    setContraDoVendedor(null);
+    if (r.tipo === "aceita") {
       setAvisoCartas(`${a.vendedor} aceitou sua proposta: ${nome} por ${valor} moedas.`);
       mudar((q) => comprarCarta(q, anuncioId, valor, `${a.vendedor} aceitou ${valor} por ${nome}`));
+    } else if (r.tipo === "contra") {
+      setAvisoCartas(null);
+      setContraDoVendedor({ anuncioId, valor: r.valor });
     } else {
-      setAvisoCartas(`${a.vendedor} recusou ${valor} moedas por ${nome}. O anúncio está em ${a.preco}.`);
+      setAvisoCartas(`${a.vendedor} recusou ${valor} moedas por ${nome}: muito abaixo dos ${a.preco} do anúncio.`);
     }
   };
-  const aceitarProposta = (propostaId: string) =>
-    mudar((p) => {
-      const m = p.mercadoCartas;
-      const pr = m?.recebidas.find((x) => x.id === propostaId);
-      if (!m || !pr) return p;
-      const nome = lendas.get(pr.jogadorId)?.nome ?? pr.jogadorId;
-      const liquido = comTaxa(pr.valor);
-      return {
-        ...p,
-        moedas: p.moedas + liquido,
-        mercadoCartas: {
-          ...m,
-          meus: m.meus.filter((x) => x.id !== pr.anuncioId),
-          recebidas: m.recebidas.filter((x) => x.anuncioId !== pr.anuncioId),
-          movimentos: [{ rodada: rodadaAtual, texto: `Você vendeu ${nome} para ${pr.de} por ${pr.valor} (taxa de 5%)`, moedas: liquido }, ...m.movimentos].slice(0, 40),
-        },
-      };
-    });
+  const responderContra = (aceitar: boolean) => {
+    const c = contraDoVendedor;
+    setContraDoVendedor(null);
+    if (!c) return;
+    const a = progresso.mercadoCartas?.anuncios.find((x) => x.id === c.anuncioId);
+    if (!a) return;
+    const nome = lendas.get(a.jogadorId)?.nome ?? a.jogadorId;
+    if (!aceitar) {
+      setAvisoCartas(`Você recusou a contraproposta de ${a.vendedor}. O anúncio continua em ${a.preco}.`);
+      return;
+    }
+    if (progresso.moedas < c.valor || semEspacoCarta) return;
+    setAvisoCartas(`Negócio fechado: ${nome} por ${c.valor} moedas.`);
+    mudar((q) => comprarCarta(q, c.anuncioId, c.valor, `Você comprou ${nome} de ${a.vendedor} na contraproposta`));
+  };
+  /** Sua contraproposta a uma proposta recebida por carta anunciada. */
+  const contrapropor = (propostaId: string, valor: number) => {
+    const pr = progresso.mercadoCartas?.recebidas.find((x) => x.id === propostaId);
+    if (!pr) return;
+    const nome = lendas.get(pr.jogadorId)?.nome ?? pr.jogadorId;
+    if (aceitaContraproposta(pr, valor)) {
+      setAvisoCartas(`${pr.de} aceitou sua contraproposta: ${nome} vendido por ${valor} (você recebe ${comTaxa(valor)}).`);
+      mudar((p) => venderPorProposta(p, propostaId, valor, `Você vendeu ${nome} para ${pr.de} por ${valor} na contraproposta (taxa de 5%)`));
+    } else {
+      setAvisoCartas(`${pr.de} achou ${valor} caro e desistiu de ${nome}. A carta continua anunciada.`);
+      recusarProposta(propostaId);
+    }
+  };
+  const venderPorProposta = (p: Progresso, propostaId: string, valor: number, texto: string): Progresso => {
+    const m = p.mercadoCartas;
+    const pr = m?.recebidas.find((x) => x.id === propostaId);
+    if (!m || !pr) return p;
+    const liquido = comTaxa(valor);
+    return {
+      ...p,
+      moedas: p.moedas + liquido,
+      mercadoCartas: {
+        ...m,
+        meus: m.meus.filter((x) => x.id !== pr.anuncioId),
+        recebidas: m.recebidas.filter((x) => x.anuncioId !== pr.anuncioId),
+        movimentos: [{ rodada: rodadaAtual, texto, moedas: liquido }, ...m.movimentos].slice(0, 40),
+      },
+    };
+  };
+  const aceitarProposta = (propostaId: string) => {
+    const pr = progresso.mercadoCartas?.recebidas.find((x) => x.id === propostaId);
+    if (!pr) return;
+    const nome = lendas.get(pr.jogadorId)?.nome ?? pr.jogadorId;
+    mudar((p) => venderPorProposta(p, propostaId, pr.valor, `Você vendeu ${nome} para ${pr.de} por ${pr.valor} (taxa de 5%)`));
+  };
   const recusarProposta = (propostaId: string) =>
     mudar((p) =>
       p.mercadoCartas
@@ -493,7 +550,10 @@ export function App() {
                 financas={progresso.financas}
                 temporada={temporada}
                 onComprar={comprarJogador}
-                onVender={venderJogador}
+                onVender={(id) => venderJogador(id)}
+                onNegociar={negociarVenda}
+                negociados={progresso.negociacoes ?? {}}
+                aviso={avisoMercado}
               />
             ) : progresso.mercadoCartas ? (
               <TelaMercadoCartas
@@ -507,6 +567,9 @@ export function App() {
                 onCancelar={cancelarAnuncio}
                 onAceitar={aceitarProposta}
                 onRecusar={recusarProposta}
+                onContrapropor={contrapropor}
+                contra={contraDoVendedor}
+                onResponderContra={responderContra}
               />
             ) : (
               <p className="vazio-bloco">Carregando o mercado de cartas…</p>

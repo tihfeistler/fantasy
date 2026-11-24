@@ -143,6 +143,8 @@ export interface Proposta {
   jogadorId: string;
   clubeId: string;
   valor: number;
+  /** Máximo que o clube aceita pagar se você negociar (escondido do jogador). */
+  teto: number;
 }
 
 function hash(s: string) {
@@ -172,7 +174,8 @@ export function propostaPor(
   // Oferta na liga pesa igual; quem tem carência na posição paga 10% a mais.
   const precisa = situacaoNaPosicao(clube, j.posicao) === "carencia" ? 1.1 : 1;
   const valor = Math.round((valorDeMercado(j) * oferta(j) * precisa * (0.75 + rng() * 0.3)) / 50) * 50;
-  return { jogadorId: j.id, clubeId: clube.id, valor };
+  const teto = Math.round((valor * (1.05 + rng() * 0.2)) / 50) * 50;
+  return { jogadorId: j.id, clubeId: clube.id, valor, teto };
 }
 
 /** "R$ 12,5 mi" ou "R$ 850 mil". */

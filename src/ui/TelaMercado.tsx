@@ -26,6 +26,11 @@ interface Props {
   temporada: Temporada;
   onComprar: (jogadorId: string) => void;
   onVender: (jogadorId: string) => void;
+  /** Pede outro valor pela venda (contraproposta ao clube da IA). */
+  onNegociar: (jogadorId: string, valor: number) => void;
+  /** jogadorId -> rodada em que já negociou. */
+  negociados: Record<string, number>;
+  aviso: string | null;
 }
 
 const POR_PAGINA = 40;
@@ -35,13 +40,15 @@ const MOTIVO: Record<Exclude<MotivoRecusa, null>, string> = {
   "elenco-dele-curto": "O clube não vende",
 };
 
-export function TelaMercado({ meuTime, times, financas, temporada, onComprar, onVender }: Props) {
+export function TelaMercado({ meuTime, times, financas, temporada, onComprar, onVender, onNegociar, negociados, aviso }: Props) {
   const [modo, setModo] = useState<"comprar" | "vender">("comprar");
   const [busca, setBusca] = useState("");
   const [posicao, setPosicao] = useState("");
   const [clube, setClube] = useState("");
   const [limite, setLimite] = useState(POR_PAGINA);
   const [confirmando, setConfirmando] = useState<string | null>(null);
+  const [negociando, setNegociando] = useState<string | null>(null);
+  const [pedido, setPedido] = useState("");
 
   const oferta = useMemo(() => criarOferta(times), [times]);
   const meus = meuTime.elenco.filter((j) => !ehLenda(j)).sort((a, b) => b.geral - a.geral);
@@ -172,8 +179,11 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
       ) : (
         <>
           <p className="suave">
-            Cada jogador recebe uma proposta por rodada. Seu elenco precisa de pelo menos {MIN_ELENCO} jogadores atuais.
+            Cada jogador recebe uma proposta por rodada. Você pode aceitar ou negociar um valor maior, uma vez por rodada:
+            se o clube não topar, a proposta original continua. Seu elenco precisa de pelo menos {MIN_ELENCO} jogadores
+            atuais.
           </p>
+          {aviso && <p className="aviso">{aviso}</p>}
           <ul className="mercado-lista">
             {meus.map((j) => {
               const prop = propostaPor(j, meuTime.id, times, NIVEL, temporada.rodadaAtual, temporada.seed, oferta);
@@ -185,13 +195,51 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
                     <span className="rotulo">Proposta do {comprador.sigla}</span>
                     {formatarDinheiro(prop.valor)}
                   </span>
-                  <button
-                    className={`botao${confirmando === j.id ? " perigo" : ""}`}
-                    disabled={curto}
-                    onClick={dois(j.id, () => onVender(j.id))}
-                  >
-                    {curto ? "Elenco no mínimo" : confirmando === j.id ? `Vender ao ${comprador.nome}` : "Aceitar"}
-                  </button>
+                  <span className="ml-acoes">
+                    <button
+                      className={`botao${confirmando === j.id ? " perigo" : ""}`}
+                      disabled={curto}
+                      onClick={dois(j.id, () => onVender(j.id))}
+                    >
+                      {curto ? "Elenco no mínimo" : confirmando === j.id ? `Vender ao ${comprador.nome}` : "Aceitar"}
+                    </button>
+                    {!curto &&
+                      (negociando === j.id ? (
+                        <form
+                          className="proposta-form"
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            const v = Math.round((Number(pedido.replace(",", ".")) * 1000) / 50) * 50;
+                            if (!(v > prop.valor)) return;
+                            onNegociar(j.id, v);
+                            setNegociando(null);
+                          }}
+                        >
+                          <input
+                            inputMode="decimal"
+                            value={pedido}
+                            onChange={(e) => setPedido(e.target.value)}
+                            aria-label={`Valor pedido por ${j.nome}, em milhões`}
+                            autoFocus
+                          />
+                          <span className="suave unidade">mi</span>
+                          <button className="botao" type="submit">
+                            Pedir
+                          </button>
+                        </form>
+                      ) : (
+                        <button
+                          className="botao discreto"
+                          disabled={negociados[j.id] === temporada.rodadaAtual}
+                          onClick={() => {
+                            setNegociando(j.id);
+                            setPedido(((prop.valor * 1.15) / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 }));
+                          }}
+                        >
+                          {negociados[j.id] === temporada.rodadaAtual ? "Já negociado" : "Negociar"}
+                        </button>
+                      ))}
+                  </span>
                 </Linha>
               );
             })}

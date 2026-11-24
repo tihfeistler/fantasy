@@ -8,6 +8,8 @@
 // POST api/mercado.php {acao:"comprar", anuncio_id}              compra pelo preço anunciado
 // POST api/mercado.php {acao:"propor", carta_id, valor}           proposta por qualquer carta de outro técnico
 // POST api/mercado.php {acao:"aceitar"|"recusar", proposta_id}    pelo dono da carta
+// POST api/mercado.php {acao:"contrapropor", proposta_id, valor}   pelo dono: pede um valor maior
+// POST api/mercado.php {acao:"aceitar_contra"|"recusar_contra", proposta_id}  pelo comprador
 // POST api/mercado.php {acao:"cancelar_proposta", proposta_id}    pelo comprador
 // POST api/mercado.php {acao:"vender_sistema", carta_id}          preço básico (valorDeVenda)
 //
@@ -56,7 +58,8 @@ function transferir(array $carta, int $compradorId, int $valor): array
         ->execute([$compradorId, $carta['id']]);
     $pdo->prepare('DELETE FROM anuncios WHERE carta_id = ?')->execute([$carta['id']]);
     // Outras propostas pela carta deixam de valer: ela mudou de dono.
-    $pdo->prepare("UPDATE propostas SET status = 'expirada', respondida_em = NOW() WHERE carta_id = ? AND status = 'aberta'")
+    $pdo->prepare("UPDATE propostas SET status = 'expirada', respondida_em = NOW()
+        WHERE carta_id = ? AND status IN ('aberta', 'contraproposta')")
         ->execute([$carta['id']]);
     $pdo->prepare('INSERT INTO vendas (jogador_id, vendedor_id, comprador_id, valor, taxa) VALUES (?, ?, ?, ?, ?)')
         ->execute([$carta['jogador_id'], $vendedor, $compradorId, $valor, $taxa]);
@@ -106,12 +109,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             FROM cartas c LEFT JOIN anuncios a ON a.carta_id = c.id WHERE c.usuario_id = ? ORDER BY c.id');
         $s->execute([$eu]);
         $cartas = $s->fetchAll();
-        $s = $pdo->prepare("SELECT p.id, p.carta_id, p.valor, p.criado_em, c.jogador_id, u.nome AS comprador
+        $s = $pdo->prepare("SELECT p.id, p.carta_id, p.valor, p.contra_valor, p.status, p.criado_em, c.jogador_id, u.nome AS comprador
             FROM propostas p JOIN cartas c ON c.id = p.carta_id JOIN usuarios u ON u.id = p.comprador_id
-            WHERE c.usuario_id = ? AND p.status = 'aberta' ORDER BY p.criado_em DESC");
+            WHERE c.usuario_id = ? AND p.status IN ('aberta', 'contraproposta') ORDER BY p.criado_em DESC");
         $s->execute([$eu]);
         $recebidas = $s->fetchAll();
-        $s = $pdo->prepare('SELECT p.id, p.carta_id, p.valor, p.status, p.criado_em, c.jogador_id
+        $s = $pdo->prepare('SELECT p.id, p.carta_id, p.valor, p.contra_valor, p.status, p.criado_em, c.jogador_id
             FROM propostas p JOIN cartas c ON c.id = p.carta_id WHERE p.comprador_id = ?
             ORDER BY p.criado_em DESC LIMIT 100');
         $s->execute([$eu]);
@@ -156,7 +159,7 @@ switch ($acao) {
         if (moedasTravadas($eu) < $valor) erro('Moedas insuficientes para essa proposta.');
         // Uma proposta aberta por carta e comprador: a nova substitui a antiga.
         $pdo->prepare("UPDATE propostas SET status = 'cancelada', respondida_em = NOW()
-            WHERE carta_id = ? AND comprador_id = ? AND status = 'aberta'")->execute([$carta['id'], $eu]);
+            WHERE carta_id = ? AND comprador_id = ? AND status IN ('aberta', 'contraproposta')")->execute([$carta['id'], $eu]);
         $pdo->prepare('INSERT INTO propostas (carta_id, comprador_id, valor) VALUES (?, ?, ?)')
             ->execute([$carta['id'], $eu, $valor]);
         $id = (int) $pdo->lastInsertId();
@@ -176,9 +179,37 @@ switch ($acao) {
         $pdo->commit();
         responder($r);
 
+    case 'contrapropor':
+        $s = $pdo->prepare("SELECT id, carta_id, valor FROM propostas WHERE id = ? AND status = 'aberta' FOR UPDATE");
+        $s->execute([(int) ($d['proposta_id'] ?? 0)]);
+        $p = $s->fetch() ?: erro('Proposta não encontrada ou já respondida.', 404);
+        $carta = cartaTravada((int) $p['carta_id']);
+        if ((int) $carta['usuario_id'] !== $eu) erro('Essa carta não é sua.', 403);
+        $valor = validarPreco($d['valor'] ?? null);
+        if ($valor <= (int) $p['valor']) erro('A contraproposta precisa ser maior que a proposta.');
+        $pdo->prepare("UPDATE propostas SET status = 'contraproposta', contra_valor = ?, respondida_em = NOW() WHERE id = ?")
+            ->execute([$valor, $p['id']]);
+        $pdo->commit();
+        responder(['ok' => true, 'contra_valor' => $valor]);
+
+    case 'aceitar_contra':
+    case 'recusar_contra':
+        $s = $pdo->prepare("SELECT id, carta_id, comprador_id, contra_valor FROM propostas
+            WHERE id = ? AND status = 'contraproposta' FOR UPDATE");
+        $s->execute([(int) ($d['proposta_id'] ?? 0)]);
+        $p = $s->fetch() ?: erro('Contraproposta não encontrada ou já respondida.', 404);
+        if ((int) $p['comprador_id'] !== $eu) erro('Essa proposta não é sua.', 403);
+        $pdo->prepare('UPDATE propostas SET status = ?, respondida_em = NOW() WHERE id = ?')
+            ->execute([$acao === 'aceitar_contra' ? 'aceita' : 'recusada', $p['id']]);
+        $r = $acao === 'aceitar_contra'
+            ? transferir(cartaTravada((int) $p['carta_id']), $eu, (int) $p['contra_valor'])
+            : ['ok' => true];
+        $pdo->commit();
+        responder($r);
+
     case 'cancelar_proposta':
         $s = $pdo->prepare("UPDATE propostas SET status = 'cancelada', respondida_em = NOW()
-            WHERE id = ? AND comprador_id = ? AND status = 'aberta'");
+            WHERE id = ? AND comprador_id = ? AND status IN ('aberta', 'contraproposta')");
         $s->execute([(int) ($d['proposta_id'] ?? 0), $eu]);
         if (!$s->rowCount()) erro('Proposta não encontrada ou já respondida.', 404);
         $pdo->commit();

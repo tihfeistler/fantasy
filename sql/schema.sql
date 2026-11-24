@@ -92,12 +92,15 @@ CREATE TABLE IF NOT EXISTS anuncios (
 ) ENGINE=InnoDB;
 
 -- Proposta de compra por uma carta de outro técnico (anunciada ou não).
+-- O dono aceita, recusa ou faz contraproposta (contra_valor); aí quem
+-- responde é o comprador.
 CREATE TABLE IF NOT EXISTS propostas (
   id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   carta_id        INT UNSIGNED NOT NULL,
   comprador_id    INT UNSIGNED NOT NULL,
   valor           INT UNSIGNED NOT NULL,
-  status          ENUM('aberta','aceita','recusada','cancelada','expirada') NOT NULL DEFAULT 'aberta',
+  contra_valor    INT UNSIGNED NULL,
+  status          ENUM('aberta','contraproposta','aceita','recusada','cancelada','expirada') NOT NULL DEFAULT 'aberta',
   criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   respondida_em   DATETIME     NULL,
   FOREIGN KEY (carta_id) REFERENCES cartas(id) ON DELETE CASCADE,

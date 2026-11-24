@@ -107,7 +107,8 @@ Mercado entre técnicos (moedas de coleção):
   retirada a qualquer momento.
 - **Quem quer comprar** paga o preço anunciado ou **manda uma proposta** por
   qualquer carta de outro técnico (anunciada ou não). O dono aceita ou
-  recusa. Proposta não reserva moedas; se o comprador não tiver saldo na
+  recusa, ou **faz uma contraproposta** com um valor maior; aí quem decide
+  é o comprador (aceita ou recusa). Proposta não reserva moedas; se o comprador não tiver saldo na
   hora do aceite, a venda falha. Uma proposta nova do mesmo técnico pela
   mesma carta substitui a anterior; quando a carta muda de dono, as outras
   propostas expiram.
@@ -128,7 +129,10 @@ Implementação:
   avisa isso. A cada rodada eles anunciam cartas, compram as suas (quanto
   mais barato em relação à referência, mais rápido) e mandam propostas.
   Às suas propostas respondem na hora: aceitam a partir de 90% do preço,
-  recusam abaixo de 75%, e no meio depende da sorte.
+  fazem contraproposta de 60% a 90% (meio caminho até o preço, no mínimo
+  90% dele) e recusam abaixo de 60%. Cada proposta que eles mandam tem um
+  teto escondido (8% a 30% acima): sua contraproposta até o teto fecha o
+  negócio; acima, eles desistem.
 
 ## 5. Simulação de partidas
 
@@ -165,6 +169,9 @@ um pouco mais **[suposição]**).
   se ficar com menos de 18; seu elenco vai até 45 jogadores atuais.
 - **Venda** (prévia feita): cada jogador seu recebe uma proposta da IA por
   rodada, de 75% a 105% do valor, de um clube do nível dele.
+  Dá para **negociar** uma vez por rodada: o clube aceita até um teto
+  escondido (5% a 25% acima da proposta); se recusar, a proposta original
+  continua até o fim da rodada.
 - **Finanças** (prévia feita): caixa inicial de 10% do valor do elenco; por
   rodada entram TV/patrocínio (75% de um quarto da folha) e bilheteria nos
   jogos em casa, e saem os salários. Premiação em dinheiro pela posição.

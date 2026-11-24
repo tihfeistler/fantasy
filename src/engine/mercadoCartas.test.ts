@@ -5,6 +5,7 @@ import {
   MERCADO_CARTAS_INICIAL,
   mercadoInicial,
   precoReferencia,
+  aceitaContraproposta,
   respostaSimulada,
   rodadaDoMercado,
 } from "./mercadoCartas";
@@ -62,9 +63,33 @@ describe("mercado de cartas entre técnicos", () => {
     throw new Error("nenhuma venda em 100 rodadas");
   });
 
-  it("técnico simulado aceita 90% ou mais e recusa abaixo de 75%", () => {
-    const rng = criarRng(1);
-    expect(respostaSimulada(1000, 900, rng)).toBe(true);
-    expect(respostaSimulada(1000, 740, rng)).toBe(false);
+  it("técnico simulado aceita 90% ou mais, contrapropõe de 60% a 90% e recusa abaixo", () => {
+    expect(respostaSimulada(1000, 900)).toEqual({ tipo: "aceita" });
+    expect(respostaSimulada(1000, 500)).toEqual({ tipo: "recusa" });
+    const c = respostaSimulada(1000, 700);
+    expect(c.tipo).toBe("contra");
+    if (c.tipo === "contra") {
+      expect(c.valor).toBeGreaterThanOrEqual(900);
+      expect(c.valor).toBeLessThanOrEqual(1000);
+    }
+  });
+
+  it("proposta recebida tem teto: contraproposta até ele é aceita", () => {
+    const j = todas[0];
+    for (let s = 1; s < 200; s++) {
+      const r = rodadaDoMercado(
+        { ...MERCADO_CARTAS_INICIAL, meus: [{ id: "x", vendedor: "voce", jogadorId: j.id, preco: 100000 }] },
+        lendas,
+        1,
+        criarRng(s),
+      );
+      const p = r.mercado.recebidas[0];
+      if (!p) continue;
+      expect(p.teto!).toBeGreaterThan(p.valor);
+      expect(aceitaContraproposta(p, p.teto!)).toBe(true);
+      expect(aceitaContraproposta(p, p.teto! + 10)).toBe(false);
+      return;
+    }
+    throw new Error("nenhuma proposta recebida");
   });
 });

@@ -15,6 +15,10 @@ interface Props {
   onCancelar: (anuncioId: string) => void;
   onAceitar: (propostaId: string) => void;
   onRecusar: (propostaId: string) => void;
+  onContrapropor: (propostaId: string, valor: number) => void;
+  /** Contraproposta de um vendedor à sua oferta. */
+  contra: { anuncioId: string; valor: number } | null;
+  onResponderContra: (aceitar: boolean) => void;
 }
 
 const valido = (v: number) => Number.isInteger(v) && v >= PRECO_MINIMO && v <= PRECO_MAXIMO;
@@ -23,6 +27,10 @@ export function TelaMercadoCartas(p: Props) {
   const { mercado, lendas, moedas } = p;
   const [propondo, setPropondo] = useState<string | null>(null);
   const [valor, setValor] = useState("");
+  const [contrapondo, setContrapondo] = useState<string | null>(null);
+  const [contraValor, setContraValor] = useState("");
+  const anuncioContra = p.contra && mercado.anuncios.find((a) => a.id === p.contra!.anuncioId);
+  const jogadorContra = anuncioContra && lendas.get(anuncioContra.jogadorId);
   const anuncios = mercado.anuncios
     .map((a) => ({ a, j: lendas.get(a.jogadorId) }))
     .filter((x): x is { a: (typeof mercado.anuncios)[number]; j: Jogador } => !!x.j)
@@ -39,6 +47,24 @@ export function TelaMercadoCartas(p: Props) {
         Estoque você pode anunciar uma carta ou vendê-la ao sistema pelo preço básico, que é bem menor.
       </p>
       {p.aviso && <p className="aviso">{p.aviso}</p>}
+      {p.contra && anuncioContra && jogadorContra && (
+        <div className="aviso aviso-acao contra">
+          <span>
+            <b>{anuncioContra.vendedor}</b> não aceitou sua oferta, mas faz uma contraproposta: <b>{jogadorContra.nome}</b>{" "}
+            por <b>{p.contra.valor}</b> moedas (o anúncio está em {anuncioContra.preco}).
+          </span>
+          <button className="botao" onClick={() => p.onResponderContra(false)}>
+            Recusar
+          </button>
+          <button
+            className="botao primario"
+            disabled={moedas < p.contra.valor || p.semEspaco}
+            onClick={() => p.onResponderContra(true)}
+          >
+            Aceitar por {p.contra.valor}
+          </button>
+        </div>
+      )}
 
       {mercado.recebidas.length > 0 && (
         <>
@@ -57,12 +83,52 @@ export function TelaMercadoCartas(p: Props) {
                       Seu anúncio: {anuncio?.preco} · você recebe {comTaxa(pr.valor)} depois da taxa
                     </span>
                   </span>
-                  <button className="botao primario" onClick={() => p.onAceitar(pr.id)}>
-                    Aceitar
-                  </button>
-                  <button className="botao" onClick={() => p.onRecusar(pr.id)}>
-                    Recusar
-                  </button>
+                  {contrapondo === pr.id ? (
+                    <form
+                      className="proposta-form ml-contra"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const v = Number(contraValor);
+                        if (!valido(v) || v <= pr.valor) return;
+                        p.onContrapropor(pr.id, v);
+                        setContrapondo(null);
+                      }}
+                    >
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        min={pr.valor + 1}
+                        value={contraValor}
+                        onChange={(e) => setContraValor(e.target.value)}
+                        aria-label={`Sua contraproposta por ${j?.nome}`}
+                        autoFocus
+                      />
+                      <button className="botao primario" type="submit">
+                        Enviar
+                      </button>
+                      <button className="botao discreto" type="button" onClick={() => setContrapondo(null)}>
+                        Voltar
+                      </button>
+                    </form>
+                  ) : (
+                    <>
+                      <button className="botao primario" onClick={() => p.onAceitar(pr.id)}>
+                        Aceitar
+                      </button>
+                      <button
+                        className="botao"
+                        onClick={() => {
+                          setContrapondo(pr.id);
+                          setContraValor(String(Math.round((pr.valor * 1.2) / 10) * 10));
+                        }}
+                      >
+                        Contraproposta
+                      </button>
+                      <button className="botao discreto" onClick={() => p.onRecusar(pr.id)}>
+                        Recusar
+                      </button>
+                    </>
+                  )}
                 </li>
               );
             })}
