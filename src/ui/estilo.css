@@ -863,7 +863,7 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
 .desafio-rodape { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
 .desafio-rodape .suave { font-size: 12px; }
 .check { display: inline-flex; align-items: center; gap: 6px; color: var(--suave); }
-.jogo-narrado .placar .lado.meu .lado-nome { color: var(--destaque); }
+.partida-interativa .placar .lado.meu .lado-nome { color: var(--destaque); }
 
 .fora-lista .carta { opacity: 0.8; }
 .fora-lista .carta:hover { opacity: 1; }
@@ -890,3 +890,38 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 .troca-lista button:hover { background: var(--painel-2); }
 .troca-geral { font-family: var(--fonte-titulo); font-size: 20px; }
 .troca-nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Partida interativa ---------- */
+.partida-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 340px); gap: 16px; align-items: start; }
+.painel-tecnico { border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); padding: 12px 14px; }
+.painel-tecnico h3 { margin: 4px 0 8px; font-family: var(--fonte-titulo); font-size: 18px; font-weight: 800; text-transform: uppercase; }
+.painel-tecnico h3 .suave { font-family: var(--fonte-texto); font-size: 12px; font-weight: 500; text-transform: none; margin-left: 4px; }
+.taticas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 12px; }
+.taticas button { padding: 8px 4px; border-radius: 8px; border: 1px solid var(--linha); background: var(--fundo-2); color: var(--suave); font-weight: 700; cursor: pointer; }
+.taticas button.ativo { background: var(--destaque); color: var(--destaque-texto); border-color: var(--destaque); }
+.em-campo, .opcoes-banco { list-style: none; margin: 0; padding: 0; }
+.em-campo > li + li { border-top: 1px solid var(--linha); }
+.em-campo button, .opcoes-banco button {
+  display: grid; grid-template-columns: 40px minmax(0, 1fr) 26px 54px; align-items: center; gap: 8px;
+  width: 100%; padding: 6px 4px; background: transparent; border: 0; color: var(--texto); text-align: left; cursor: pointer; font: inherit; font-size: 13px;
+}
+.opcoes-banco button { grid-template-columns: 40px minmax(0, 1fr) 26px; }
+.em-campo button:hover:not(:disabled), .opcoes-banco button:hover { background: var(--painel-2); }
+.em-campo button:disabled { cursor: default; }
+.em-campo .pos, .opcoes-banco .pos { min-width: 0; font-size: 12px; }
+.ec-nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ec-geral { font-weight: 800; text-align: right; }
+.energia { height: 6px; border-radius: 999px; background: var(--fundo-2); overflow: hidden; }
+.energia i { display: block; height: 100%; }
+.energia i.alta { background: #34d399; }
+.energia i.media { background: #facc15; }
+.energia i.baixa { background: #f87171; }
+.em-campo li.trocando { background: var(--fundo-2); border-radius: 8px; }
+.opcoes-banco { margin: 2px 0 6px 12px; border-left: 2px solid var(--destaque); padding-left: 6px; }
+.opcoes-banco .rotulo { padding: 4px; }
+.ev-sub .chip { background: #12395f; color: #a9d4ff; }
+.ev-tatica .chip { background: #3a2c06; color: #ffe9a6; }
+@media (max-width: 900px) {
+  .partida-grade { grid-template-columns: minmax(0, 1fr); }
+  .painel-tecnico { order: -1; }
+}

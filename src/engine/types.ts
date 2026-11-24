@@ -81,7 +81,7 @@ export interface Time {
   banco?: string[];
 }
 
-export type TipoEvento = "gol" | "chance" | "defesa" | "cartao" | "inicio" | "intervalo" | "fim";
+export type TipoEvento = "gol" | "chance" | "defesa" | "cartao" | "inicio" | "intervalo" | "fim" | "sub" | "tatica";
 
 export interface EventoPartida {
   minuto: number;

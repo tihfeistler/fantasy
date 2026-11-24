@@ -148,8 +148,24 @@ Motor em TypeScript puro, sem dependência de interface
 - Calibragem atual (2 times de exemplo, 5.000 jogos): ~2,9 gols por jogo,
   39% vitória do mandante, 24% empates.
 
-Evoluções previstas: táticas, substituições, expulsões, pênaltis, lesões,
-cansaço, entrosamento (lendas da mesma época/seleção jogando juntas rendem
+### Partida interativa (prévia feita)
+
+Na carreira e nos desafios o jogo roda minuto a minuto (`PartidaAoVivo`) e o
+técnico mexe durante a partida:
+
+- **Tática**: defensiva (defesa +12%, ataque −12%), equilibrada ou ofensiva
+  (o contrário). Vale a partir do minuto seguinte.
+- **Substituições**: até 5, só com jogadores do banco (12 vagas). Quem sai
+  não volta.
+- **Cansaço**: a energia cai a partir dos 30 minutos em campo, até 60%;
+  quem tem mais físico cansa menos. Quem entra chega descansado.
+- O jogo pausa sozinho no intervalo; há pausa manual e "Ir para o fim".
+- **Técnico da IA**: fica ofensivo se perde a partir dos 65', defensivo se
+  ganha a partir dos 75', e troca o mais cansado aos 60', 70' e 80'.
+- Cada decisão é guardada com o minuto. Seed + decisões reproduzem a
+  partida exata, o que serve para o servidor do online validar o jogo.
+
+Evoluções previstas: expulsões, pênaltis, lesões, entrosamento (lendas da mesma época/seleção jogando juntas rendem
 um pouco mais **[suposição]**).
 
 ## 6. Mercado de jogadores atuais
@@ -254,7 +270,7 @@ Inspirado no sistema de ligas dos jogos competitivos online:
 - **Partida em tempo real**: o servidor simula com o motor determinístico
   e libera a narração minuto a minuto para os dois técnicos ao mesmo
   tempo (cerca de 3 minutos por jogo). Cada técnico pode mexer durante o
-  jogo: tática (defensivo, equilibrado, ofensivo) e até 3 substituições; a
+  jogo: tática (defensivo, equilibrado, ofensivo) e até 5 substituições, como na partida interativa já feita; a
   mudança vale a partir do minuto seguinte. No PHP/XAMPP, sem websocket, o
   cliente consulta o servidor a cada 1 a 2 segundos.
 - Abandono conta como derrota.

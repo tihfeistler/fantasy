@@ -15,7 +15,7 @@ import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
 import { escalar } from "../engine/ratings";
 import { ehLenda, POSICOES, type Jogador, type ResultadoPartida, type Time } from "../engine/types";
 import { setor } from "./CartaJogador";
-import { JogoNarrado } from "./JogoNarrado";
+import { PartidaInterativa } from "./PartidaInterativa";
 import { TelaElenco } from "./TelaElenco";
 
 interface Props {
@@ -61,12 +61,23 @@ export function TelaDesafios(p: Props) {
 
   if (jogo) {
     return (
-      <JogoNarrado
+      <PartidaInterativa
         mandante={meuTime}
         visitante={jogo.adversario}
         seed={jogo.seed}
+        meuTimeId={meuTime.id}
+        titulo={
+          <div className="rodada-titulo">
+            <span className="rotulo">Desafio</span>
+            <b>{jogo.adversario.nome}</b>
+          </div>
+        }
         onFim={(r) => p.onConcluir(jogo.desafioId, r, jogo.adversario)}
-        onVoltar={() => setJogo(null)}
+        depoisDoFim={
+          <button className="botao primario" onClick={() => setJogo(null)}>
+            Voltar aos desafios
+          </button>
+        }
       />
     );
   }
