@@ -26,14 +26,15 @@ if (is_file($arqClubes)) {
 
 $st = $pdo->prepare('INSERT INTO jogadores (id, tipo, nome, nome_completo, nacionalidade, posicao, pe,
     epoca_inicio, epoca_fim, auge, clube_marcante, clube_id, nascimento, potencial,
-    ataque, defesa, passe, velocidade, fisico, goleiro, geral)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    finalizacao, passe, drible, velocidade, defesa, fisico, mentalidade, goleiro, geral)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE tipo=VALUES(tipo), nome=VALUES(nome), nome_completo=VALUES(nome_completo),
     nacionalidade=VALUES(nacionalidade), posicao=VALUES(posicao), pe=VALUES(pe),
     epoca_inicio=VALUES(epoca_inicio), epoca_fim=VALUES(epoca_fim), auge=VALUES(auge),
     clube_marcante=VALUES(clube_marcante), clube_id=VALUES(clube_id), nascimento=VALUES(nascimento),
-    potencial=VALUES(potencial), ataque=VALUES(ataque), defesa=VALUES(defesa), passe=VALUES(passe),
-    velocidade=VALUES(velocidade), fisico=VALUES(fisico), goleiro=VALUES(goleiro), geral=VALUES(geral)');
+    potencial=VALUES(potencial), finalizacao=VALUES(finalizacao), passe=VALUES(passe), drible=VALUES(drible),
+    velocidade=VALUES(velocidade), defesa=VALUES(defesa), fisico=VALUES(fisico),
+    mentalidade=VALUES(mentalidade), goleiro=VALUES(goleiro), geral=VALUES(geral)');
 $n = 0;
 // jogadores.json = clássicos; atuais.json = elencos da temporada
 $todos = [];
@@ -52,12 +53,18 @@ foreach ($todos as $j) {
     }
     $vistos[$j['id']] = true;
     $a = $j['atributos'];
+    foreach (ATRIBUTOS as $k) {
+        if (!isset($a[$k])) {
+            $pdo->rollBack();
+            exit("Erro: '{$j['id']}' não tem o atributo '$k'. Formato antigo? Rode scripts/converter_atributos.py.\n");
+        }
+    }
     $st->execute([
         $j['id'], $j['tipo'] ?? 'classico', $j['nome'], $j['nomeCompleto'] ?? null,
         $j['nacionalidade'], $j['posicao'], $j['pe'] ?? 'D',
         $j['epoca']['inicio'] ?? null, $j['epoca']['fim'] ?? null, $j['auge'] ?? null,
         $j['clubeMarcante'] ?? null, $j['clubeId'] ?? null, $j['nascimento'] ?? null, $j['potencial'] ?? null,
-        $a['ataque'], $a['defesa'], $a['passe'], $a['velocidade'], $a['fisico'], $a['goleiro'], $j['geral'],
+        ...array_map(fn($k) => $a[$k], ATRIBUTOS), $j['geral'],
     ]);
     $n++;
 }

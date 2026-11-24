@@ -17,8 +17,8 @@ O tipo TypeScript correspondente é `Jogador` em `src/engine/types.ts`.
   "auge": 1970,
   "clubeMarcante": "Santos",
   "atributos": {
-    "ataque": 98, "defesa": 45, "passe": 92,
-    "velocidade": 90, "fisico": 84, "goleiro": 10
+    "finalizacao": 98, "passe": 94, "drible": 95, "velocidade": 89,
+    "defesa": 45, "fisico": 84, "mentalidade": 98, "goleiro": 15
   },
   "geral": 94
 }
@@ -35,8 +35,36 @@ O tipo TypeScript correspondente é `Jogador` em `src/engine/types.ts`.
 | `epoca` | objeto | anos de início e fim da carreira |
 | `auge` | inteiro | ano da versão usada no jogo |
 | `clubeMarcante` | string? | clube mais associado |
-| `atributos` | objeto | seis inteiros de 1 a 100 |
+| `atributos` | objeto | oito inteiros de 1 a 100 (tabela abaixo) |
 | `geral` | inteiro | 1 a 100, média ponderada pela posição |
+
+### Atributos e geral
+
+| Atributo | O que mede |
+| --- | --- |
+| `finalizacao` | chute, cabeceio, frieza na área |
+| `passe` | passe curto e longo, cruzamento, visão |
+| `drible` | condução, controle, um contra um |
+| `velocidade` | arranque e velocidade final |
+| `defesa` | marcação, desarme, posicionamento |
+| `fisico` | força, resistência, jogo aéreo |
+| `mentalidade` | liderança, decisão, frieza em jogo grande |
+| `goleiro` | reflexo, colocação, saída do gol |
+
+O `geral` é a média ponderada dos atributos com os pesos da posição
+(`src/engine/ratings.ts` e `scripts/atributos.py`, mesma tabela):
+
+| Pos | Pesos |
+| --- | --- |
+| GOL | goleiro 75%, mentalidade 10%, físico 5%, passe 5%, velocidade 5% |
+| ZAG | defesa 50%, físico 20%, mentalidade 10%, velocidade 10%, passe 10% |
+| LAT | defesa 30%, velocidade 25%, passe 15%, drible 10%, físico 10%, mentalidade 5%, finalização 5% |
+| VOL | defesa 35%, passe 25%, físico 15%, mentalidade 15%, drible 5%, velocidade 5% |
+| MEI | passe 35%, drible 25%, finalização 15%, mentalidade 15%, velocidade 5%, físico 5% |
+| ATA | finalização 45%, drible 15%, velocidade 15%, físico 10%, mentalidade 10%, passe 5% |
+
+Arquivos no formato antigo (6 atributos com `ataque`) podem ser convertidos
+com `python3 scripts/converter_atributos.py data/jogadores.json`.
 
 Enquanto a base não chega, `src/data/exemplo.ts` tem 34 jogadores de exemplo
 nesse mesmo formato, com atributos estimados à mão.

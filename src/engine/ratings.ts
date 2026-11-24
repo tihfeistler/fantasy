@@ -5,24 +5,25 @@ import type { Atributos, Formacao, Jogador, Posicao, Time } from "./types";
  * Suposição: a frente da base de dados usa a mesma ideia; se a fórmula
  * dela for diferente, esta tabela deve ser trocada pela de data/README.md.
  */
-export const PESOS: Record<Posicao, Atributos> = {
-  GOL: { ataque: 0, defesa: 0.1, passe: 0.05, velocidade: 0, fisico: 0.05, goleiro: 0.8 },
-  ZAG: { ataque: 0, defesa: 0.55, passe: 0.1, velocidade: 0.1, fisico: 0.25, goleiro: 0 },
-  LAT: { ataque: 0.1, defesa: 0.35, passe: 0.2, velocidade: 0.25, fisico: 0.1, goleiro: 0 },
-  VOL: { ataque: 0.05, defesa: 0.4, passe: 0.3, velocidade: 0.05, fisico: 0.2, goleiro: 0 },
-  MEI: { ataque: 0.3, defesa: 0.05, passe: 0.45, velocidade: 0.1, fisico: 0.1, goleiro: 0 },
-  ATA: { ataque: 0.6, defesa: 0, passe: 0.1, velocidade: 0.2, fisico: 0.1, goleiro: 0 },
+type Pesos = Partial<Record<keyof Atributos, number>>;
+
+/**
+ * Pesos dos atributos por posição (cada linha soma 1). O geral é a média
+ * ponderada. Mesma tabela em scripts/gerar_atuais.py e
+ * scripts/converter_atributos.py; mude nos três juntos.
+ */
+export const PESOS: Record<Posicao, Pesos> = {
+  GOL: { goleiro: 0.75, mentalidade: 0.1, fisico: 0.05, passe: 0.05, velocidade: 0.05 },
+  ZAG: { defesa: 0.5, fisico: 0.2, mentalidade: 0.1, velocidade: 0.1, passe: 0.1 },
+  LAT: { defesa: 0.3, velocidade: 0.25, passe: 0.15, drible: 0.1, fisico: 0.1, mentalidade: 0.05, finalizacao: 0.05 },
+  VOL: { defesa: 0.35, passe: 0.25, fisico: 0.15, mentalidade: 0.15, drible: 0.05, velocidade: 0.05 },
+  MEI: { passe: 0.35, drible: 0.25, finalizacao: 0.15, mentalidade: 0.15, velocidade: 0.05, fisico: 0.05 },
+  ATA: { finalizacao: 0.45, drible: 0.15, velocidade: 0.15, fisico: 0.1, mentalidade: 0.1, passe: 0.05 },
 };
 
 export function calcularGeral(atr: Atributos, pos: Posicao): number {
-  const p = PESOS[pos];
-  const v =
-    atr.ataque * p.ataque +
-    atr.defesa * p.defesa +
-    atr.passe * p.passe +
-    atr.velocidade * p.velocidade +
-    atr.fisico * p.fisico +
-    atr.goleiro * p.goleiro;
+  let v = 0;
+  for (const [k, p] of Object.entries(PESOS[pos]) as [keyof Atributos, number][]) v += atr[k] * p;
   return Math.round(Math.min(100, Math.max(1, v)));
 }
 

@@ -1,5 +1,5 @@
 import { escalar, FORMACOES, forcaSetores } from "../engine/ratings";
-import { POSICOES, type Time } from "../engine/types";
+import { ATRIBUTOS, POSICOES, SIGLA_ATRIBUTO, type Time } from "../engine/types";
 
 interface Props {
   time: Time;
@@ -65,12 +65,9 @@ export function TelaElenco({ time, onChange }: Props) {
             <th>Nac</th>
             <th>Auge</th>
             <th>Geral</th>
-            <th title="Ataque">ATQ</th>
-            <th title="Defesa">DEF</th>
-            <th title="Passe">PAS</th>
-            <th title="Velocidade">VEL</th>
-            <th title="Físico">FIS</th>
-            <th title="Goleiro">GOL</th>
+            {ATRIBUTOS.map((k) => (
+              <th key={k}>{SIGLA_ATRIBUTO[k]}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -93,12 +90,9 @@ export function TelaElenco({ time, onChange }: Props) {
                 <td>{j.nacionalidade}</td>
                 <td>{j.auge ?? "atual"}</td>
                 <td className="geral">{j.geral}</td>
-                <td>{j.atributos.ataque}</td>
-                <td>{j.atributos.defesa}</td>
-                <td>{j.atributos.passe}</td>
-                <td>{j.atributos.velocidade}</td>
-                <td>{j.atributos.fisico}</td>
-                <td>{j.atributos.goleiro}</td>
+                {ATRIBUTOS.map((k) => (
+                  <td key={k}>{j.atributos[k]}</td>
+                ))}
               </tr>
             );
           })}

@@ -8,14 +8,27 @@ export const POSICOES: Posicao[] = ["GOL", "ZAG", "LAT", "VOL", "MEI", "ATA"];
 
 export type Pe = "D" | "E" | "A"; // direito, esquerdo, ambidestro
 
+/** Oito atributos de 1 a 100. O geral é a média ponderada pela posição. */
 export interface Atributos {
-  ataque: number; // 1-100
-  defesa: number;
-  passe: number;
-  velocidade: number;
-  fisico: number;
-  goleiro: number;
+  finalizacao: number; // chute, cabeceio, frieza na área
+  passe: number; // passe curto e longo, cruzamento, visão
+  drible: number; // condução, controle, um contra um
+  velocidade: number; // arranque e velocidade final
+  defesa: number; // marcação, desarme, posicionamento
+  fisico: number; // força, resistência, jogo aéreo
+  mentalidade: number; // liderança, decisão, frieza em jogo grande
+  goleiro: number; // reflexo, colocação, saída do gol
 }
+
+export const ATRIBUTOS: (keyof Atributos)[] = [
+  "finalizacao", "passe", "drible", "velocidade", "defesa", "fisico", "mentalidade", "goleiro",
+];
+
+/** Siglas curtas para cartas e tabelas. */
+export const SIGLA_ATRIBUTO: Record<keyof Atributos, string> = {
+  finalizacao: "FIN", passe: "PAS", drible: "DRI", velocidade: "VEL",
+  defesa: "DEF", fisico: "FIS", mentalidade: "MEN", goleiro: "GOL",
+};
 
 export interface Jogador {
   /** Slug único e estável. Saves e o modo online referenciam por ele. */

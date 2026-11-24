@@ -47,8 +47,9 @@ Os dois tipos usam o **mesmo formato** e o mesmo motor de partida
 Limite de lendas em campo **[suposição]**: no máximo 3 clássicos entre os
 titulares, para o elenco atual continuar importando. Configurável.
 
-Posições simples (GOL, ZAG, LAT, VOL, MEI, ATA), seis atributos de 1 a 100 e
-um **geral** ponderado pela posição (`src/engine/ratings.ts`). Jogador fora
+Posições simples (GOL, ZAG, LAT, VOL, MEI, ATA), oito atributos de 1 a 100
+(finalização, passe, drible, velocidade, defesa, físico, mentalidade,
+goleiro) e um **geral** ponderado pela posição (`src/engine/ratings.ts`). Jogador fora
 de posição rende 90% (50% quando envolve o gol).
 
 ## 3. De onde vêm os elencos atuais

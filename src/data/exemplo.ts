@@ -11,7 +11,18 @@ type Linha = [id: string, nome: string, nac: string, pos: Posicao, pe: Pe, auge:
 
 function montar(l: Linha): Jogador {
   const [id, nome, nacionalidade, posicao, pe, auge, clubeMarcante, ataque, defesa, passe, velocidade, fisico, goleiro] = l;
-  const atributos: Atributos = { ataque, defesa, passe, velocidade, fisico, goleiro };
+  // Valores antigos (6 atributos) convertidos para os 8 atuais.
+  const gk = posicao === "GOL";
+  const atributos: Atributos = {
+    finalizacao: ataque,
+    passe,
+    drible: gk ? 20 : Math.round(0.5 * ataque + 0.3 * passe + 0.2 * velocidade),
+    velocidade,
+    defesa,
+    fisico,
+    mentalidade: Math.round((ataque + defesa + passe + fisico + goleiro) / 5 + 15),
+    goleiro,
+  };
   return {
     id, nome, nacionalidade, posicao, pe, auge, clubeMarcante, atributos,
     epoca: { inicio: auge - 8, fim: auge + 6 }, // aproximação para o exemplo

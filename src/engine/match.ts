@@ -30,7 +30,7 @@ const fatorDesequilibrio = (r: number, intensidade: number) => Math.pow(r / 0.5,
 
 function escolherFinalizador(rng: Rng, vagas: Vaga[]) {
   const peso: Record<string, number> = { ATA: 6, MEI: 3, VOL: 1, LAT: 1, ZAG: 0.6, GOL: 0 };
-  return escolherPonderado(rng, vagas, (v) => peso[v.pos] * (v.jogador.atributos.ataque / 50));
+  return escolherPonderado(rng, vagas, (v) => peso[v.pos] * (v.jogador.atributos.finalizacao / 50));
 }
 
 export function simularPartida(mandante: Time, visitante: Time, seed: number): ResultadoPartida {
@@ -74,7 +74,7 @@ export function simularPartida(mandante: Time, visitante: Time, seed: number): R
     const gk = def.vagas.find((v) => v.pos === "GOL")?.jogador;
     const goleiro = def.forca.goleiro;
     const pGol =
-      PARAMS.golBase * fatorDesequilibrio(razao(fin.jogador.atributos.ataque, goleiro), 2);
+      PARAMS.golBase * fatorDesequilibrio(razao(fin.jogador.atributos.finalizacao, goleiro), 2);
 
     if (rng() < pGol) {
       atk.gols++;

@@ -13,38 +13,26 @@ e os atributos saem do nível do clube + papel + uma variação fixa por nome.
 Corrija editando o .txt (colunas 6 e 7) e rode de novo:
     python3 scripts/gerar_atuais.py
 """
-import hashlib, json, re, sys, unicodedata
+import json, re, sys, unicodedata
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-PESOS = {  # igual a src/engine/ratings.ts
-    "GOL": dict(ataque=0, defesa=0.1, passe=0.05, velocidade=0, fisico=0.05, goleiro=0.8),
-    "ZAG": dict(ataque=0, defesa=0.55, passe=0.1, velocidade=0.1, fisico=0.25, goleiro=0),
-    "LAT": dict(ataque=0.1, defesa=0.35, passe=0.2, velocidade=0.25, fisico=0.1, goleiro=0),
-    "VOL": dict(ataque=0.05, defesa=0.4, passe=0.3, velocidade=0.05, fisico=0.2, goleiro=0),
-    "MEI": dict(ataque=0.3, defesa=0.05, passe=0.45, velocidade=0.1, fisico=0.1, goleiro=0),
-    "ATA": dict(ataque=0.6, defesa=0, passe=0.1, velocidade=0.2, fisico=0.1, goleiro=0),
-}
+sys.path.insert(0, str(Path(__file__).parent))
+from atributos import ATRIBUTOS, PESOS, ajustar_ao_alvo, geral, ruido  # noqa: E402
+
 # Atributos relativos ao alvo N (N = força desejada no papel principal).
 MODELOS = {
-    "GOL": lambda N: dict(ataque=10, defesa=N - 30, passe=N - 30, velocidade=N - 35, fisico=N - 10, goleiro=N),
-    "ZAG": lambda N: dict(ataque=N - 45, defesa=N, passe=N - 18, velocidade=N - 15, fisico=N, goleiro=10),
-    "LAT": lambda N: dict(ataque=N - 15, defesa=N - 3, passe=N - 6, velocidade=N + 3, fisico=N - 8, goleiro=10),
-    "VOL": lambda N: dict(ataque=N - 22, defesa=N, passe=N - 2, velocidade=N - 12, fisico=N - 3, goleiro=10),
-    "MEI": lambda N: dict(ataque=N - 4, defesa=N - 35, passe=N + 1, velocidade=N - 6, fisico=N - 14, goleiro=10),
-    "ATA": lambda N: dict(ataque=N + 1, defesa=N - 50, passe=N - 15, velocidade=N - 4, fisico=N - 8, goleiro=10),
+    "GOL": lambda N: dict(finalizacao=10, passe=N - 30, drible=20, velocidade=N - 35, defesa=N - 40, fisico=N - 10, mentalidade=N - 4, goleiro=N),
+    "ZAG": lambda N: dict(finalizacao=N - 45, passe=N - 18, drible=N - 30, velocidade=N - 15, defesa=N, fisico=N, mentalidade=N - 5, goleiro=10),
+    "LAT": lambda N: dict(finalizacao=N - 25, passe=N - 6, drible=N - 10, velocidade=N + 3, defesa=N - 3, fisico=N - 8, mentalidade=N - 8, goleiro=10),
+    "VOL": lambda N: dict(finalizacao=N - 25, passe=N - 2, drible=N - 15, velocidade=N - 12, defesa=N, fisico=N - 3, mentalidade=N - 4, goleiro=10),
+    "MEI": lambda N: dict(finalizacao=N - 8, passe=N + 1, drible=N, velocidade=N - 6, defesa=N - 35, fisico=N - 14, mentalidade=N - 4, goleiro=10),
+    "ATA": lambda N: dict(finalizacao=N + 1, passe=N - 15, drible=N - 4, velocidade=N - 4, defesa=N - 50, fisico=N - 8, mentalidade=N - 6, goleiro=10),
 }
-
-def geral(atr, pos):
-    return max(1, min(100, round(sum(atr[k] * p for k, p in PESOS[pos].items()))))
 
 def slug(s):
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
-
-def ruido(chave, a, b):
-    h = int(hashlib.md5(chave.encode()).hexdigest(), 16)
-    return a + h % (b - a + 1)
 
 def posicoes_finas(jogadores):
     """Distribui DF em ZAG/LAT e MF em VOL/MEI pela numeração."""
@@ -99,12 +87,8 @@ def main():
             papel = 3 if j["camisa"] <= 11 else (-5 if j["camisa"] >= 40 else 0)
             N = j["alvo"] or destaques.get((clube, j["nome"])) or nivel + papel + ruido(clube + j["nome"], -7, 4)
             atr = {k: max(1, min(99, v)) for k, v in MODELOS[pos](N).items()}
-            # Ajusta os atributos que pesam na posição até o geral bater o alvo.
-            for _ in range(5):
-                d = N - geral(atr, pos)
-                if d == 0: break
-                for k, p in PESOS[pos].items():
-                    if p >= 0.1: atr[k] = max(1, min(99, atr[k] + d))
+            ajustar_ao_alvo(atr, pos, N)
+            atr = {k: atr[k] for k in ATRIBUTOS}
             # id = nome + clube de origem. Fica fixo mesmo se o jogador mudar de
             # clube depois, e nunca colide com os ids dos clássicos.
             pid = f"{slug(j['nome'])}-{clube}"

@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+/** Os 8 atributos, na ordem do jogo (src/engine/types.ts). */
+const ATRIBUTOS = ['finalizacao', 'passe', 'drible', 'velocidade', 'defesa', 'fisico', 'mentalidade', 'goleiro'];
+
 function config(): array
 {
     static $c = null;
@@ -51,14 +54,7 @@ function linhaParaJogador(array $r): array
         'nacionalidade' => $r['nacionalidade'],
         'posicao' => $r['posicao'],
         'pe' => $r['pe'],
-        'atributos' => [
-            'ataque' => (int) $r['ataque'],
-            'defesa' => (int) $r['defesa'],
-            'passe' => (int) $r['passe'],
-            'velocidade' => (int) $r['velocidade'],
-            'fisico' => (int) $r['fisico'],
-            'goleiro' => (int) $r['goleiro'],
-        ],
+        'atributos' => array_combine(ATRIBUTOS, array_map(fn($k) => (int) $r[$k], ATRIBUTOS)),
         'geral' => (int) $r['geral'],
     ];
     if ($r['nome_completo'] !== null) $j['nomeCompleto'] = $r['nome_completo'];
