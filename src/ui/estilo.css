@@ -79,3 +79,13 @@ input.busca { background: var(--painel); color: var(--texto); border: 1px solid 
 .raridade-prata { background: linear-gradient(135deg, #e3e6ea, #a9b0b8); }
 .raridade-bronze { background: linear-gradient(135deg, #e0b48a, #a8704a); }
 .clube select { font-weight: 600; }
+:root { color-scheme: dark; }
+.rolagem { overflow-x: auto; }
+.topo { flex-wrap: wrap; }
+@media (max-width: 600px) {
+  .topo nav { margin-left: 0; }
+  .forcas { margin-left: 0; }
+  .placar { padding: 12px; gap: 8px; }
+  .placar .lado { font-size: 15px; }
+  .placar .gols { font-size: 28px; }
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { buscarJogadores } from "../data/api";
+import { buscarJogadores, filtrarLocal, LENDAS_EMBUTIDAS } from "../data/api";
 import { POSICOES, type Jogador, type Posicao } from "../engine/types";
 
 /** Catálogo das lendas vindo do MySQL pela API PHP. */
@@ -8,15 +8,25 @@ export function TelaLendas() {
   const [busca, setBusca] = useState("");
   const [lista, setLista] = useState<Jogador[] | null>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [offline, setOffline] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => {
-      buscarJogadores({ tipo: "classico", posicao: posicao || undefined, busca })
+      const filtro = { tipo: "classico" as const, posicao: posicao || undefined, busca };
+      buscarJogadores(filtro)
         .then((l) => {
           setLista(l);
           setErro(null);
+          setOffline(false);
         })
-        .catch((e) => setErro(String(e.message ?? e)));
+        .catch((e) => {
+          // Sem API (ex.: sem XAMPP): usa as lendas embutidas no build, se houver.
+          if (LENDAS_EMBUTIDAS.length) {
+            setLista(filtrarLocal(LENDAS_EMBUTIDAS, filtro));
+            setOffline(true);
+            setErro(null);
+          } else setErro(String(e.message ?? e));
+        });
     }, 200);
     return () => clearTimeout(t);
   }, [posicao, busca]);
@@ -39,7 +49,11 @@ export function TelaLendas() {
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
         />
-        {lista && <span className="suave">{lista.length} lendas</span>}
+        {lista && (
+          <span className="suave">
+            {lista.length} lendas{offline ? " (dados embutidos, sem servidor)" : ""}
+          </span>
+        )}
       </div>
       {erro && (
         <p className="aviso">

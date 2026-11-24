@@ -21,3 +21,17 @@ export async function buscarJogadores(filtro: FiltroJogadores = {}): Promise<Jog
   if (!r.ok) throw new Error(`API respondeu ${r.status}`);
   return r.json();
 }
+
+/**
+ * Lendas embutidas no build (data/jogadores.json, se existir no repositório).
+ * Usadas quando a API PHP não responde: o modo solo funciona offline.
+ */
+const embutidas = import.meta.glob<{ default: Jogador[] }>("../../data/jogadores.json", { eager: true });
+export const LENDAS_EMBUTIDAS: Jogador[] = Object.values(embutidas)[0]?.default ?? [];
+
+export function filtrarLocal(lista: Jogador[], f: FiltroJogadores): Jogador[] {
+  const busca = f.busca?.toLowerCase();
+  return lista
+    .filter((j) => (!f.posicao || j.posicao === f.posicao) && (!busca || j.nome.toLowerCase().includes(busca)))
+    .sort((a, b) => b.geral - a.geral || a.nome.localeCompare(b.nome));
+}

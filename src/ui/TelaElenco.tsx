@@ -55,6 +55,7 @@ export function TelaElenco({ time, onChange }: Props) {
           {time.titulares.length}/11 titulares escolhidos. Clique em reservas para completar.
         </p>
       )}
+      <div className="rolagem">
       <table className="elenco">
         <thead>
           <tr>
@@ -103,6 +104,7 @@ export function TelaElenco({ time, onChange }: Props) {
           })}
         </tbody>
       </table>
+      </div>
     </section>
   );
 }
