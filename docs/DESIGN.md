@@ -184,10 +184,10 @@ O jogador pode ficar só no offline para sempre; o online é opcional.
 
 | Modo | Contra quem | Time usado | Salário e caixa | Recompensa |
 | --- | --- | --- | --- | --- |
-| **Carreira** (PvE, offline) | IA, campeonato completo com tabela | elenco do seu clube + até 3 lendas | **sim** | moedas por partida e por posição |
-| **Desafios PvE** | times montados pela IA (ex.: "Seleção de 1970", "só jogadores do Nordeste") | seu time de cartas | não | moedas, pacotes, carta específica |
-| **Desafios PvP** | outro técnico, sem ranking (inclui desafio de amigo por convite) | seu time de cartas | não | moedas (menos que no ranqueado) |
-| **Ranqueado** (PvP online) | técnico real, por pareamento | seu time de cartas | não | pontos de liga, prêmios de fim de temporada |
+| **Carreira** (PvE, offline) | IA, campeonato completo com tabela | elenco do seu clube + até 3 lendas | sim, por rodada | moedas por partida e por posição |
+| **Desafios PvE** | times montados pela IA (ex.: "Seleção de 1970", "só jogadores do Nordeste") | seu time de cartas | sim, por partida | caixa, moedas, pacotes, carta específica |
+| **Desafios PvP** | outro técnico, sem ranking (inclui desafio de amigo por convite) | seu time de cartas | sim, por partida | caixa e moedas (menos que no ranqueado) |
+| **Ranqueado** (PvP online) | técnico real, por pareamento | seu time de cartas | sim, por partida | caixa, pontos de liga, prêmios de fim de temporada |
 | Liga privada (depois) | amigos + IA, temporada completa | clube real, como na carreira | sim | como na carreira |
 
 **Time de cartas** (ranqueado e desafios): o técnico monta um time só com
@@ -195,6 +195,29 @@ cartas que tem. **Cartas base** (jogadores atuais) são compradas do sistema
 com moedas; **lendas** vêm de pacotes ou do mercado entre técnicos. Vale o
 mesmo limite de 3 lendas em campo. **[suposição]** Na carreira, o elenco é
 o do clube; as cartas base não entram lá.
+
+### Caixa e salário no online (decidido em 24/11/2026)
+
+O time de cartas também tem **caixa** (em R$, separado das moedas de
+pacote) e **salário por partida**:
+
+- **Custo da partida** = salário dos 11 titulares e de quem entrar no
+  jogo, um quarto do salário mensal de cada (o mesmo que uma rodada da
+  carreira). Cartas base de geral alto custam mais.
+- **Lendas cobram cachê por partida [suposição]**: mais caro que um atual
+  do mesmo geral (ex.: o dobro), para que escalar 3 lendas seja uma
+  escolha de custo, não automática.
+- **Sem caixa para o custo, não joga**: o botão de jogar fica bloqueado e o
+  jogo mostra quanto falta. Para sair do aperto: escalar cartas mais
+  baratas, vender cartas ao sistema ou a outros técnicos, ou jogar os
+  desafios PvE de treino, que têm custo zero e pagam pouco.
+- **Receitas**: prêmio por partida (vitória paga mais que o custo de um
+  time típico da sua divisão; derrota cobre parte), prêmio maior quanto
+  mais alta a divisão, e patrocínio diário pequeno ao entrar no jogo.
+  Assim um time caro demais para a sua divisão dá prejuízo, e montar o
+  time vira gestão de orçamento, como na carreira.
+- Os valores exatos se calibram com simulação, como foi feito na carreira
+  (receita cobrindo a folha com pequena sobra).
 
 ### Ranqueado
 
