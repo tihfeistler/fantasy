@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Jogadores clássicos",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "nome", "nacionalidade", "posicao", "pe", "epoca", "auge", "atributos", "geral"],
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Slug único e estável; saves e modo online usam ele." },
+      "nome": { "type": "string" },
+      "nomeCompleto": { "type": "string" },
+      "nacionalidade": { "type": "string", "pattern": "^[A-Z]{3}$", "description": "Código FIFA de 3 letras da seleção na época do auge (ex.: FRG, URS, TCH, YUG)." },
+      "posicao": { "enum": ["GOL", "ZAG", "LAT", "VOL", "MEI", "ATA"] },
+      "pe": { "enum": ["D", "E", "A"] },
+      "epoca": {
+        "type": "object",
+        "required": ["inicio", "fim"],
+        "additionalProperties": false,
+        "properties": { "inicio": { "type": "integer" }, "fim": { "type": "integer" } }
+      },
+      "auge": { "type": "integer", "description": "Ano do auge: a versão do jogador usada no jogo." },
+      "clubeMarcante": { "type": "string" },
+      "atributos": {
+        "type": "object",
+        "required": ["ataque", "defesa", "passe", "velocidade", "fisico", "goleiro"],
+        "additionalProperties": false,
+        "properties": {
+          "ataque": { "$ref": "#/$defs/nota" },
+          "defesa": { "$ref": "#/$defs/nota" },
+          "passe": { "$ref": "#/$defs/nota" },
+          "velocidade": { "$ref": "#/$defs/nota" },
+          "fisico": { "$ref": "#/$defs/nota" },
+          "goleiro": { "$ref": "#/$defs/nota" }
+        }
+      },
+      "geral": { "$ref": "#/$defs/nota" }
+    }
+  },
+  "$defs": { "nota": { "type": "integer", "minimum": 1, "maximum": 100 } }
+}
