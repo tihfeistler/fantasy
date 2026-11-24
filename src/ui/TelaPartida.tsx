@@ -82,6 +82,13 @@ export function TelaPartida({ meuTime, adversarios }: Props) {
         )}
       </div>
 
+      {meuTime.titulares.length > 0 && meuTime.titulares.length < 11 && (
+        <p className="aviso">
+          Seu time tem só {meuTime.titulares.length} titulares e vai jogar com menos gente. Complete a escalação na aba
+          Elenco.
+        </p>
+      )}
+
       <div className="placar">
         <Lado time={mandante} rotulo="Mandante" />
         <div className="placar-centro">

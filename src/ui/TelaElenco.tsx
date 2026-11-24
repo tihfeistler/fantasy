@@ -33,15 +33,21 @@ export function TelaElenco({ time, onChange }: Props) {
     onChange({ ...time, titulares: novos });
   };
 
+  // Cada linha do campo mostra as vagas da formação; vaga sem jogador fica vazia.
   // Laterais ficam nas pontas da linha de defesa: LAT, ZAG..., LAT
-  const linhaDoCampo = (ps: Posicao[]): Vaga[] => {
-    const vs = vagas.filter((v) => ps.includes(v.pos));
-    if (!ps.includes("LAT")) return vs;
-    const lats = vs.filter((v) => v.pos === "LAT");
-    const zags = vs.filter((v) => v.pos === "ZAG");
-    return [lats[0], ...zags, lats[1]].filter(Boolean) as Vaga[];
+  const esperadas = vagasDaFormacao(time.formacao);
+  const linhaDoCampo = (ps: Posicao[]): (Vaga | { pos: Posicao; jogador: null })[] => {
+    const comVazias = (pos: Posicao) => {
+      const cheias: (Vaga | { pos: Posicao; jogador: null })[] = vagas.filter((v) => v.pos === pos);
+      const faltam = esperadas.filter((p) => p === pos).length - cheias.length;
+      for (let i = 0; i < faltam; i++) cheias.push({ pos, jogador: null });
+      return cheias;
+    };
+    if (!ps.includes("LAT")) return ps.flatMap(comVazias);
+    const lats = comVazias("LAT");
+    return [lats[0], ...comVazias("ZAG"), ...lats.slice(1)].filter(Boolean);
   };
-  const vagasEsperadas = vagasDaFormacao(time.formacao).length;
+  const vagasVazias = esperadas.length - vagas.length;
 
   return (
     <section className="tela">
@@ -92,19 +98,30 @@ export function TelaElenco({ time, onChange }: Props) {
               if (!vs.length) return null;
               return (
                 <div key={ps.join()} className="linha-campo">
-                  {vs.map((v) => (
-                    <CartaJogador
-                      key={v.jogador.id}
-                      jogador={v.jogador}
-                      tamanho="mini"
-                      posEmCampo={v.pos}
-                      onClick={() => alternarTitular(v.jogador.id)}
-                    />
-                  ))}
+                  {vs.map((v, i) =>
+                    v.jogador ? (
+                      <CartaJogador
+                        key={v.jogador.id}
+                        jogador={v.jogador}
+                        tamanho="mini"
+                        posEmCampo={v.pos}
+                        onClick={() => alternarTitular(v.jogador!.id)}
+                      />
+                    ) : (
+                      <div key={`vazia-${v.pos}-${i}`} className={`vaga-vazia setor-${setor(v.pos)}`}>
+                        <span className="carta-pos">{v.pos}</span>
+                        <span>Vaga</span>
+                      </div>
+                    ),
+                  )}
                 </div>
               );
             })}
-            {vagas.length < vagasEsperadas && <p className="campo-aviso">Faltam jogadores em campo</p>}
+            {vagasVazias > 0 && (
+              <p className="campo-aviso">
+                {vagasVazias === 1 ? "1 vaga vazia" : `${vagasVazias} vagas vazias`}: clique num reserva para escalar
+              </p>
+            )}
           </div>
           <div className="reservas">
             <h2>

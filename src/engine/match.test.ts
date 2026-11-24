@@ -52,6 +52,14 @@ describe("simularPartida", () => {
 });
 
 describe("escalar", () => {
+  it("com titulares escolhidos, usa só eles e deixa a vaga vazia", () => {
+    const auto = escalar(a).map((v) => v.jogador.id);
+    const semUm = { ...a, titulares: auto.slice(1) };
+    const v = escalar(semUm);
+    expect(v).toHaveLength(10);
+    expect(v.map((x) => x.jogador.id)).not.toContain(auto[0]);
+  });
+
   it("escala 11 com um goleiro", () => {
     const v = escalar(a);
     expect(v).toHaveLength(11);

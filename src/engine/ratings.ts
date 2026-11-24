@@ -57,13 +57,13 @@ export function vagasDaFormacao(f: Formacao): Posicao[] {
 }
 
 /**
- * Escala os 11 melhores para a formação (guloso por vaga). Se o time já
- * tiver titulares definidos, respeita-os e só posiciona.
+ * Escala os 11 melhores para a formação (guloso por vaga). Se o técnico
+ * escolheu titulares (mesmo menos de 11), usa só eles e deixa vagas vazias.
  */
 export function escalar(time: Time): Vaga[] {
   const vagas = vagasDaFormacao(time.formacao);
   const pool =
-    time.titulares.length === 11
+    time.titulares.length > 0
       ? time.elenco.filter((j) => time.titulares.includes(j.id))
       : [...time.elenco];
   const usados = new Set<string>();
