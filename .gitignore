@@ -2,3 +2,4 @@ node_modules
 dist
 *.local
 api/config.local.php
+__pycache__/
