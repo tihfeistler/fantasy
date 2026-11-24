@@ -803,3 +803,27 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
 .etiqueta { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; vertical-align: 1px; }
 .etiqueta.barato { background: #123d2a; color: #8ff0c0; }
 .etiqueta.caro { background: #4a1f1a; color: #ffb3a8; }
+
+/* ---------- Mercado de cartas entre técnicos ---------- */
+.mercado-modos { margin-bottom: 16px; }
+.mercado-modos .contador { margin-left: 6px; }
+.simulacao { margin: 0 0 8px; padding: 10px 14px; border-radius: 10px; border: 1px dashed #4ea8ff; background: #0f2440; color: #cfe5ff; font-size: 13px; }
+.simulacao b { color: #fff; }
+.anuncio-info { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 8px; font-size: 12px; }
+.anuncio-info b { display: inline-flex; align-items: center; gap: 4px; font-family: var(--fonte-titulo); font-size: 20px; color: var(--destaque); }
+.preco-ref { width: 100%; font-size: 11px; font-weight: 700; }
+.preco-ref.barato { color: #8ff0c0; }
+.preco-ref.caro { color: #ffb3a8; }
+.proposta-form { display: flex; gap: 6px; }
+.proposta-form input, .anunciar-form input {
+  min-width: 0; flex: 1; background: var(--fundo-2); border: 1px solid var(--linha); border-radius: 8px; padding: 8px 10px; color: var(--texto);
+}
+.ml-linha.ml-proposta { grid-template-columns: minmax(0, 1fr) 120px 120px; }
+.anunciar-form { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 18px; align-items: start; }
+.anunciar-form .campo-form { display: flex; flex-direction: column; gap: 4px; }
+@media (max-width: 600px) {
+  .anunciar-form { grid-template-columns: minmax(0, 1fr); }
+  .anunciar-form > .carta { max-width: 180px; }
+  .ml-linha.ml-proposta { grid-template-columns: 1fr 1fr; }
+  .ml-linha.ml-proposta .ml-nome { grid-column: 1 / -1; }
+}

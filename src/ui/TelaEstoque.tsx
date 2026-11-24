@@ -9,6 +9,8 @@ import {
   valorDeVenda,
 } from "../engine/pacotes";
 import type { Jogador, Time } from "../engine/types";
+import { useState } from "react";
+import { precoReferencia, PRECO_MAXIMO, PRECO_MINIMO } from "../engine/mercadoCartas";
 import { copias, limiteCartas, totalCartas, type Progresso } from "../data/progresso";
 import { CartaJogador } from "./CartaJogador";
 import { Modal } from "./Modal";
@@ -21,6 +23,8 @@ interface Props {
   onFecharPacote: () => void;
   onComprar: () => void;
   onAmpliar: () => void;
+  /** Anuncia a carta do estoque (índice) no mercado entre técnicos. */
+  onAnunciar: (indice: number, preco: number) => void;
   onVender: (indice: number) => void;
   onLevar: (indice: number) => void;
   onDevolver: (id: string) => void;
@@ -40,6 +44,10 @@ export function TelaEstoque(p: Props) {
   const semEspaco = total + CARTAS_POR_PACOTE > limite;
   const semMoedas = progresso.moedas < PRECO_PACOTE;
   const ampliavel = limite < LIMITE_CARTAS_MAXIMO;
+  const [anunciando, setAnunciando] = useState<{ i: number; j: Jogador } | null>(null);
+  const [preco, setPreco] = useState("");
+  const precoNum = Number(preco);
+  const precoOk = Number.isInteger(precoNum) && precoNum >= PRECO_MINIMO && precoNum <= PRECO_MAXIMO;
 
   return (
     <section className="tela">
@@ -125,8 +133,21 @@ export function TelaEstoque(p: Props) {
                 >
                   {jaNoElenco ? "Já está no elenco" : "Levar para o elenco"}
                 </button>
-                <button className="botao discreto" onClick={() => p.onVender(i)}>
-                  Vender · {valorDeVenda(j, copias(progresso, j.id))}
+                <button
+                  className="botao"
+                  onClick={() => {
+                    setAnunciando({ i, j });
+                    setPreco(String(precoReferencia(j)));
+                  }}
+                >
+                  Anunciar a técnicos
+                </button>
+                <button
+                  className="botao discreto"
+                  onClick={() => p.onVender(i)}
+                  title="Venda imediata ao sistema pelo preço básico"
+                >
+                  Vender ao sistema · {valorDeVenda(j, copias(progresso, j.id))}
                 </button>
               </div>
             );
@@ -134,6 +155,45 @@ export function TelaEstoque(p: Props) {
         </div>
       ) : (
         <p className="vazio-bloco">Seu estoque está vazio. Abra um pacote para ganhar cartas de lendas.</p>
+      )}
+
+      {anunciando && (
+        <Modal titulo={`Anunciar ${anunciando.j.nome}`} onFechar={() => setAnunciando(null)}>
+          <form
+            className="anunciar-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!precoOk) return;
+              p.onAnunciar(anunciando.i, precoNum);
+              setAnunciando(null);
+            }}
+          >
+            <CartaJogador jogador={anunciando.j} />
+            <div>
+              <label className="campo-form">
+                <span className="rotulo">Preço em moedas</span>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={PRECO_MINIMO}
+                  max={PRECO_MAXIMO}
+                  value={preco}
+                  onChange={(e) => setPreco(e.target.value)}
+                  autoFocus
+                />
+              </label>
+              <p className="suave">
+                Preço de referência: {precoReferencia(anunciando.j)}. Vendendo ao sistema você receberia{" "}
+                {valorDeVenda(anunciando.j, copias(progresso, anunciando.j.id))}. Quanto mais barato, mais rápido outro
+                técnico compra. Na venda sai uma taxa de 5%: você recebe {precoOk ? precoNum - Math.ceil(precoNum * 0.05) : "–"}.
+              </p>
+              <p className="suave">A carta sai do estoque enquanto estiver anunciada. Dá para tirar do mercado a qualquer momento.</p>
+              <button className="botao primario" type="submit" disabled={!precoOk}>
+                Anunciar
+              </button>
+            </div>
+          </form>
+        </Modal>
       )}
 
       {p.pacoteAberto && (

@@ -89,9 +89,46 @@ arquivo separado do código, fácil de trocar.
   "seja campeão" rendem pacotes ou uma lenda específica.
 - **Desafios de montagem**: troque várias cartas repetidas ou fracas por uma
   carta melhor.
-- **Mercado de cartas**: no modo online, técnicos negociam cartas entre si
-  com moedas de coleção. No modo solo, há uma loja que roda a cada semana.
+- **Mercado de cartas entre técnicos**: a outra forma de conseguir lendas
+  (ver abaixo).
 - Cartas repetidas viram moedas.
+
+### Regras do mercado (decididas)
+
+| Carta | Do sistema | Entre técnicos | Vender ao sistema |
+| --- | --- | --- | --- |
+| **Base** (jogador atual) | compra direto do clube dono, preço por oferta e procura (seção 6) | não, por enquanto | proposta da IA de um clube (seção 6) |
+| **Especial** (lenda) | **não**: só pacotes ou outros técnicos | sim: anúncio com preço fixo ou proposta | sim, pelo **preço básico** (comum 100, rara 200, ícone 400; -15% por cópia repetida, até a metade) |
+
+Mercado entre técnicos (moedas de coleção):
+
+- **Quem quer vender anuncia** a carta com o preço que quiser (10 a
+  1.000.000). A carta fica fora do estoque enquanto anunciada e pode ser
+  retirada a qualquer momento.
+- **Quem quer comprar** paga o preço anunciado ou **manda uma proposta** por
+  qualquer carta de outro técnico (anunciada ou não). O dono aceita ou
+  recusa. Proposta não reserva moedas; se o comprador não tiver saldo na
+  hora do aceite, a venda falha. Uma proposta nova do mesmo técnico pela
+  mesma carta substitui a anterior; quando a carta muda de dono, as outras
+  propostas expiram.
+- **Taxa de 5%** sobre a venda, paga pelo vendedor: tira moedas de
+  circulação e desestimula revenda em ciclo.
+- Preço de referência mostrado como guia (comum 150 a 300, rara 450 a 800,
+  ícone a partir de 1.800, subindo com o geral). Futuro: usar a média das
+  últimas vendas reais (tabela `vendas`).
+
+Implementação:
+
+- **Online**: `api/auth.php` (conta com nome e senha, login por sessão PHP)
+  e `api/mercado.php` (anúncios, compra, propostas, aceitar/recusar, venda
+  ao sistema), com transações e `SELECT ... FOR UPDATE` para não vender a
+  mesma carta duas vezes. Tabelas `anuncios`, `propostas` e `vendas` em
+  `sql/schema.sql`.
+- **Prévia (sem servidor)**: os outros técnicos são **simulados** e a tela
+  avisa isso. A cada rodada eles anunciam cartas, compram as suas (quanto
+  mais barato em relação à referência, mais rápido) e mandam propostas.
+  Às suas propostas respondem na hora: aceitam a partir de 90% do preço,
+  recusam abaixo de 75%, e no meio depende da sorte.
 
 ## 5. Simulação de partidas
 
@@ -141,7 +178,8 @@ Fase posterior:
 - Ligas privadas com amigos, completadas pela IA.
 - Rodadas em horário fixo ou quando todos confirmam.
 - Servidor autoritativo roda as partidas (ver seção 8 sobre o motor em PHP).
-- Mercado de cartas e de jogadores entre técnicos.
+- Mercado de cartas entre técnicos (backend feito: contas, anúncios, propostas; falta ligar o front ao servidor).
+- Mercado de jogadores atuais entre técnicos da mesma liga.
 
 ## 8. Plataforma, stack e roteiro
 
@@ -165,7 +203,7 @@ Fase posterior:
 | 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (prévia feita: estoque, pacote de 5 cartas por 500 moedas, prêmio por partida, até 3 lendas entre os titulares, espaço de 300 cartas ampliável, progresso salvo no navegador) |
 | 3 | Carreira completa: mercado de atuais e finanças (prévia feita: compra, venda com propostas da IA, caixa, folha, extrato), temporadas, objetivos, save local |
 | 4 | Mais ligas (Série B, Europa), copas; PWA offline; polimento visual |
-| 5 | Modo online: contas, ligas privadas, mercado de cartas entre técnicos |
+| 5 | Modo online: contas (API feita), ligas privadas, mercado de cartas entre técnicos (API feita; na prévia, simulado) |
 
 ## 9. Perguntas em aberto
 

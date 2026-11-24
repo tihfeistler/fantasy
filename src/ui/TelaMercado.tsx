@@ -79,7 +79,7 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
   };
 
   return (
-    <section className="tela">
+    <>
       <div className="financas">
         <Indicador rotulo="Caixa" valor={formatarDinheiro(financas.caixa)} destaque />
         <Indicador rotulo="Folha mensal" valor={formatarDinheiro(folha)} />
@@ -213,7 +213,7 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
           </ul>
         </div>
       )}
-    </section>
+    </>
   );
 }
 

@@ -38,6 +38,26 @@ Se o seu MySQL tiver senha ou outra porta, crie `api/config.local.php`:
 Teste a API: http://localhost/fantasy/api/jogadores.php deve mostrar a lista
 em JSON.
 
+Já tinha o banco de uma versão anterior? Rode `sql/schema.sql` de novo no
+phpMyAdmin: ele só cria as tabelas que faltam (`anuncios`, `propostas`,
+`vendas`).
+
+### Testar o mercado de cartas pela API
+
+O mercado entre técnicos exige login. Com o Apache rodando, no terminal
+(`curl` já vem no Windows 10+):
+
+```bash
+# cria duas contas (o cookie guarda a sessão de cada uma)
+curl -c a.txt -b a.txt -H "Content-Type: application/json" -d "{\"acao\":\"registrar\",\"nome\":\"Tiago\",\"senha\":\"segredo1\"}" http://localhost/fantasy/api/auth.php
+curl -c b.txt -b b.txt -H "Content-Type: application/json" -d "{\"acao\":\"registrar\",\"nome\":\"Rafa\",\"senha\":\"segredo2\"}" http://localhost/fantasy/api/auth.php
+```
+
+Dê uma carta para a primeira conta no phpMyAdmin
+(`INSERT INTO cartas (usuario_id, jogador_id, origem) VALUES (1, 'pele', 'pacote')`)
+e use as ações de `api/mercado.php` (lista completa no topo do arquivo):
+`anunciar`, `comprar`, `propor`, `aceitar`, `recusar`, `vender_sistema`.
+
 ## 2. Jogar / desenvolver
 
 **Modo desenvolvimento** (recarrega sozinho ao editar o código):

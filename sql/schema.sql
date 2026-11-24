@@ -71,3 +71,49 @@ CREATE TABLE IF NOT EXISTS saves (
   PRIMARY KEY (usuario_id, slot),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- Mercado de cartas entre técnicos (modo online)
+-- Regras (docs/DESIGN.md, seção 4): lendas só saem de pacotes ou de
+-- outros técnicos; qualquer carta pode ser vendida ao sistema pelo preço
+-- básico. Venda entre técnicos paga taxa de 5% (sai do vendedor).
+-- ---------------------------------------------------------------------
+
+-- Carta à venda por preço fixo. Uma carta só pode ter um anúncio.
+CREATE TABLE IF NOT EXISTS anuncios (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  carta_id        INT UNSIGNED NOT NULL UNIQUE,
+  vendedor_id     INT UNSIGNED NOT NULL,
+  preco           INT UNSIGNED NOT NULL,
+  criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (carta_id) REFERENCES cartas(id) ON DELETE CASCADE,
+  FOREIGN KEY (vendedor_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  INDEX (preco)
+) ENGINE=InnoDB;
+
+-- Proposta de compra por uma carta de outro técnico (anunciada ou não).
+CREATE TABLE IF NOT EXISTS propostas (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  carta_id        INT UNSIGNED NOT NULL,
+  comprador_id    INT UNSIGNED NOT NULL,
+  valor           INT UNSIGNED NOT NULL,
+  status          ENUM('aberta','aceita','recusada','cancelada','expirada') NOT NULL DEFAULT 'aberta',
+  criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  respondida_em   DATETIME     NULL,
+  FOREIGN KEY (carta_id) REFERENCES cartas(id) ON DELETE CASCADE,
+  FOREIGN KEY (comprador_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  INDEX (carta_id, status),
+  INDEX (comprador_id, status)
+) ENGINE=InnoDB;
+
+-- Histórico de vendas (entre técnicos e ao sistema), para preço médio e auditoria.
+CREATE TABLE IF NOT EXISTS vendas (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  jogador_id      VARCHAR(64)  NOT NULL,
+  vendedor_id     INT UNSIGNED NOT NULL,
+  comprador_id    INT UNSIGNED NULL,          -- NULL = vendida ao sistema
+  valor           INT UNSIGNED NOT NULL,
+  taxa            INT UNSIGNED NOT NULL DEFAULT 0,
+  vendida_em      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX (jogador_id, vendida_em)
+) ENGINE=InnoDB;

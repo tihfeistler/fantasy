@@ -1,5 +1,6 @@
 import type { Temporada } from "../engine/campeonato";
 import type { Financas } from "../engine/mercado";
+import type { MercadoCartas } from "../engine/mercadoCartas";
 import { LIMITE_CARTAS_INICIAL } from "../engine/pacotes";
 
 /**
@@ -31,6 +32,8 @@ export interface Progresso {
   transferencias?: Record<string, string>;
   /** Caixa, receitas e extrato do clube do manager. */
   financas?: Financas;
+  /** Mercado de cartas entre técnicos (na prévia, com técnicos simulados). */
+  mercadoCartas?: MercadoCartas;
   /** Brasileirão em andamento (calendário, rodada atual e placares). */
   temporada?: Temporada;
   /** Temporadas encerradas. */
@@ -61,8 +64,12 @@ export function salvarProgresso(p: Progresso) {
 export const limiteCartas = (p: Progresso) => Math.max(p.limiteCartas ?? 0, LIMITE_CARTAS_INICIAL);
 /** Cartas que o manager tem: estoque mais lendas levadas a qualquer elenco. */
 export const totalCartas = (p: Progresso) =>
-  p.estoque.length + Object.values(p.noElenco).reduce((n, ids) => n + ids.length, 0);
+  p.estoque.length +
+  Object.values(p.noElenco).reduce((n, ids) => n + ids.length, 0) +
+  (p.mercadoCartas?.meus.length ?? 0);
 
 /** Cópias de uma lenda que o manager tem (estoque + elencos). */
 export const copias = (p: Progresso, id: string) =>
-  p.estoque.filter((x) => x === id).length + Object.values(p.noElenco).filter((ids) => ids.includes(id)).length;
+  p.estoque.filter((x) => x === id).length +
+  Object.values(p.noElenco).filter((ids) => ids.includes(id)).length +
+  (p.mercadoCartas?.meus.filter((a) => a.jogadorId === id).length ?? 0);

@@ -37,6 +37,8 @@ function iniciarApi(): void
     header('Access-Control-Allow-Origin: ' . config()['cors_origem']);
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
+    // Login por sessão (cookie): o front precisa usar credentials: "include".
+    header('Access-Control-Allow-Credentials: true');
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') exit;
     set_exception_handler(function (Throwable $e) {
         error_log((string) $e);
@@ -65,4 +67,46 @@ function linhaParaJogador(array $r): array
     if ($r['nascimento'] !== null) $j['nascimento'] = $r['nascimento'];
     if ($r['potencial'] !== null) $j['potencial'] = (int) $r['potencial'];
     return $j;
+}
+
+/** Corpo JSON de um POST. */
+function corpoJson(): array
+{
+    $d = json_decode(file_get_contents('php://input') ?: '{}', true);
+    return is_array($d) ? $d : [];
+}
+
+function iniciarSessao(): void
+{
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_set_cookie_params(['httponly' => true, 'samesite' => 'Lax']);
+        session_start();
+    }
+}
+
+/** Id do usuário logado, ou responde 401. */
+function exigirUsuario(): int
+{
+    iniciarSessao();
+    $id = $_SESSION['usuario_id'] ?? null;
+    if (!$id) responder(['erro' => 'Faça login para usar o mercado.'], 401);
+    return (int) $id;
+}
+
+// Regras de economia das cartas. Iguais a src/engine/pacotes.ts e src/engine/mercadoCartas.ts.
+const VALOR_VENDA = ['comum' => 100, 'rara' => 200, 'icone' => 400];
+const TAXA_MERCADO = 0.05;
+const PRECO_MINIMO = 10;
+const PRECO_MAXIMO = 1000000;
+
+function faixa(int $geral): string
+{
+    return $geral >= 88 ? 'icone' : ($geral >= 80 ? 'rara' : 'comum');
+}
+
+/** Preço básico ao vender para o sistema: cai 15% por cópia repetida, até a metade. */
+function valorDeVenda(int $geral, int $copias): int
+{
+    $fator = max(0.5, 1 - 0.15 * max(0, $copias - 1));
+    return (int) (round(VALOR_VENDA[faixa($geral)] * $fator / 5) * 5);
 }

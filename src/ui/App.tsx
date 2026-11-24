@@ -33,6 +33,13 @@ import {
   propostaPor,
   type Financas,
 } from "../engine/mercado";
+import {
+  comTaxa,
+  mercadoInicial,
+  respostaSimulada,
+  rodadaDoMercado,
+  seedDoMercado,
+} from "../engine/mercadoCartas";
 import { criarRng } from "../engine/rng";
 import type { Jogador, ResultadoPartida, Time } from "../engine/types";
 import { TelaCampeonato } from "./TelaCampeonato";
@@ -40,6 +47,7 @@ import { TelaElenco } from "./TelaElenco";
 import { TelaEstoque } from "./TelaEstoque";
 import { TelaLendas } from "./TelaLendas";
 import { TelaMercado } from "./TelaMercado";
+import { TelaMercadoCartas } from "./TelaMercadoCartas";
 import { TelaNovoManager } from "./TelaNovoManager";
 import { TelaPartida } from "./TelaPartida";
 
@@ -90,6 +98,8 @@ export function App() {
   }, [progresso.transferencias, progresso.escalacao, meuTimeId]);
   const [lendasLista, setLendasLista] = useState<Jogador[]>(LENDAS_EMBUTIDAS);
   const [pacoteAberto, setPacoteAberto] = useState<Jogador[] | null>(null);
+  const [modoMercado, setModoMercado] = useState<"jogadores" | "cartas">("jogadores");
+  const [avisoCartas, setAvisoCartas] = useState<string | null>(null);
 
   useEffect(() => salvarProgresso(progresso), [progresso]);
   // Sem lendas embutidas no build: busca na API PHP.
@@ -99,6 +109,13 @@ export function App() {
   }, [lendasLista.length]);
 
   const lendas = useMemo(() => new Map(lendasLista.map((j) => [j.id, j])), [lendasLista]);
+  // Mercado de cartas simulado: começa quando a carreira e as lendas existem.
+  useEffect(() => {
+    if (!progresso.manager || progresso.mercadoCartas || !lendas.size) return;
+    setProgresso((p) =>
+      p.mercadoCartas ? p : { ...p, mercadoCartas: mercadoInicial(lendas, p.temporada?.seed ?? Date.now() >>> 0) },
+    );
+  }, [progresso.manager, progresso.mercadoCartas, lendas]);
 
   // O elenco de cada clube = jogadores atuais + lendas levadas do estoque.
   const timesComLendas = useMemo(
@@ -167,6 +184,96 @@ export function App() {
         ? p
         : { ...p, moedas: p.moedas - AMPLIACAO.preco, limiteCartas: limiteCartas(p) + AMPLIACAO.cartas },
     );
+  // ---- Mercado de cartas entre técnicos (simulado na prévia) ----
+  const semEspacoCarta = totalCartas(progresso) >= limiteCartas(progresso);
+  const rodadaAtual = (temporada?.rodadaAtual ?? 0) + 1;
+  const anunciar = (i: number, preco: number) =>
+    mudar((p) => {
+      const m = p.mercadoCartas;
+      const id = p.estoque[i];
+      if (!m || !id) return p;
+      return {
+        ...p,
+        estoque: p.estoque.filter((_, k) => k !== i),
+        mercadoCartas: { ...m, meus: [...m.meus, { id: `m${m.proximoId}`, vendedor: "voce", jogadorId: id, preco }], proximoId: m.proximoId + 1 },
+      };
+    });
+  const cancelarAnuncio = (anuncioId: string) =>
+    mudar((p) => {
+      const m = p.mercadoCartas;
+      const a = m?.meus.find((x) => x.id === anuncioId);
+      if (!m || !a) return p;
+      return {
+        ...p,
+        estoque: [...p.estoque, a.jogadorId],
+        mercadoCartas: {
+          ...m,
+          meus: m.meus.filter((x) => x.id !== anuncioId),
+          recebidas: m.recebidas.filter((r) => r.anuncioId !== anuncioId),
+        },
+      };
+    });
+  /** Compra um anúncio de outro técnico, pelo preço anunciado ou pelo valor de uma proposta aceita. */
+  const comprarCarta = (p: Progresso, anuncioId: string, valor: number, texto: string): Progresso => {
+    const m = p.mercadoCartas!;
+    const a = m.anuncios.find((x) => x.id === anuncioId)!;
+    return {
+      ...p,
+      moedas: p.moedas - valor,
+      estoque: [...p.estoque, a.jogadorId],
+      mercadoCartas: {
+        ...m,
+        anuncios: m.anuncios.filter((x) => x.id !== anuncioId),
+        movimentos: [{ rodada: rodadaAtual, texto, moedas: -valor }, ...m.movimentos].slice(0, 40),
+      },
+    };
+  };
+  const comprarAnuncio = (anuncioId: string) => {
+    const a = progresso.mercadoCartas?.anuncios.find((x) => x.id === anuncioId);
+    if (!a || progresso.moedas < a.preco || semEspacoCarta) return;
+    const nome = lendas.get(a.jogadorId)?.nome ?? a.jogadorId;
+    setAvisoCartas(`Você comprou ${nome} de ${a.vendedor} por ${a.preco} moedas. Ela está no seu estoque.`);
+    mudar((p) => comprarCarta(p, anuncioId, a.preco, `Você comprou ${nome} de ${a.vendedor}`));
+  };
+  const propor = (anuncioId: string, valor: number) => {
+    const p = progresso;
+    const a = p.mercadoCartas?.anuncios.find((x) => x.id === anuncioId);
+    if (!a || p.moedas < valor || totalCartas(p) >= limiteCartas(p)) return;
+    const nome = lendas.get(a.jogadorId)?.nome ?? a.jogadorId;
+    // Resposta estável: a mesma proposta no mesmo anúncio dá a mesma resposta.
+    const aceita = respostaSimulada(a.preco, valor, criarRng(seedDoMercado(Number(a.id.slice(1)) * 7919 + valor, rodadaAtual)));
+    if (aceita) {
+      setAvisoCartas(`${a.vendedor} aceitou sua proposta: ${nome} por ${valor} moedas.`);
+      mudar((q) => comprarCarta(q, anuncioId, valor, `${a.vendedor} aceitou ${valor} por ${nome}`));
+    } else {
+      setAvisoCartas(`${a.vendedor} recusou ${valor} moedas por ${nome}. O anúncio está em ${a.preco}.`);
+    }
+  };
+  const aceitarProposta = (propostaId: string) =>
+    mudar((p) => {
+      const m = p.mercadoCartas;
+      const pr = m?.recebidas.find((x) => x.id === propostaId);
+      if (!m || !pr) return p;
+      const nome = lendas.get(pr.jogadorId)?.nome ?? pr.jogadorId;
+      const liquido = comTaxa(pr.valor);
+      return {
+        ...p,
+        moedas: p.moedas + liquido,
+        mercadoCartas: {
+          ...m,
+          meus: m.meus.filter((x) => x.id !== pr.anuncioId),
+          recebidas: m.recebidas.filter((x) => x.anuncioId !== pr.anuncioId),
+          movimentos: [{ rodada: rodadaAtual, texto: `Você vendeu ${nome} para ${pr.de} por ${pr.valor} (taxa de 5%)`, moedas: liquido }, ...m.movimentos].slice(0, 40),
+        },
+      };
+    });
+  const recusarProposta = (propostaId: string) =>
+    mudar((p) =>
+      p.mercadoCartas
+        ? { ...p, mercadoCartas: { ...p.mercadoCartas, recebidas: p.mercadoCartas.recebidas.filter((x) => x.id !== propostaId) } }
+        : p,
+    );
+
   const vender = (i: number) =>
     mudar((p) => {
       const j = lendas.get(p.estoque[i]);
@@ -228,6 +335,15 @@ export function App() {
       let financas = p.financas && meuTime
         ? lancar(p.financas, balancoDaRodada(p.financas, meuTime, t.rodadaAtual + 1, emCasa))
         : p.financas;
+      // Os outros técnicos mexem no mercado de cartas a cada rodada.
+      let moedasMercado = 0;
+      let mercadoCartas = p.mercadoCartas;
+      if (mercadoCartas && lendas.size) {
+        const r = rodadaDoMercado(mercadoCartas, lendas, t.rodadaAtual + 1, criarRng(seedDoMercado(t.seed, t.rodadaAtual + 1)));
+        mercadoCartas = r.mercado;
+        moedasMercado = r.moedas;
+      }
+      p = { ...p, mercadoCartas, moedas: p.moedas + moedasMercado };
       if (prox.rodadaAtual < prox.rodadas.length) return { ...p, temporada: prox, financas };
       const tabela = calcularTabela(prox, [...mapaTimes.keys()], new Map(timesComLendas.map((x) => [x.id, x.nome])));
       const posicao = tabela.findIndex((l) => l.id === meuTimeId) + 1;
@@ -358,14 +474,44 @@ export function App() {
           />
         )}
         {aba === "mercado" && progresso.financas && (
-          <TelaMercado
-            meuTime={meuTime}
-            times={timesComLendas}
-            financas={progresso.financas}
-            temporada={temporada}
-            onComprar={comprarJogador}
-            onVender={venderJogador}
-          />
+          <section className="tela">
+            <div className="alternar mercado-modos" role="group" aria-label="Tipo de mercado">
+              <button className={modoMercado === "jogadores" ? "ativo" : ""} onClick={() => setModoMercado("jogadores")}>
+                Jogadores atuais
+              </button>
+              <button className={modoMercado === "cartas" ? "ativo" : ""} onClick={() => setModoMercado("cartas")}>
+                Cartas de lendas
+                {(progresso.mercadoCartas?.recebidas.length ?? 0) > 0 && (
+                  <span className="contador">{progresso.mercadoCartas!.recebidas.length}</span>
+                )}
+              </button>
+            </div>
+            {modoMercado === "jogadores" ? (
+              <TelaMercado
+                meuTime={meuTime}
+                times={timesComLendas}
+                financas={progresso.financas}
+                temporada={temporada}
+                onComprar={comprarJogador}
+                onVender={venderJogador}
+              />
+            ) : progresso.mercadoCartas ? (
+              <TelaMercadoCartas
+                mercado={progresso.mercadoCartas}
+                lendas={lendas}
+                moedas={progresso.moedas}
+                semEspaco={semEspacoCarta}
+                aviso={avisoCartas}
+                onComprar={comprarAnuncio}
+                onPropor={propor}
+                onCancelar={cancelarAnuncio}
+                onAceitar={aceitarProposta}
+                onRecusar={recusarProposta}
+              />
+            ) : (
+              <p className="vazio-bloco">Carregando o mercado de cartas…</p>
+            )}
+          </section>
         )}
         {aba === "estoque" && (
           <TelaEstoque
@@ -376,6 +522,7 @@ export function App() {
             onFecharPacote={() => setPacoteAberto(null)}
             onComprar={comprarPacote}
             onAmpliar={ampliar}
+            onAnunciar={anunciar}
             onVender={vender}
             onLevar={levar}
             onDevolver={devolver}
