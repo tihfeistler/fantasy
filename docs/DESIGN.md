@@ -49,8 +49,8 @@ Os dois tipos usam o **mesmo formato** e o mesmo motor de partida
 Limite de lendas em campo: no máximo 3 clássicos entre os titulares, para
 o elenco atual continuar importando. No elenco e no estoque não há limite
 de lendas, mas há um **espaço total de cartas** (estoque + lendas no
-elenco): começa em 30 e pode ser ampliado de 10 em 10 por 1.000 moedas, até
-100. Sem espaço para um pacote, é preciso vender cartas ou ampliar.
+elenco): começa em 300 e pode ser ampliado de 10 em 10 por 1.000 moedas, até
+500. Sem espaço para um pacote, é preciso vender cartas ou ampliar.
 
 Posições simples (GOL, ZAG, LAT, VOL, MEI, ATA), oito atributos de 1 a 100
 (finalização, passe, drible, velocidade, defesa, físico, mentalidade,
@@ -145,7 +145,7 @@ Fase posterior:
 | --- | --- |
 | 0 (feito) | Esqueleto: elenco, partida narrada, formato de jogador, base de clássicos |
 | 1 | Base de **clubes e elencos atuais** da Série A (rascunho feito: 20 clubes, 720 jogadores); escolher clube (feito); liga com tabela e calendário (prévia feita: 38 rodadas em turno e returno, sua partida narrada e as outras simuladas, classificação com zonas, premiação de fim de temporada e temporada seguinte) |
-| 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (prévia feita: estoque, pacote de 5 cartas por 500 moedas, prêmio por partida, até 3 lendas entre os titulares, espaço de 30 cartas ampliável, progresso salvo no navegador) |
+| 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (prévia feita: estoque, pacote de 5 cartas por 500 moedas, prêmio por partida, até 3 lendas entre os titulares, espaço de 300 cartas ampliável, progresso salvo no navegador) |
 | 3 | Carreira completa: mercado de atuais, finanças, temporadas, objetivos, save local |
 | 4 | Mais ligas (Série B, Europa), copas; PWA offline; polimento visual |
 | 5 | Modo online: contas, ligas privadas, mercado de cartas entre técnicos |

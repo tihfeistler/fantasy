@@ -15,8 +15,8 @@ export const VALOR_VENDA: Record<Faixa, number> = { comum: 100, rara: 200, icone
 /** Lendas que podem jogar juntas entre os titulares. No elenco não há limite. */
 export const MAX_LENDAS_EM_CAMPO = 3;
 /** Espaço para cartas (estoque + lendas no elenco), e como ampliá-lo. */
-export const LIMITE_CARTAS_INICIAL = 30;
-export const LIMITE_CARTAS_MAXIMO = 100;
+export const LIMITE_CARTAS_INICIAL = 300;
+export const LIMITE_CARTAS_MAXIMO = 500;
 export const AMPLIACAO = { cartas: 10, preco: 1000 };
 
 /** Prêmio em moedas por resultado de partida. */

@@ -53,7 +53,7 @@ export function salvarProgresso(p: Progresso) {
   }
 }
 
-export const limiteCartas = (p: Progresso) => p.limiteCartas ?? LIMITE_CARTAS_INICIAL;
+export const limiteCartas = (p: Progresso) => Math.max(p.limiteCartas ?? 0, LIMITE_CARTAS_INICIAL);
 /** Cartas que o manager tem: estoque mais lendas levadas a qualquer elenco. */
 export const totalCartas = (p: Progresso) =>
   p.estoque.length + Object.values(p.noElenco).reduce((n, ids) => n + ids.length, 0);
