@@ -1,5 +1,5 @@
 <?php
-// Importa data/clubes.json (se existir) e data/jogadores.json para o MySQL.
+// Importa data/clubes.json, data/jogadores.json (clássicos) e data/atuais.json para o MySQL.
 // Uso: php scripts/importar.php   (no XAMPP: C:\xampp\php\php.exe scripts\importar.php)
 // Pode rodar várias vezes: atualiza quem já existe.
 declare(strict_types=1);
@@ -24,8 +24,6 @@ if (is_file($arqClubes)) {
     }
 }
 
-$arqJog = "$raiz/data/jogadores.json";
-if (!is_file($arqJog)) exit("Não achei $arqJog\n");
 $st = $pdo->prepare('INSERT INTO jogadores (id, tipo, nome, nome_completo, nacionalidade, posicao, pe,
     epoca_inicio, epoca_fim, auge, clube_marcante, clube_id, nascimento, potencial,
     ataque, defesa, passe, velocidade, fisico, goleiro, geral)
@@ -37,7 +35,22 @@ $st = $pdo->prepare('INSERT INTO jogadores (id, tipo, nome, nome_completo, nacio
     potencial=VALUES(potencial), ataque=VALUES(ataque), defesa=VALUES(defesa), passe=VALUES(passe),
     velocidade=VALUES(velocidade), fisico=VALUES(fisico), goleiro=VALUES(goleiro), geral=VALUES(geral)');
 $n = 0;
-foreach (json_decode(file_get_contents($arqJog), true, flags: JSON_THROW_ON_ERROR) as $j) {
+// jogadores.json = clássicos; atuais.json = elencos da temporada
+$todos = [];
+foreach (['jogadores.json', 'atuais.json'] as $arq) {
+    if (is_file("$raiz/data/$arq")) {
+        array_push($todos, ...json_decode(file_get_contents("$raiz/data/$arq"), true, flags: JSON_THROW_ON_ERROR));
+    } else {
+        echo "Aviso: data/$arq não encontrado, pulando.\n";
+    }
+}
+$vistos = [];
+foreach ($todos as $j) {
+    if (isset($vistos[$j['id']])) {
+        $pdo->rollBack();
+        exit("Erro: id repetido '{$j['id']}'. Cada jogador precisa de um id único.\n");
+    }
+    $vistos[$j['id']] = true;
     $a = $j['atributos'];
     $st->execute([
         $j['id'], $j['tipo'] ?? 'classico', $j['nome'], $j['nomeCompleto'] ?? null,

@@ -138,7 +138,7 @@ Fase posterior:
 | Fase | Entrega |
 | --- | --- |
 | 0 (feito) | Esqueleto: elenco, partida narrada, formato de jogador, base de clássicos |
-| 1 | Base de **clubes e elencos atuais** do Brasileirão Série A; escolher clube; liga com tabela e calendário |
+| 1 | Base de **clubes e elencos atuais** da Série A (rascunho feito: 20 clubes, 720 jogadores); escolher clube (feito); liga com tabela e calendário |
 | 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (limite em campo) |
 | 3 | Carreira completa: mercado de atuais, finanças, temporadas, objetivos, save local |
 | 4 | Mais ligas (Série B, Europa), copas; PWA offline; polimento visual |

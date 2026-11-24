@@ -63,3 +63,20 @@ Clubes ficarão em `data/clubes.json`:
 { "id": "flamengo", "nome": "Flamengo", "sigla": "FLA", "cor": "#c8102e",
   "corSecundaria": "#000000", "liga": "brasileirao-a", "nivel": 85 }
 ```
+
+## Elencos atuais da Série A 2026 (rascunho)
+
+- `data/elencos-2026.txt`: elencos dos 20 clubes, lidos das seções de elenco
+  da Wikipédia em 24/11/2026. As datas dos elencos vão de julho a outubro de
+  2026 (anotadas no arquivo por clube), então transferências recentes podem
+  faltar. As fontes só dão posição genérica (goleiro, defensor, meia,
+  atacante); a posição fina vem da numeração ou da 6ª coluna.
+- `data/destaques-2026.txt`: geral alvo dos jogadores mais conhecidos.
+- `scripts/gerar_atuais.py` gera `data/atuais.json`. Os demais atributos
+  vêm do nível do clube, do papel no elenco e de uma variação fixa.
+- O `id` de um jogador atual é `nome-clube` (ex.: `neymar-santos`): fica
+  fixo mesmo se ele mudar de clube e nunca colide com os ids dos clássicos.
+
+Para corrigir um jogador: edite o `.txt` (posição na 6ª coluna, geral na
+7ª) ou o arquivo de destaques e rode
+`python3 scripts/gerar_atuais.py && php scripts/importar.php`.

@@ -91,7 +91,7 @@ export function simularPartida(mandante: Time, visitante: Time, seed: number): R
         tipo: "defesa",
         timeId: def.time.id,
         jogadorId: gk.id,
-        texto: `${gk.nome} defende a finalização de ${fin.jogador.nome}.`,
+        texto: `${gk.nome} (${def.time.sigla}) defende a finalização de ${fin.jogador.nome}.`,
       });
     } else {
       eventos.push({

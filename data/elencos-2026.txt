@@ -1,0 +1,765 @@
+# Elencos atuais da Série A 2026 (RASCUNHO para revisar).
+# Fonte: seções de elenco da Wikipédia, lidas em 24/11/2026 (datas "As of" de
+# abril a setembro de 2026). Transferências depois disso não estão aqui.
+# Formato: clubeId | camisa | GK/DF/MF/FW | NAC | Nome [| POSICAO_FINA] [| geral]
+# Depois de editar: python3 scripts/gerar_atuais.py && php scripts/importar.php
+
+# --- Corinthians (As of 13/09/2026)
+corinthians | 1 | GK | BRA | Hugo Souza
+corinthians | 2 | DF | BRA | Matheuzinho
+corinthians | 3 | DF | BRA | Gabriel Paulista
+corinthians | 4 | DF | BRA | João Pedro
+corinthians | 5 | DF | BRA | André Ramalho
+corinthians | 7 | MF | BRA | Breno Bidon
+corinthians | 8 | MF | ARG | Rodrigo Garro | MEI
+corinthians | 9 | FW | BRA | Yuri Alberto
+corinthians | 10 | FW | NED | Memphis Depay
+corinthians | 11 | MF | BRA | Vitinho
+corinthians | 13 | DF | BRA | Gustavo Henrique
+corinthians | 14 | MF | BRA | Raniele | VOL
+corinthians | 18 | FW | BRA | Pedro Raul
+corinthians | 19 | MF | PER | André Carrillo
+corinthians | 20 | DF | URU | Pedro Milans | LAT
+corinthians | 21 | DF | BRA | Matheus Bidu | LAT
+corinthians | 23 | MF | BRA | Matheus Pereira
+corinthians | 26 | DF | ARG | Fabrizio Angileri | LAT
+corinthians | 29 | MF | BRA | Allan | VOL
+corinthians | 31 | FW | BRA | Kayke
+corinthians | 35 | MF | BRA | Charles
+corinthians | 37 | FW | BRA | Kaio César
+corinthians | 40 | GK | BRA | Felipe Longo
+corinthians | 46 | DF | BRA | Hugo Farias
+corinthians | 49 | MF | BRA | André
+corinthians | 51 | GK | BRA | Kauê
+corinthians | 52 | MF | MAR | Zakaria Labyad
+corinthians | 54 | MF | BRA | Luiz Gustavo
+corinthians | 55 | DF | BRA | Iago Machado
+corinthians | 56 | FW | BRA | Gui Negão
+corinthians | 61 | FW | BRA | Dieguinho
+corinthians | 77 | MF | ENG | Jesse Lingard | MEI
+corinthians | 80 | MF | BRA | Alex Santana
+
+# --- São Paulo (As of 11/09/2026)
+sao-paulo | 2 | DF | ITA | Rafael Tolói | ZAG
+sao-paulo | 5 | DF | ECU | Robert Arboleda | ZAG
+sao-paulo | 7 | MF | BRA | Lucas Moura | MEI
+sao-paulo | 8 | MF | BRA | Marcos Antônio | VOL
+sao-paulo | 9 | FW | ARG | Jonathan Calleri
+sao-paulo | 10 | FW | BRA | Luciano
+sao-paulo | 11 | FW | BRA | Ferreira
+sao-paulo | 12 | DF | BRA | Iago Borduchi | LAT
+sao-paulo | 13 | DF | ARG | Enzo Díaz | LAT
+sao-paulo | 16 | MF | PAR | Damián Bobadilla | VOL
+sao-paulo | 17 | FW | BRA | André Silva
+sao-paulo | 18 | DF | BRA | Wendell | LAT
+sao-paulo | 19 | DF | BRA | Lucas Ramon | LAT
+sao-paulo | 20 | DF | POR | Aurélio Buta | LAT
+sao-paulo | 21 | DF | POR | Cédric Soares | LAT
+sao-paulo | 22 | DF | POR | Domingos Duarte | ZAG
+sao-paulo | 23 | GK | BRA | Rafael
+sao-paulo | 27 | FW | BRA | Victor Sá
+sao-paulo | 28 | MF | BRA | Newton
+sao-paulo | 29 | MF | BRA | Pablo Maia | VOL
+sao-paulo | 31 | GK | PAR | Carlos Coronel
+sao-paulo | 34 | FW | BRA | Tetê
+sao-paulo | 35 | DF | BRA | Sabino | ZAG
+sao-paulo | 37 | FW | BRA | Artur
+sao-paulo | 41 | GK | BRA | João Pedro
+sao-paulo | 43 | FW | BRA | Gustavo Santana
+sao-paulo | 45 | FW | BRA | Lucca Marques
+sao-paulo | 46 | MF | BRA | Pedro Ferreira
+sao-paulo | 48 | MF | BRA | Djhordney
+sao-paulo | 49 | FW | BRA | Ryan Francisco
+sao-paulo | 50 | GK | BRA | Young
+sao-paulo | 52 | GK | BRA | Felipe Preis
+sao-paulo | 53 | DF | BRA | Isac
+sao-paulo | 54 | DF | BRA | Luis Osorio
+sao-paulo | 56 | DF | BRA | Nicolas
+sao-paulo | 80 | MF | BRA | Cauly | MEI
+sao-paulo | 94 | MF | BRA | Danielzinho
+sao-paulo | 99 | DF | BRA | Pedro Lima | LAT
+
+# --- Santos (As of 22/09/2026)
+santos | 1 | GK | BRA | Diógenes
+santos | 3 | DF | BRA | Vinicius Lira
+santos | 4 | DF | BRA | Lucas Veríssimo
+santos | 5 | MF | BRA | João Schmidt
+santos | 6 | MF | BRA | Arthur
+santos | 7 | FW | BRA | Everton Cebolinha
+santos | 8 | MF | BRA | Gabriel Bontempo
+santos | 9 | FW | BRA | Gabriel Barbosa
+santos | 10 | MF | BRA | Neymar | MEI
+santos | 11 | MF | BRA | Philippe Coutinho | MEI
+santos | 14 | DF | BRA | Luan Peres | ZAG
+santos | 15 | MF | BRA | Willian Arão | VOL
+santos | 16 | FW | BRA | Thaciano
+santos | 17 | FW | PAR | Gustavo Caballero
+santos | 18 | DF | BRA | Igor Vinícius | LAT
+santos | 20 | MF | BRA | Pepê Fermino
+santos | 21 | FW | BRA | Moisés
+santos | 22 | FW | ARG | Álvaro Barreal
+santos | 23 | DF | BRA | Rodinei | LAT
+santos | 25 | DF | BRA | Gabriel Menino
+santos | 26 | DF | BRA | João Ananias
+santos | 27 | DF | BRA | Davizinho
+santos | 28 | MF | URU | Christian Oliva | VOL
+santos | 30 | MF | BOL | Miguel Terceros | MEI
+santos | 31 | DF | ARG | Gonzalo Escobar | LAT
+santos | 32 | MF | ARG | Benjamín Rollheiser | MEI
+santos | 33 | FW | BRA | Rony
+santos | 34 | GK | BRA | João Paulo
+santos | 38 | DF | BRA | Rafael Gonzaga
+santos | 42 | DF | BRA | João Alencar
+santos | 45 | MF | BRA | Lima
+santos | 48 | MF | BRA | Gustavo Henrique
+santos | 57 | FW | BRA | Nadson
+santos | 67 | GK | BRA | Rodrigo Falcão
+santos | 77 | GK | BRA | Gabriel Brazão
+santos | 79 | GK | BRA | João Pedro
+santos | 81 | MF | BRA | Samuel Pierri
+
+# --- Red Bull Bragantino (As of 22/09/2026)
+bragantino | 1 | GK | BRA | Cleiton
+bragantino | 2 | DF | URU | Guzmán Rodríguez | ZAG
+bragantino | 3 | DF | BRA | Eduardo Santos
+bragantino | 4 | DF | BRA | Alix Vinicius
+bragantino | 5 | MF | BRA | Fabinho
+bragantino | 6 | MF | BRA | Gabriel
+bragantino | 7 | MF | BRA | Eric Ramires
+bragantino | 8 | FW | BRA | Eduardo Sasha
+bragantino | 9 | FW | PAR | Isidro Pitta
+bragantino | 11 | FW | BRA | Fernando
+bragantino | 12 | DF | BRA | Vanderlan | LAT
+bragantino | 15 | MF | URU | Nacho Sosa
+bragantino | 16 | DF | BRA | Gustavo Marques | ZAG
+bragantino | 17 | FW | BRA | Vinicinho
+bragantino | 18 | GK | BRA | Tiago Volpi
+bragantino | 19 | FW | BRA | Bruno Gonçalves
+bragantino | 20 | MF | BRA | Rodriguinho
+bragantino | 21 | FW | BRA | Lucas Barbosa
+bragantino | 22 | MF | BRA | Gustavo Neves
+bragantino | 23 | DF | URU | Agustín Sant'Anna | LAT
+bragantino | 27 | FW | BRA | Davi Gomes
+bragantino | 28 | MF | BRA | Patrick
+bragantino | 29 | DF | BRA | Juninho Capixaba | LAT
+bragantino | 30 | FW | COL | Henry Mosquera
+bragantino | 32 | FW | ARG | José María Herrera
+bragantino | 34 | DF | ECU | Andrés Hurtado | LAT
+bragantino | 35 | MF | BRA | Matheus Fernandes
+bragantino | 37 | GK | BRA | Fabrício
+bragantino | 47 | FW | BRA | Wallace Yan
+bragantino | 51 | DF | BRA | Cauê Nascimento
+bragantino | 56 | GK | BRA | Gustavo Reis
+bragantino | 57 | FW | BRA | Marcelinho Braz
+
+# --- Mirassol (As of 22/09/2026)
+mirassol | 1 | GK | BRA | Georgemy
+mirassol | 2 | DF | BRA | Lucas Oliveira
+mirassol | 3 | DF | BRA | Willian Machado
+mirassol | 5 | MF | BRA | Japa
+mirassol | 6 | DF | BRA | Reinaldo
+mirassol | 7 | MF | BRA | Shaylon
+mirassol | 8 | MF | BRA | Denilson
+mirassol | 9 | FW | BRA | Zé Roberto
+mirassol | 10 | MF | BRA | Chico Kim
+mirassol | 11 | FW | BRA | Negueba
+mirassol | 12 | DF | BRA | Victor Luis | LAT
+mirassol | 16 | FW | BRA | Gustavo Silva
+mirassol | 17 | FW | BRA | Fernandinho
+mirassol | 18 | DF | BRA | Elias
+mirassol | 20 | DF | BRA | Daniel Borges | LAT
+mirassol | 21 | MF | BRA | José Aldo
+mirassol | 22 | GK | BRA | Walter
+mirassol | 23 | GK | BRA | Alex Muralha
+mirassol | 25 | MF | BRA | Neto Moura
+mirassol | 30 | FW | BRA | Bruno Santos
+mirassol | 32 | DF | BRA | Igor Formiga
+mirassol | 33 | MF | BRA | Eduardo
+mirassol | 34 | DF | BRA | João Victor
+mirassol | 44 | DF | BRA | Gabriel Knesowitsch
+mirassol | 53 | DF | BRA | Marcelinho
+mirassol | 55 | MF | BRA | Gustavo Cazonatti
+mirassol | 77 | FW | BRA | Alesson
+mirassol | 80 | MF | BRA | Wallisson
+mirassol | 90 | GK | BRA | Thomazella
+mirassol | 95 | FW | BRA | Edson Carioca
+mirassol | 96 | FW | BRA | Carlos Eduardo
+mirassol | 99 | FW | BRA | André Luis
+
+# --- Atlético Mineiro (data do elenco não informada; revisar)
+atletico-mg | 1 | GK | BRA | Gabriel Delfim
+atletico-mg | 2 | DF | BRA | Natanael
+atletico-mg | 3 | DF | BRA | Léo Duarte
+atletico-mg | 4 | DF | BRA | Ruan Tressoldi
+atletico-mg | 5 | MF | BRA | Alexsander
+atletico-mg | 6 | DF | BRA | Renan Lodi
+atletico-mg | 7 | MF | BRA | Fred
+atletico-mg | 8 | MF | BRA | Maycon
+atletico-mg | 9 | FW | COL | Mateo Cassierra
+atletico-mg | 10 | MF | BRA | Gustavo Scarpa
+atletico-mg | 11 | MF | BRA | Bernard | MEI
+atletico-mg | 13 | DF | BRA | Lyanco | ZAG
+atletico-mg | 14 | DF | BRA | Vitor Hugo | ZAG
+atletico-mg | 15 | MF | COL | Kevin Castaño | VOL
+atletico-mg | 17 | MF | BRA | Igor Gomes
+atletico-mg | 18 | FW | URU | Thiago Borbas
+atletico-mg | 19 | MF | BRA | Reinier | MEI
+atletico-mg | 20 | MF | BRA | Patrick
+atletico-mg | 21 | MF | ECU | Alan Franco | VOL
+atletico-mg | 22 | GK | BRA | Everson
+atletico-mg | 23 | DF | ECU | Ángelo Preciado | LAT
+atletico-mg | 25 | MF | ARG | Tomás Pérez
+atletico-mg | 27 | FW | ECU | Alan Minda
+atletico-mg | 28 | FW | ARG | Tomás Cuello
+atletico-mg | 29 | FW | BRA | Cauã Soares
+atletico-mg | 30 | MF | BRA | Victor Hugo
+atletico-mg | 31 | GK | BRA | Robert
+atletico-mg | 36 | DF | BRA | Kauã Pascini
+atletico-mg | 38 | MF | BRA | Índio
+atletico-mg | 39 | MF | GUI | Mamady Cissé
+atletico-mg | 40 | DF | BRA | Vitão | ZAG
+atletico-mg | 46 | GK | BRA | Pedro Cobra
+atletico-mg | 92 | FW | BRA | Dudu
+
+# --- Bahia (As of 22/09/2026)
+bahia | 1 | GK | BRA | Ronaldo
+bahia | 3 | DF | ESP | Marco Moreno
+bahia | 4 | DF | BRA | Kanu
+bahia | 5 | MF | URU | Nicolás Acevedo
+bahia | 6 | MF | BRA | Jean Lucas
+bahia | 7 | FW | BRA | Ademir
+bahia | 8 | MF | BRA | Caio Alexandre
+bahia | 9 | FW | ARG | Alejo Véliz
+bahia | 10 | MF | BRA | Éverton Ribeiro
+bahia | 11 | MF | BRA | Rodrigo Nestor | MEI
+bahia | 12 | FW | BRA | Willian José
+bahia | 14 | MF | BRA | Erick | VOL
+bahia | 15 | MF | URU | Michel Araújo | MEI
+bahia | 16 | FW | BRA | Erick Pulga
+bahia | 17 | GK | ARG | Guido Herrera
+bahia | 18 | MF | ARG | Lautaro López
+bahia | 22 | GK | BRA | Léo Vieira
+bahia | 23 | FW | ARG | Mateo Sanabria
+bahia | 27 | FW | BRA | Everaldo
+bahia | 31 | DF | ARG | Román Gómez | LAT
+bahia | 33 | DF | BRA | David Duarte | ZAG
+bahia | 43 | DF | BRA | Luiz Gustavo
+bahia | 44 | DF | BRA | Marcos Victor | ZAG
+bahia | 46 | DF | BRA | Luciano Juba | LAT
+bahia | 57 | FW | BRA | Kauê Furquim
+bahia | 63 | MF | BRA | David Martins
+bahia | 66 | DF | BRA | Zé Guilherme | LAT
+bahia | 77 | FW | BRA | Ruan Pablo
+bahia | 99 | FW | URU | Kike Olivera
+
+# --- Palmeiras (As of 01/09/2026)
+palmeiras | 1 | GK | BRA | Carlos Miguel
+palmeiras | 2 | DF | ARG | Alexander Barboza | ZAG
+palmeiras | 3 | DF | BRA | Bruno Fuchs | ZAG
+palmeiras | 4 | DF | ARG | Agustín Giay | LAT
+palmeiras | 6 | DF | BRA | Jefté | LAT
+palmeiras | 7 | MF | BRA | Felipe Anderson | MEI
+palmeiras | 8 | MF | BRA | Andreas Pereira | MEI
+palmeiras | 9 | FW | BRA | Vitor Roque
+palmeiras | 10 | FW | BRA | Paulinho
+palmeiras | 11 | FW | COL | Jhon Arias
+palmeiras | 12 | DF | BRA | Khellven | LAT
+palmeiras | 14 | GK | BRA | Marcelo Lomba
+palmeiras | 15 | DF | PAR | Gustavo Gómez | ZAG
+palmeiras | 17 | MF | BRA | Marlon Freitas | VOL
+palmeiras | 18 | MF | PAR | Maurício | MEI
+palmeiras | 19 | FW | PAR | Ramón Sosa
+palmeiras | 21 | GK | BRA | Bruno Bertinato
+palmeiras | 22 | DF | URU | Joaquín Piquerez | LAT
+palmeiras | 26 | DF | BRA | Murilo | ZAG
+palmeiras | 30 | MF | BRA | Lucas Evangelista | VOL
+palmeiras | 32 | MF | URU | Emiliano Martínez | VOL
+palmeiras | 42 | FW | ARG | José Manuel López
+palmeiras | 43 | DF | BRA | Luiz Benedetti | ZAG
+palmeiras | 48 | MF | BRA | Larson
+palmeiras | 56 | DF | BRA | Arthur Gabriel
+
+# --- Fluminense (As of 16/07/2026)
+fluminense | 1 | GK | BRA | Fábio
+fluminense | 2 | DF | BRA | Samuel Xavier
+fluminense | 3 | DF | BRA | Thiago Silva
+fluminense | 4 | DF | BRA | Ignácio
+fluminense | 6 | DF | BRA | Renê
+fluminense | 7 | FW | BRA | Hulk
+fluminense | 8 | MF | BRA | Matheus Martinelli
+fluminense | 9 | FW | BRA | John Kennedy
+fluminense | 10 | MF | BRA | Ganso
+fluminense | 11 | MF | VEN | Jefferson Savarino | MEI
+fluminense | 13 | DF | BRA | Guilherme Arana | LAT
+fluminense | 14 | FW | ARG | Germán Cano
+fluminense | 15 | FW | MEX | Matheus Reis
+fluminense | 16 | MF | BRA | Nonato
+fluminense | 17 | FW | URU | Agustín Canobbio
+fluminense | 19 | FW | ARG | Rodrigo Castillo
+fluminense | 21 | DF | BRA | Igor Rabello | ZAG
+fluminense | 22 | DF | ARG | Juan Pablo Freytes | ZAG
+fluminense | 23 | DF | BRA | Guga | LAT
+fluminense | 25 | MF | BRA | Alisson
+fluminense | 27 | GK | BRA | Marcelo Pitaluga
+fluminense | 28 | FW | BRA | Riquelme
+fluminense | 29 | DF | COL | Julián Millán
+fluminense | 30 | FW | VEN | Yeferson Soteldo
+fluminense | 32 | MF | ARG | Lucho Acosta | MEI
+fluminense | 35 | MF | BRA | Hércules | VOL
+fluminense | 40 | DF | BRA | Davi Schuindt
+fluminense | 44 | DF | BRA | Jemmes
+fluminense | 46 | DF | BRA | Júlio Fidelis
+fluminense | 80 | MF | URU | David Terans | MEI
+fluminense | 90 | FW | COL | Kevin Serna
+fluminense | 94 | MF | BRA | Otávio | VOL
+fluminense | 98 | GK | BRA | Vitor Eudes
+
+# --- Botafogo (As of 03/09/2026)
+botafogo | 2 | DF | BRA | Vitinho | LAT
+botafogo | 3 | DF | BRA | Ythallo | ZAG
+botafogo | 4 | DF | URU | Mateo Ponte | LAT
+botafogo | 5 | DF | VEN | Nahuel Ferraresi | ZAG
+botafogo | 6 | MF | ARG | Cristian Medina | VOL
+botafogo | 7 | FW | BRA | Júnior Santos
+botafogo | 8 | MF | BRA | Danilo Santos | VOL
+botafogo | 9 | FW | BRA | Danilo Pereira
+botafogo | 10 | MF | ARG | Álvaro Montoro | MEI
+botafogo | 12 | GK | BRA | Gabriel Batista
+botafogo | 13 | DF | BRA | Alex Telles | LAT
+botafogo | 14 | MF | COL | Jordan Barrera
+botafogo | 17 | GK | BRA | Warleson
+botafogo | 19 | FW | BRA | Arthur Cabral
+botafogo | 21 | DF | BRA | Marçal | LAT
+botafogo | 25 | MF | BRA | Allan | VOL
+botafogo | 26 | DF | BRA | Anthony
+botafogo | 27 | DF | BRA | Caio Roque
+botafogo | 29 | DF | BRA | Paulinho
+botafogo | 31 | DF | BRA | Kaio Pantaleão | ZAG
+botafogo | 33 | DF | URU | Lucas Monzón
+botafogo | 34 | DF | BRA | Gabriel Justino
+botafogo | 36 | DF | BRA | Gabriel Abdias
+botafogo | 37 | FW | PAN | Kadir Barría
+botafogo | 39 | FW | BRA | Arthur Izaque
+botafogo | 40 | GK | ECU | Cristhian Loor
+botafogo | 42 | DF | BRA | Kadu
+botafogo | 43 | DF | BRA | Danillo Oliveira
+botafogo | 44 | DF | BRA | Riquelme
+botafogo | 45 | MF | BRA | Caio Valle
+botafogo | 47 | MF | BRA | Miguel Caldas
+botafogo | 48 | MF | BRA | Arthur Novaes
+botafogo | 49 | FW | BRA | Felipe Januário
+botafogo | 53 | DF | BRA | Kauã Branco
+botafogo | 55 | MF | BRA | Wallace Davi
+botafogo | 57 | FW | BRA | Matheusinho
+botafogo | 59 | FW | BRA | Kauan Toledo
+botafogo | 62 | GK | BRA | Cléber Lucas
+botafogo | 64 | DF | BRA | Marquinhos
+botafogo | 67 | DF | COL | Jhoan Hernández
+botafogo | 68 | MF | BRA | Davi Nery
+botafogo | 75 | MF | BRA | Huguinho
+botafogo | 77 | FW | URU | Lucas Villalba
+botafogo | 79 | FW | BRA | Lucas Emanuel
+botafogo | 80 | MF | BRA | Bernardo Valim
+botafogo | 88 | MF | BRA | Edenilson | VOL
+botafogo | 91 | MF | ANG | Domingos Andrade
+botafogo | 99 | DF | BRA | Arthur Chaves | ZAG
+
+# --- Vasco da Gama (data do elenco não informada; revisar)
+vasco | 1 | GK | BRA | Léo Jardim
+vasco | 2 | DF | URU | Puma Rodríguez | LAT
+vasco | 3 | MF | BRA | Tchê Tchê | VOL
+vasco | 4 | DF | URU | Alan Saldivia | ZAG
+vasco | 5 | MF | ARG | Santiago Sosa | VOL
+vasco | 6 | DF | BRA | Lucas Piton | LAT
+vasco | 7 | FW | BRA | David
+vasco | 8 | MF | BRA | Jair | VOL
+vasco | 9 | FW | ARG | Facundo Colidio
+vasco | 10 | MF | COL | Johan Rojas | MEI
+vasco | 11 | FW | COL | Andrés Gómez
+vasco | 13 | GK | BRA | Daniel Fuzato
+vasco | 17 | FW | POR | Nuno Moreira
+vasco | 18 | FW | COL | Marino Hinestroza
+vasco | 19 | FW | BRA | Bruno Duarte
+vasco | 20 | FW | BRA | Brenner
+vasco | 22 | MF | ARG | Alan Lescano | MEI
+vasco | 23 | MF | BRA | Thiago Mendes | VOL
+vasco | 28 | FW | BRA | Adson
+vasco | 29 | DF | BRA | Paulinho
+vasco | 30 | DF | BRA | Robert Renan | ZAG
+vasco | 37 | GK | BRA | Pablo
+vasco | 43 | DF | BRA | Lucas Freitas | ZAG
+vasco | 46 | DF | COL | Carlos Cuesta | ZAG
+vasco | 55 | DF | BRA | Gabriel Pereira
+vasco | 60 | DF | BRA | João Vitor
+vasco | 64 | DF | BRA | Walace Falcão
+vasco | 66 | DF | BRA | Cuiabano | LAT
+vasco | 77 | FW | ARG | Claudio Spinelli
+vasco | 83 | MF | BRA | Ramon Rique
+vasco | 85 | MF | BRA | Mateus Carvalho
+vasco | 88 | MF | BRA | Cauan Barros
+vasco | 96 | DF | BRA | Paulo Henrique
+
+# --- Vitória (As of 22/09/2026)
+vitoria | 1 | GK | BRA | Lucas Arcanjo
+vitoria | 2 | DF | ARG | Emanuel Brítez | LAT
+vitoria | 3 | DF | BRA | Darlan
+vitoria | 4 | DF | BRA | Camutanga
+vitoria | 6 | MF | ARG | Emmanuel Martínez
+vitoria | 7 | FW | BRA | Marinho
+vitoria | 8 | MF | ARG | Tomás Pochettino
+vitoria | 9 | FW | BRA | Alex Bruno
+vitoria | 10 | MF | BRA | Matheuzinho
+vitoria | 11 | FW | BRA | Osvaldo
+vitoria | 12 | FW | ARG | Diego Tarzia
+vitoria | 13 | DF | BRA | Ramon
+vitoria | 15 | MF | BRA | Walace | VOL
+vitoria | 16 | MF | POR | Rúben Ismael
+vitoria | 18 | DF | BRA | Kauan Coutinho
+vitoria | 20 | FW | BRA | Lucas Silva
+vitoria | 21 | MF | BRA | Dudu
+vitoria | 23 | FW | BRA | Fabrí
+vitoria | 25 | DF | BRA | Cacá | ZAG
+vitoria | 26 | DF | BRA | Edenilson
+vitoria | 28 | FW | BRA | Anderson Pato
+vitoria | 33 | FW | BRA | Erick
+vitoria | 35 | GK | BRA | Fintelman
+vitoria | 36 | DF | BRA | Luan Cândido | LAT
+vitoria | 41 | MF | BRA | Wendell Santos
+vitoria | 42 | GK | BRA | Davi Barbosa
+vitoria | 43 | DF | BRA | Edu Ribeiro
+vitoria | 44 | MF | BRA | Gabriel Baralhas
+vitoria | 45 | DF | BRA | Nathan Mendes
+vitoria | 46 | MF | ARG | Alejandro Almaraz
+vitoria | 48 | DF | BRA | Ivan
+vitoria | 49 | FW | BRA | Marquinhos
+vitoria | 53 | DF | BRA | Andrei
+vitoria | 58 | FW | BRA | Emanoel
+vitoria | 59 | DF | BRA | Gean
+vitoria | 65 | MF | COL | Nicolás Celis
+vitoria | 67 | DF | BRA | Guilherme Inácio
+vitoria | 69 | DF | BRA | Wanderson
+vitoria | 70 | DF | BRA | Fabiano
+vitoria | 70 | MF | BRA | Cauan Farias
+vitoria | 71 | GK | BRA | Yuri Sena
+vitoria | 77 | FW | URU | Ignacio Laquintana
+vitoria | 79 | FW | BRA | Renato Kayzer
+vitoria | 83 | DF | BRA | Jamerson | LAT
+vitoria | 88 | MF | BRA | Zé Vitor
+vitoria | 91 | FW | BRA | Renê
+vitoria | 95 | MF | BRA | Caíque Gonçalves
+vitoria | 98 | DF | BRA | Mateus Silva
+vitoria | 99 | DF | BRA | Zé Marcos
+
+# --- Athletico Paranaense (As of 22/09/2026)
+athletico-pr | 1 | GK | BRA | Mycael
+athletico-pr | 2 | DF | BRA | Gilberto dos Santos
+athletico-pr | 3 | DF | BRA | Léo Pelé
+athletico-pr | 4 | DF | BRA | Arthur Dias
+athletico-pr | 5 | MF | BRA | Felipinho
+athletico-pr | 6 | DF | BRA | Léo Derik
+athletico-pr | 7 | FW | COL | Stiven Mendoza
+athletico-pr | 8 | MF | BRA | João Cruz
+athletico-pr | 9 | FW | COL | Kevin Viveros
+athletico-pr | 10 | MF | ARG | Bruno Zapelli
+athletico-pr | 12 | DF | BRA | Gilberto Moraes
+athletico-pr | 14 | MF | BRA | Luiz Gustavo
+athletico-pr | 15 | DF | BRA | Kauan Alemão
+athletico-pr | 16 | MF | BRA | Jadson
+athletico-pr | 17 | MF | COL | Alejandro García
+athletico-pr | 18 | FW | COL | Kerwin Vargas
+athletico-pr | 19 | FW | COL | Jorge Rivaldo
+athletico-pr | 21 | FW | BRA | Leozinho
+athletico-pr | 22 | DF | COL | Carlos Terán | ZAG
+athletico-pr | 23 | GK | BRA | Santos
+athletico-pr | 25 | DF | BRA | Dantas
+athletico-pr | 26 | DF | BRA | Claudinho
+athletico-pr | 27 | MF | COL | Juan Portilla | VOL
+athletico-pr | 29 | DF | ARG | Gastón Benavídez
+athletico-pr | 33 | DF | COL | Juan Felipe Aguirre
+athletico-pr | 36 | DF | BRA | Arthur Monteiro
+athletico-pr | 37 | DF | ARG | Lucas Esquivel | LAT
+athletico-pr | 41 | DF | BRA | Vitinho
+athletico-pr | 42 | GK | BRA | Matheus Soares
+athletico-pr | 43 | FW | BRA | Kayke Ayrton
+athletico-pr | 46 | DF | BRA | Marcos André
+athletico-pr | 47 | FW | BRA | Felipe Chiqueti
+athletico-pr | 50 | FW | BRA | Renan Viana
+athletico-pr | 53 | MF | BRA | Dudu Kogitzki
+athletico-pr | 55 | DF | BRA | Bruno Baldini
+athletico-pr | 63 | MF | BRA | Riquelme
+athletico-pr | 70 | FW | BRA | Renan Peixoto
+athletico-pr | 73 | FW | USA | Rikelme
+athletico-pr | 76 | GK | UKR | Maksym Voronov
+athletico-pr | 80 | GK | BRA | Carlos Eduardo
+
+# --- Coritiba (As of 27/09/2026)
+coritiba | 1 | GK | BRA | Pedro Morisco
+coritiba | 2 | DF | BRA | Tinga
+coritiba | 3 | DF | BRA | Maicon
+coritiba | 4 | DF | BRA | Rodrigo Moledo
+coritiba | 5 | MF | URU | Nicolás Fonseca
+coritiba | 6 | DF | BRA | Felipe Jonatan
+coritiba | 7 | FW | URU | Joaquín Lavega
+coritiba | 10 | MF | POR | Josué Pesqueira
+coritiba | 11 | FW | BRA | Lucas Ronier
+coritiba | 13 | GK | BRA | Keiller
+coritiba | 14 | DF | ARG | Fabricio Bustos | LAT
+coritiba | 15 | MF | COL | Alejandro Ararat
+coritiba | 17 | FW | URU | Brian Ocampo
+coritiba | 18 | FW | BRA | Paulo Roberto
+coritiba | 19 | MF | COL | Sebastián Gómez
+coritiba | 20 | FW | BRA | Keno
+coritiba | 21 | DF | BRA | Thiago Santos
+coritiba | 22 | GK | BRA | Pedro Rangel
+coritiba | 23 | DF | BRA | Tiago Cóser
+coritiba | 25 | MF | BRA | Richard
+coritiba | 26 | DF | BRA | Bruno Melo
+coritiba | 28 | FW | BRA | Fabinho
+coritiba | 32 | FW | BRA | Pedro Rocha
+coritiba | 36 | MF | BRA | Vini Paulista
+coritiba | 39 | MF | BRA | Gustavo Silva
+coritiba | 50 | MF | BRA | Vitor Tissi
+coritiba | 55 | DF | BRA | Jacy Maranhão
+coritiba | 66 | DF | BRA | Rodrigo Gelado
+coritiba | 67 | GK | BRA | Benassi
+coritiba | 77 | FW | BRA | Breno Lopes
+coritiba | 78 | FW | BRA | Renato Marques
+coritiba | 86 | DF | BRA | Lucas Taverna
+coritiba | 99 | FW | BRA | Rodrigo Rodrigues
+
+# --- Chapecoense (As of 16/08/2026)
+chapecoense | 1 | GK | BRA | Rafael Santos
+chapecoense | 3 | DF | BRA | Eduardo Doma
+chapecoense | 4 | DF | BRA | João Paulo
+chapecoense | 5 | DF | BRA | Heitor
+chapecoense | 6 | DF | BRA | Mancha
+chapecoense | 7 | FW | BRA | Marcinho
+chapecoense | 8 | MF | BRA | Robert Santos
+chapecoense | 9 | FW | BRA | Túlio Eduardo
+chapecoense | 10 | MF | BRA | Giovanni Augusto
+chapecoense | 11 | FW | COD | Yannick Bolasie
+chapecoense | 12 | DF | BRA | Fernando
+chapecoense | 15 | DF | BRA | Rafael Thyere | ZAG
+chapecoense | 16 | MF | BRA | Bruno Matias
+chapecoense | 17 | MF | BRA | Vinicius Balieiro
+chapecoense | 18 | FW | BRA | Neto Pessoa
+chapecoense | 19 | MF | BRA | David Antunes
+chapecoense | 20 | DF | BRA | Bruno Tubarão
+chapecoense | 21 | DF | BRA | Kauan Faria
+chapecoense | 22 | MF | BRA | Max Alves
+chapecoense | 23 | DF | BRA | Gustavo Talles
+chapecoense | 25 | DF | BRA | Victor Caetano
+chapecoense | 26 | DF | BRA | Everton
+chapecoense | 27 | MF | BRA | Camilo
+chapecoense | 29 | FW | URU | Franco Rossi
+chapecoense | 30 | GK | BRA | Matheus Aurélio
+chapecoense | 31 | FW | BRA | Maurício Garcez
+chapecoense | 32 | GK | BRA | Wellington
+chapecoense | 34 | GK | BRA | Kainã
+chapecoense | 35 | DF | BRA | Vinicius Eduardo
+chapecoense | 50 | FW | BRA | Kássio
+chapecoense | 66 | DF | BRA | Juan Ferreira
+chapecoense | 70 | FW | BRA | Rubens Ricoldi
+chapecoense | 88 | MF | BRA | Yago Felipe
+chapecoense | 91 | DF | BRA | Bruno Pacheco | LAT
+chapecoense | 94 | FW | URU | Kevin Ramírez
+chapecoense | 97 | FW | BRA | Ênio
+chapecoense | 98 | GK | BRA | Anderson
+chapecoense | 99 | MF | BRA | Rafael Carvalheira
+chapecoense | 99 | FW | COL | Dylan Borrero
+chapecoense | 99 | MF | ESP | Miguel Carvalho
+chapecoense | 99 | MF | BRA | Da Silva
+
+# --- Remo (As of 01/10/2026)
+remo | 1 | GK | BRA | Alexandre
+remo | 2 | DF | BRA | Matheus Alexandre
+remo | 4 | DF | BRA | Matheus Felipe
+remo | 5 | DF | BRA | Léo Andrade
+remo | 6 | DF | BRA | Marlon
+remo | 7 | FW | BRA | Jajá
+remo | 8 | MF | BRA | Patrick
+remo | 9 | FW | BRA | Gabriel Poveda
+remo | 10 | MF | BRA | Jáderson
+remo | 13 | DF | BRA | Marllon | ZAG
+remo | 14 | MF | ARG | Leonel Picco | VOL
+remo | 15 | MF | BRA | Vitor Bueno | MEI
+remo | 17 | DF | URU | Cristian Tassano
+remo | 18 | DF | CMR | Duplexe Tchamba
+remo | 19 | FW | BRA | Gabriel Taliari
+remo | 20 | FW | COL | Andrés González
+remo | 21 | FW | PAR | Antonio Galeano
+remo | 22 | FW | BRA | Yago Pikachu
+remo | 23 | MF | URU | Franco Catarozzi
+remo | 26 | MF | BRA | David Braga
+remo | 27 | DF | BRA | Zé Ivaldo
+remo | 28 | MF | BRA | Zé Welison | VOL
+remo | 30 | GK | BRA | João Victor
+remo | 35 | MF | BRA | Edson Fernando
+remo | 39 | FW | BRA | Eduardo Melo
+remo | 55 | MF | BRA | Zé Ricardo
+remo | 61 | FW | BRA | Tico
+remo | 62 | MF | BRA | Rafael
+remo | 64 | FW | BRA | Paulo Henrique
+remo | 65 | MF | BRA | Miguel
+remo | 77 | DF | BRA | Mayk
+remo | 79 | DF | BRA | Marcelinho
+remo | 88 | GK | BRA | Marcelo Rangel
+remo | 94 | GK | BRA | Ygor Vinhas
+remo | 97 | GK | BRA | Ivan
+remo | 99 | DF | BRA | João Lucas
+
+# --- Cruzeiro (As of 06/08/2026, página da temporada 2026)
+cruzeiro | 1 | GK | BRA | Cássio
+cruzeiro | 2 | DF | BRA | Kauã Moraes | LAT
+cruzeiro | 5 | MF | BRA | Zé Lucas | VOL
+cruzeiro | 7 | MF | BRA | Matheus Henrique | VOL
+cruzeiro | 8 | MF | BRA | Gerson | MEI
+cruzeiro | 9 | FW | BRA | Bruno Rodrigues
+cruzeiro | 10 | MF | BRA | Matheus Pereira | MEI
+cruzeiro | 11 | FW | BRA | Marquinhos
+cruzeiro | 12 | DF | BRA | William | LAT
+cruzeiro | 15 | DF | BRA | Fabrício Bruno | ZAG
+cruzeiro | 16 | MF | BRA | Lucas Silva | VOL
+cruzeiro | 17 | FW | COL | Luis Sinisterra
+cruzeiro | 19 | FW | BRA | Kaio Jorge
+cruzeiro | 20 | FW | BRA | Wesley
+cruzeiro | 22 | FW | COL | Néiser Villarreal
+cruzeiro | 23 | DF | BRA | Fagner | LAT
+cruzeiro | 24 | GK | BRA | Marcelo Eráclito
+cruzeiro | 25 | DF | ARG | Lucas Villalba | ZAG
+cruzeiro | 27 | DF | ARG | Gabriel Rojas | LAT
+cruzeiro | 29 | MF | ARG | Lucas Romero | VOL
+cruzeiro | 34 | DF | BRA | Jonathan Jesus | ZAG
+cruzeiro | 38 | MF | BRA | Felipe Morais
+cruzeiro | 40 | MF | BRA | Rhuan Gabriel
+cruzeiro | 41 | GK | BRA | Léo Aragão
+cruzeiro | 42 | MF | BRA | Nicolas
+cruzeiro | 43 | DF | BRA | João Marcelo | ZAG
+cruzeiro | 49 | FW | BRA | Ruan Índio
+cruzeiro | 51 | GK | BRA | Vitor Lamounier
+cruzeiro | 57 | FW | BRA | Rayan Lelis
+cruzeiro | 58 | MF | BRA | Eduardo Pape
+cruzeiro | 60 | DF | BRA | Gustavinho
+cruzeiro | 67 | FW | POR | João Costa
+cruzeiro | 70 | FW | JPN | Kaique Kenji
+cruzeiro | 77 | FW | BRA | Gabriel Pec
+cruzeiro | 81 | GK | BRA | Otávio
+cruzeiro | 84 | DF | BRA | Kelvin
+cruzeiro | 94 | FW | BEL | Wanderson
+cruzeiro | 97 | FW | URU | Luciano Rodríguez
+cruzeiro | 99 | FW | ECU | Keny Arroyo
+cruzeiro | 99 | MF | PAR | Fabrizio Peralta | VOL
+
+# --- Internacional (As of 25/07/2026, página da temporada 2026)
+internacional | 1 | GK | URU | Sergio Rochet
+internacional | 3 | DF | CHI | Guillermo Maripán
+internacional | 4 | DF | ECU | Félix Torres
+internacional | 5 | MF | ARG | Rodrigo Villagra
+internacional | 6 | DF | BRA | Matheus Bahia
+internacional | 7 | FW | COL | Johan Carbonero
+internacional | 8 | MF | BRA | Bruno Henrique
+internacional | 9 | FW | BRA | Alerrandro
+internacional | 10 | MF | BRA | Alan Patrick
+internacional | 11 | FW | BRA | Kayky
+internacional | 12 | GK | BRA | Anthoni
+internacional | 14 | MF | URU | Alan Rodríguez
+internacional | 15 | DF | BRA | Bruno Gomes | ZAG
+internacional | 16 | MF | BRA | Ronaldo
+internacional | 18 | DF | BRA | Juninho
+internacional | 20 | DF | BRA | Clayton Sampaio | ZAG
+internacional | 22 | GK | BRA | Kauan Jesus
+internacional | 25 | DF | ARG | Gabriel Mercado | ZAG
+internacional | 26 | DF | ARG | Alexandro Bernabei | LAT
+internacional | 27 | MF | BRA | Paulinho
+internacional | 28 | FW | BRA | Vitinho
+internacional | 29 | MF | BRA | Thiago Maia | VOL
+internacional | 30 | DF | BRA | Alisson
+internacional | 31 | MF | BRA | Allex
+internacional | 32 | GK | BRA | Diego Esser
+internacional | 33 | MF | GHA | Benjamin Arhin
+internacional | 34 | FW | BRA | Leandro Kauã
+internacional | 35 | DF | ARG | Braian Aguirre | LAT
+internacional | 36 | MF | BRA | Richard
+internacional | 37 | FW | BRA | Yago Noal
+internacional | 38 | FW | BRA | Diego Coser
+internacional | 39 | FW | BRA | Carlos Eduardo
+internacional | 40 | DF | BRA | Lázaro
+internacional | 41 | DF | BRA | Victor Gabriel
+internacional | 42 | DF | BRA | Pablo
+internacional | 44 | FW | BRA | João Victor
+internacional | 45 | DF | BRA | Yan Henrique
+internacional | 46 | DF | BRA | Pedro Kauã
+internacional | 48 | FW | BRA | Raykkonen
+internacional | 49 | FW | BRA | João Bezerra
+internacional | 50 | MF | BRA | Kauan Alves
+internacional | 51 | MF | BRA | Kempes
+internacional | 53 | DF | BRA | Luiz Felipe
+internacional | 99 | DF | BRA | João Dalla Corte
+internacional | 99 | MF | BRA | Calebe
+
+# --- Grêmio (As of 07/10/2026, página da temporada 2026)
+gremio | 1 | GK | BRA | Weverton
+gremio | 2 | DF | PAR | Fabián Balbuena | ZAG
+gremio | 3 | DF | BRA | Wagner Leonardo
+gremio | 4 | DF | ARG | Walter Kannemann
+gremio | 5 | MF | ARG | Juan Nardoni
+gremio | 6 | DF | BRA | Gustavo Martins | ZAG
+gremio | 7 | FW | ARG | Cristian Pavon
+gremio | 8 | MF | PER | Erick Noriega
+gremio | 9 | FW | GHA | Francis Amuzu
+gremio | 10 | MF | CRO | Filip Krovinović
+gremio | 11 | FW | BRA | Tetê
+gremio | 12 | GK | BRA | Gabriel Grando
+gremio | 14 | DF | BRA | Marcos Rocha | LAT
+gremio | 15 | MF | BRA | Danilo Barbosa
+gremio | 17 | MF | BRA | Dodi | VOL
+gremio | 18 | DF | BRA | João Pedro | LAT
+gremio | 20 | MF | PAR | Mathías Villasanti | VOL
+gremio | 22 | FW | DEN | Martin Braithwaite
+gremio | 23 | DF | BRA | Marlon | LAT
+gremio | 24 | GK | BRA | Thiago Beltrame
+gremio | 27 | DF | BRA | Diego Caito
+gremio | 30 | FW | BRA | Matheus Nascimento
+gremio | 31 | GK | BRA | Gabriel Menegon
+gremio | 32 | DF | BRA | Vitor Ramon
+gremio | 38 | DF | BRA | Caio Paulista | LAT
+gremio | 39 | MF | BRA | Tiago
+gremio | 40 | MF | BRA | Jeferson Forneck
+gremio | 43 | DF | BRA | Luis Eduardo
+gremio | 47 | FW | BRA | Roger
+gremio | 50 | MF | BRA | Zortea
+gremio | 54 | DF | BRA | Pedro Gabriel
+gremio | 65 | MF | BRA | Riquelme
+gremio | 77 | FW | CPV | Jovane Cabral
+gremio | 82 | DF | BRA | Wallace
+gremio | 95 | FW | BRA | Carlos Vinícius
+gremio | 99 | FW | COL | José Enamorado
+
+# --- Flamengo (As of 19/09/2026, página da temporada 2026)
+flamengo | 1 | GK | ARG | Agustín Rossi
+flamengo | 2 | DF | URU | Guillermo Varela | LAT
+flamengo | 3 | DF | BRA | Léo Ortiz | ZAG
+flamengo | 4 | DF | BRA | Léo Pereira | ZAG
+flamengo | 5 | MF | CHI | Erick Pulgar | VOL
+flamengo | 6 | DF | BRA | Ayrton Lucas | LAT
+flamengo | 7 | FW | BRA | Luiz Araújo
+flamengo | 8 | MF | ESP | Saúl Ñíguez | VOL
+flamengo | 9 | FW | BRA | Pedro
+flamengo | 10 | MF | URU | Giorgian de Arrascaeta | MEI
+flamengo | 11 | MF | BRA | Lucas Paquetá | MEI
+flamengo | 13 | DF | BRA | Danilo | ZAG
+flamengo | 14 | FW | ECU | Anthony Valencia
+flamengo | 15 | MF | COL | Jorge Carrascal | MEI
+flamengo | 16 | FW | BRA | Samuel Lino
+flamengo | 18 | MF | URU | Nicolás de la Cruz | MEI
+flamengo | 19 | FW | ECU | Gonzalo Plata
+flamengo | 21 | MF | ITA | Jorginho | VOL
+flamengo | 22 | DF | BRA | Emerson Royal | LAT
+flamengo | 26 | DF | BRA | Alex Sandro | LAT
+flamengo | 27 | FW | BRA | Bruno Henrique
+flamengo | 30 | FW | ARG | Joaquín Freitas
+flamengo | 42 | GK | BRA | Andrew
+flamengo | 44 | DF | BRA | Vitão | ZAG
+flamengo | 49 | GK | BRA | Dyogo Alves
+flamengo | 52 | MF | BRA | Evertton Araújo | VOL
+flamengo | 61 | DF | BRA | João Victor | ZAG

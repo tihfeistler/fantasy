@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TIMES_EXEMPLO } from "../data/exemplo";
+import { montarTimesAtuais } from "../data/clubes";
 import type { Time } from "../engine/types";
 import { TelaElenco } from "./TelaElenco";
 import { TelaLendas } from "./TelaLendas";
@@ -8,8 +8,8 @@ import { TelaPartida } from "./TelaPartida";
 type Aba = "elenco" | "partida" | "lendas";
 
 export function App() {
-  const [times, setTimes] = useState<Time[]>(TIMES_EXEMPLO);
-  const [meuTimeId] = useState(TIMES_EXEMPLO[0].id);
+  const [times, setTimes] = useState<Time[]>(montarTimesAtuais);
+  const [meuTimeId, setMeuTimeId] = useState("flamengo");
   const [aba, setAba] = useState<Aba>("elenco");
 
   const meuTime = times.find((t) => t.id === meuTimeId)!;
@@ -19,9 +19,15 @@ export function App() {
     <div className="app">
       <header className="topo">
         <div className="marca">Fantasy</div>
-        <div className="clube" style={{ borderColor: meuTime.cor }}>
-          {meuTime.nome}
-        </div>
+        <label className="clube" style={{ borderColor: meuTime.cor }}>
+          <select value={meuTimeId} onChange={(e) => setMeuTimeId(e.target.value)} title="Seu clube">
+            {times.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.nome}
+              </option>
+            ))}
+          </select>
+        </label>
         <nav>
           <button className={aba === "elenco" ? "ativo" : ""} onClick={() => setAba("elenco")}>
             Elenco

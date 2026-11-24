@@ -1,0 +1,182 @@
+[
+  {
+    "id": "athletico-pr",
+    "nome": "Athletico Paranaense",
+    "sigla": "CAP",
+    "cor": "#c8102e",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-a",
+    "nivel": 76
+  },
+  {
+    "id": "atletico-mg",
+    "nome": "Atlético Mineiro",
+    "sigla": "CAM",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 78
+  },
+  {
+    "id": "bahia",
+    "nome": "Bahia",
+    "sigla": "BAH",
+    "cor": "#0055a4",
+    "corSecundaria": "#e30613",
+    "liga": "brasileirao-a",
+    "nivel": 76
+  },
+  {
+    "id": "botafogo",
+    "nome": "Botafogo",
+    "sigla": "BOT",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 78
+  },
+  {
+    "id": "chapecoense",
+    "nome": "Chapecoense",
+    "sigla": "CHA",
+    "cor": "#00843d",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 65
+  },
+  {
+    "id": "corinthians",
+    "nome": "Corinthians",
+    "sigla": "COR",
+    "cor": "#111111",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 77
+  },
+  {
+    "id": "coritiba",
+    "nome": "Coritiba",
+    "sigla": "CFC",
+    "cor": "#00543c",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 70
+  },
+  {
+    "id": "cruzeiro",
+    "nome": "Cruzeiro",
+    "sigla": "CRU",
+    "cor": "#0033a0",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 78
+  },
+  {
+    "id": "flamengo",
+    "nome": "Flamengo",
+    "sigla": "FLA",
+    "cor": "#c8102e",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-a",
+    "nivel": 85
+  },
+  {
+    "id": "fluminense",
+    "nome": "Fluminense",
+    "sigla": "FLU",
+    "cor": "#7a0026",
+    "corSecundaria": "#00613c",
+    "liga": "brasileirao-a",
+    "nivel": 78
+  },
+  {
+    "id": "gremio",
+    "nome": "Grêmio",
+    "sigla": "GRE",
+    "cor": "#0d80bf",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-a",
+    "nivel": 75
+  },
+  {
+    "id": "internacional",
+    "nome": "Internacional",
+    "sigla": "INT",
+    "cor": "#e30613",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 76
+  },
+  {
+    "id": "mirassol",
+    "nome": "Mirassol",
+    "sigla": "MIR",
+    "cor": "#f5d000",
+    "corSecundaria": "#00843d",
+    "liga": "brasileirao-a",
+    "nivel": 70
+  },
+  {
+    "id": "palmeiras",
+    "nome": "Palmeiras",
+    "sigla": "PAL",
+    "cor": "#006437",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 84
+  },
+  {
+    "id": "bragantino",
+    "nome": "Red Bull Bragantino",
+    "sigla": "RBB",
+    "cor": "#ffffff",
+    "corSecundaria": "#d6001c",
+    "liga": "brasileirao-a",
+    "nivel": 74
+  },
+  {
+    "id": "remo",
+    "nome": "Remo",
+    "sigla": "REM",
+    "cor": "#001f5b",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 67
+  },
+  {
+    "id": "santos",
+    "nome": "Santos",
+    "sigla": "SAN",
+    "cor": "#ffffff",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-a",
+    "nivel": 75
+  },
+  {
+    "id": "sao-paulo",
+    "nome": "São Paulo",
+    "sigla": "SAO",
+    "cor": "#e30613",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-a",
+    "nivel": 77
+  },
+  {
+    "id": "vasco",
+    "nome": "Vasco da Gama",
+    "sigla": "VAS",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-a",
+    "nivel": 75
+  },
+  {
+    "id": "vitoria",
+    "nome": "Vitória",
+    "sigla": "VIT",
+    "cor": "#e30613",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-a",
+    "nivel": 70
+  }
+]

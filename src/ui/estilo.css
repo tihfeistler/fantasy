@@ -78,3 +78,4 @@ input.busca { background: var(--painel); color: var(--texto); border: 1px solid 
 .raridade-ouro { background: linear-gradient(135deg, #f7d774, #c9a227); }
 .raridade-prata { background: linear-gradient(135deg, #e3e6ea, #a9b0b8); }
 .raridade-bronze { background: linear-gradient(135deg, #e0b48a, #a8704a); }
+.clube select { font-weight: 600; }
