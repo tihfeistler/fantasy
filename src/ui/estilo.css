@@ -661,3 +661,82 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
   .nm-cabeca h1 { font-size: 38px; }
   .nm-clubes { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 }
+
+/* ---------- Campeonato ---------- */
+.rodada-titulo { display: flex; flex-direction: column; line-height: 1.1; margin-right: auto; }
+.rodada-titulo b { font-family: var(--fonte-titulo); font-size: 24px; font-weight: 800; text-transform: uppercase; }
+.lado.meu .lado-nome { color: var(--destaque); }
+.partida-corpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.partida-corpo.com-rodada { grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); align-items: start; }
+.outros-jogos { border: 1px solid var(--linha); border-radius: 10px; background: var(--painel); padding: 12px 14px; }
+.outros-jogos h3, .calendario h2, .classificacao h2 {
+  margin: 0 0 10px; font-family: var(--fonte-titulo); font-size: 20px; font-weight: 800; text-transform: uppercase;
+}
+.classificacao h2 .suave { font-family: var(--fonte-texto); font-size: 13px; font-weight: 500; text-transform: none; margin-left: 6px; }
+.outros-jogos ul { list-style: none; margin: 0; padding: 0; }
+.outros-jogos li { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid var(--linha); font-size: 13px; }
+.outros-jogos li:first-child { border-top: 0; }
+.outros-jogos li b { font-variant-numeric: tabular-nums; min-width: 44px; text-align: center; }
+.outros-jogos li.meu { color: var(--destaque); font-weight: 700; }
+.oj-time { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oj-time.dir { text-align: right; }
+
+.campeonato { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); gap: 18px; align-items: start; }
+.classificacao, .calendario { border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); padding: 14px; min-width: 0; }
+.rolagem { overflow-x: auto; }
+.tabela-classif { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.tabela-classif th, .tabela-classif td { padding: 6px 6px; text-align: center; border-top: 1px solid var(--linha); white-space: nowrap; }
+.tabela-classif th { color: var(--apagado); font-size: 11px; font-weight: 700; text-transform: uppercase; border-top: 0; }
+.tabela-classif .nome { text-align: left; width: 100%; }
+.tabela-classif td.nome { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.tabela-classif .pts { font-weight: 800; color: var(--texto); }
+.tabela-classif td.pos-tab { font-weight: 800; border-left: 4px solid transparent; }
+.tabela-classif tr.meu td { background: #2b2408; color: #fff1c2; }
+.escudo.mini { min-width: 30px; height: 26px; font-size: 11px; border-radius: 6px 6px 11px 11px; border-width: 1px; }
+.zona-libertadores td.pos-tab { border-left-color: #4ea8ff; }
+.zona-pre td.pos-tab { border-left-color: #8fc7ff; }
+.zona-sula td.pos-tab { border-left-color: #34d399; }
+.zona-rebaixamento td.pos-tab { border-left-color: #ff6b5a; }
+.forma { display: flex; gap: 3px; justify-content: center; }
+.f { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 4px; border-radius: 4px; font-size: 11px; font-weight: 800; }
+.f-V { background: #1f7a4a; color: #e3ffef; }
+.f-E { background: #4a5878; color: #eef2fb; }
+.f-D { background: #9b2f26; color: #ffe8e4; }
+.legenda-zonas { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0 0; padding: 0; color: var(--suave); font-size: 12px; }
+.legenda-zonas li { display: flex; align-items: center; gap: 6px; }
+.zona-cor { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.zona-cor.zona-libertadores { background: #4ea8ff; }
+.zona-cor.zona-pre { background: #8fc7ff; }
+.zona-cor.zona-sula { background: #34d399; }
+.zona-cor.zona-rebaixamento { background: #ff6b5a; }
+
+.calendario ol { list-style: none; margin: 0; padding: 0; max-height: 70vh; overflow-y: auto; }
+.calendario li { display: grid; grid-template-columns: 26px 44px 1fr auto; gap: 8px; align-items: center; padding: 6px 4px; border-top: 1px solid var(--linha); font-size: 13px; }
+.calendario li:first-child { border-top: 0; }
+.calendario li.proximo { background: var(--painel-2); border-radius: 6px; font-weight: 700; }
+.cal-rod { color: var(--apagado); font-variant-numeric: tabular-nums; text-align: right; }
+.cal-mando { font-size: 10px; font-weight: 800; text-transform: uppercase; padding: 2px 5px; border-radius: 4px; text-align: center; }
+.cal-mando.casa { background: #12395f; color: #a9d4ff; }
+.cal-mando.fora { background: var(--fundo-2); color: var(--suave); }
+.cal-adv { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cal-res.f { min-width: 38px; }
+
+.fim-temporada {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
+  margin-bottom: 18px; padding: 18px 20px; border-radius: 14px;
+  border: 1px solid #8a6b12; background: linear-gradient(135deg, #3a2c06, var(--painel));
+}
+.fim-temporada h2 { margin: 2px 0 6px; font-family: var(--fonte-titulo); font-size: 32px; font-weight: 800; text-transform: uppercase; color: var(--destaque); }
+.fim-temporada p { margin: 0; color: var(--suave); }
+.fim-temporada b { color: var(--texto); }
+
+@media (max-width: 900px) {
+  .campeonato, .partida-corpo.com-rodada { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .topo nav { gap: 0; }
+  .topo nav button { padding: 8px 6px; font-size: 16px; letter-spacing: 0.2px; }
+  .tabela-classif th, .tabela-classif td { padding: 5px 3px; font-size: 12px; }
+  .tabela-classif .col-extra { display: none; }
+  .rodada-titulo b { font-size: 20px; }
+}

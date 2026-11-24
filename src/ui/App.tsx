@@ -1,24 +1,35 @@
 import { useEffect, useMemo, useState } from "react";
 import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
 import { estiloEscudo, montarTimesAtuais } from "../data/clubes";
+import { calcularTabela, chaveJogo, novaTemporada, premioFinal, simularRodada, type Temporada } from "../engine/campeonato";
 import { FORMACOES } from "../engine/ratings";
 import { carregarProgresso, PROGRESSO_INICIAL, salvarProgresso, type Progresso } from "../data/progresso";
 import { abrirPacote, faixa, MAX_LENDAS_NO_ELENCO, PRECO_PACOTE, PREMIO, VALOR_VENDA } from "../engine/pacotes";
 import { criarRng } from "../engine/rng";
 import type { Jogador, ResultadoPartida, Time } from "../engine/types";
+import { TelaCampeonato } from "./TelaCampeonato";
 import { TelaElenco } from "./TelaElenco";
 import { TelaEstoque } from "./TelaEstoque";
 import { TelaLendas } from "./TelaLendas";
 import { TelaNovoManager } from "./TelaNovoManager";
 import { TelaPartida } from "./TelaPartida";
 
-type Aba = "elenco" | "partida" | "estoque" | "lendas";
+type Aba = "elenco" | "partida" | "campeonato" | "estoque" | "lendas";
 const ABAS: { id: Aba; nome: string }[] = [
   { id: "elenco", nome: "Elenco" },
   { id: "partida", nome: "Partida" },
+  { id: "campeonato", nome: "Campeonato" },
   { id: "estoque", nome: "Estoque" },
   { id: "lendas", nome: "Lendas" },
 ];
+
+const ANO_INICIAL = 2026;
+const criarTemporada = (ano: number) =>
+  novaTemporada(
+    montarTimesAtuais().map((t) => t.id),
+    ano,
+    (Date.now() ^ (Math.random() * 2 ** 31)) >>> 0,
+  );
 
 export function App() {
   // Times atuais; o do manager recebe a escalação salva.
@@ -35,7 +46,11 @@ export function App() {
     );
   });
   const [aba, setAba] = useState<Aba>("elenco");
-  const [progresso, setProgresso] = useState<Progresso>(carregarProgresso);
+  const [progresso, setProgresso] = useState<Progresso>(() => {
+    const p = carregarProgresso();
+    // Saves antigos (sem campeonato) ganham uma temporada nova.
+    return p.manager && !p.temporada ? { ...p, temporada: criarTemporada(ANO_INICIAL) } : p;
+  });
   const [confirmarNova, setConfirmarNova] = useState(false);
   const meuTimeId = progresso.manager?.clubeId ?? "";
   const [lendasLista, setLendasLista] = useState<Jogador[]>(LENDAS_EMBUTIDAS);
@@ -60,6 +75,9 @@ export function App() {
     [times, progresso.noElenco, lendas],
   );
   const meuTime = timesComLendas.find((t) => t.id === meuTimeId);
+  const mapaTimes = useMemo(() => new Map(timesComLendas.map((t) => [t.id, t])), [timesComLendas]);
+  const temporada = progresso.temporada;
+
   const atualizar = (t: Time) => {
     setTimes((ts) => ts.map((x) => (x.id === t.id ? { ...t, elenco: x.elenco } : x)));
     setProgresso((p) => ({ ...p, escalacao: { formacao: t.formacao.nome, titulares: t.titulares } }));
@@ -104,6 +122,47 @@ export function App() {
       ts.map((t) => (t.id === meuTimeId ? { ...t, titulares: t.titulares.filter((x) => x !== id) } : t)),
     );
   };
+  /** Fim do jogo do manager: grava o placar, simula o resto da rodada e paga o prêmio. */
+  const fimDoJogo = (r: ResultadoPartida) => {
+    const premio = premiar(r);
+    mudar((p) => {
+      const t = p.temporada;
+      if (!t) return p;
+      const i = t.rodadas[t.rodadaAtual].findIndex(([m, v]) => m === r.mandanteId && v === r.visitanteId);
+      if (i < 0) return p;
+      const comMeu: Temporada = {
+        ...t,
+        placares: { ...t.placares, [chaveJogo(t.rodadaAtual, i)]: [r.golsMandante, r.golsVisitante] },
+      };
+      return { ...p, temporada: simularRodada(comMeu, mapaTimes) };
+    });
+    return premio;
+  };
+  const avancar = () => {
+    mudar((p) => {
+      const t = p.temporada;
+      if (!t) return p;
+      // Garante a rodada completa mesmo que algo tenha ficado sem placar.
+      const feita = simularRodada(t, mapaTimes);
+      const prox = { ...feita, rodadaAtual: feita.rodadaAtual + 1 };
+      if (prox.rodadaAtual < prox.rodadas.length) return { ...p, temporada: prox };
+      const tabela = calcularTabela(prox, [...mapaTimes.keys()], new Map(timesComLendas.map((x) => [x.id, x.nome])));
+      const posicao = tabela.findIndex((l) => l.id === meuTimeId) + 1;
+      return {
+        ...p,
+        temporada: prox,
+        moedas: p.moedas + premioFinal(posicao),
+        historico: [...(p.historico ?? []), { ano: prox.ano, posicao, campeao: tabela[0].id }],
+      };
+    });
+    // Fim do campeonato: mostra a tabela final.
+    if (temporada && temporada.rodadaAtual + 1 >= temporada.rodadas.length) setAba("campeonato");
+  };
+  const novaTemporadaDoManager = () => {
+    mudar((p) => ({ ...p, temporada: criarTemporada((p.temporada?.ano ?? ANO_INICIAL - 1) + 1) }));
+    setAba("partida");
+  };
+
   const premiar = (r: ResultadoPartida) => {
     const meus = r.mandanteId === meuTimeId ? r.golsMandante : r.golsVisitante;
     const deles = r.mandanteId === meuTimeId ? r.golsVisitante : r.golsMandante;
@@ -116,6 +175,7 @@ export function App() {
     setProgresso({
       ...PROGRESSO_INICIAL,
       manager: { nome, clubeId, criadoEm: new Date().toISOString().slice(0, 10) },
+      temporada: criarTemporada(ANO_INICIAL),
     });
     setTimes(montarTimesAtuais());
     setAba("elenco");
@@ -125,7 +185,7 @@ export function App() {
     setConfirmarNova(false);
   };
 
-  if (!progresso.manager || !meuTime) {
+  if (!progresso.manager || !meuTime || !temporada) {
     return (
       <div className="app">
         <TelaNovoManager times={times} onCriar={criarManager} />
@@ -177,11 +237,32 @@ export function App() {
       )}
       <main>
         {aba === "elenco" && <TelaElenco time={meuTime} onChange={atualizar} />}
-        {aba === "partida" && (
-          <TelaPartida
+        {aba === "partida" &&
+          (temporada.rodadaAtual < temporada.rodadas.length ? (
+            <TelaPartida
+              meuTime={meuTime}
+              times={mapaTimes}
+              temporada={temporada}
+              onFim={fimDoJogo}
+              onAvancar={avancar}
+            />
+          ) : (
+            <section className="tela">
+              <p className="vazio-partida">
+                O Brasileirão {temporada.ano} acabou.{" "}
+                <button className="link-nome" onClick={() => setAba("campeonato")}>
+                  Veja a tabela final
+                </button>{" "}
+                e comece a próxima temporada.
+              </p>
+            </section>
+          ))}
+        {aba === "campeonato" && (
+          <TelaCampeonato
             meuTime={meuTime}
-            adversarios={timesComLendas.filter((t) => t.id !== meuTimeId)}
-            onFim={premiar}
+            times={mapaTimes}
+            temporada={temporada}
+            onNovaTemporada={novaTemporadaDoManager}
           />
         )}
         {aba === "estoque" && (

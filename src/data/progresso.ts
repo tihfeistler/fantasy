@@ -1,3 +1,5 @@
+import type { Temporada } from "../engine/campeonato";
+
 /**
  * Progresso do jogador no modo solo: moedas, cartas no estoque e lendas
  * levadas para o elenco de cada clube. Fica no navegador (localStorage);
@@ -21,6 +23,10 @@ export interface Progresso {
   escalacao?: { formacao: string; titulares: string[] };
   /** ids de lendas no elenco, por clube. */
   noElenco: Record<string, string[]>;
+  /** Brasileirão em andamento (calendário, rodada atual e placares). */
+  temporada?: Temporada;
+  /** Temporadas encerradas. */
+  historico?: { ano: number; posicao: number; campeao: string }[];
 }
 
 const CHAVE = "fantasy-progresso-v1";

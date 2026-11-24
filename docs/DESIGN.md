@@ -141,7 +141,7 @@ Fase posterior:
 | Fase | Entrega |
 | --- | --- |
 | 0 (feito) | Esqueleto: elenco, partida narrada, formato de jogador, base de clássicos |
-| 1 | Base de **clubes e elencos atuais** da Série A (rascunho feito: 20 clubes, 720 jogadores); escolher clube (feito); liga com tabela e calendário |
+| 1 | Base de **clubes e elencos atuais** da Série A (rascunho feito: 20 clubes, 720 jogadores); escolher clube (feito); liga com tabela e calendário (prévia feita: 38 rodadas em turno e returno, sua partida narrada e as outras simuladas, classificação com zonas, premiação de fim de temporada e temporada seguinte) |
 | 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (prévia feita: estoque, pacote de 5 cartas por 500 moedas, prêmio por partida, até 3 lendas no elenco, progresso salvo no navegador) |
 | 3 | Carreira completa: mercado de atuais, finanças, temporadas, objetivos, save local |
 | 4 | Mais ligas (Série B, Europa), copas; PWA offline; polimento visual |
