@@ -178,15 +178,54 @@ um pouco mais **[suposição]**).
 - Depois: empréstimos, contratos com duração, negociação de valor, IA
   comprando e vendendo entre si.
 
-## 7. Modo online
+## 7. Modos de jogo (decidido em 24/11/2026)
 
-Fase posterior:
+O jogador pode ficar só no offline para sempre; o online é opcional.
 
-- Ligas privadas com amigos, completadas pela IA.
-- Rodadas em horário fixo ou quando todos confirmam.
-- Servidor autoritativo roda as partidas (ver seção 8 sobre o motor em PHP).
-- Mercado de cartas entre técnicos (backend feito: contas, anúncios, propostas; falta ligar o front ao servidor).
-- Mercado de jogadores atuais entre técnicos da mesma liga.
+| Modo | Contra quem | Time usado | Salário e caixa | Recompensa |
+| --- | --- | --- | --- | --- |
+| **Carreira** (PvE, offline) | IA, campeonato completo com tabela | elenco do seu clube + até 3 lendas | **sim** | moedas por partida e por posição |
+| **Desafios PvE** | times montados pela IA (ex.: "Seleção de 1970", "só jogadores do Nordeste") | seu time de cartas | não | moedas, pacotes, carta específica |
+| **Desafios PvP** | outro técnico, sem ranking (inclui desafio de amigo por convite) | seu time de cartas | não | moedas (menos que no ranqueado) |
+| **Ranqueado** (PvP online) | técnico real, por pareamento | seu time de cartas | não | pontos de liga, prêmios de fim de temporada |
+| Liga privada (depois) | amigos + IA, temporada completa | clube real, como na carreira | sim | como na carreira |
+
+**Time de cartas** (ranqueado e desafios): o técnico monta um time só com
+cartas que tem. **Cartas base** (jogadores atuais) são compradas do sistema
+com moedas; **lendas** vêm de pacotes ou do mercado entre técnicos. Vale o
+mesmo limite de 3 lendas em campo. **[suposição]** Na carreira, o elenco é
+o do clube; as cartas base não entram lá.
+
+### Ranqueado
+
+Inspirado no sistema de ligas dos jogos competitivos online:
+
+- **Divisões**: Bronze, Prata, Ouro, Platina, Diamante, cada uma com 4
+  níveis (IV a I), e acima delas **Elite** (sem níveis, pontos livres) e
+  um **Top 100** por pontos. **[suposição: nomes]**
+- **Pontos de liga (PL)**: vitória dá cerca de +20, derrota cerca de -18 e
+  empate +/-2, ajustados pela força escondida (MMR, tipo Elo): ganhar de
+  quem tem MMR maior rende mais. Com 100 PL sobe de nível; com 0 PL e
+  derrota, cai (proteção de 3 jogos ao subir de divisão).
+- **Classificatórias**: 5 partidas iniciais definem a divisão de entrada.
+- **Pareamento** pelo MMR, com faixa que se alarga com a espera.
+- **Temporada ranqueada** de 2 a 3 meses; no fim, prêmio pela divisão
+  máxima alcançada (moedas, pacotes, carta exclusiva de temporada) e reset
+  parcial dos pontos.
+- **Partida em tempo real**: o servidor simula com o motor determinístico
+  e libera a narração minuto a minuto para os dois técnicos ao mesmo
+  tempo (cerca de 3 minutos por jogo). Cada técnico pode mexer durante o
+  jogo: tática (defensivo, equilibrado, ofensivo) e até 3 substituições; a
+  mudança vale a partir do minuto seguinte. No PHP/XAMPP, sem websocket, o
+  cliente consulta o servidor a cada 1 a 2 segundos.
+- Abandono conta como derrota.
+
+### Online: o que já existe
+
+- Contas e login (`api/auth.php`), mercado de cartas entre técnicos
+  (`api/mercado.php`). Falta ligar o front ao servidor.
+- Servidor autoritativo das partidas: motor portado para PHP com testes de
+  paridade por seed (seção 8).
 
 ## 8. Plataforma, stack e roteiro
 
@@ -210,7 +249,7 @@ Fase posterior:
 | 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (prévia feita: estoque, pacote de 5 cartas por 500 moedas, prêmio por partida, até 3 lendas entre os titulares, espaço de 300 cartas ampliável, progresso salvo no navegador) |
 | 3 | Carreira completa: mercado de atuais e finanças (prévia feita: compra, venda com propostas da IA, caixa, folha, extrato), temporadas, objetivos, save local |
 | 4 | Mais ligas (Série B, Europa), copas; PWA offline; polimento visual |
-| 5 | Modo online: contas (API feita), ligas privadas, mercado de cartas entre técnicos (API feita; na prévia, simulado) |
+| 5 | Modo online: contas (API feita), mercado de cartas entre técnicos (API feita; na prévia, simulado), time de cartas, desafios PvE/PvP, ranqueado com divisões, ligas privadas |
 
 ## 9. Perguntas em aberto
 
