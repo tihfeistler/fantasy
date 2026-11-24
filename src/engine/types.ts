@@ -26,13 +26,21 @@ export interface Jogador {
   nacionalidade: string;
   posicao: Posicao;
   pe: Pe;
-  epoca: { inicio: number; fim: number };
-  /** Ano do auge: a "versão" do jogador usada no jogo. */
-  auge: number;
+  epoca?: { inicio: number; fim: number };
+  /** Ano do auge: a "versão" do jogador usada no jogo (clássicos). */
+  auge?: number;
   clubeMarcante?: string;
   atributos: Atributos;
   /** 1-100, calculado pelos pesos da posição. */
   geral: number;
+  /** "classico" se ausente. Ver docs/FORMATO-JOGADOR.md. */
+  tipo?: "classico" | "atual";
+  /** AAAA-MM-DD, só para atuais. */
+  nascimento?: string;
+  /** Clube na temporada, só para atuais. */
+  clubeId?: string;
+  /** Teto de evolução 1-100, só para atuais. */
+  potencial?: number;
 }
 
 /** Formação como quantidade de jogadores de linha por setor. */

@@ -40,3 +40,26 @@ O tipo TypeScript correspondente é `Jogador` em `src/engine/types.ts`.
 
 Enquanto a base não chega, `src/data/exemplo.ts` tem 34 jogadores de exemplo
 nesse mesmo formato, com atributos estimados à mão.
+
+## Extensão para jogadores atuais (proposta)
+
+Jogadores atuais usam o mesmo formato, com estes campos a mais (todos
+opcionais, então a base de clássicos continua válida sem mudança):
+
+| Campo | Tipo | Regra |
+| --- | --- | --- |
+| `tipo` | enum | `"classico"` (padrão se ausente) ou `"atual"` |
+| `nascimento` | string | data `AAAA-MM-DD`, só para atuais (idade e declínio) |
+| `clubeId` | string | id do clube na temporada, só para atuais |
+| `potencial` | inteiro | 1-100, teto de evolução, só para atuais |
+
+Para atuais, `auge` e `epoca` podem ficar ausentes. A raridade da carta dos
+clássicos é derivada do `geral` (ex.: ícone 90+, ouro 80+, prata 70+,
+bronze abaixo), então não precisa de campo.
+
+Clubes ficarão em `data/clubes.json`:
+
+```json
+{ "id": "flamengo", "nome": "Flamengo", "sigla": "FLA", "cor": "#c8102e",
+  "corSecundaria": "#000000", "liga": "brasileirao-a", "nivel": 85 }
+```

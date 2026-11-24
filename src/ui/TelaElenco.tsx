@@ -90,7 +90,7 @@ export function TelaElenco({ time, onChange }: Props) {
                   <small>{j.clubeMarcante}</small>
                 </td>
                 <td>{j.nacionalidade}</td>
-                <td>{j.auge}</td>
+                <td>{j.auge ?? "atual"}</td>
                 <td className="geral">{j.geral}</td>
                 <td>{j.atributos.ataque}</td>
                 <td>{j.atributos.defesa}</td>
