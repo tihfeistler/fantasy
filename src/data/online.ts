@@ -72,6 +72,8 @@ export interface PerfilRanqueado {
 export interface SituacaoOnline {
   usuario: { id: number; nome: string; timeId: string };
   moedas: number;
+  /** Lendas que cabem na coleção da conta. */
+  limiteCartas: number;
   time: { caixa: number; formacao: string; titulares: string[]; banco: string[]; custo: number };
   cartas: (Jogador & { copias: number })[];
   ranqueado: PerfilRanqueado;
@@ -149,6 +151,7 @@ export const online = {
   comprarBase: (id: string) => chamar<SituacaoOnline>("online.php", { acao: "comprar_base", jogador_id: id }),
   venderBase: (id: string) => chamar<SituacaoOnline>("online.php", { acao: "vender_base", jogador_id: id }),
   abrirPacote: () => chamar<SituacaoOnline>("online.php", { acao: "abrir_pacote" }),
+  ampliar: () => chamar<SituacaoOnline>("online.php", { acao: "ampliar" }),
 
   estado: (partida?: number) =>
     chamar<EstadoRanqueado>("ranqueado.php", undefined, `?acao=estado${partida ? `&partida=${partida}` : ""}`),

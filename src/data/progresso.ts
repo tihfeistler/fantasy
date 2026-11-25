@@ -52,6 +52,8 @@ export interface Progresso {
   contratos?: Record<string, Contrato>;
   /** Rodadas seguidas com caixa negativo (4 = perde 3 pontos). */
   noVermelho?: number;
+  /** O caixa do antigo time de cartas já foi somado ao do clube (caixa único). */
+  caixaUnico?: boolean;
   /** Temporadas encerradas. */
   historico?: { ano: number; posicao: number; campeao: string; divisao?: Divisao }[];
 }

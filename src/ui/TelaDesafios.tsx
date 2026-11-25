@@ -68,7 +68,7 @@ export function TelaDesafios(p: Props) {
     <>
       <div className="financas">
         <div className="indicador destaque">
-          <span className="rotulo">Caixa do time de cartas</span>
+          <span className="rotulo">Caixa único</span>
           <b>{formatarDinheiro(timeCartas.caixa)}</b>
         </div>
         <div className="indicador">
@@ -87,7 +87,7 @@ export function TelaDesafios(p: Props) {
         </div>
       </div>
       <p className="suave nota-financas">
-        O time de cartas é o seu time dos desafios (e, no futuro, do online). Ele usa só cartas suas: cartas base de
+        O time de cartas é o seu time dos desafios e do ranqueado, e o salário sai do caixa único do clube. Ele usa só cartas suas: cartas base de
         jogadores atuais, compradas com moedas, e suas lendas (até {MAX_LENDAS_EM_CAMPO} em campo). Cada partida cobra o
         salário dos titulares, um quarto do mensal, e as lendas cobram cachê em dobro. Sem caixa, não joga: o treino é de
         graça para sair do aperto.

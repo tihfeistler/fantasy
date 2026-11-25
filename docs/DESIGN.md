@@ -233,11 +233,39 @@ um pouco mais **[suposição]**).
 
 ## 7. Modos de jogo (decidido em 24/11/2026)
 
-O jogador pode ficar só no offline para sempre; o online é opcional.
+**Atualizado em 25/11/2026: o jogo todo é online, sempre com login.** Não
+há modo offline. "Online" queria dizer o PvP/ranqueado. Carreira, desafios,
+coleção, caixa e moedas ficam na conta, no servidor.
+
+### Conta e caixa único (feito em 25/11/2026)
+
+- Um **caixa só** por conta (`times_online.caixa`) para contratar, pagar
+  salários da carreira, jogar desafios e o ranqueado. As **moedas**
+  (`usuarios.moedas`) e as **cartas** (`cartas`) também são da conta:
+  pacotes, cartas base, mercado de lendas e as lendas levadas ao elenco da
+  carreira.
+- A carreira fica em `carreiras.dados` (JSON). O motor roda no navegador;
+  cada movimento de dinheiro ou moedas vai ao servidor como um lançamento
+  numerado (`api/carreira.php`), e o servidor confere antes de aplicar:
+  TV e bilheteria com valor fixo e uma vez por rodada; salário não menor
+  que a folha do elenco que o servidor sabe que é seu; compra e venda
+  dentro do valor de mercado e só de quem é dono do jogador; premiação e
+  moedas da temporada uma vez por ano; moedas por partida até 300 por
+  rodada; prêmio de desafio só depois de pagar a partida, com no máximo 10
+  treinos premiados por dia; lenda de desafio uma vez por desafio. O que
+  não passa é recusado e o caixa volta ao valor do servidor.
+- Primeira carreira da conta: o caixa ganha o caixa inicial do clube (10%
+  do valor do elenco), uma vez só. Nova carreira apaga campeonato e
+  elenco, mas não o caixa, as moedas e as cartas.
+- Limite da coleção no servidor: 300 lendas, +10 por 1.000 moedas, até 500.
+- Limite que continua: o servidor não refaz as partidas, então não sabe se
+  o placar é verdadeiro. Os tetos acima limitam o que dá para ganhar.
+- A prévia publicada não tem servidor: abre como **demonstração**, com o
+  estado só no navegador e o ranqueado desligado.
 
 | Modo | Contra quem | Time usado | Salário e caixa | Recompensa |
 | --- | --- | --- | --- | --- |
-| **Carreira** (PvE, offline) | IA, campeonato completo com tabela | elenco do seu clube + até 3 lendas | sim, por rodada | moedas por partida e por posição |
+| **Carreira** (PvE contra a IA) | IA, campeonato completo com tabela | elenco do seu clube + até 3 lendas | sim, por rodada | moedas por partida e por posição |
 | **Desafios PvE** | times montados pela IA (ex.: "Seleção de 1970", "só jogadores do Nordeste") | seu time de cartas | sim, por partida | caixa, moedas, pacotes, carta específica |
 | **Desafios PvP** | outro técnico, sem ranking (inclui desafio de amigo por convite) | seu time de cartas | sim, por partida | caixa e moedas (menos que no ranqueado) |
 | **Ranqueado** (PvP online) | técnico real, por pareamento | seu time de cartas | sim, por partida | caixa, pontos de liga, prêmios de fim de temporada |

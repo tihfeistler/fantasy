@@ -27,11 +27,36 @@ const atuais = (t: Time) => t.elenco.filter((j) => !ehLenda(j));
 export const folhaMensal = (t: Time) => atuais(t).reduce((s, j) => s + salarioMensal(j), 0);
 export const valorDoElenco = (t: Time) => atuais(t).reduce((s, j) => s + valorDeMercado(j), 0);
 
+/** Tipo do lançamento: o servidor confere cada um antes de mexer no caixa da conta. */
+export type TipoLancamento =
+  | "tv"
+  | "bilheteria"
+  | "salarios"
+  | "juros"
+  | "compra"
+  | "venda"
+  | "premiacao"
+  | "desafio-custo"
+  | "desafio-premio"
+  | "partida"
+  | "aviso";
+
 export interface Lancamento {
   /** Rodada (1 a 38) ou 0 para fora do campeonato. */
   rodada: number;
   descricao: string;
   valor: number;
+  tipo?: TipoLancamento;
+  /** Temporada do lançamento. */
+  ano?: number;
+  /** Jogador (compra e venda) ou desafio. */
+  ref?: string;
+  /** Moedas ganhas junto (prêmio de partida, de temporada ou de desafio). */
+  moedas?: number;
+  /** Lenda ganha na primeira vitória de um desafio (vai para a coleção da conta). */
+  carta?: string;
+  /** Número sequencial, dado por `lancar`; o servidor aplica cada número uma vez. */
+  n?: number;
 }
 
 export interface Financas {
@@ -42,6 +67,8 @@ export interface Financas {
   bilheteria: number;
   /** Últimos lançamentos, do mais novo para o mais antigo. */
   extrato: Lancamento[];
+  /** Quantos lançamentos já foram feitos (numera os novos). */
+  seq?: number;
 }
 
 /**
@@ -72,7 +99,14 @@ export function financasAoMudarDeDivisao(f: Financas, subiu: boolean): Financas 
 
 export function lancar(f: Financas, ls: Lancamento[]): Financas {
   const soma = ls.reduce((s, l) => s + l.valor, 0);
-  return { ...f, caixa: f.caixa + soma, extrato: [...[...ls].reverse(), ...f.extrato].slice(0, 60) };
+  const seq = f.seq ?? 0;
+  const numerados = ls.map((l, i) => ({ ...l, n: seq + i + 1 }));
+  return {
+    ...f,
+    caixa: f.caixa + soma,
+    seq: seq + ls.length,
+    extrato: [...numerados.reverse(), ...f.extrato].slice(0, 60),
+  };
 }
 
 /** Lançamentos de uma rodada disputada. */
@@ -84,9 +118,9 @@ export function balancoDaRodada(
   /** Folha mensal com os salários de contrato; sem ela, usa o salário de tabela. */
   folha = folhaMensal(meuTime),
 ): Lancamento[] {
-  const ls: Lancamento[] = [{ rodada, descricao: "TV e patrocínio", valor: f.receitaPorRodada }];
-  if (emCasa) ls.push({ rodada, descricao: "Bilheteria", valor: f.bilheteria });
-  ls.push({ rodada, descricao: "Salários", valor: -Math.round(folha / RODADAS_POR_MES) });
+  const ls: Lancamento[] = [{ rodada, descricao: "TV e patrocínio", valor: f.receitaPorRodada, tipo: "tv" }];
+  if (emCasa) ls.push({ rodada, descricao: "Bilheteria", valor: f.bilheteria, tipo: "bilheteria" });
+  ls.push({ rodada, descricao: "Salários", valor: -Math.round(folha / RODADAS_POR_MES), tipo: "salarios" });
   return ls;
 }
 
@@ -108,7 +142,7 @@ export function dividaDaRodada(
   const n = noVermelho + 1;
   const perdePontos = n >= RODADAS_ATE_PUNICAO;
   return {
-    lancamentos: [{ rodada, descricao: "Juros da dívida", valor: -juros }],
+    lancamentos: [{ rodada, descricao: "Juros da dívida", valor: -juros, tipo: "juros" }],
     noVermelho: perdePontos ? 0 : n,
     perdePontos,
   };

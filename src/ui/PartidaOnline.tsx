@@ -148,7 +148,7 @@ export function PartidaOnline({ inicial, onVoltar }: Props) {
           </div>
           {terminou && (
             <button className="botao primario" onClick={onVoltar}>
-              Voltar ao online
+              Voltar ao ranqueado
             </button>
           )}
         </>

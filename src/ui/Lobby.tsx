@@ -3,7 +3,7 @@ import { formatarDinheiro } from "../engine/mercado";
 import type { Time } from "../engine/types";
 import { Icone, type NomeIcone } from "./Icones";
 
-export type Modo = "carreira" | "desafios" | "online" | "colecao";
+export type Modo = "carreira" | "desafios" | "ranqueado" | "colecao";
 
 export interface ResumoCarreira {
   divisao: string;
@@ -21,7 +21,9 @@ interface Props {
   carreira: ResumoCarreira;
   caixa: number;
   moedas: number;
-  desafios: { caixa: number; vitorias: number; total: number };
+  desafios: { vitorias: number; total: number };
+  /** Conta logada; sem ela, é a demonstração sem servidor. */
+  conta: { nome: string; onSair: () => void } | null;
   colecao: { cartas: number; limite: number; noEstoque: number; propostas: number };
   onEntrar: (m: Modo) => void;
   onNovaCarreira: () => void;
@@ -47,6 +49,16 @@ export function Lobby(p: Props) {
           </span>
         </div>
         <div className="lobby-saldos">
+          {p.conta ? (
+            <span className="lobby-conta">
+              Conta <b>{p.conta.nome}</b>
+              <button className="link-nome" onClick={p.conta.onSair}>
+                Sair
+              </button>
+            </span>
+          ) : (
+            <span className="lobby-conta demo">Demonstração: nada fica salvo na conta</span>
+          )}
           <span className="moedas caixa" title="Caixa do clube">
             <b>{formatarDinheiro(p.caixa)}</b>
             <span className="suave">caixa</span>
@@ -94,15 +106,15 @@ export function Lobby(p: Props) {
           icone="desafios"
           titulo="Desafios"
           texto="Time de cartas contra adversários com lendas. Vença para ganhar caixa, moedas e cartas."
-          info={`${p.desafios.vitorias} de ${p.desafios.total} vencidos · caixa ${formatarDinheiro(p.desafios.caixa)}`}
+          info={`${p.desafios.vitorias} de ${p.desafios.total} vencidos`}
           onClick={() => p.onEntrar("desafios")}
         />
         <ItemMenu
           icone="online"
-          titulo="Online"
-          texto="Ranqueado ao vivo contra outros técnicos, amistosos com amigos e mercado de lendas."
-          info="Precisa do servidor"
-          onClick={() => p.onEntrar("online")}
+          titulo="Ranqueado"
+          texto="Seu time de cartas ao vivo contra outros técnicos, de Bronze à Elite. Amistosos com amigos."
+          info={p.conta ? "Salário e prêmios no caixa único" : "Precisa do servidor"}
+          onClick={() => p.onEntrar("ranqueado")}
         />
         <ItemMenu
           icone="colecao"

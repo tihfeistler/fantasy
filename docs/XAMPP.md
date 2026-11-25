@@ -142,3 +142,11 @@ Dicas:
 - Erro 500 na API: veja `C:\xampp\apache\logs\error.log`.
 - Porta 80 ocupada (Skype/IIS): mude a porta do Apache no XAMPP e ajuste
   `API_XAMPP` em `vite.config.ts`.
+
+## Atualização de 25/11/2026: jogo na conta
+
+O jogo agora abre pedindo login, e a carreira fica salva na conta. Importe
+`sql/schema.sql` de novo (cria as tabelas `carreiras` e `lancamentos` e
+adiciona colunas novas) e rode `php scripts/importar.php` para trazer os 20
+clubes da Série B.
+

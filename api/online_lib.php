@@ -10,6 +10,10 @@ const MAX_LENDAS_EM_CAMPO = 3;
 const VAGAS_BANCO = 12;
 const PRECO_PACOTE = 500;
 const CARTAS_POR_PACOTE = 5;
+/** src/engine/pacotes.ts: AMPLIACAO e LIMITE_CARTAS_MAXIMO. */
+const PRECO_AMPLIACAO = 1000;
+const CARTAS_POR_AMPLIACAO = 10;
+const LIMITE_CARTAS_MAXIMO = 500;
 const KIT_INICIAL = ['GOL' => 2, 'ZAG' => 3, 'LAT' => 3, 'VOL' => 2, 'MEI' => 3, 'ATA' => 3];
 const FORMACOES = [
     '4-4-2' => ['ZAG' => 2, 'LAT' => 2, 'VOL' => 2, 'MEI' => 2, 'ATA' => 2],

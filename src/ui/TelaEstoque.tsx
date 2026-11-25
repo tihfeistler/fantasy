@@ -23,9 +23,11 @@ interface Props {
   onFecharPacote: () => void;
   onComprar: () => void;
   onAmpliar: () => void;
-  /** Anuncia a carta do estoque (índice) no mercado entre técnicos. */
-  onAnunciar: (indice: number, preco: number) => void;
-  onVender: (indice: number) => void;
+  /** Anuncia a carta do estoque (índice) no mercado entre técnicos. Sem ela: vender e anunciar ficam no mercado de lendas. */
+  onAnunciar?: (indice: number, preco: number) => void;
+  onVender?: (indice: number) => void;
+  /** Abre o mercado de lendas (conta), onde se anuncia e vende ao sistema. */
+  onIrMercado?: () => void;
   onLevar: (indice: number) => void;
   onDevolver: (id: string) => void;
 }
@@ -119,6 +121,15 @@ export function TelaEstoque(p: Props) {
       <h2 className="espaco-topo">
         Estoque <span className="suave">{estoque.length} cartas</span>
       </h2>
+      {p.onIrMercado && (
+        <p className="suave">
+          Para anunciar a outros técnicos ou vender ao sistema, use o{" "}
+          <button className="link-nome" onClick={p.onIrMercado}>
+            mercado de lendas
+          </button>
+          .
+        </p>
+      )}
       {estoque.length ? (
         <div className="grade-cartas">
           {estoque.map(({ j, i }) => {
@@ -133,22 +144,26 @@ export function TelaEstoque(p: Props) {
                 >
                   {jaNoElenco ? "Já está no elenco" : "Levar para o elenco"}
                 </button>
-                <button
-                  className="botao"
-                  onClick={() => {
-                    setAnunciando({ i, j });
-                    setPreco(String(precoReferencia(j)));
-                  }}
-                >
-                  Anunciar a técnicos
-                </button>
-                <button
-                  className="botao discreto"
-                  onClick={() => p.onVender(i)}
-                  title="Venda imediata ao sistema pelo preço básico"
-                >
-                  Vender ao sistema · {valorDeVenda(j, copias(progresso, j.id))}
-                </button>
+                {p.onAnunciar && (
+                  <button
+                    className="botao"
+                    onClick={() => {
+                      setAnunciando({ i, j });
+                      setPreco(String(precoReferencia(j)));
+                    }}
+                  >
+                    Anunciar a técnicos
+                  </button>
+                )}
+                {p.onVender && (
+                  <button
+                    className="botao discreto"
+                    onClick={() => p.onVender!(i)}
+                    title="Venda imediata ao sistema pelo preço básico"
+                  >
+                    Vender ao sistema · {valorDeVenda(j, copias(progresso, j.id))}
+                  </button>
+                )}
               </div>
             );
           })}
@@ -164,7 +179,7 @@ export function TelaEstoque(p: Props) {
             onSubmit={(e) => {
               e.preventDefault();
               if (!precoOk) return;
-              p.onAnunciar(anunciando.i, precoNum);
+              p.onAnunciar?.(anunciando.i, precoNum);
               setAnunciando(null);
             }}
           >

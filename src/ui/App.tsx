@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
 import {
   ATUAIS,
@@ -102,10 +102,20 @@ import {
 } from "./TelaMercado";
 import { TelaMercadoCartas } from "./TelaMercadoCartas";
 import { TelaNovoManager } from "./TelaNovoManager";
-import { TelaOnline } from "./TelaOnline";
+import { TelaInicio } from "./TelaInicio";
+import { completa, Entrar, TelaOnline, timeDe } from "./TelaOnline";
+import { LojaCartasBase } from "./LojaCartasBase";
+import { TelaMercadoOnline } from "./TelaMercadoOnline";
+import { conta, pendentes, type EstadoCarreira } from "../data/conta";
+import { online, type SituacaoOnline, type Usuario } from "../data/online";
 import { TelaPartida } from "./TelaPartida";
 
-type AbaColecao = "estoque" | "cartas" | "lendas";
+type AbaColecao = "estoque" | "base" | "cartas" | "lendas";
+type AbaRanqueado = "ranqueado" | "time";
+const ABAS_RANQUEADO: { id: AbaRanqueado; nome: string; icone: NomeIcone }[] = [
+  { id: "ranqueado", nome: "Ranqueado", icone: "online" },
+  { id: "time", nome: "Time de cartas", icone: "elenco" },
+];
 const ABAS_CARREIRA: { id: AbaCarreira; nome: string; icone: NomeIcone }[] = [
   { id: "escritorio", nome: "Escritório", icone: "escritorio" },
   { id: "elenco", nome: "Elenco e tática", icone: "elenco" },
@@ -116,13 +126,14 @@ const ABAS_CARREIRA: { id: AbaCarreira; nome: string; icone: NomeIcone }[] = [
 ];
 const ABAS_COLECAO: { id: AbaColecao; nome: string; icone: NomeIcone }[] = [
   { id: "estoque", nome: "Estoque e pacotes", icone: "estoque" },
+  { id: "base", nome: "Cartas base", icone: "colecao" },
   { id: "cartas", nome: "Mercado de lendas", icone: "mercado" },
   { id: "lendas", nome: "Álbum de lendas", icone: "lendas" },
 ];
 const TITULO_MODO: Record<Modo, string> = {
   carreira: "Carreira",
   desafios: "Desafios",
-  online: "Online",
+  ranqueado: "Ranqueado",
   colecao: "Coleção",
 };
 
@@ -147,10 +158,56 @@ const timeCartasInicial = () => ({
 const financasDoClube = (clubeId: string): Financas =>
   financasIniciais(montarTimesAtuais().find((t) => t.id === clubeId)!);
 
+/** Lendas da conta que não estão no elenco da carreira (uma entrada por cópia). */
+function estoqueDaConta(s: SituacaoOnline, noElenco: string[] = []): string[] {
+  const usadas = [...noElenco];
+  const r: string[] = [];
+  for (const j of s.cartas)
+    if (ehLenda(j))
+      for (let k = 0; k < j.copias; k++) {
+        const i = usadas.indexOf(j.id);
+        if (i >= 0) usadas.splice(i, 1);
+        else r.push(j.id);
+      }
+  return r;
+}
+const somaPendente = (p: Progresso, seq: number) =>
+  pendentes(p, seq).reduce(
+    (a, l) => ({ caixa: a.caixa + l.valor, moedas: a.moedas + (l.moedas ?? 0) }),
+    { caixa: 0, moedas: 0 },
+  );
+/** Carreira vinda do servidor, com o caixa, as moedas e o estoque da conta. */
+function daConta(c: EstadoCarreira, s: SituacaoOnline | null): Progresso {
+  const d = c.dados!;
+  const clube = d.manager?.clubeId ?? "";
+  return {
+    ...PROGRESSO_INICIAL,
+    ...d,
+    moedas: c.moedas,
+    financas: d.financas && { ...d.financas, caixa: c.caixa },
+    estoque: s ? estoqueDaConta(s, d.noElenco?.[clube]) : [],
+    limiteCartas: s?.limiteCartas,
+    mercadoCartas: undefined,
+    noElenco: d.noElenco && !Array.isArray(d.noElenco) ? d.noElenco : {},
+  };
+}
+
 export function App() {
   const [aba, setAbaCarreira] = useState<AbaCarreira>("escritorio");
   const [modo, setModo] = useState<Modo | "menu">("menu");
   const [abaColecao, setAbaColecao] = useState<AbaColecao>("estoque");
+  const [abaRanqueado, setAbaRanqueado] = useState<AbaRanqueado>("ranqueado");
+  // ---- Conta: o jogo todo fica no servidor; sem servidor, só a demonstração local ----
+  const [usuario, setUsuario] = useState<Usuario | null | undefined>(undefined);
+  const [servidorFora, setServidorFora] = useState(false);
+  // A prévia publicada (sem servidor) liga a demonstração direto.
+  const [demo, setDemo] = useState(() => !!(globalThis as { FANTASY_DEMO?: boolean }).FANTASY_DEMO);
+  const [sit, setSit] = useState<SituacaoOnline | null>(null);
+  const [avisoConta, setAvisoConta] = useState<string | null>(null);
+  /** Último lançamento que o servidor confirmou. */
+  const seqConfirmado = useRef(0);
+  const ultimoEnvio = useRef("");
+  const naConta = !!usuario && !demo;
   /** Abre uma tela da carreira (de qualquer lugar). */
   const setAba = (a: AbaCarreira) => {
     setModo("carreira");
@@ -186,6 +243,13 @@ export function App() {
     if (p.manager && !p.financas)
       p = { ...p, financas: financasDoClube(p.manager.clubeId) };
     if (p.manager && !p.timeCartas) p = { ...p, ...timeCartasInicial() };
+    // Caixa único: o caixa do antigo time de cartas entra no do clube, uma vez.
+    if (p.manager && p.financas && !p.caixaUnico)
+      p = {
+        ...p,
+        caixaUnico: true,
+        financas: { ...p.financas, caixa: p.financas.caixa + (p.timeCartas?.caixa ?? 0) },
+      };
     return p;
   });
   const [confirmarNova, setConfirmarNova] = useState(false);
@@ -217,7 +281,101 @@ export function App() {
   } | null>(null);
   const [avisoMercado, setAvisoMercado] = useState<string | null>(null);
 
-  useEffect(() => salvarProgresso(progresso), [progresso]);
+  useEffect(() => {
+    if (demo) salvarProgresso(progresso);
+  }, [progresso, demo]);
+
+  /** Situação da conta (moedas, cartas, time de cartas) e o estoque da carreira que sai dela. */
+  const aplicarSit = useCallback((s: SituacaoOnline) => {
+    setSit(s);
+    setProgresso((p) => ({
+      ...p,
+      moedas: s.moedas + somaPendente(p, seqConfirmado.current).moedas,
+      estoque: estoqueDaConta(s, p.noElenco[p.manager?.clubeId ?? ""]),
+      limiteCartas: s.limiteCartas,
+    }));
+  }, []);
+  const entrarNaConta = useCallback(async (u: Usuario) => {
+    try {
+      const [s, c] = await Promise.all([online.situacao(), conta.carregar()]);
+      seqConfirmado.current = c.seq;
+      ultimoEnvio.current = "";
+      setSit(s);
+      setProgresso(c.dados ? daConta(c, s) : { ...PROGRESSO_INICIAL, moedas: c.moedas });
+      setUsuario(u);
+      setModo("menu");
+    } catch (e) {
+      setAvisoConta((e as Error).message);
+      setUsuario(null);
+    }
+  }, []);
+  useEffect(() => {
+    if (demo) return;
+    online.eu().then(
+      (u) => (u ? entrarNaConta(u) : setUsuario(null)),
+      (e) => (e.status === 0 ? setServidorFora(true) : setUsuario(null)),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entrarNaConta]);
+  /** Atualiza caixa, moedas e cartas que mudaram fora da carreira (ranqueado, mercado). */
+  const atualizarConta = useCallback(async () => {
+    try {
+      const [s, c] = await Promise.all([online.situacao(), conta.carregar()]);
+      setSit(s);
+      setProgresso((p) => {
+        if (!p.manager || c.seq > seqConfirmado.current) return c.dados ? daConta(c, s) : p;
+        const pend = somaPendente(p, seqConfirmado.current);
+        return {
+          ...p,
+          moedas: c.moedas + pend.moedas,
+          financas: p.financas && { ...p.financas, caixa: c.caixa + pend.caixa },
+          estoque: estoqueDaConta(s, p.noElenco[p.manager.clubeId]),
+          limiteCartas: s.limiteCartas,
+        };
+      });
+    } catch {
+      /* tenta de novo na próxima troca de tela */
+    }
+  }, []);
+  useEffect(() => {
+    if (naConta) atualizarConta();
+  }, [modo, naConta, atualizarConta]);
+  // Salva a carreira na conta e manda os lançamentos novos; o servidor devolve o caixa e as moedas que valem.
+  useEffect(() => {
+    if (!naConta || !progresso.manager || !progresso.financas) return;
+    const id = setTimeout(async () => {
+      const novos = pendentes(progresso, seqConfirmado.current);
+      const chave = JSON.stringify({ ...progresso, moedas: 0, estoque: [], financas: { ...progresso.financas, caixa: 0 } });
+      if (!novos.length && chave === ultimoEnvio.current) return;
+      ultimoEnvio.current = chave;
+      try {
+        const r = await conta.salvar(progresso, novos);
+        seqConfirmado.current = Math.max(seqConfirmado.current, r.seq);
+        if (r.recusados.length)
+          setAvisoConta(
+            `O servidor não aceitou ${r.recusados.length} lançamento${r.recusados.length > 1 ? "s" : ""} e corrigiu o caixa.`,
+          );
+        if (novos.some((l) => l.carta)) atualizarConta();
+        if (r.corrigido) {
+          const c = await conta.carregar();
+          setProgresso(daConta(c, sit));
+          return;
+        }
+        setProgresso((p) => {
+          const pend = somaPendente(p, seqConfirmado.current);
+          return {
+            ...p,
+            moedas: r.moedas + pend.moedas,
+            financas: p.financas && { ...p.financas, caixa: r.caixa + pend.caixa },
+          };
+        });
+      } catch (e) {
+        ultimoEnvio.current = "";
+        setAvisoConta(`Não deu para salvar na conta: ${(e as Error).message}`);
+      }
+    }, 700);
+    return () => clearTimeout(id);
+  }, [progresso, naConta, sit, atualizarConta]);
   // Sem lendas embutidas no build: busca na API PHP.
   useEffect(() => {
     if (lendasLista.length) return;
@@ -232,7 +390,7 @@ export function App() {
   );
   // Mercado de cartas simulado: começa quando a carreira e as lendas existem.
   useEffect(() => {
-    if (!progresso.manager || progresso.mercadoCartas || !lendas.size) return;
+    if (!demo || !progresso.manager || progresso.mercadoCartas || !lendas.size) return;
     setProgresso((p) =>
       p.mercadoCartas
         ? p
@@ -244,7 +402,7 @@ export function App() {
             ),
           },
     );
-  }, [progresso.manager, progresso.mercadoCartas, lendas]);
+  }, [progresso.manager, progresso.mercadoCartas, lendas, demo]);
 
   // O elenco de cada clube = jogadores atuais + lendas levadas do estoque.
   const timesComLendas = useMemo(
@@ -335,10 +493,26 @@ export function App() {
         },
       };
     });
-  const iniciarDesafio = (_id: string, custo: number) => {
-    if (!progresso.timeCartas || progresso.timeCartas.caixa < custo)
-      return false;
-    mudarTimeCartas((tc) => ({ ...tc, caixa: tc.caixa - custo }));
+  /** Desafios usam o caixa único do clube (e da conta, quando logado). */
+  const iniciarDesafio = (id: string, custo: number) => {
+    if (!progresso.financas || progresso.financas.caixa < custo) return false;
+    const d = DESAFIOS.find((x) => x.id === id);
+    mudar((p) =>
+      p.financas
+        ? {
+            ...p,
+            financas: lancar(p.financas, [
+              {
+                rodada: 0,
+                descricao: `Desafio ${d?.nome ?? id}: salários`,
+                valor: -custo,
+                tipo: "desafio-custo",
+                ref: id,
+              },
+            ]),
+          }
+        : p,
+    );
     return true;
   };
   const concluirDesafio = (
@@ -347,10 +521,9 @@ export function App() {
     adversario: Time,
   ): string => {
     const d = DESAFIOS.find((x) => x.id === desafioId)!;
-    const meus =
-      r.mandanteId === "time-cartas" ? r.golsMandante : r.golsVisitante;
-    const deles =
-      r.mandanteId === "time-cartas" ? r.golsVisitante : r.golsMandante;
+    const idCartas = naConta && sit ? sit.usuario.timeId : "time-cartas";
+    const meus = r.mandanteId === idCartas ? r.golsMandante : r.golsVisitante;
+    const deles = r.mandanteId === idCartas ? r.golsVisitante : r.golsMandante;
     const res =
       meus > deles ? "vitoria" : meus === deles ? "empate" : "derrota";
     const h = progresso.timeCartas?.desafios[desafioId];
@@ -368,10 +541,23 @@ export function App() {
     mudar((p) => ({
       ...p,
       moedas: p.moedas + d.moedas[res],
-      estoque: carta ? [...p.estoque, carta.id] : p.estoque,
+      // Na conta, a carta vai pelo servidor (junto com o prêmio) e aparece no estoque depois.
+      estoque: carta && !naConta ? [...p.estoque, carta.id] : p.estoque,
+      financas:
+        p.financas &&
+        lancar(p.financas, [
+          {
+            rodada: 0,
+            descricao: `Desafio ${d.nome}: prêmio`,
+            valor: d.premio[res],
+            moedas: d.moedas[res],
+            carta: carta?.id,
+            tipo: "desafio-premio",
+            ref: desafioId,
+          },
+        ]),
       timeCartas: p.timeCartas && {
         ...p.timeCartas,
-        caixa: p.timeCartas.caixa + d.premio[res],
         desafios: {
           ...p.timeCartas.desafios,
           [desafioId]: {
@@ -435,6 +621,9 @@ export function App() {
             rodada,
             descricao: `Compra de ${j.nome} (${dono.sigla})`,
             valor: -preco,
+            tipo: "compra",
+            ref: jogadorId,
+            ano: p.temporada?.ano,
           },
         ]),
       };
@@ -548,6 +737,9 @@ export function App() {
               rodada: p.temporada.rodadaAtual + 1,
               descricao: `Venda de ${j.nome} (${comprador.sigla})`,
               valor: prop.valor,
+              tipo: "venda",
+              ref: jogadorId,
+              ano: p.temporada.ano,
             },
           ]),
         },
@@ -557,7 +749,23 @@ export function App() {
 
   const mudar = (f: (p: Progresso) => Progresso) => setProgresso((p) => f(p));
 
+  /** Ação na conta (pacote, ampliação, cartas base, escalação): o servidor responde a situação nova. */
+  const naContaFaz = async (f: () => Promise<SituacaoOnline>) => {
+    setAvisoConta(null);
+    try {
+      const s = await f();
+      aplicarSit(s);
+      return s;
+    } catch (e) {
+      setAvisoConta((e as Error).message);
+      return null;
+    }
+  };
   const comprarPacote = () => {
+    if (naConta) {
+      naContaFaz(online.abrirPacote).then((s) => s?.novas && setPacoteAberto(s.novas));
+      return;
+    }
     if (progresso.moedas < PRECO_PACOTE || !lendasLista.length) return;
     if (totalCartas(progresso) + CARTAS_POR_PACOTE > limiteCartas(progresso))
       return;
@@ -573,7 +781,9 @@ export function App() {
     setPacoteAberto(cartas);
   };
   const ampliar = () =>
-    mudar((p) =>
+    naConta
+      ? naContaFaz(online.ampliar)
+      : mudar((p) =>
       p.moedas < AMPLIACAO.preco || limiteCartas(p) >= LIMITE_CARTAS_MAXIMO
         ? p
         : {
@@ -874,7 +1084,7 @@ export function App() {
                 t.rodadaAtual + 1,
                 emCasa,
                 folhaComContratos(meuTime.elenco, p.contratos, ANO_INICIAL),
-              ),
+              ).map((l) => ({ ...l, ano: t.ano })),
             )
           : p.financas;
       // Caixa negativo: juros e, depois de 4 rodadas seguidas no vermelho, perda de 3 pontos.
@@ -882,7 +1092,10 @@ export function App() {
       let punida = prox;
       if (financas) {
         const d = dividaDaRodada(financas.caixa, t.rodadaAtual + 1, noVermelho);
-        financas = lancar(financas, d.lancamentos);
+        financas = lancar(
+          financas,
+          d.lancamentos.map((l) => ({ ...l, ano: t.ano })),
+        );
         noVermelho = d.noVermelho;
         if (d.perdePontos) {
           financas = lancar(financas, [
@@ -890,6 +1103,7 @@ export function App() {
               rodada: t.rodadaAtual + 1,
               descricao: `Punição: −${PONTOS_DE_PUNICAO} pontos por dívida`,
               valor: 0,
+              tipo: "aviso",
             },
           ]);
           punida = {
@@ -905,7 +1119,7 @@ export function App() {
       // Os outros técnicos mexem no mercado de cartas a cada rodada.
       let moedasMercado = 0;
       let mercadoCartas = p.mercadoCartas;
-      if (mercadoCartas && lendas.size) {
+      if (mercadoCartas && lendas.size && !naConta) {
         const r = rodadaDoMercado(
           mercadoCartas,
           lendas,
@@ -937,6 +1151,9 @@ export function App() {
             rodada: 38,
             descricao: `Premiação: ${posicao}º lugar`,
             valor: premiacaoEmDinheiro(financas, posicao),
+            tipo: "premiacao",
+            ano: punida.ano,
+            moedas: premioFinal(posicao, divisao),
           },
         ]);
       return {
@@ -1028,12 +1245,28 @@ export function App() {
         : meus === deles
           ? PREMIO.empate
           : PREMIO.derrota;
-    mudar((p) => ({ ...p, moedas: p.moedas + premio }));
+    mudar((p) => ({
+      ...p,
+      moedas: p.moedas + premio,
+      financas:
+        p.financas &&
+        p.temporada &&
+        lancar(p.financas, [
+          {
+            rodada: p.temporada.rodadaAtual + 1,
+            ano: p.temporada.ano,
+            descricao: `Prêmio da partida: ${premio} moedas`,
+            valor: 0,
+            moedas: premio,
+            tipo: "partida",
+          },
+        ]),
+    }));
     return premio;
   };
 
   const criarManager = (nome: string, clubeId: string) => {
-    setProgresso({
+    const nova: Progresso = {
       ...PROGRESSO_INICIAL,
       manager: {
         nome,
@@ -1052,18 +1285,84 @@ export function App() {
         outraDivisao(DIVISOES_INICIAIS[clubeId]),
       ),
       financas: financasDoClube(clubeId),
+      caixaUnico: true,
       ...timeCartasInicial(),
-    });
+    };
+    if (naConta) {
+      // Na conta, o servidor cria a carreira e define o caixa e as receitas.
+      conta.criar({ ...nova, moedas: 0 }).then(
+        (c) => {
+          seqConfirmado.current = 0;
+          ultimoEnvio.current = "";
+          setProgresso(daConta(c, sit));
+          if (c.bonus) setAvisoConta(null);
+          setAba("escritorio");
+        },
+        (e) => setAvisoConta((e as Error).message),
+      );
+      return;
+    }
+    setProgresso(nova);
     setAba("escritorio");
   };
   const novaCarreira = () => {
-    setProgresso(PROGRESSO_INICIAL);
     setConfirmarNova(false);
+    if (naConta) {
+      conta.apagar().then(
+        (c) => setProgresso({ ...PROGRESSO_INICIAL, moedas: c.moedas }),
+        (e) => setAvisoConta((e as Error).message),
+      );
+      return;
+    }
+    setProgresso(PROGRESSO_INICIAL);
   };
+  const sair = async () => {
+    await online.sair().catch(() => null);
+    setUsuario(null);
+    setSit(null);
+    setProgresso(PROGRESSO_INICIAL);
+    setModo("menu");
+  };
+
+  // ---- Entrada: o jogo é na conta; sem servidor, dá para ver a demonstração ----
+  if (!demo && !usuario) {
+    return (
+      <div className="app">
+        <TelaInicio>
+          {servidorFora ? (
+            <div className="caixa-entrar">
+              <h2>Servidor fora do ar</h2>
+              <p className="suave">
+                O jogo fica no servidor (PHP com MySQL): carreira, cartas, caixa e moedas são da sua conta. Esta cópia
+                não achou o servidor. Para jogar de verdade, siga <code>docs/XAMPP.md</code>.
+              </p>
+              <button className="botao primario" onClick={() => setDemo(true)}>
+                Ver a demonstração
+              </button>
+              <p className="suave">Na demonstração nada vai para a conta e o ranqueado fica desligado.</p>
+            </div>
+          ) : usuario === undefined ? (
+            <p className="suave">Conectando ao servidor…</p>
+          ) : (
+            <>
+              {avisoConta && <p className="aviso">{avisoConta}</p>}
+              <Entrar onEntrou={entrarNaConta} />
+            </>
+          )}
+        </TelaInicio>
+      </div>
+    );
+  }
 
   if (!progresso.manager || !meuTime || !temporada) {
     return (
       <div className="app">
+        {naConta && (
+          <p className="aviso-conta">
+            Conta <b>{usuario!.nome}</b>: a carreira fica salva no servidor, com um caixa só para a carreira, os desafios
+            e o ranqueado.{avisoConta ? ` ${avisoConta}` : ""}
+          </p>
+        )}
         <TelaNovoManager times={times} onCriar={criarManager} />
       </div>
     );
@@ -1092,8 +1391,15 @@ export function App() {
           onClick: () => setAba(a.id),
           contador: a.id === "mercado" && fimTemporada ? saidas.length : 0,
         }))
+      : modo === "ranqueado" && naConta
+        ? ABAS_RANQUEADO.map((a) => ({
+            ...a,
+            ativo: abaRanqueado === a.id,
+            onClick: () => setAbaRanqueado(a.id),
+            contador: 0,
+          }))
       : modo === "colecao"
-        ? ABAS_COLECAO.map((a) => ({
+        ? ABAS_COLECAO.filter((a) => naConta || a.id !== "base").map((a) => ({
             ...a,
             ativo: abaColecao === a.id,
             onClick: () => setAbaColecao(a.id),
@@ -1107,11 +1413,20 @@ export function App() {
         : null;
   const pedirNovaCarreira = (
     <>
+      {avisoConta && (
+        <p className="aviso aviso-acao">
+          <span>{avisoConta}</span>
+          <button className="botao discreto" onClick={() => setAvisoConta(null)}>
+            Fechar
+          </button>
+        </p>
+      )}
       {confirmarNova && (
         <div className="aviso aviso-acao">
           <span>
-            Começar uma nova carreira apaga esta: campeonato, caixa,
-            contratações, moedas, estoque e lendas.
+            {naConta
+              ? "Começar uma nova carreira apaga esta: campeonato, elenco e contratos. O caixa, as moedas e as cartas da conta continuam."
+              : "Começar uma nova carreira apaga esta: campeonato, caixa, contratações, moedas, estoque e lendas."}
           </span>
           <button className="botao" onClick={() => setConfirmarNova(false)}>
             Cancelar
@@ -1152,8 +1467,8 @@ export function App() {
           }}
           caixa={progresso.financas?.caixa ?? 0}
           moedas={progresso.moedas}
+          conta={naConta ? { nome: usuario!.nome, onSair: sair } : null}
           desafios={{
-            caixa: progresso.timeCartas?.caixa ?? 0,
             vitorias: DESAFIOS.filter(
               (d) => progresso.timeCartas?.desafios[d.id]?.vitorias,
             ).length,
@@ -1329,7 +1644,12 @@ export function App() {
               />
             </section>
           )}
-          {modo === "colecao" && abaColecao === "cartas" && (
+          {modo === "colecao" && abaColecao === "cartas" && naConta && (
+            <section className="tela">
+              <TelaMercadoOnline onMudou={atualizarConta} />
+            </section>
+          )}
+          {modo === "colecao" && abaColecao === "cartas" && !naConta && (
             <section className="tela">
               {progresso.mercadoCartas ? (
                 <TelaMercadoCartas
@@ -1352,10 +1672,39 @@ export function App() {
               )}
             </section>
           )}
-          {modo === "desafios" && timeCartas && progresso.timeCartas && (
+          {modo === "desafios" && naConta && sit && progresso.timeCartas && (
             <section className="tela">
               <TelaDesafios
-                timeCartas={progresso.timeCartas}
+                timeCartas={{
+                  ...progresso.timeCartas,
+                  caixa: progresso.financas?.caixa ?? 0,
+                  formacao: sit.time.formacao,
+                  titulares: sit.time.titulares,
+                  banco: sit.time.banco,
+                }}
+                meuTime={timeDe(sit)}
+                atuais={ATUAIS}
+                lendas={lendasLista}
+                cartasBase={new Set(sit.cartas.filter((j) => !ehLenda(j)).map((j) => j.id))}
+                moedas={progresso.moedas}
+                onAtualizarTime={(t) => {
+                  const [tit, banco] = completa(t);
+                  naContaFaz(() => online.escalar(t.formacao.nome, tit, banco));
+                }}
+                onComprarBase={(id) => naContaFaz(() => online.comprarBase(id))}
+                onVenderBase={(id) => naContaFaz(() => online.venderBase(id))}
+                onIniciar={iniciarDesafio}
+                onConcluir={concluirDesafio}
+              />
+            </section>
+          )}
+          {modo === "desafios" && !naConta && timeCartas && progresso.timeCartas && (
+            <section className="tela">
+              <TelaDesafios
+                timeCartas={{
+                  ...progresso.timeCartas,
+                  caixa: progresso.financas?.caixa ?? 0,
+                }}
                 meuTime={timeCartas}
                 atuais={ATUAIS}
                 lendas={lendasLista}
@@ -1378,13 +1727,38 @@ export function App() {
               onFecharPacote={() => setPacoteAberto(null)}
               onComprar={comprarPacote}
               onAmpliar={ampliar}
-              onAnunciar={anunciar}
-              onVender={vender}
+              onAnunciar={naConta ? undefined : anunciar}
+              onVender={naConta ? undefined : vender}
+              onIrMercado={naConta ? () => irColecao("cartas") : undefined}
               onLevar={levar}
               onDevolver={devolver}
             />
           )}
-          {modo === "online" && <TelaOnline />}
+          {modo === "ranqueado" &&
+            (naConta && sit ? (
+              <TelaOnline key={abaRanqueado} sit={sit} onSit={aplicarSit} secao={abaRanqueado} />
+            ) : (
+              <section className="tela">
+                <div className="aviso-online">
+                  <h2>O ranqueado precisa do servidor</h2>
+                  <p>
+                    Esta é a demonstração, sem servidor. Com o jogo instalado (<code>docs/XAMPP.md</code>), o ranqueado põe o
+                    seu time de cartas ao vivo contra outros técnicos.
+                  </p>
+                </div>
+              </section>
+            ))}
+          {modo === "colecao" && abaColecao === "base" && sit && (
+            <section className="tela">
+              <LojaCartasBase
+                atuais={ATUAIS}
+                tenho={new Set(sit.cartas.filter((j) => !ehLenda(j)).map((j) => j.id))}
+                moedas={progresso.moedas}
+                onComprar={(id) => naContaFaz(() => online.comprarBase(id))}
+                onVender={(id) => naContaFaz(() => online.venderBase(id))}
+              />
+            </section>
+          )}
           {modo === "colecao" && abaColecao === "lendas" && <TelaLendas />}
         </main>
       </div>

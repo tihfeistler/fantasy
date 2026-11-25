@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nome            VARCHAR(50)  NOT NULL UNIQUE,
   senha_hash      VARCHAR(255) NOT NULL,
   moedas          INT UNSIGNED NOT NULL DEFAULT 0,
+  limite_cartas   SMALLINT UNSIGNED NOT NULL DEFAULT 300, -- lendas que cabem na coleção (até 500)
   criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -232,3 +233,47 @@ CREATE TABLE IF NOT EXISTS dispositivos (
   INDEX (dispositivo, ultimo_uso),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- Carreira na conta e caixa único (decidido em 25/11/2026)
+-- O caixa é o de times_online: um só para carreira, desafios e online.
+-- A carreira (estado do jogo em JSON) fica aqui quando o técnico está logado;
+-- o servidor confere cada lançamento de dinheiro antes de mexer no caixa.
+CREATE TABLE IF NOT EXISTS carreiras (
+  usuario_id      INT UNSIGNED PRIMARY KEY,
+  dados           MEDIUMTEXT   NULL,               -- NULL: sem carreira (apagada)
+  clube_id        VARCHAR(64)  NULL,
+  divisao         CHAR(1)      NOT NULL DEFAULT 'A',
+  ano             SMALLINT     NOT NULL DEFAULT 0,
+  receita         INT          NOT NULL DEFAULT 0, -- TV e patrocínio por rodada (R$ mil)
+  bilheteria      INT          NOT NULL DEFAULT 0,
+  posse           MEDIUMTEXT   NOT NULL,           -- JSON jogadorId -> 1 comprado, 0 saiu
+  ultima_rodada   INT          NOT NULL DEFAULT 0, -- ano*100 + rodada já paga
+  ultima_bilheteria INT        NOT NULL DEFAULT 0,
+  ultimo_salario  INT          NOT NULL DEFAULT 0,
+  ultima_premiacao SMALLINT    NOT NULL DEFAULT 0,
+  ultima_partida  INT          NOT NULL DEFAULT 0, -- ano*100 + rodada com moedas da partida já pagas
+  seq             INT          NOT NULL DEFAULT 0, -- último lançamento aceito
+  desafio_pendente VARCHAR(40) NULL,
+  treinos_dia     DATE         NULL,
+  treinos_hoje    TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  bonus_inicial   TINYINT(1)   NOT NULL DEFAULT 0, -- caixa inicial do clube já foi dado
+  atualizado_em   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Todos os lançamentos aceitos no caixa único, para auditoria.
+CREATE TABLE IF NOT EXISTS lancamentos (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  usuario_id      INT UNSIGNED NOT NULL,
+  tipo            VARCHAR(20)  NOT NULL,
+  descricao       VARCHAR(120) NOT NULL,
+  valor           INT          NOT NULL,
+  criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX (usuario_id, criado_em),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Bancos criados antes de 25/11/2026 (MariaDB/XAMPP).
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS limite_cartas SMALLINT UNSIGNED NOT NULL DEFAULT 300 AFTER moedas;
+ALTER TABLE carreiras ADD COLUMN IF NOT EXISTS ultima_partida INT NOT NULL DEFAULT 0 AFTER ultima_premiacao;

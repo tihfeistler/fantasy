@@ -1197,3 +1197,18 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 @media (max-width: 600px) {
   .escudo.enorme { min-width: 80px; height: 88px; font-size: 26px; }
 }
+
+/* ---------- Entrada e conta ---------- */
+.lobby.inicio { min-height: calc(100vh - 56px); }
+.inicio-corpo { margin: auto; width: min(440px, 100%); display: flex; flex-direction: column; gap: 12px; }
+.inicio-corpo .tela { padding: 0; }
+.caixa-entrar { display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 16px; border: 1px solid #ffffff26; background: #0b1324e6; backdrop-filter: blur(6px); }
+.caixa-entrar h2 { margin: 0; font-family: var(--fonte-titulo); font-size: 30px; text-transform: uppercase; }
+.caixa-entrar p { margin: 0; }
+.caixa-entrar.entrar { max-width: none; margin: 0; background: #0b1324e6; }
+.lobby-conta { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #0b1324d9; border: 1px solid var(--linha); font-size: 13px; color: var(--suave); }
+.lobby-conta b { color: var(--texto); }
+.lobby-conta .link-nome { font-size: 12px; color: var(--suave); }
+.lobby-conta.demo { color: var(--alerta); border-color: #8a6b12; }
+.aviso-conta { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--linha); background: var(--painel); font-size: 13px; color: var(--suave); }
+.aviso-conta b { color: var(--texto); }

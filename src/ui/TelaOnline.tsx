@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ATUAIS } from "../data/clubes";
 import {
   nomeTemporada,
   online,
@@ -10,15 +9,12 @@ import {
   type SituacaoOnline,
   type Usuario,
 } from "../data/online";
-import { precoCartaBase } from "../engine/desafios";
 import { formatarDinheiro } from "../engine/mercado";
-import { MAX_LENDAS_EM_CAMPO, PRECO_PACOTE } from "../engine/pacotes";
+import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
 import { escalar, FORMACOES, montarBanco } from "../engine/ratings";
-import { ehLenda, type Jogador, type Time } from "../engine/types";
-import { LojaCartasBase } from "./LojaCartasBase";
+import { ehLenda, type Time } from "../engine/types";
 import { PartidaOnline, PREMIO_RANQUEADO } from "./PartidaOnline";
 import { TelaElenco } from "./TelaElenco";
-import { TelaMercadoOnline } from "./TelaMercadoOnline";
 
 const LIGAS = ["bronze", "prata", "ouro", "platina", "diamante", "elite"];
 /** Igual a PREMIO_TEMPORADA em api/online_lib.php. */
@@ -32,54 +28,41 @@ const PREMIO_TEMPORADA: [string, number][] = [
 ];
 const liga = (tier: number) => LIGAS[Math.min(5, Math.floor(tier / 4))];
 
-/** Modo online: conta, time de cartas no servidor, fila do ranqueado e ranking. */
-export function TelaOnline() {
-  const [usuario, setUsuario] = useState<Usuario | null | undefined>(undefined);
-  const [fora, setFora] = useState(false);
-  const [sit, setSit] = useState<SituacaoOnline | null>(null);
+interface Props {
+  sit: SituacaoOnline;
+  onSit: (s: SituacaoOnline) => void;
+  secao: "ranqueado" | "time";
+}
+
+/** Ranqueado: fila, partida ao vivo, amistosos, ranking e o time de cartas da conta. */
+export function TelaOnline({ sit, onSit, secao }: Props) {
   const [estado, setEstado] = useState<EstadoRanqueado | null>(null);
   const [ranking, setRanking] = useState<Ranking | null>(null);
   const [partida, setPartida] = useState<PartidaServidor | null>(null);
-  const [modo, setModo] = useState<"ranqueado" | "time" | "cartas" | "mercado">("ranqueado");
   const [amigo, setAmigo] = useState("");
   const [erro, setErro] = useState<string | null>(null);
-  const [novas, setNovas] = useState<Jogador[] | null>(null);
+  const setSit = onSit;
 
-  const falhou = (e: unknown) => {
-    const err = e as { status?: number; message: string };
-    if (err.status === 0) setFora(true);
-    else if (err.status === 401) setUsuario(null);
-    else setErro(err.message);
-  };
-
-  useEffect(() => {
-    online.eu().then(setUsuario, falhou);
-  }, []);
+  const falhou = (e: unknown) => setErro((e as Error).message);
 
   const carregar = useCallback(async () => {
     try {
-      let s = await online.situacao();
-      // Primeira vez (ou escalação vazia): salva a escalação automática.
-      if (s.time.titulares.length === 0 && s.cartas.length) {
-        const t = timeDe(s);
-        const [tit, banco] = completa({ ...t, titulares: [], banco: undefined });
-        s = await online.escalar(t.formacao.nome, tit, banco);
-      }
-      setSit(s);
       const e = await online.estado();
       setEstado(e);
       if (e.partida?.status === "ao_vivo") setPartida(e.partida);
       setRanking(await online.ranking());
+      onSit(await online.situacao());
     } catch (e) {
       falhou(e);
     }
-  }, []);
+  }, [onSit]);
   useEffect(() => {
-    if (usuario) carregar();
-  }, [usuario, carregar]);
+    carregar();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // No saguão, consulta o servidor (2 s na fila, 3 s fora): pareamento, convites e partida que começou.
-  const noSaguao = !!usuario && !!estado && !partida;
+  const noSaguao = !!estado && !partida;
   useEffect(() => {
     if (!noSaguao) return;
     const id = setInterval(async () => {
@@ -116,23 +99,6 @@ export function TelaOnline() {
     }
   };
 
-  if (fora) {
-    return (
-      <section className="tela online">
-        <div className="aviso-online">
-          <h2>Online precisa do servidor</h2>
-          <p>
-            O ranqueado roda no servidor PHP com MySQL (XAMPP), que guarda contas, cartas, a fila e as partidas. Esta
-            prévia não tem servidor, então o modo online não funciona aqui. Para testar, siga o passo a passo de{" "}
-            <code>docs/XAMPP.md</code> no repositório.
-          </p>
-        </div>
-      </section>
-    );
-  }
-  if (usuario === undefined) return <p className="suave">Conectando ao servidor…</p>;
-  if (usuario === null) return <Entrar onEntrou={setUsuario} />;
-
   if (partida) {
     return (
       <section className="tela partida">
@@ -148,64 +114,37 @@ export function TelaOnline() {
     );
   }
 
-  if (!sit || !estado) return <p className="suave">Carregando seu time online…</p>;
   const time = timeDe(sit);
   const titulares = escalar(time);
   const lendasEmCampo = titulares.filter((v) => ehLenda(v.jogador)).length;
+
+  if (secao === "time")
+    return (
+      <section className="tela online">
+        {erro && <p className="aviso">{erro}</p>}
+        <p className="suave">
+          O time de cartas é o mesmo no ranqueado e nos desafios: cartas base e lendas da sua conta. {lendasEmCampo} de{" "}
+          {MAX_LENDAS_EM_CAMPO} lendas em campo. Salário por partida: <b>{formatarDinheiro(sit.time.custo)}</b>, pago do
+          caixa único.
+        </p>
+        <TelaElenco
+          time={time}
+          onChange={(t: Time) => {
+            // A escalação automática (titulares ou banco vazios) é salva já preenchida.
+            const [tit, banco] = completa(t);
+            acao(() => online.escalar(t.formacao.nome, tit, banco));
+          }}
+        />
+      </section>
+    );
+
+  if (!estado) return <p className="suave">Carregando o ranqueado…</p>;
   const perfil = estado.perfil;
 
   return (
     <section className="tela online">
-      <div className="financas">
-        <div className="indicador destaque">
-          <span className="rotulo">Caixa do time online</span>
-          <b>{formatarDinheiro(sit.time.caixa)}</b>
-        </div>
-        <div className="indicador">
-          <span className="rotulo">Salário por partida</span>
-          <b>{formatarDinheiro(sit.time.custo)}</b>
-        </div>
-        <div className="indicador">
-          <span className="rotulo">Moedas online</span>
-          <b>{sit.moedas}</b>
-        </div>
-        <div className="indicador">
-          <span className="rotulo">Técnico</span>
-          <b className="online-nome">{usuario.nome}</b>
-          <button
-            className="link"
-            onClick={async () => {
-              await online.sair().catch(() => null);
-              setUsuario(null);
-              setSit(null);
-            }}
-          >
-            Sair da conta
-          </button>
-        </div>
-      </div>
-      <p className="suave nota-financas">
-        O time online fica no servidor e é separado da carreira: cartas base e lendas compradas aqui, caixa e moedas
-        próprios. Cada partida cobra o salário dos titulares (lendas em dobro); sem caixa, não joga.
-      </p>
       {erro && <p className="aviso">{erro}</p>}
-
-      <div className="alternar mercado-modos" role="group" aria-label="Seção">
-        <button className={modo === "ranqueado" ? "ativo" : ""} onClick={() => setModo("ranqueado")}>
-          Ranqueado
-        </button>
-        <button className={modo === "time" ? "ativo" : ""} onClick={() => setModo("time")}>
-          Meu time
-        </button>
-        <button className={modo === "cartas" ? "ativo" : ""} onClick={() => setModo("cartas")}>
-          Cartas
-        </button>
-        <button className={modo === "mercado" ? "ativo" : ""} onClick={() => setModo("mercado")}>
-          Mercado
-        </button>
-      </div>
-
-      {modo === "ranqueado" && (
+      {(
         <div className="ranqueado">
           <div className="ranq-perfil">
             <Emblema perfil={perfil} />
@@ -377,81 +316,18 @@ export function TelaOnline() {
         </div>
       )}
 
-      {modo === "time" && (
-        <>
-          <p className="suave">
-            {lendasEmCampo} de {MAX_LENDAS_EM_CAMPO} lendas em campo. Custo desta escalação por partida:{" "}
-            <b>{formatarDinheiro(sit.time.custo)}</b>. As mudanças são salvas no servidor.
-          </p>
-          <TelaElenco
-            time={time}
-            onChange={(t: Time) => {
-              // A escalação automática (titulares ou banco vazios) é salva já preenchida.
-              const [tit, banco] = completa(t);
-              acao(() => online.escalar(t.formacao.nome, tit, banco));
-            }}
-          />
-        </>
-      )}
-
-      {modo === "mercado" && (
-        <TelaMercadoOnline
-          onMudou={() =>
-            online
-              .situacao()
-              .then(setSit)
-              .catch(() => null)
-          }
-        />
-      )}
-
-      {modo === "cartas" && (
-        <>
-          <div className="pacote-online">
-            <div>
-              <h3>Pacote de lendas</h3>
-              <p className="suave">5 lendas: 70% comum, 25% rara, 5% ícone. Vão direto para o seu time online.</p>
-            </div>
-            <button
-              className="botao primario"
-              disabled={sit.moedas < PRECO_PACOTE}
-              onClick={async () => {
-                const s = await acao(() => online.abrirPacote());
-                if (s?.novas) setNovas(s.novas);
-              }}
-            >
-              Abrir pacote · {PRECO_PACOTE} moedas
-            </button>
-          </div>
-          {novas && (
-            <p className="premio">
-              Saiu: {novas.map((j) => `${j.nome} (${j.geral})`).join(", ")}.
-            </p>
-          )}
-          <LojaCartasBase
-            atuais={ATUAIS}
-            tenho={new Set(sit.cartas.filter((j) => !ehLenda(j)).map((j) => j.id))}
-            moedas={sit.moedas}
-            onComprar={(id) => {
-              const j = ATUAIS.find((x) => x.id === id);
-              if (j && sit.moedas >= precoCartaBase(j)) acao(() => online.comprarBase(id));
-            }}
-            onVender={(id) => acao(() => online.venderBase(id))}
-          />
-        </>
-      )}
     </section>
   );
 }
 
 /** Titulares e banco a salvar: o que o técnico escolheu ou, se vazio, a escolha automática. */
-function completa(t: Time): [string[], string[]] {
+export function completa(t: Time): [string[], string[]] {
   const tit = t.titulares.length ? t.titulares : escalar(t).map((v) => v.jogador.id);
   const banco = montarBanco(t, new Set(tit)).map((j) => j.id);
   return [tit, banco];
 }
 
-function timeDe(s: SituacaoOnline): Time {
+export function timeDe(s: SituacaoOnline): Time {
   return {
     id: s.usuario.timeId,
     nome: s.usuario.nome,
@@ -474,7 +350,7 @@ function Emblema({ perfil }: { perfil: PerfilRanqueado }) {
   );
 }
 
-function Entrar({ onEntrou }: { onEntrou: (u: Usuario) => void }) {
+export function Entrar({ onEntrou }: { onEntrou: (u: Usuario) => void }) {
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");
   const [criar, setCriar] = useState(false);
@@ -483,7 +359,7 @@ function Entrar({ onEntrou }: { onEntrou: (u: Usuario) => void }) {
   return (
     <section className="tela online">
       <form
-        className="entrar"
+        className="entrar caixa-entrar"
         onSubmit={async (e) => {
           e.preventDefault();
           setErro(null);
@@ -494,10 +370,10 @@ function Entrar({ onEntrou }: { onEntrou: (u: Usuario) => void }) {
           }
         }}
       >
-        <h2>{criar ? "Criar conta online" : "Entrar no modo online"}</h2>
+        <h2>{criar ? "Criar conta" : "Entrar"}</h2>
         <p className="suave">
-          O ranqueado coloca o seu time de cartas contra técnicos reais, ao vivo. Divisões de Bronze a Diamante e a
-          Elite, com temporadas.
+          O jogo fica na sua conta: carreira, cartas, caixa e moedas. Um caixa só para contratar, pagar salários e jogar o
+          ranqueado.
         </p>
         <label>
           Nome de técnico

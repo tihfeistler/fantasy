@@ -6,6 +6,7 @@
 // POST api/online.php {acao:"comprar_base", jogador_id}   carta base (jogador atual) do sistema, com moedas
 // POST api/online.php {acao:"vender_base", jogador_id}    devolve a carta base ao sistema por 40% do preço
 // POST api/online.php {acao:"abrir_pacote"}               500 moedas, 5 lendas (70% comum, 25% rara, 5% ícone)
+// POST api/online.php {acao:"ampliar"}                    1.000 moedas, +10 lendas na coleção (até 500)
 //
 // Na primeira consulta o servidor cria o time com R$ 2 mi de caixa e um kit de 16 cartas base fracas.
 declare(strict_types=1);
@@ -17,7 +18,7 @@ $pdo = db();
 
 function situacao(int $uid): array
 {
-    $s = db()->prepare('SELECT id, nome, moedas FROM usuarios WHERE id = ?');
+    $s = db()->prepare('SELECT id, nome, moedas, limite_cartas FROM usuarios WHERE id = ?');
     $s->execute([$uid]);
     $u = $s->fetch();
     $time = timeOnline($uid);
@@ -25,6 +26,7 @@ function situacao(int $uid): array
     return [
         'usuario' => ['id' => (int) $u['id'], 'nome' => $u['nome'], 'timeId' => "u$uid"],
         'moedas' => (int) $u['moedas'],
+        'limiteCartas' => (int) $u['limite_cartas'],
         'time' => $time + ['custo' => custoDoTime($time, $cartas)],
         'cartas' => array_values($cartas),
         'ranqueado' => perfilPublico(perfilRanqueado($uid)),
@@ -87,11 +89,29 @@ switch ((string) ($d['acao'] ?? '')) {
         $pdo->commit();
         responder(situacao($eu));
 
+    case 'ampliar':
+        $pdo->beginTransaction();
+        $s = $pdo->prepare('SELECT moedas, limite_cartas FROM usuarios WHERE id = ? FOR UPDATE');
+        $s->execute([$eu]);
+        $u = $s->fetch();
+        if ((int) $u['limite_cartas'] >= LIMITE_CARTAS_MAXIMO) erro('A coleção já está no tamanho máximo.');
+        if ((int) $u['moedas'] < PRECO_AMPLIACAO) erro('Moedas insuficientes.');
+        $pdo->prepare('UPDATE usuarios SET moedas = moedas - ?, limite_cartas = LEAST(?, limite_cartas + ?) WHERE id = ?')
+            ->execute([PRECO_AMPLIACAO, LIMITE_CARTAS_MAXIMO, CARTAS_POR_AMPLIACAO, $eu]);
+        $pdo->commit();
+        responder(situacao($eu));
+
     case 'abrir_pacote':
         $pdo->beginTransaction();
-        $s = $pdo->prepare('SELECT moedas FROM usuarios WHERE id = ? FOR UPDATE');
+        $s = $pdo->prepare('SELECT moedas, limite_cartas FROM usuarios WHERE id = ? FOR UPDATE');
         $s->execute([$eu]);
-        if ((int) $s->fetchColumn() < PRECO_PACOTE) erro('Moedas insuficientes.');
+        $u = $s->fetch();
+        if ((int) $u['moedas'] < PRECO_PACOTE) erro('Moedas insuficientes.');
+        $q = $pdo->prepare("SELECT COUNT(*) FROM cartas c JOIN jogadores j ON j.id = c.jogador_id
+            WHERE c.usuario_id = ? AND j.tipo = 'classico'");
+        $q->execute([$eu]);
+        if ((int) $q->fetchColumn() + CARTAS_POR_PACOTE > (int) $u['limite_cartas'])
+            erro('Sem espaço na coleção para mais 5 lendas. Venda cartas ou amplie a coleção.');
         $pdo->prepare('UPDATE usuarios SET moedas = moedas - ? WHERE id = ?')->execute([PRECO_PACOTE, $eu]);
         $faixas = ['icone' => 'geral >= 88', 'rara' => 'geral >= 80 AND geral < 88', 'comum' => 'geral < 80'];
         $ins = $pdo->prepare("INSERT INTO cartas (usuario_id, jogador_id, origem) VALUES (?, ?, 'pacote')");
