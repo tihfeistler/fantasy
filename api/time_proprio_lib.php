@@ -4,14 +4,16 @@
 declare(strict_types=1);
 require_once __DIR__ . '/online_lib.php';
 
-/** Cartas de estádio: id => [fator de bilheteria, custo no caixa inicial em R$ mil]. */
+require_once __DIR__ . '/estadios_lib.php';
+
+/** Cartas de estádio: id => [capacidade, atmosfera, qualidade, custo no caixa inicial em R$ mil]. */
 const ESTADIOS = [
-    'municipal' => [0.8, 0], 'bairro' => [1.0, 1000], 'arena' => [1.15, 2500],
-    'olimpico' => [1.3, 4000], 'monumental' => [1.45, 6000],
+    'municipal' => [8000, 60, 45, 0], 'bairro' => [15000, 72, 52, 1000], 'arena' => [25000, 66, 86, 2500],
+    'olimpico' => [40000, 58, 76, 4000], 'monumental' => [60000, 82, 94, 6000],
 ];
 const FORMAS_EMBLEMA = ['escudo', 'classico', 'redondo', 'losango'];
 const SIMBOLOS_EMBLEMA = ['estrela', 'coroa', 'raio', 'bola', 'listras', 'nenhum'];
-const MODELOS_CAMISA = ['lisa', 'listras', 'horizontais', 'faixa', 'metades', 'detalhes'];
+const MODELOS_CAMISA = ['lisa', 'listras', 'horizontais', 'faixa', 'metades', 'detalhes', 'faixa-peito', 'faixa-central'];
 
 /** Função de cada escolha => posição da base. */
 const POSICAO_DA_FUNCAO = [
@@ -73,12 +75,26 @@ function identidadeValida(mixed $d): array
     if (!in_array($forma, FORMAS_EMBLEMA, true) || !in_array($simbolo, SIMBOLOS_EMBLEMA, true)) erro('Monte o emblema.');
     $camisa = (string) ($d['camisa'] ?? '');
     if (!in_array($camisa, MODELOS_CAMISA, true)) erro('Escolha o modelo da camisa.');
+    // Camisa reserva: opcional (contas antigas usam a principal com as cores invertidas).
+    $reserva = null;
+    if (isset($d['camisaReserva'])) {
+        $r = $d['camisaReserva'];
+        $rm = (string) ($r['modelo'] ?? '');
+        $rc = strtolower((string) ($r['cor'] ?? ''));
+        $rc2 = strtolower((string) ($r['cor2'] ?? ''));
+        if (!in_array($rm, MODELOS_CAMISA, true)) erro('Escolha o modelo da camisa reserva.');
+        if (!preg_match('/^#[0-9a-f]{6}$/', $rc) || !preg_match('/^#[0-9a-f]{6}$/', $rc2)) erro('Escolha as cores da camisa reserva.');
+        if ($rc === $rc2) erro('A camisa reserva precisa de duas cores diferentes.');
+        if ($rc === $cor) erro('A camisa reserva precisa de outra cor de fundo.');
+        $reserva = ['modelo' => $rm, 'cor' => $rc, 'cor2' => $rc2];
+    }
     $pais = (string) ($d['pais'] ?? '');
     $divisao = (string) ($d['divisao'] ?? '');
     if (ligaDaDivisao($divisao, $pais) === null) erro('Escolha a divisão.');
     return ['nome' => $nome, 'sigla' => $sigla, 'pais' => $pais, 'divisao' => $divisao, 'cidade' => $cidade, 'estadio' => $estadio,
         'nomeEstadio' => $nomeEstadio, 'cor' => $cor, 'corSecundaria' => $cor2,
-        'emblema' => ['forma' => $forma, 'simbolo' => $simbolo], 'camisa' => $camisa];
+        'emblema' => ['forma' => $forma, 'simbolo' => $simbolo], 'camisa' => $camisa]
+        + ($reserva ? ['camisaReserva' => $reserva] : []);
 }
 
 /** Chave da liga (campo liga de clubes) de uma divisão do país, ou null. */

@@ -13,6 +13,23 @@
 
 Depois de editar um `.txt`, rode `python3 scripts/gerar_atuais.py` e `php scripts/importar.php`. Os atributos de quem não está nos destaques saem do nível do clube e da numeração da camisa (cada escola numera de um jeito: Brasil, Europa e Argentina). Nos clubes novos, o nível do clube é uma estimativa pela divisão, com ajuste à mão para os mais fortes, então são rascunho.
 
+## Estádios, cores e camisas dos clubes
+
+`data/estadios.txt` tem, para cada um dos 638 clubes: estádio real, capacidade, atmosfera,
+qualidade, cores corrigidas e as camisas principal e reserva. `python3 scripts/gerar_estadios.py`
+junta tudo em `data/clubes.json` (campos `estadio`, `camisas`, `emblema`) e
+`php scripts/importar.php` leva para o MySQL.
+
+- Nome e capacidade: Wikidata (sede e capacidade do estádio), revisados à mão em nov/2026
+  (estádios novos, nomes de patrocínio atuais, casamentos errados de clube).
+- Atmosfera (pressão da torcida) e qualidade (estrutura e conforto), de 1 a 100, são avaliação
+  do jogo. La Bombonera tem a maior atmosfera (99).
+- Efeito no jogo (src/engine/estadios.ts e api/estadios_lib.php): bilheteria de 0,8x a 1,3x e
+  força do mandante de +5% a +10%.
+- Escudos e camisas são desenhos estilizados com as cores do clube, não as artes oficiais:
+  escudos e uniformes são marcas registradas dos clubes e fornecedores e não podem ser
+  copiados num jogo publicado sem licença.
+
 # Base de jogadores clássicos
 
 `jogadores.json` tem 386 jogadores aposentados (104 brasileiros, 48 seleções no total), no formato de `jogador.schema.json` e do tipo `Jogador` em `src/engine/types.ts`.

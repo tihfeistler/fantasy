@@ -1,0 +1,713 @@
+# Estádio e visual de cada clube.
+# Fonte do nome e da capacidade: Wikidata (P115 sede, P1083 capacidade), revisado à mão em 25/11/2026.
+# Atmosfera e qualidade (1-100) são avaliação do jogo: atmosfera = pressão da torcida
+# (La Bombonera = 99); qualidade = conforto, estrutura e conservação. Em branco = calculado
+# por scripts/gerar_estadios.py a partir do nível do clube, do país, da capacidade e da idade.
+# Cores: "#cor1 #cor2" corrige as cores do clube (em branco = as de clubes.json).
+# Camisas: "modelo" ou "modelo #corpo #detalhe". Em branco: principal = detalhes nas cores do
+# clube; reserva = cores invertidas. Modelos: lisa listras horizontais faixa metades detalhes
+# faixa-peito faixa-central.
+#
+# id | estádio | capacidade | atmosfera | qualidade | cores | camisa principal | camisa reserva
+
+# --- Brasileirão Série A
+athletico-pr | Ligga Arena | 42372 | 86 | 92 | | listras | lisa #ffffff #c8102e
+atletico-mg | Arena MRV | 46000 | 88 | 95 | | listras | lisa #ffffff #000000
+bahia | Arena Fonte Nova | 47907 | 86 | 88 | #0055a4 #ffffff | lisa #ffffff #0055a4 | lisa #0055a4 #e30613
+botafogo | Estádio Nilton Santos | 46931 | 82 | 82 | | listras | lisa #ffffff #000000
+chapecoense | Arena Condá | 20089 | 78 | 62 | | lisa | lisa #ffffff #00843d
+corinthians | Neo Química Arena | 49205 | 92 | 92 | #ffffff #111111 | lisa | lisa #111111 #ffffff
+coritiba | Estádio Couto Pereira | 40502 | 86 | 68 | | faixa-peito #ffffff #00543c | lisa #00543c #ffffff
+cruzeiro | Mineirão | 61846 | 88 | 87 | | lisa | lisa #ffffff #0033a0
+flamengo | Maracanã | 78838 | 93 | 86 | | horizontais | lisa #ffffff #c8102e
+fluminense | Maracanã | 78838 | 88 | 86 | | listras | lisa #ffffff #7a0026
+gremio | Arena do Grêmio | 55662 | 88 | 90 | | listras | lisa #ffffff #0d80bf
+internacional | Estádio Beira-Rio | 50128 | 89 | 89 | | lisa | lisa #ffffff #e30613
+mirassol | Estádio José Maria de Campos Maia | 15000 | 66 | 58 | | lisa | lisa #00843d #f5d000
+palmeiras | Allianz Parque | 43713 | 90 | 93 | | lisa | lisa #ffffff #006437
+bragantino | Estádio Nabi Abi Chedid | 17022 | 60 | 70 | | detalhes | lisa #d6001c #ffffff
+remo | Estádio Evandro Almeida (Baenão) | 13792 | 86 | 52 | | lisa | lisa #ffffff #001f5b
+santos | Vila Belmiro | 16068 | 86 | 62 | | lisa | listras #000000 #ffffff
+sao-paulo | MorumBIS | 66795 | 88 | 84 | #ffffff #e30613 | faixa-peito #ffffff #e30613 | horizontais #e30613 #000000
+vasco | São Januário | 21880 | 90 | 60 | | faixa | faixa #ffffff #000000
+vitoria | Barradão | 30793 | 85 | 62 | | horizontais | lisa #ffffff #e30613
+# --- Série B
+america-mg | Estádio Independência | 23018 | 74 | 72 | #00843d #000000 | lisa | lisa #ffffff #00843d
+athletic | Estádio Joaquim Portugal | 6000 | 62 | 42 | #000000 #ffffff | listras | lisa #ffffff #000000
+atletico-go | Estádio Antônio Accioly | 12500 | 72 | 55 | #e30613 #000000 | listras | lisa #ffffff #e30613
+avai | Estádio da Ressacada | 17800 | 74 | 58 | #0055a4 #ffffff | listras | lisa #ffffff #0055a4
+botafogo-sp | Estádio Santa Cruz | 29292 | 66 | 52 | #e30613 #ffffff | listras #e30613 #000000 | lisa #ffffff #e30613
+ceara | Arena Castelão | 57876 | 85 | 87 | #000000 #ffffff | listras | lisa #ffffff #000000
+crb | Estádio Rei Pelé | 19105 | 74 | 58 | #e30613 #ffffff | horizontais | lisa #ffffff #e30613
+criciuma | Estádio Heriberto Hülse | 19225 | 76 | 60 | #f5d000 #000000 | listras | lisa #ffffff #000000
+cuiaba | Arena Pantanal | 44097 | 62 | 85 | #00843d #f5d000 | lisa | lisa #f5d000 #00843d
+fortaleza | Arena Castelão | 57876 | 87 | 87 | | horizontais #0055a4 #e30613 | lisa #ffffff #0055a4
+goias | Estádio da Serrinha | 14450 | 72 | 60 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+juventude | Estádio Alfredo Jaconi | 19924 | 76 | 58 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+londrina | Estádio do Café | 31000 | 68 | 55 | #7fb2e5 #ffffff | lisa | lisa #ffffff #7fb2e5
+nautico | Estádio dos Aflitos | 19800 | 82 | 52 | #e30613 #ffffff | listras | lisa #ffffff #e30613
+novorizontino | Estádio Jorge Ismael de Biasi | 16000 | 62 | 60 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+operario-pr | Estádio Germano Krüger | 10632 | 70 | 55 | #000000 #ffffff | listras | lisa #ffffff #000000
+ponte-preta | Estádio Moisés Lucarelli | 19728 | 80 | 50 | #000000 #ffffff | faixa | lisa #ffffff #000000
+sao-bernardo | Estádio 1º de Maio | 15000 | 58 | 52 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+sport | Ilha do Retiro | 26418 | 86 | 58 | #e30613 #000000 | horizontais | lisa #ffffff #e30613
+vila-nova | Estádio Onésio Brasileiro Alvarenga | 11788 | 76 | 48 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+
+# --- Premier League
+arsenal | Emirates Stadium | 60704 | 80 | 94 | | detalhes | lisa #f5d000 #003a70
+aston-villa | Villa Park | 42640 | 84 | 80 | | detalhes | lisa #ffffff #670e36
+bournemouth | Vitality Stadium | 11307 | 76 | 66 | | listras | lisa #ffffff #da291c
+brentford | Gtech Community Stadium | 17250 | 74 | 88 | | listras | lisa #000000 #e30613
+brighton | Amex Stadium | 31876 | 76 | 90 | | listras | lisa #f5d000 #0057b8
+chelsea | Stamford Bridge | 40173 | 80 | 80 | | lisa | lisa #ffffff #034694
+coventry | Coventry Building Society Arena | 32609 | 72 | 78 | | listras | lisa #ffffff #59cbe8
+crystal-palace | Selhurst Park | 25486 | 86 | 62 | #1b458f #c4122e | listras | lisa #ffffff #c4122e
+everton | Hill Dickinson Stadium | 52888 | 86 | 96 | | lisa | lisa #ffffff #003399
+fulham | Craven Cottage | 29130 | 72 | 76 | | lisa | lisa #000000 #ffffff
+hull-city | MKM Stadium | 25586 | 72 | 76 | | listras | lisa #ffffff #f5a12d
+ipswich | Portman Road | 29813 | 80 | 68 | | lisa | lisa #e30613 #ffffff
+leeds | Elland Road | 37645 | 90 | 72 | | lisa | lisa #1d428a #f5d000
+liverpool | Anfield | 61276 | 95 | 90 | | lisa | lisa #ffffff #c8102e
+manchester-city | Etihad Stadium | 53400 | 78 | 93 | | lisa | lisa #1c2c5b #6cabdd
+manchester-united | Old Trafford | 74197 | 86 | 78 | | lisa | lisa #ffffff #da291c
+newcastle | St James' Park | 52305 | 90 | 84 | | listras | lisa #ffffff #241f20
+nottingham-forest | City Ground | 30404 | 84 | 70 | | lisa | lisa #ffffff #dd0000
+sunderland | Stadium of Light | 48707 | 86 | 80 | | listras | lisa #000000 #eb172b
+tottenham | Tottenham Hotspur Stadium | 62850 | 84 | 99 | | lisa | lisa #132257 #ffffff
+
+# --- La Liga
+alaves | Mendizorroza | 19840 | 74 | 70 | | listras | lisa #ffffff #0761af
+athletic-bilbao | San Mamés | 53289 | 92 | 92 | | listras | lisa #000000 #ffffff
+atletico-madrid | Riyadh Air Metropolitano | 70460 | 89 | 96 | | listras | lisa #1a2f6b #cb3524
+barcelona | Spotify Camp Nou | 105000 | 86 | 97 | | listras | lisa #f5d000 #a50044
+celta | Abanca-Balaídos | 24870 | 80 | 78 | | lisa | lisa #ffffff #8ac3ee
+deportivo-la-coruna | Abanca-Riazor | 32490 | 84 | 72 | | listras | lisa #000000 #ffffff
+elche | Martínez Valero | 31388 | 76 | 66 | | faixa-peito #ffffff #05642c | lisa #05642c #ffffff
+espanyol | RCDE Stadium | 40000 | 72 | 84 | | listras | lisa #ffffff #007fc8
+getafe | Coliseum | 16500 | 64 | 66 | | lisa | lisa #ffffff #005999
+levante | Ciutat de València | 26354 | 74 | 66 | | listras | lisa #ffffff #b4053f
+malaga | La Rosaleda | 30044 | 82 | 70 | | listras | lisa #000000 #0097d8
+osasuna | El Sadar | 23576 | 90 | 84 | | lisa | lisa #ffffff #0a346f
+racing-santander | El Sardinero | 22222 | 80 | 60 | | lisa #ffffff #00a650 | lisa #00a650 #ffffff
+rayo-vallecano | Estadio de Vallecas | 14708 | 84 | 48 | | faixa | faixa #000000 #e53027
+betis | Benito Villamarín | 60721 | 90 | 82 | | listras | lisa #ffffff #00954c
+real-madrid | Santiago Bernabéu | 83186 | 88 | 99 | | lisa | lisa #1a1a2e #febe10
+real-sociedad | Reale Arena | 39500 | 82 | 88 | | listras | lisa #f5d000 #0067b1
+sevilla | Ramón Sánchez-Pizjuán | 43883 | 92 | 76 | | lisa | lisa #d71920 #ffffff
+valencia | Mestalla | 49430 | 90 | 68 | | lisa | lisa #000000 #ee3524
+villarreal | Estadio de la Cerámica | 23008 | 74 | 84 | | lisa | lisa #005187 #ffe667
+
+# --- Serie A (Itália)
+atalanta | Gewiss Stadium | 24950 | 84 | 86 | | listras | lisa #ffffff #1e71b8
+bologna | Stadio Renato Dall'Ara | 36462 | 80 | 58 | | metades | lisa #ffffff #1a2f48
+cagliari | Unipol Domus | 16416 | 76 | 72 | | metades | lisa #ffffff #a71930
+como | Stadio Giuseppe Sinigaglia | 13602 | 70 | 64 | | lisa | lisa #ffffff #003da5
+fiorentina | Stadio Artemio Franchi | 43147 | 84 | 60 | | lisa | lisa #ffffff #482e92
+frosinone | Stadio Benito Stirpe | 16227 | 70 | 80 | | lisa | lisa #ffffff #00539f
+genoa | Stadio Luigi Ferraris | 33205 | 88 | 64 | | metades | lisa #ffffff #a6192e
+inter | San Siro | 75817 | 90 | 78 | | listras | lisa #ffffff #0068a8
+juventus | Allianz Stadium | 41507 | 84 | 92 | | listras | lisa #f5d000 #000000
+lazio | Stadio Olimpico | 70634 | 84 | 78 | | lisa | lisa #000000 #87d8f7
+lecce | Stadio Via del Mare | 31533 | 82 | 58 | | listras | lisa #ffffff #d50032
+milan | San Siro | 75817 | 90 | 78 | | listras | lisa #ffffff #fb090b
+monza | U-Power Stadium | 16917 | 64 | 66 | | metades | lisa #ffffff #e30613
+napoli | Stadio Diego Armando Maradona | 54726 | 92 | 70 | | lisa | lisa #ffffff #12a0d7
+parma | Stadio Ennio Tardini | 22352 | 74 | 62 | | faixa-central #ffffff #ffd200 | lisa #ffd200 #00338d
+roma | Stadio Olimpico | 70634 | 88 | 78 | | lisa | lisa #ffffff #8e1f2f
+sassuolo | Mapei Stadium | 21584 | 58 | 76 | | listras | lisa #ffffff #00a752
+torino | Stadio Olimpico Grande Torino | 28177 | 80 | 70 | | lisa | lisa #ffffff #881f19
+udinese | Bluenergy Stadium | 25144 | 72 | 88 | | listras | lisa #ffffff #000000
+venezia | Stadio Pierluigi Penzo | 11150 | 74 | 42 | | detalhes | lisa #ffffff #00843d
+
+# --- Bundesliga
+augsburg | WWK Arena | 30660 | 76 | 84 | #ffffff #ba3733 | detalhes | lisa #ba3733 #46714d
+leverkusen | BayArena | 30210 | 78 | 88 | | lisa | lisa #ffffff #e32221
+bayern | Allianz Arena | 75024 | 86 | 97 | | lisa | lisa #ffffff #dc052d
+borussia-dortmund | Signal Iduna Park | 81365 | 98 | 90 | | lisa | lisa #000000 #fde100
+monchengladbach | Borussia-Park | 54042 | 86 | 86 | | lisa | lisa #000000 #00843d
+colonia | RheinEnergieStadion | 50000 | 88 | 86 | #ffffff #ed1c24 | detalhes | lisa #ed1c24 #ffffff
+eintracht-frankfurt | Deutsche Bank Park | 58000 | 92 | 90 | | lisa | lisa #ffffff #000000
+elversberg | Ursapharm-Arena an der Kaiserlinde | 10000 | 62 | 62 | | lisa | lisa #ffffff #000000
+freiburg | Europa-Park Stadion | 34700 | 82 | 94 | #e2001a #000000 | lisa | lisa #ffffff #000000
+hamburgo | Volksparkstadion | 57000 | 88 | 82 | | lisa | lisa #e30613 #ffffff
+hoffenheim | PreZero Arena | 30150 | 62 | 86 | | lisa | lisa #ffffff #1961b5
+mainz | Mewa Arena | 33305 | 80 | 84 | | lisa | lisa #ffffff #c3141e
+paderborn | Home Deluxe Arena | 15000 | 64 | 74 | | lisa | lisa #ffffff #005ca9
+rb-leipzig | Red Bull Arena | 47069 | 74 | 90 | | lisa | lisa #0d1c3d #dd0741
+schalke | Veltins-Arena | 62271 | 92 | 90 | | lisa | lisa #ffffff #004d9d
+stuttgart | MHPArena | 60058 | 88 | 90 | | faixa-peito #ffffff #e32219 | lisa #e32219 #ffffff
+union-berlin | Stadion An der Alten Försterei | 22012 | 93 | 66 | | lisa | lisa #ffffff #eb1923
+werder-bremen | Weserstadion | 42100 | 86 | 84 | | lisa | lisa #ffffff #1d9053
+
+# --- Ligue 1
+angers | Stade Raymond-Kopa | 19350 | 70 | 70 | | listras | lisa #ffffff #000000
+auxerre | Stade de l'Abbé-Deschamps | 18541 | 74 | 60 | | detalhes | lisa #0064b0 #ffffff
+brest | Stade Francis-Le Blé | 15220 | 78 | 52 | | lisa | lisa #ffffff #e2001a
+le-havre | Stade Océane | 25178 | 68 | 86 | | metades | lisa #ffffff #1a3a65
+le-mans | MMArena | 25000 | 64 | 82 | | lisa | lisa #ffffff #e30613
+lens | Stade Bollaert-Delelis | 38223 | 93 | 76 | | metades | lisa #000000 #ffd700
+lille | Decathlon Arena Pierre-Mauroy | 50186 | 80 | 92 | #e01e13 #1a2b5f | lisa | lisa #ffffff #1a2b5f
+lorient | Stade du Moustoir | 18890 | 70 | 66 | | lisa | lisa #ffffff #f58220
+lyon | Groupama Stadium | 59186 | 82 | 94 | | detalhes | lisa #1b3c8b #e2001a
+monaco | Stade Louis-II | 16360 | 52 | 70 | | metades | lisa #000000 #e51b22
+nice | Allianz Riviera | 36178 | 76 | 88 | | listras | lisa #ffffff #e2001a
+marseille | Orange Vélodrome | 67394 | 94 | 88 | | lisa #ffffff #2faee0 | lisa #2faee0 #ffffff
+paris-fc | Stade Jean-Bouin | 20000 | 58 | 84 | | lisa | lisa #ffffff #002f5f
+psg | Parc des Princes | 47929 | 88 | 88 | | faixa-central | lisa #ffffff #004170
+rennes | Roazhon Park | 29778 | 80 | 76 | | lisa | lisa #ffffff #e13327
+strasbourg | Stade de la Meinau | 26109 | 86 | 72 | | lisa | lisa #ffffff #009fe3
+toulouse | Stadium de Toulouse | 33150 | 72 | 74 | | lisa | lisa #ffffff #5d2c86
+troyes | Stade de l'Aube | 20400 | 66 | 66 | | lisa | lisa #ffffff #004b9b
+
+# --- Liga Portugal
+academico-viseu | Estádio do Fontelo | 6912 | 60 | 42 | | lisa | lisa #ffffff #000000
+alverca | Complexo Desportivo do FC Alverca | 7705 | 56 | 62 | | lisa | lisa #ffffff #e2001a
+arouca | Estádio Municipal de Arouca | 5600 | 54 | 58 | | lisa | lisa #003b7a #ffd200
+benfica | Estádio da Luz | 64642 | 90 | 92 | | lisa | lisa #000000 #e20e0e
+braga | Estádio Municipal de Braga | 30286 | 76 | 86 | | lisa | lisa #ffffff #e2001a
+casa-pia | Estádio Pina Manique | 4000 | 50 | 50 | | lisa | lisa #ffffff #000000
+estoril | Estádio António Coimbra da Mota | 5094 | 54 | 56 | | listras | lisa #ffffff #004b9b
+estrela-amadora | Estádio José Gomes | 9288 | 66 | 44 | | lisa | lisa #ffffff #00843d
+famalicao | Estádio Municipal 22 de Junho | 5307 | 60 | 56 | | lisa | lisa #003b7a #ffffff
+gil-vicente | Estádio Cidade de Barcelos | 12046 | 58 | 64 | #e2001a #ffffff | lisa | lisa #003b7a #ffffff
+maritimo | Estádio do Marítimo | 10600 | 70 | 72 | | listras | lisa #ffffff #00843d
+moreirense | Parque de Jogos Comendador Joaquim de Almeida Freitas | 6150 | 56 | 52 | | lisa | lisa #ffffff #00843d
+nacional-madeira | Estádio da Madeira | 5132 | 52 | 58 | | listras | lisa #ffffff #000000
+porto | Estádio do Dragão | 50033 | 89 | 92 | | listras | lisa #f5a12d #003c7f
+rio-ave | Estádio do Rio Ave FC | 5250 | 58 | 54 | | listras | lisa #ffffff #00843d
+santa-clara | Estádio de São Miguel | 12500 | 58 | 54 | | lisa | lisa #ffffff #e2001a
+sporting | Estádio José Alvalade | 50095 | 88 | 90 | | horizontais | lisa #000000 #008057
+vitoria-guimaraes | Estádio D. Afonso Henriques | 30000 | 88 | 76 | | lisa | lisa #000000 #ffffff
+
+# --- Liga Profesional (Argentina)
+aldosivi | Estadio José María Minella | 35354 | 76 | 62 | | listras | lisa #ffffff #008c45
+argentinos-juniors | Estadio Diego Armando Maradona | 26000 | 82 | 66 | | lisa | lisa #ffffff #e2001a
+atletico-tucuman | Estadio Monumental José Fierro | 35200 | 90 | 52 | | listras | lisa #ffffff #7fb2e5
+banfield | Estadio Florencio Sola | 34901 | 82 | 58 | | listras | lisa #ffffff #00843d
+barracas-central | Estadio Claudio Chiqui Tapia | 4400 | 66 | 48 | | horizontais | lisa #ffffff #e2001a
+belgrano | Estadio Julio César Villagra | 38000 | 90 | 58 | | lisa | lisa #ffffff #7fc3ea
+boca-juniors | La Bombonera | 57200 | 99 | 72 | | faixa-peito | faixa-peito #ffffff #103f79
+central-cordoba | Estadio Único Madre de Ciudades | 30000 | 74 | 86 | | listras | lisa #ffffff #000000
+defensa-y-justicia | Estadio Norberto Tomaghello | 20000 | 70 | 58 | | lisa | lisa #00843d #ffd700
+riestra | Estadio Guillermo Laza | 3000 | 60 | 38 | | lisa | lisa #ffffff #000000
+estudiantes | Estadio Jorge Luis Hirschi (UNO) | 30018 | 88 | 82 | | listras | lisa #ffffff #e2001a
+estudiantes-rio-cuarto | Estadio Ciudad de Río Cuarto Antonio Candini | 15000 | 72 | 50 | | lisa | lisa #000000 #ffffff
+gimnasia-la-plata | Estadio Juan Carmelo Zerillo (El Bosque) | 21500 | 90 | 50 | | faixa-peito | lisa #002b5c #ffffff
+gimnasia-mendoza | Estadio Víctor Legrotaglie | 11500 | 76 | 50 | | lisa | lisa #000000 #ffffff
+huracan | Estadio Tomás Adolfo Ducó | 48314 | 89 | 58 | | lisa | lisa #e2001a #ffffff
+independiente | Estadio Libertadores de América | 42069 | 90 | 80 | | lisa | lisa #ffffff #e2001a
+independiente-rivadavia | Estadio Bautista Gargantini | 24000 | 78 | 54 | | lisa | lisa #ffffff #002b5c
+instituto | Estadio Juan Domingo Perón | 26535 | 82 | 54 | | listras | lisa #ffffff #e2001a
+lanus | Estadio Ciudad de Lanús | 47027 | 86 | 64 | | lisa | lisa #ffffff #7a1e2c
+newells | Estadio Marcelo Bielsa | 42000 | 93 | 66 | | metades | lisa #ffffff #e2001a
+platense | Estadio Ciudad de Vicente López | 28530 | 78 | 54 | | faixa-peito #ffffff #5b3a1e | lisa #5b3a1e #ffffff
+racing-club | El Cilindro | 51389 | 94 | 66 | | listras | lisa #2b2b2b #7fc3ea
+river-plate | Estadio Mâs Monumental | 85018 | 94 | 90 | | faixa | faixa #000000 #e2001a
+rosario-central | Gigante de Arroyito | 41654 | 93 | 60 | | listras | lisa #ffd700 #002b5c
+san-lorenzo | Estadio Pedro Bidegain (Nuevo Gasómetro) | 47964 | 91 | 62 | | listras | lisa #ffffff #002b5c
+sarmiento | Estadio Eva Perón | 22000 | 72 | 50 | | lisa | lisa #ffffff #00843d
+talleres | Estadio Mario Alberto Kempes | 57000 | 88 | 84 | | listras | lisa #ffffff #002b5c
+tigre | Estadio José Dellagiovanna | 26282 | 80 | 56 | #002b5c #e2001a | faixa-peito | lisa #ffffff #002b5c
+union-santa-fe | Estadio 15 de Abril | 22852 | 86 | 56 | | listras | lisa #ffffff #e2001a
+velez | Estadio José Amalfitani | 49540 | 88 | 68 | | detalhes | lisa #002b5c #ffffff
+
+# --- Championship
+birmingham-city | St Andrew's | 29409 | 82 | 66 | #0000cc #ffffff | lisa | lisa #ffffff #0000cc
+blackburn-rovers | Ewood Park | 31367 | 74 | 62 | #009ee0 #ffffff | metades | lisa #e30613 #000000
+bolton-wanderers | Toughsheet Community Stadium | 28723 | 72 | 72 | #ffffff #1b2b5f | lisa | lisa #1b2b5f #ffffff
+bristol-city | Ashton Gate | 27000 | 76 | 76 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+burnley | Turf Moor | 21944 | 82 | 64 | #6c1d45 #99d6ea | lisa | lisa #ffffff #6c1d45
+cardiff-city | Cardiff City Stadium | 33280 | 78 | 80 | #0070b5 #ffffff | lisa | lisa #ffffff #0070b5
+charlton-athletic | The Valley | 27111 | 76 | 60 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+derby-county | Pride Park | 32956 | 80 | 72 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+lincoln-city | Sincil Bank | 10120 | 74 | 50 | #e30613 #ffffff | listras | lisa #000000 #ffffff
+middlesbrough | Riverside Stadium | 34742 | 76 | 72 | #e30613 #ffffff | detalhes | lisa #ffffff #e30613
+millwall | The Den | 20146 | 90 | 58 | #001f5b #ffffff | lisa | lisa #ffffff #001f5b
+norwich-city | Carrow Road | 27359 | 78 | 68 | #fff200 #00a650 | lisa | lisa #00a650 #fff200
+portsmouth | Fratton Park | 20867 | 88 | 46 | #001489 #ffffff | lisa | lisa #ffffff #001489
+preston-north-end | Deepdale | 23404 | 72 | 62 | #ffffff #001f5b | lisa | lisa #001f5b #ffffff
+qpr | Loftus Road | 18439 | 76 | 52 | #1d5ba4 #ffffff | horizontais | lisa #e30613 #000000
+sheffield-united | Bramall Lane | 32050 | 84 | 66 | #e30613 #ffffff | listras | lisa #000000 #e30613
+southampton | St Mary's Stadium | 32384 | 78 | 80 | #d71920 #ffffff | listras | lisa #f5d000 #001f5b
+stoke-city | bet365 Stadium | 30089 | 80 | 70 | #e03a3e #ffffff | listras | lisa #001f5b #ffffff
+swansea-city | Swansea.com Stadium | 21088 | 74 | 78 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+watford | Vicarage Road | 22200 | 72 | 70 | #fbee23 #ed2127 | lisa | lisa #ed2127 #000000
+west-bromwich | The Hawthorns | 26688 | 78 | 66 | #122f67 #ffffff | listras | lisa #f5d000 #00843d
+west-ham-united | London Stadium | 62500 | 74 | 86 | #7a263a #1bb1e7 | detalhes | lisa #ffffff #7a263a
+wolverhampton | Molineux | 31750 | 86 | 74 | #fdb913 #231f20 | detalhes | lisa #231f20 #fdb913
+wrexham | Racecourse Ground | 12600 | 86 | 52 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+
+# --- League One
+barnsley | Oakwell | 23287 | 72 | 52 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+blackpool | Bloomfield Road | 16616 | 74 | 60 | #f68712 #ffffff | lisa | lisa #ffffff #f68712
+bradford-city | Valley Parade | 25136 | 78 | 54 | #8a0e1c #fdb913 | listras | lisa #ffffff #8a0e1c
+bromley | Hayes Lane | 5000 | 54 | 46 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+burton-albion | Pirelli Stadium | 6912 | 56 | 58 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+cambridge-united | Abbey Stadium | 8127 | 66 | 46 | #f5a12d #000000 | lisa | lisa #000000 #f5a12d
+doncaster-rovers | Eco-Power Stadium | 15231 | 64 | 72 | #e30613 #ffffff | metades | lisa #000000 #ffffff
+huddersfield-town | John Smith's Stadium | 24121 | 70 | 72 | #0e63ad #ffffff | listras | lisa #f5d000 #000000
+leicester-city | King Power Stadium | 32259 | 80 | 80 | #003090 #fdbe11 | lisa | lisa #ffffff #003090
+leyton-orient | Brisbane Road | 9271 | 66 | 54 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+luton-town | Kenilworth Road | 12000 | 84 | 36 | #f78f1e #002d62 | lisa | lisa #ffffff #002d62
+mansfield-town | One Call Stadium | 9186 | 62 | 50 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+milton-keynes-dons | Stadium MK | 30500 | 54 | 82 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+notts-county | Meadow Lane | 19841 | 68 | 54 | #000000 #ffffff | listras | lisa #ffffff #000000
+oxford-united | Kassam Stadium | 12500 | 62 | 58 | #f5d000 #002d62 | lisa | lisa #002d62 #f5d000
+peterborough-united | Weston Homes Stadium | 15314 | 66 | 56 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+plymouth-argyle | Home Park | 17900 | 78 | 60 | #00543c #ffffff | lisa | lisa #ffffff #00543c
+reading | Select Car Leasing Stadium | 24161 | 64 | 72 | #004494 #ffffff | horizontais | lisa #e30613 #000000
+sheffield-wednesday | Hillsborough | 39732 | 82 | 52 | #0e63ad #ffffff | listras | lisa #f5d000 #000000
+stevenage | Lamex Stadium | 7800 | 56 | 48 | #e30613 #ffffff | detalhes | lisa #ffffff #e30613
+stockport-county | Edgeley Park | 10841 | 74 | 50 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+wigan-athletic | Brick Community Stadium | 25138 | 60 | 66 | #1d59af #ffffff | listras | lisa #e30613 #ffffff
+wimbledon | Plough Lane | 9215 | 70 | 78 | #0f2a7a #f5d000 | lisa | lisa #f5d000 #0f2a7a
+wycombe-wanderers | Adams Park | 10137 | 62 | 50 | #85b8e8 #0a1f5c | metades | lisa #ffffff #0a1f5c
+
+# --- League Two
+accrington-stanley | Wham Stadium | 5450 | 58 | 44 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+barnet | The Hive Stadium | 6500 | 56 | 70 | #f5a12d #000000 | lisa | lisa #000000 #f5a12d
+bristol-rovers | Memorial Stadium | 12100 | 74 | 40 | #0055a4 #ffffff | metades | lisa #f5d000 #000000
+cheltenham-town | Whaddon Road | 7066 | 58 | 46 | #e30613 #ffffff | listras | lisa #ffffff #e30613
+chesterfield | SMH Group Stadium | 10504 | 66 | 62 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+colchester-united | JobServe Community Stadium | 10105 | 56 | 62 | #0055a4 #ffffff | listras | lisa #f5d000 #000000
+crawley-town | Broadfield Stadium | 6134 | 54 | 54 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+crewe-alexandra | Mornflake Stadium | 10153 | 58 | 52 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+exeter-city | St James Park | 8696 | 68 | 52 | #e30613 #ffffff | listras | lisa #000000 #ffffff
+gillingham | Priestfield Stadium | 11582 | 62 | 48 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+grimsby-town | Blundell Park | 9052 | 76 | 38 | #000000 #ffffff | listras | lisa #e30613 #ffffff
+newport-county | Rodney Parade | 7850 | 60 | 50 | #f5a12d #000000 | lisa | lisa #000000 #f5a12d
+northampton-town | Sixfields Stadium | 7798 | 58 | 54 | #7a1e2c #ffffff | lisa | lisa #ffffff #7a1e2c
+oldham-athletic | Boundary Park | 13513 | 68 | 46 | #0044ff #ffffff | lisa | lisa #ffffff #0044ff
+port-vale | Vale Park | 19052 | 70 | 50 | #ffffff #000000 | lisa | lisa #000000 #f5d000
+rochdale | Crown Oil Arena | 10249 | 58 | 46 | #0055a4 #000000 | lisa | lisa #ffffff #0055a4
+rotherham-united | AESSEAL New York Stadium | 12021 | 66 | 74 | #e30613 #ffffff | detalhes | lisa #000000 #ffffff
+salford-city | Peninsula Stadium | 5108 | 50 | 62 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+shrewsbury-town | Croud Meadow | 9875 | 58 | 60 | #0055a4 #f5d000 | lisa | lisa #f5d000 #0055a4
+swindon-town | County Ground | 15728 | 64 | 44 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+tranmere-rovers | Prenton Park | 16567 | 64 | 50 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+walsall | Poundland Bescot Stadium | 11300 | 58 | 52 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+
+# --- Segunda División
+albacete-balompie | Estadio Carlos Belmonte | 17524 | 68 | 54 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+almeria | Power Horse Stadium | 22000 | 64 | 74 | #e30613 #ffffff | listras | lisa #000000 #e30613
+andorra | Estadi Nacional d'Andorra | 3306 | 44 | 62 | #002f6c #f5d000 | lisa | lisa #f5d000 #002f6c
+burgos | Estadio Municipal El Plantío | 12200 | 74 | 52 | #000000 #ffffff | lisa | lisa #ffffff #000000
+castellon | Nou Castàlia | 15500 | 74 | 54 | #ffffff #000000 | listras | lisa #000000 #ffffff
+ceuta | Estadio Alfonso Murube | 6500 | 56 | 50 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+cadiz | Estadio Nuevo Mirandilla | 20724 | 82 | 66 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+cordoba | Estadio Nuevo Arcángel | 21822 | 76 | 62 | #ffffff #00843d | listras | lisa #00843d #ffffff
+eibar | Ipurua | 8164 | 74 | 68 | #192030 #8a0e1c | metades #0055a4 #8a0e1c | lisa #ffffff #8a0e1c
+eldense | Estadio Nuevo Pepico Amat | 4036 | 56 | 46 | #173097 #ffffff | lisa | lisa #ffffff #173097
+girona | Estadi Montilivi | 14624 | 76 | 68 | #e30613 #ffffff | listras | lisa #000000 #ffffff
+granada | Nuevo Los Cármenes | 19336 | 76 | 66 | #e30613 #ffffff | horizontais | lisa #0055a4 #ffffff
+las-palmas | Estadio de Gran Canaria | 32400 | 74 | 76 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+leganes | Estadio Municipal de Butarque | 12454 | 68 | 56 | #ffffff #0055a4 | listras | lisa #000000 #ffffff
+mallorca | Estadi Mallorca Son Moix | 23142 | 70 | 66 | #e30613 #000000 | lisa | lisa #000000 #e30613
+real-oviedo | Estadio Carlos Tartiere | 30500 | 84 | 70 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+real-valladolid | Estadio José Zorrilla | 27618 | 72 | 64 | #ffffff #5b2a86 | listras | lisa #5b2a86 #ffffff
+sabadell | Nova Creu Alta | 11981 | 64 | 46 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+sporting-de-gijon | El Molinón-Enrique Castro Quini | 29371 | 86 | 66 | #e30613 #ffffff | listras | lisa #0055a4 #ffffff
+tenerife | Heliodoro Rodríguez López | 22824 | 74 | 58 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+
+# --- Serie B (Itália)
+arezzo | Stadio Città di Arezzo | 13128 | 62 | 44 | #8a0e1c #ffffff | lisa | lisa #ffffff #8a0e1c
+ascoli | Stadio Cino e Lillo Del Duca | 12461 | 70 | 46 | #000000 #ffffff | listras | lisa #ffffff #000000
+avellino | Stadio Partenio-Adriano Lombardi | 26308 | 80 | 44 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+benevento | Stadio Ciro Vigorito | 16867 | 70 | 58 | #ffd200 #e30613 | metades | lisa #ffffff #e30613
+calcio-padova | Stadio Euganeo | 32336 | 58 | 50 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+carrarese | Stadio dei Marmi | 9500 | 64 | 40 | #0055a4 #f5d000 | listras | lisa #ffffff #0055a4
+catanzaro | Stadio Nicola Ceravolo | 14650 | 80 | 44 | #e30613 #f5d000 | metades | lisa #ffffff #e30613
+cesena | Orogel Stadium-Dino Manuzzi | 23860 | 76 | 60 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+cremonese | Stadio Giovanni Zini | 15191 | 66 | 60 | #e30613 #9aa3ad | listras | lisa #ffffff #e30613
+empoli | Stadio Carlo Castellani | 16284 | 58 | 58 | #0055ff #ffffff | lisa | lisa #ffffff #0055ff
+hellas-verona | Stadio Marcantonio Bentegodi | 31045 | 80 | 50 | #203664 #f5d000 | lisa | lisa #f5d000 #203664
+juve-stabia | Stadio Romeo Menti (Castellammare) | 12800 | 70 | 40 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+lr-vicenza | Stadio Romeo Menti | 12000 | 72 | 44 | #ffffff #e30613 | faixa-central | lisa #e30613 #ffffff
+mantova | Stadio Danilo Martelli | 7367 | 60 | 46 | #ffffff #e30613 | faixa | lisa #e30613 #ffffff
+modena | Stadio Alberto Braglia | 21151 | 70 | 50 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+palermo | Stadio Renzo Barbera | 36365 | 82 | 56 | #ffb8ca #000000 | lisa | lisa #000000 #ffb8ca
+pisa | Arena Garibaldi-Romeo Anconetani | 10442 | 76 | 50 | #000000 #0055a4 | listras | lisa #ffffff #000000
+sampdoria | Stadio Luigi Ferraris | 33205 | 86 | 64 | #1d5ba4 #ffffff | faixa-peito | lisa #ffffff #1d5ba4
+sudtirol | Stadio Druso | 5500 | 48 | 58 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+virtus-entella | Stadio Comunale di Chiavari | 5535 | 50 | 44 | #ffffff #3d7fd1 | horizontais | lisa #3d7fd1 #ffffff
+
+# --- 2. Bundesliga
+arminia-bielefeld | SchücoArena | 26515 | 82 | 70 | #0055a4 #ffffff | lisa | lisa #ffffff #000000
+darmstadt-98 | Merck-Stadion am Böllenfalltor | 17650 | 74 | 66 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+dynamo-dresden | Rudolf-Harbig-Stadion | 32066 | 88 | 72 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+eintracht-braunschweig | Eintracht-Stadion | 23325 | 82 | 62 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+energie-cottbus | LEAG Energie Stadion | 22528 | 76 | 56 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+hannover-96 | Heinz von Heiden Arena | 49000 | 78 | 76 | #00843d #000000 | lisa #e30613 #000000 | lisa #00843d #ffffff
+heidenheim | Voith-Arena | 15000 | 66 | 74 | #e30613 #0055a4 | lisa | lisa #ffffff #e30613
+hertha-berlim | Olympiastadion | 74475 | 76 | 82 | #ffffff #005ca9 | faixa-central #005ca9 #ffffff | lisa #ffffff #005ca9
+holstein-kiel | Holstein-Stadion | 15034 | 70 | 62 | #0055a4 #ffffff | lisa | lisa #ffffff #e30613
+kaiserslautern | Fritz-Walter-Stadion | 49327 | 90 | 72 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+karlsruher | BBBank Wildpark | 34302 | 80 | 86 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+magdeburg | Avnet Arena | 30098 | 84 | 76 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+nurnberg | Max-Morlock-Stadion | 50000 | 84 | 64 | #8a0e1c #000000 | lisa | lisa #ffffff #8a0e1c
+spvgg-greuther-furth | Sportpark Ronhof Thomas Sommer | 16626 | 62 | 64 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+st-pauli | Millerntor-Stadion | 29546 | 92 | 72 | #5b3a1e #ffffff | lisa | lisa #ffffff #5b3a1e
+vfl-bochum | Vonovia Ruhrstadion | 26000 | 86 | 62 | #005ca9 #ffffff | lisa | lisa #ffffff #005ca9
+vfl-osnabruck | Stadion an der Bremer Brücke | 15741 | 82 | 50 | #5b2a86 #ffffff | lisa | lisa #ffffff #5b2a86
+vfl-wolfsburg | Volkswagen Arena | 30000 | 60 | 86 | #65b32e #ffffff | lisa | lisa #ffffff #65b32e
+
+# --- Ligue 2
+annecy | Parc des Sports | 15660 | 56 | 60 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+boulogne | Stade de la Libération | 9534 | 58 | 46 | #e30613 #000000 | metades | lisa #ffffff #e30613
+clermont-foot | Stade Gabriel-Montpied | 11980 | 60 | 60 | #e30613 #0055a4 | metades | lisa #ffffff #0055a4
+dijon | Stade Gaston-Gérard | 15459 | 60 | 60 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+dunkerque | Stade Marcel-Tribut | 4933 | 56 | 62 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+grenoble-foot-38 | Stade des Alpes | 20068 | 58 | 76 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+guingamp | Stade de Roudourou | 18378 | 74 | 64 | #e30613 #000000 | metades | lisa #ffffff #e30613
+laval | Stade Francis-Le Basser | 18739 | 64 | 52 | #f68712 #000000 | lisa | lisa #000000 #f68712
+metz | Stade Saint-Symphorien | 30000 | 74 | 74 | #8a0e1c #ffffff | lisa | lisa #ffffff #8a0e1c
+montpellier-hsc | Stade de la Mosson | 32900 | 70 | 56 | #0a1f5c #f68712 | lisa | lisa #ffffff #0a1f5c
+nancy-lorraine | Stade Marcel-Picot | 20087 | 68 | 54 | #ffffff #e30613 | faixa-peito | lisa #e30613 #ffffff
+nantes | Stade de la Beaujoire | 35322 | 82 | 64 | #f5d000 #00843d | lisa | lisa #00843d #f5d000
+pau | Nouste Camp | 4031 | 50 | 62 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+red-star | Stade Bauer | 10000 | 72 | 48 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+reims | Stade Auguste-Delaune | 21684 | 70 | 70 | #e30613 #ffffff | detalhes | lisa #ffffff #e30613
+rodez-af | Stade Paul-Lignon | 6761 | 58 | 48 | #e30613 #f5d000 | lisa | lisa #ffffff #e30613
+saint-etienne | Stade Geoffroy-Guichard | 41965 | 92 | 76 | #19995c #ffffff | lisa | lisa #ffffff #19995c
+sochaux-montbeliard | Stade Auguste-Bonal | 20025 | 66 | 60 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+
+# --- Liga Portugal 2
+avs | Estádio do CD Aves | 8560 | 54 | 50 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+amarante | Estádio Municipal de Amarante | 5000 | 50 | 40 | #000000 #ffffff | lisa | lisa #ffffff #000000
+chaves | Estádio Municipal Eng. Manuel Branco Teixeira | 8400 | 64 | 52 | #0055a4 #e30613 | listras | lisa #ffffff #0055a4
+farense | Estádio de São Luís | 7000 | 68 | 44 | #000000 #ffffff | lisa | lisa #ffffff #000000
+feirense | Estádio Marcolino de Castro | 5401 | 58 | 46 | #0033ff #ffffff | lisa | lisa #ffffff #0033ff
+felgueiras | Estádio Dr. Machado de Matos | 7540 | 52 | 42 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+leixoes | Estádio do Mar | 6000 | 66 | 42 | #e30613 #ffffff | listras | lisa #ffffff #e30613
+lusitania | Estádio do Lusitânia FC | 5000 | 54 | 42 | #0055a4 #ffffff | listras | lisa #ffffff #0055a4
+penafiel | Estádio Municipal 25 de Abril | 5230 | 52 | 44 | #e30613 #000000 | lisa | lisa #ffffff #e30613
+portimonense | Estádio Municipal de Portimão | 4961 | 52 | 52 | #000000 #ffffff | listras | lisa #ffffff #000000
+tondela | Estádio João Cardoso | 5000 | 54 | 50 | #00843d #f5d000 | listras | lisa #ffffff #00843d
+torreense | Estádio Manuel Marques | 2400 | 50 | 38 | #aa0000 #003b6f | lisa | lisa #ffffff #aa0000
+uniao-de-leiria | Estádio Dr. Magalhães Pessoa | 23888 | 58 | 74 | #000000 #ffffff | lisa | lisa #ffffff #000000
+vizela | Estádio do FC Vizela | 6000 | 56 | 46 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+
+# --- Primera Nacional (Argentina)
+acassuso | Estadio de Acassuso | 3000 | 54 | 34 | #000040 #ffffff | listras | lisa #ffffff #000040
+agropecuario | Estadio Ofelia Rosenzuaig | 5000 | 50 | 40 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+all-boys | Estadio Islas Malvinas | 21000 | 80 | 46 | #ffffff #000000 | detalhes | lisa #000000 #ffffff
+almagro | Estadio Tres de Febrero | 19000 | 66 | 40 | #0055a4 #000000 | listras | lisa #ffffff #0055a4
+almirante-brown | Estadio Fragata Presidente Sarmiento | 25000 | 78 | 44 | #f5d000 #000000 | listras | lisa #000000 #f5d000
+atlanta | Estadio Don León Kolbowski | 14500 | 76 | 42 | #f5d000 #0055a4 | listras | lisa #0055a4 #f5d000
+atletico-de-rafaela | Estadio Monumental de Barrio Alberdi | 16000 | 72 | 42 | #7fc3ea #ffffff | listras | lisa #ffffff #7fc3ea
+central-norte | Estadio Dr. Luis Güemes | 8000 | 64 | 36 | #000000 #ffffff | listras | lisa #ffffff #000000
+chacarita-juniors | Estadio de Chacarita Juniors | 19000 | 78 | 40 | #e30613 #000000 | listras #e30613 #000000 | lisa #ffffff #000000
+ciudad-de-bolivar | Estadio Municipal Eva Perón (Bolívar) | 5000 | 48 | 38 | #4abbff #ffffff | lisa | lisa #ffffff #4abbff
+colegiales | Estadio Libertarios Unidos | 8500 | 58 | 34 | #0000ff #e30613 | listras | lisa #ffffff #0000ff
+colon | Estadio Brigadier General Estanislao López | 40000 | 88 | 54 | #e30613 #000000 | metades | lisa #ffffff #000000
+defensores-de-belgrano | Estadio Juan Pasquale | 9000 | 66 | 40 | #e30613 #000000 | listras | lisa #ffffff #e30613
+deportivo-madryn | Estadio Abel Sánchez | 12000 | 58 | 40 | #000000 #ffffff | listras | lisa #ffffff #000000
+deportivo-maipu | Estadio Omar Higinio Sperdutti | 10000 | 62 | 40 | #e30613 #ffffff | listras | lisa #ffffff #e30613
+deportivo-moron | Estadio Nuevo Francisco Urbano | 32000 | 74 | 48 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+estudiantes-de-buenos-aires | Estadio Ciudad de Caseros | 16740 | 70 | 42 | #ffffff #000000 | listras | lisa #000000 #ffffff
+ferro-carril-oeste | Estadio Arquitecto Ricardo Etcheverri | 24442 | 72 | 44 | #004000 #ffffff | lisa | lisa #ffffff #004000
+ferrocarril-midland | Estadio Ciudad de Libertad | 4000 | 50 | 32 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+gimnasia-y-esgrima-de-jujuy | Estadio 23 de Agosto | 23200 | 76 | 46 | #ffffff #0055a4 | faixa-peito | lisa #0055a4 #ffffff
+gimnasia-y-tiro | Estadio Gigante del Norte | 20408 | 72 | 44 | #ffffff #0055a4 | listras | lisa #0055a4 #ffffff
+godoy-cruz | Estadio Feliciano Gambarte | 14000 | 78 | 48 | #0000ff #ffffff | listras | lisa #ffffff #0000ff
+guemes | Estadio Arturo Miranda | 8000 | 62 | 36 | #0000ff #ffffff | listras | lisa #ffffff #0000ff
+los-andes | Estadio Eduardo Gallardón | 30000 | 74 | 40 | #ffffff #e30613 | faixa-peito | lisa #e30613 #ffffff
+mitre | Estadio Doctores José y Antonio Castiglione | 10000 | 66 | 40 | #f5d000 #000000 | listras | lisa #000000 #f5d000
+nueva-chicago | Estadio República de Mataderos | 28500 | 82 | 44 | #00843d #000000 | listras | lisa #ffffff #00843d
+patronato | Estadio Presbítero Bartolomé Grella | 22000 | 72 | 48 | #000000 #e30613 | listras | lisa #ffffff #000000
+racing-de-cordoba | Estadio Miguel Sancho | 15000 | 66 | 40 | #7fc3ea #ffffff | listras | lisa #ffffff #7fc3ea
+san-martin-de-san-juan | Estadio Ingeniero Hilario Sánchez | 19500 | 72 | 48 | #000000 #00843d | listras | lisa #ffffff #00843d
+san-martin-de-tucuman | Estadio La Ciudadela | 30250 | 90 | 44 | #e30613 #ffffff | listras | lisa #ffffff #e30613
+san-miguel | Estadio Malvinas Argentinas | 4000 | 54 | 34 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+san-telmo | Estadio Osvaldo Baletto | 8000 | 60 | 34 | #7fc3ea #ffffff | listras | lisa #ffffff #7fc3ea
+temperley | Estadio Alfredo Beranger | 19000 | 72 | 42 | #7fc3ea #ffffff | lisa | lisa #ffffff #7fc3ea
+tristan-suarez | Estadio 20 de Octubre | 7500 | 54 | 36 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+
+# --- Eredivisie
+az-alkmaar | AFAS Stadion | 19478 | 70 | 82 | | lisa | lisa #ffffff #ff0000
+ajax | Johan Cruijff ArenA | 55865 | 84 | 90 | #ffffff #d2122e | faixa-central | lisa #0a1f5c #ffffff
+cambuur | Kooi Stadion | 10500 | 72 | 76 | #ffee00 #0000ff | lisa | lisa #0000ff #ffee00
+den-haag | Bingoal Stadion | 15000 | 76 | 72 | #ffdd00 #00843d | lisa | lisa #00843d #ffdd00
+excelsior | Van Donge & De Roo Stadion | 4500 | 56 | 50 | | listras #e30613 #000000 | lisa #ffffff #000000
+feyenoord | De Kuip | 47500 | 94 | 70 | #e30613 #ffffff | metades #e30613 #ffffff | lisa #000000 #e30613
+fortuna-sittard | Fortuna Sittard Stadion | 12500 | 56 | 62 | #f5d000 #00843d | lisa | lisa #00843d #f5d000
+go-ahead-eagles | De Adelaarshorst | 9800 | 76 | 56 | #e30613 #f5d000 | lisa | lisa #f5d000 #e30613
+groningen | Euroborg | 22525 | 80 | 80 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+heerenveen | Abe Lenstra Stadion | 26100 | 74 | 74 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+nec-nijmegen | Goffertstadion | 12500 | 72 | 56 | #e30613 #00843d | metades #e30613 #000000 | lisa #ffffff #00843d
+pec-zwolle | MAC³PARK stadion | 14000 | 64 | 72 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+psv | Philips Stadion | 35000 | 86 | 84 | #e30613 #ffffff | listras | lisa #000000 #e30613
+sparta-rotterdam | Sparta Stadion Het Kasteel | 11026 | 74 | 62 | #e30613 #ffffff | listras | lisa #000000 #ffffff
+telstar | BUKO Stadion | 5200 | 60 | 50 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+twente | De Grolsch Veste | 30205 | 84 | 80 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+utrecht | Stadion Galgenwaard | 23750 | 82 | 70 | #ed1a2f #ffffff | lisa | lisa #ffffff #ed1a2f
+willem-ii-tilburg | Koning Willem II Stadion | 14700 | 70 | 60 | #e30613 #0055a4 | listras #e30613 #ffffff | lisa #0055a4 #ffffff
+
+# --- Eerste Divisie
+almere-city | Yanmar Stadion | 4501 | 50 | 64 | #e30613 #000000 | lisa | lisa #000000 #e30613
+de-graafschap | De Vijverberg | 12600 | 76 | 56 | #0055a4 #ffffff | listras | lisa #000000 #ffffff
+den-bosch | De Vliert | 9000 | 58 | 46 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+dordrecht | M-Scores Stadion | 4235 | 48 | 44 | #069261 #ffffff | lisa | lisa #ffffff #069261
+eindhoven | Jan Louwers Stadion | 4600 | 52 | 44 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+emmen | De Oude Meerdijk | 8600 | 62 | 58 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+helmond-sport | MySteel Stadion | 4100 | 50 | 46 | #e30613 #000000 | lisa | lisa #ffffff #e30613
+heracles-almelo | Asito Stadion | 12080 | 66 | 70 | #000000 #ffffff | listras | lisa #ffffff #000000
+mvv-maastricht | De Geusselt | 10000 | 62 | 46 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+nac-breda | Rat Verlegh Stadion | 19000 | 86 | 64 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+rkc-waalwijk | Mandemakers Stadion | 7500 | 56 | 54 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+roda-jc-kerkrade | Parkstad Limburg Stadion | 19979 | 70 | 64 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+top-oss | Heesen Yachts Stadion | 4560 | 48 | 44 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+vvv-venlo | Covebo Stadion De Koel | 8000 | 62 | 50 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+vitesse | GelreDome | 21248 | 64 | 80 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+volendam | Kras Stadion | 6984 | 60 | 54 | #f68712 #ffffff | lisa | lisa #ffffff #f68712
+
+# --- Pro League (Bélgica)
+anderlecht | Lotto Park | 21500 | 82 | 70 | #5c2195 #ffffff | lisa | lisa #ffffff #5c2195
+antwerp | Bosuilstadion | 16144 | 86 | 62 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+beveren | Freethiel Stadion | 8190 | 62 | 50 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+cercle-brugge | Jan Breydelstadion | 29042 | 58 | 58 | #00843d #000000 | listras | lisa #ffffff #00843d
+charleroi | Stade du Pays de Charleroi | 14000 | 72 | 56 | #ffffff #000000 | listras #000000 #ffffff | lisa #ffffff #000000
+club-brugge | Jan Breydelstadion | 29042 | 84 | 58 | #0055a4 #000000 | listras | lisa #ffffff #0055a4
+genk | Cegeka Arena | 23718 | 78 | 74 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+gent | Planet Group Arena | 20000 | 80 | 82 | #0023dd #ffffff | lisa | lisa #ffffff #0023dd
+kortrijk | Guldensporenstadion | 9399 | 60 | 52 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+la-louviere | Stade du Tivoli | 8000 | 56 | 44 | #009150 #ffffff | lisa | lisa #ffffff #009150
+lommel | Soevereinstadion | 8000 | 54 | 48 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+mechelen | AFAS Stadion Achter de Kazerne | 16672 | 78 | 62 | #f5d000 #e30613 | listras | lisa #ffffff #e30613
+oud-heverlee-leuven | Den Dreef | 10020 | 62 | 62 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+sint-truidense-vv | Stayen | 14600 | 70 | 66 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+standard-liege | Stade Maurice-Dufrasne (Sclessin) | 27670 | 90 | 64 | #dd0000 #ffffff | lisa | lisa #ffffff #dd0000
+union-saint-gilloise | Stade Joseph Marien | 9400 | 76 | 46 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+westerlo | Het Kuipje | 8035 | 60 | 54 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+zulte-waregem | Elindus Arena | 12300 | 62 | 58 | #ff0026 #ffffff | lisa | lisa #ffffff #ff0026
+
+# --- Challenger Pro League
+beerschot-va | Olympisch Stadion | 12771 | 76 | 52 | #6104d2 #ffffff | lisa | lisa #ffffff #6104d2
+eupen | Kehrwegstadion | 8363 | 50 | 56 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+francs-borains | Stade Robert Urbain | 4000 | 48 | 36 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+lierse | Herman Vanderpoortenstadion | 14538 | 70 | 44 | #ffee00 #000000 | lisa | lisa #000000 #ffee00
+liege | Stade de Rocourt | 5000 | 56 | 40 | #e30613 #0055a4 | metades | lisa #ffffff #0055a4
+lokeren | Daknamstadion | 9560 | 62 | 46 | #000000 #ffffff | lisa | lisa #ffffff #000000
+patro-eisden | Patrostadion | 3300 | 50 | 38 | #660099 #ffffff | lisa | lisa #ffffff #660099
+seraing | Stade du Pairay | 8207 | 56 | 38 | #e30613 #000000 | lisa | lisa #ffffff #e30613
+sporting-hasselt | Stedelijk Sportstadion | 5000 | 50 | 40 | #022a46 #15452b | lisa | lisa #ffffff #022a46
+virton | Stade Yvan Georges | 4000 | 48 | 36 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+
+# --- Saudi Pro League
+abha | Estádio Príncipe Sultan bin Abdulaziz | 20000 | 54 | 66 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+al-faisaly | Estádio da Cidade Esportiva de Al-Majma'ah | 7000 | 48 | 60 | #600020 #ffffff | lisa | lisa #ffffff #600020
+al-fateh | Cidade Esportiva Príncipe Abdullah bin Jalawi | 26000 | 54 | 68 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+al-qadsiah | Estádio Príncipe Saud bin Jalawi | 15000 | 56 | 74 | #fc1c14 #f5d000 | lisa | lisa #f5d000 #fc1c14
+al-shabab | Estádio do Al-Shabab | 15000 | 54 | 70 | #ffffff #000000 | listras | lisa #000000 #ffffff
+al-taawoun | Cidade Esportiva Rei Abdullah (Buraidah) | 25000 | 56 | 70 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+al-ahli | Cidade Esportiva Rei Abdullah (Jóia) | 62345 | 84 | 92 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+al-ettifaq | EGO Stadium | 26000 | 60 | 76 | #00843d #e30613 | lisa | lisa #ffffff #00843d
+al-fayha | Estádio da Cidade Esportiva de Al-Majma'ah | 7000 | 46 | 60 | #f68712 #0055a4 | lisa | lisa #0055a4 #f68712
+al-hazem | Estádio do Al-Hazem | 8000 | 48 | 52 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+al-hilal | Kingdom Arena | 26000 | 80 | 92 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+al-ittihad | Cidade Esportiva Rei Abdullah (Jóia) | 62345 | 88 | 92 | #f5d000 #000000 | listras | lisa #ffffff #000000
+al-khaleej | Estádio Príncipe Nayef bin Abdulaziz | 12000 | 50 | 60 | #f5d000 #00843d | lisa | lisa #00843d #f5d000
+al-kholood | Estádio do Al-Hazem | 8000 | 46 | 52 | #f5f5dc #e30613 | lisa | lisa #e30613 #f5f5dc
+al-nassr | Al-Awwal Park | 26000 | 80 | 88 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+al-riyadh | Estádio Príncipe Faisal bin Fahd | 22500 | 46 | 58 | #e30613 #000000 | lisa | lisa #ffffff #e30613
+diriyah | Estádio Príncipe Turki bin Abdulaziz | 15000 | 44 | 58 | #d2ba9c #3b2a1a | lisa | lisa #3b2a1a #d2ba9c
+neom | Cidade Esportiva Rei Khalid (Tabuk) | 12000 | 44 | 70 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+# --- Primeira Divisão Saudita
+al-adalah | Cidade Esportiva Príncipe Abdullah bin Jalawi | 26000 | 44 | 68 | #00843d #f5d000 | lisa | lisa #f5d000 #00843d
+al-batin | Estádio do Al-Batin | 6000 | 46 | 52 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+al-wehda | Cidade Esportiva Rei Abdulaziz (Meca) | 38000 | 58 | 62 | #3a2ea7 #bf1901 | lisa | lisa #ffffff #bf1901
+al-anwar | Estádio do Al-Anwar | 5000 | 40 | 44 | #ffffff #00843d | lisa | lisa #00843d #ffffff
+al-arabi | Estádio do Departamento de Educação (Unaizah) | 4000 | 44 | 44 | #dd0000 #ffffff | lisa | lisa #ffffff #dd0000
+al-bukiryah | Estádio do Al-Bukiryah | 5000 | 40 | 44 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+al-jabalain | Cidade Esportiva Príncipe Abdulaziz bin Musa'ed | 12250 | 52 | 56 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+al-jandal | Estádio do Al-Jandal | 5000 | 40 | 44 | #e53e24 #ffffff | lisa | lisa #ffffff #e53e24
+al-orobah | Estádio do Al-Orobah | 7000 | 44 | 50 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+al-raed | Cidade Esportiva Rei Abdullah (Buraidah) | 25000 | 50 | 70 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+al-tai | Cidade Esportiva Príncipe Abdulaziz bin Musa'ed | 12250 | 50 | 56 | #d2d2d2 #000000 | lisa | lisa #000000 #d2d2d2
+al-ula | Estádio do Al-Ula | 5000 | 40 | 52 | #2b3747 #d2ba9c | lisa | lisa #d2ba9c #2b3747
+al-zulfi | Estádio do Al-Zulfi | 5000 | 40 | 44 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+jeddah | Estádio Príncipe Abdullah Al-Faisal | 27000 | 44 | 50 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+
+# --- Eliteserien
+aalesunds | Color Line Stadion | 10778 | 66 | 68 | #f68712 #0055a4 | lisa | lisa #0055a4 #f68712
+bodo-glimt | Aspmyra Stadion | 8270 | 82 | 64 | #ffdd00 #000000 | lisa | lisa #ffffff #000000
+brann | Brann Stadion | 16750 | 80 | 66 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+fredrikstad | Fredrikstad Stadion | 12560 | 72 | 72 | #e30613 #ffffff | lisa #ffffff #e30613 | lisa #e30613 #ffffff
+hamkam | Briskeby Arena | 8068 | 64 | 60 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+kfum-oslo | KFUM Arena | 3500 | 50 | 50 | #000060 #e30613 | lisa | lisa #e30613 #000060
+kristiansund | Kristiansund Stadion | 4444 | 54 | 50 | #000060 #ffffff | lisa | lisa #ffffff #000060
+lillestrom | Åråsen Stadion | 11500 | 74 | 62 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+molde | Aker Stadion | 11249 | 66 | 76 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+rosenborg | Lerkendal Stadion | 21405 | 80 | 72 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+sandefjord | Release Arena | 6582 | 54 | 62 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+sarpsborg-08 | Sarpsborg Stadion | 8022 | 58 | 58 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+start | Sparebanken Sør Arena | 14448 | 62 | 66 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+tromso | Romssa Arena | 6859 | 64 | 54 | #e30613 #ffffff | listras | lisa #ffffff #e30613
+viking | Lyse Arena | 15900 | 74 | 66 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+valerenga | Intility Arena | 16555 | 74 | 80 | #0055a4 #e30613 | lisa | lisa #ffffff #0055a4
+# --- OBOS-ligaen
+bryne | Bryne Stadion | 4000 | 54 | 46 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+egersunds-ik | Idrettsparken Egersund | 4000 | 48 | 40 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+haugesund | Haugesund Sparebank Arena | 8754 | 60 | 56 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+hodd | Høddvoll Stadion | 4081 | 52 | 42 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+kongsvinger | Gjemselund Stadion | 5202 | 54 | 46 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+lyn | Bislett Stadion | 15400 | 54 | 60 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+moss | Melløs Stadion | 6000 | 54 | 44 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+odds | Skagerak Arena | 13500 | 60 | 66 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+ranheim | EXTRA Arena | 3000 | 44 | 52 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+raufoss | Nammo Stadion | 3500 | 44 | 46 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+sandnes-ulf | Sandnes Idrettspark | 4969 | 48 | 44 | #87d8f7 #000000 | lisa | lisa #000000 #87d8f7
+sogndal | Fosshaugane Campus | 5523 | 56 | 54 | #000000 #ffffff | lisa | lisa #ffffff #000000
+stabaek | Nadderud Stadion | 7000 | 52 | 50 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+strommen | Strømmen Stadion | 3000 | 42 | 38 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+stromsgodset | Marienlyst Stadion | 8935 | 62 | 54 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+asane | Åsane Arena | 3700 | 44 | 50 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+
+# --- Superliga (Dinamarca)
+agf | Ceres Park | 19433 | 74 | 66 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+brondby | Brøndby Stadion | 28000 | 88 | 68 | #f5d000 #003da5 | lisa | lisa #003da5 #f5d000
+copenhague | Parken | 38065 | 86 | 82 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+horsens | Nordstern Arena Horsens | 10400 | 58 | 60 | #ffef00 #000000 | lisa | lisa #000000 #ffef00
+lyngby | Lyngby Stadion | 8000 | 56 | 50 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+midtjylland | MCH Arena | 11809 | 70 | 72 | #000000 #e30613 | lisa | lisa #ffffff #000000
+nordsjaelland | Right to Dream Park | 10100 | 56 | 66 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+ob | Nature Energy Park | 15761 | 66 | 64 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+randers | Cepheus Park Randers | 10300 | 62 | 60 | #80bfff #ffffff | lisa | lisa #ffffff #80bfff
+silkeborg | JYSK Park | 10000 | 60 | 76 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+sonderjyske | Sydbank Park | 10000 | 58 | 60 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+viborg | Energi Viborg Arena | 9566 | 60 | 62 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+# --- 1ª Divisão (Dinamarca)
+ab | Gladsaxe Stadion | 13507 | 52 | 40 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+aab | Aalborg Portland Park | 13797 | 74 | 64 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+aarhus-fremad | Riisvangen Stadion | 3000 | 46 | 38 | #000000 #f5d000 | lisa | lisa #f5d000 #000000
+esbjerg-fb | Blue Water Arena | 16942 | 66 | 64 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+fredericia | Monjasa Park | 4000 | 50 | 50 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+hb-koge | Capelli Sport Stadion | 4000 | 48 | 50 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+hillerod | Hillerød Stadion | 3000 | 44 | 40 | #e30613 #000000 | lisa | lisa #ffffff #e30613
+hobro-ik | DS Arena | 7500 | 52 | 52 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+hvidovre | Pro Ventilation Arena | 12000 | 54 | 44 | #e30613 #0055a4 | lisa | lisa #ffffff #e30613
+kolding | Autocentralen Park | 10000 | 50 | 48 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+vejle | Vejle Stadion | 10418 | 66 | 68 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+vendsyssel | Nord Energi Arena | 7500 | 50 | 50 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+
+# --- Scottish Premiership
+aberdeen | Pittodrie Stadium | 20866 | 80 | 52 | #ef0000 #ffffff | lisa | lisa #ffffff #ef0000
+celtic | Celtic Park | 60411 | 97 | 85 | #00843d #ffffff | horizontais | lisa #000000 #00843d
+dundee | Dens Park | 11775 | 74 | 46 | | lisa | lisa #ffffff #172643
+dundee-united | Tannadice Park | 14223 | 78 | 50 | | lisa | lisa #ffffff #000000
+falkirk | Falkirk Stadium | 8750 | 64 | 64 | #000066 #ffffff | lisa | lisa #ffffff #000066
+hearts | Tynecastle Park | 19852 | 88 | 72 | | lisa | lisa #ffffff #601f2e
+hibernian | Easter Road | 20421 | 82 | 70 | | detalhes | lisa #ffffff #335649
+kilmarnock | Rugby Park | 15003 | 66 | 52 | #0055a4 #ffffff | listras | lisa #ffffff #0055a4
+motherwell | Fir Park | 13677 | 70 | 50 | #ffbe00 #7a1e2c | faixa-peito | lisa #ffffff #7a1e2c
+rangers | Ibrox Stadium | 51700 | 94 | 82 | #1b458f #ffffff | lisa | lisa #ffffff #1b458f
+st-johnstone | McDiarmid Park | 10696 | 62 | 58 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+st-mirren | SMiSA Stadium | 7937 | 64 | 62 | #000000 #ffffff | listras | lisa #ffffff #000000
+# --- Scottish Championship
+arbroath | Gayfield Park | 6600 | 58 | 36 | #8a0e1c #ffffff | lisa | lisa #ffffff #8a0e1c
+ayr-united | Somerset Park | 10185 | 62 | 38 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+dunfermline-athletic | East End Park | 11480 | 70 | 48 | #000000 #ffffff | listras | lisa #ffffff #000000
+greenock-morton | Cappielow Park | 11589 | 66 | 34 | #0055a4 #ffffff | horizontais | lisa #f5d000 #000000
+inverness-caledonian-thistle | Caledonian Stadium | 7800 | 56 | 54 | #0044ff #e30613 | listras | lisa #e30613 #000000
+livingston | Almondvale Stadium | 9865 | 54 | 58 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+partick-thistle | Firhill Stadium | 10102 | 66 | 44 | #e30613 #f5d000 | listras | lisa #f5d000 #e30613
+queen-s-park | Lesser Hampden | 1774 | 44 | 42 | #ffffff #000000 | horizontais | lisa #000000 #ffffff
+raith-rovers | Stark's Park | 8473 | 60 | 40 | #181146 #ffffff | lisa | lisa #ffffff #181146
+stenhousemuir | Ochilview Park | 3746 | 46 | 36 | #8a0e1c #ffffff | lisa | lisa #ffffff #8a0e1c
+
+# --- Bundesliga (Áustria)
+austria-lustenau | Planet Pure Stadion | 5138 | 58 | 72 | #008000 #ffffff | lisa | lisa #ffffff #008000
+austria-viena | Generali Arena | 17656 | 80 | 80 | #5f04b4 #ffffff | lisa | lisa #ffffff #5f04b4
+grazer-ak | Merkur Arena | 16364 | 62 | 66 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+hartberg | Profertil Arena Hartberg | 5024 | 50 | 54 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+lask | Raiffeisen Arena | 19080 | 80 | 90 | #000000 #ffffff | listras | lisa #ffffff #000000
+rapid-viena | Allianz Stadion | 28345 | 90 | 88 | #009150 #ffffff | lisa | lisa #ffffff #009150
+red-bull-salzburg | Red Bull Arena | 30188 | 70 | 86 | #ffffff #dd0741 | lisa | lisa #0d1c3d #dd0741
+rheindorf-altach | Cashpoint Arena | 8500 | 56 | 62 | #000000 #ffffff | lisa | lisa #ffffff #000000
+ried | Josko Arena | 7680 | 62 | 60 | #000000 #e30613 | lisa | lisa #e30613 #000000
+sturm-graz | Merkur Arena | 16364 | 86 | 66 | #000000 #ffffff | lisa | lisa #ffffff #000000
+tirol | Tivoli Stadion Tirol | 16008 | 50 | 66 | #00924f #ffffff | lisa | lisa #ffffff #00924f
+wolfsberger-ac | Lavanttal-Arena | 7300 | 56 | 60 | #000000 #ffffff | lisa | lisa #ffffff #000000
+# --- 2. Liga (Áustria)
+admira-wacker | BSFZ-Arena | 10600 | 52 | 52 | #000000 #e30613 | lisa | lisa #ffffff #e30613
+amstetten | Ertl Glas Stadion | 3000 | 44 | 46 | #000000 #ffffff | lisa | lisa #ffffff #000000
+austria-salzburg | Stadion Salzburg-Maxglan | 4000 | 62 | 44 | #5f04b4 #ffffff | lisa | lisa #ffffff #5f04b4
+blau-weiss-linz | Hofmann Personal Stadion | 5595 | 62 | 78 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+first-vienna | Hohe Warte | 5500 | 58 | 40 | #f5d000 #0055a4 | lisa | lisa #0055a4 #f5d000
+floridsdorfer-ac | FAC-Platz | 3000 | 44 | 40 | #0044ff #ffffff | lisa | lisa #ffffff #0044ff
+hertha-wels | Huber Arena | 3000 | 42 | 44 | #318ce7 #ffffff | lisa | lisa #ffffff #318ce7
+kapfenberger-sv | Franz-Fekete-Stadion | 12000 | 48 | 44 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+schwarz-weiss-bregenz | ImmoAgentur Stadion | 12000 | 50 | 44 | #000000 #ffffff | lisa | lisa #ffffff #000000
+st-polten | NV Arena | 8000 | 54 | 70 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+voitsberg | Stadion Voitsberg | 3000 | 40 | 40 | #eaf408 #0055a4 | lisa | lisa #0055a4 #eaf408
+wacker-innsbruck | Tivoli Stadion Tirol | 16008 | 70 | 66 | #000000 #00843d | lisa | lisa #ffffff #00843d
+
+# --- SuperLiga (Sérvia)
+beograd | Stadion FK Beograd | 1500 | 40 | 34 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+estrela-vermelha | Stadion Rajko Mitić (Marakana) | 51755 | 96 | 66 | #e30613 #ffffff | listras | lisa #ffffff #e30613
+imt | Stadion IMT | 1500 | 40 | 40 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+macva-sabac | Gradski Stadion Šabac | 8000 | 62 | 42 | #000000 #ffffff | lisa | lisa #ffffff #000000
+mladost-lucani | Stadion Mladost | 8000 | 54 | 40 | #0000cd #ffffff | lisa | lisa #ffffff #0000cd
+novi-pazar | Gradski Stadion Novi Pazar | 12000 | 74 | 42 | #e30613 #0055a4 | lisa | lisa #ffffff #0055a4
+partizan | Stadion Partizana | 29775 | 92 | 54 | #000000 #ffffff | listras | lisa #ffffff #000000
+radnik-surdulica | Gradski Stadion Surdulica | 3312 | 48 | 44 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+radnicki-1923 | Stadion Čika Dača | 15100 | 72 | 64 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+radnicki-nis | Stadion Čair | 18151 | 76 | 66 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+vojvodina | Stadion Karađorđe | 14458 | 78 | 56 | #e30613 #ffffff | metades | lisa #ffffff #e30613
+zemun | Gradski Stadion Zemun | 10000 | 56 | 38 | #0000aa #ffffff | lisa | lisa #ffffff #0000aa
+cukaricki | Stadion Čukarički | 4070 | 50 | 50 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+zeleznicar-pancevo | Gradski Stadion Pančevo | 5000 | 50 | 46 | #ffffff #0055a4 | lisa | lisa #0055a4 #ffffff
+# --- Prva Liga (Sérvia)
+bor | Gradski Stadion Bor | 3000 | 42 | 36 | #000000 #f68712 | lisa | lisa #f68712 #000000
+borac | Gradski Stadion Čačak | 8000 | 58 | 42 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+dubocica | Gradski Stadion Leskovac | 8136 | 60 | 46 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+graficar-beograd | Stadion Grafičar | 1500 | 40 | 34 | #5e087c #ffffff | lisa | lisa #ffffff #5e087c
+javor-ivanjica | Stadion Javor | 5000 | 50 | 40 | #ffffff #000000 | lisa | lisa #000000 #ffffff
+jedinstvo-ub | Gradski Stadion Ub | 3000 | 42 | 36 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+loznica | Stadion Lagator | 8030 | 52 | 44 | #007551 #ffffff | lisa | lisa #ffffff #007551
+metalac-gornji-milanovac | Stadion Metalac | 4400 | 46 | 54 | #2051b8 #ffffff | lisa | lisa #ffffff #2051b8
+napredak-krusevac | Stadion Mladost (Kruševac) | 10331 | 62 | 48 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+proleter-023 | Gradski Stadion Zrenjanin | 13500 | 56 | 40 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+smederevo | Gradski Stadion Smederevo | 17200 | 54 | 38 | #e30613 #191970 | lisa | lisa #ffffff #191970
+spartak-subotica | Gradski Stadion Subotica | 13000 | 58 | 44 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4
+tsc | TSC Arena | 4500 | 52 | 82 | #000000 #ffffff | lisa | lisa #ffffff #000000
+teleoptik | Stadion Teleoptik | 2000 | 38 | 40 | #1c39bb #ffffff | lisa | lisa #ffffff #1c39bb
+vozdovac | Stadion Voždovac | 5200 | 48 | 60 | #ffffff #e30613 | lisa | lisa #e30613 #ffffff
+vrsac | Gradski Stadion Vršac | 8000 | 46 | 40 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+
+# --- Série C
+amazonas | Estádio Carlos Zamith | 5100 | 62 | 50 | #ffdd00 #000000 | listras | lisa #000000 #ffdd00
+barra-sc | Estádio Municipal Camilo Mussi | 5000 | 50 | 44 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+botafogo-pb | Estádio Almeidão | 25770 | 74 | 50 | #000000 #ffffff | listras | lisa #ffffff #000000
+brusque | Estádio Augusto Bauer | 5000 | 62 | 44 | #e30613 #f5d000 | lisa | lisa #ffffff #e30613
+caxias | Estádio Centenário | 22132 | 74 | 52 | #8a0e1c #ffffff | lisa | lisa #ffffff #8a0e1c
+confianca | Estádio Lourival Baptista (Batistão) | 15575 | 72 | 44 | #0000ff #ffffff | lisa | lisa #ffffff #0000ff
+ferroviaria | Estádio Fonte Luminosa | 20287 | 64 | 54 | #8a0e1c #ffffff | lisa | lisa #ffffff #8a0e1c
+figueirense | Estádio Orlando Scarpelli | 19584 | 74 | 52 | #000000 #ffffff | listras | lisa #ffffff #000000
+guarani | Estádio Brinco de Ouro | 29130 | 78 | 52 | #00843d #ffffff | lisa | lisa #ffffff #00843d
+inter-de-limeira | Estádio Limeirão | 18000 | 62 | 44 | #000000 #ffffff | listras | lisa #ffffff #000000
+itabaiana | Estádio Etelvino Mendonça | 12000 | 66 | 40 | #0000ff #e30613 | lisa | lisa #ffffff #0000ff
+ituano | Estádio Novelli Júnior | 18560 | 62 | 50 | #e30613 #000000 | horizontais | lisa #ffffff #e30613
+maranhao | Estádio Castelão (São Luís) | 40149 | 62 | 54 | #0000dd #e30613 | horizontais | lisa #ffffff #0000dd
+maringa | Estádio Willie Davids | 21600 | 64 | 50 | #000000 #ffffff | lisa | lisa #ffffff #000000
+paysandu | Estádio da Curuzu | 16200 | 88 | 50 | #7fc3ea #ffffff | listras | lisa #ffffff #7fc3ea
+santa-cruz | Estádio do Arruda | 60044 | 88 | 50 | #000000 #e30613 | horizontais | lisa #ffffff #e30613
+volta-redonda | Estádio Raulino de Oliveira | 18000 | 58 | 54 | #f5d000 #000000 | lisa | lisa #000000 #f5d000
+ypiranga | Estádio Colosso da Lagoa | 22000 | 66 | 44 | #00843d #f5d000 | lisa | lisa #f5d000 #00843d
+# --- Série D
+asa | Estádio Coaracy da Mata Fonseca | 14000 | 66 | 40 | #000000 #ffffff | listras | lisa #ffffff #000000
+alagoinhas | Estádio Antônio Carneiro | 7000 | 52 | 36 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+america-rj | Estádio Giulite Coutinho | 13544 | 56 | 52 | #e30613 #ffffff | lisa | lisa #ffffff #e30613
+brasil-de-pelotas | Estádio Bento Freitas | 18000 | 84 | 44 | #e30613 #000000 | listras | lisa #ffffff #e30613
+central | Estádio Lacerdão | 19000 | 64 | 40 | #000000 #ffffff | listras | lisa #ffffff #000000
+decisao-goiana | Estádio Arthur Tavares de Melo | 5000 | 44 | 36 | #000066 #ffffff | lisa | lisa #ffffff #000066
+democrata | Estádio José Mammoud Abbas | 15000 | 58 | 38 | #000000 #ffffff | listras | lisa #ffffff #000000
+joinville | Arena Joinville | 22400 | 68 | 66 | #e30613 #000000 | listras | lisa #ffffff #e30613
+madureira | Estádio Conselheiro Galvão | 5000 | 52 | 38 | #f5d000 #830000 | listras #f5d000 #0055a4 | lisa #830000 #ffffff
+marcilio-dias | Estádio Gigantão das Avenidas | 12000 | 62 | 42 | #e30613 #0055a4 | listras | lisa #ffffff #0055a4
+marica | Estádio João Saldanha | 3000 | 42 | 40 | #000050 #ffffff | lisa | lisa #ffffff #000050
+noroeste | Estádio Alfredo de Castilho | 15324 | 62 | 42 | #ff0000 #ffffff | lisa | lisa #ffffff #ff0000
+portuguesa-rj | Estádio Luso-Brasileiro | 4400 | 48 | 44 | #e30613 #00843d | lisa | lisa #ffffff #00843d
+sampaio-correa | Estádio Castelão (São Luís) | 40149 | 70 | 54 | #e30613 #f5d000 | lisa #00843d #f5d000 | lisa #ffffff #e30613
+treze | Estádio Amigão | 19000 | 68 | 46 | #000000 #ffffff | listras | lisa #ffffff #000000
+agua-santa | Estádio Distrital do Inamar | 10000 | 46 | 46 | #0055a4 #ffffff | lisa | lisa #ffffff #0055a4

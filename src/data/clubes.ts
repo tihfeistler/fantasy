@@ -4,7 +4,8 @@ import atuaisJson from "../../data/atuais.json";
 import { FORMACOES } from "../engine/ratings";
 import { divisaoDaChave, type Divisao } from "../engine/ligas";
 import type { Jogador, Time } from "../engine/types";
-import type { ClubeProprio } from "../engine/timeProprio";
+import { ESTADIOS, uniformesDoTimeProprio, type ClubeProprio, type FormaEmblema, type SimboloEmblema, type Uniforme } from "../engine/timeProprio";
+import { fatorCasa, type Estadio } from "../engine/estadios";
 
 /**
  * Clubes das Séries A e B e das ligas estrangeiras com os elencos atuais
@@ -20,9 +21,20 @@ export interface Clube {
   corSecundaria?: string;
   liga: string;
   nivel: number;
+  /** Estádio real (data/estadios.txt -> scripts/gerar_estadios.py). */
+  estadio: Estadio;
+  /** Camisa principal e reserva, estilizadas nas cores do clube. */
+  camisas: [Uniforme, Uniforme];
+  /** Escudo estilizado (sem arte oficial). */
+  emblema: { forma: FormaEmblema; simbolo: SimboloEmblema };
 }
 
 export const CLUBES = clubesJson as Clube[];
+
+/** Estádio padrão para quem não está em data/clubes.json (times de cartas). */
+const ESTADIO_NEUTRO: Estadio = { nome: "Estádio", capacidade: 15000, atmosfera: 50, qualidade: 50 };
+/** Estádio de um clube (o do time próprio, se ele ocupa essa vaga). */
+export const estadioDoClube = (id: string): Estadio => CLUBES.find((c) => c.id === id)?.estadio ?? ESTADIO_NEUTRO;
 export const ATUAIS = atuaisJson as Jogador[];
 
 export const NIVEL = new Map(CLUBES.map((c) => [c.id, c.nivel]));
@@ -57,6 +69,7 @@ export function montarTimesAtuais(transferencias: Record<string, string> = {}): 
     formacao: FORMACOES[0],
     titulares: [],
     maxLendas: MAX_LENDAS_EM_CAMPO,
+    fatorCasa: fatorCasa(c.estadio),
   }));
 }
 
@@ -73,7 +86,8 @@ export function estiloEscudo(cor: string) {
  * que ele substitui; aqui o nome, a sigla e as cores desse clube viram os do time.
  */
 export const CLUBES_PROPRIOS = new Map<string, ClubeProprio>();
-const ORIGINAIS = new Map<string, Pick<Clube, "nome" | "sigla" | "cor" | "corSecundaria">>();
+type Visual = Pick<Clube, "nome" | "sigla" | "cor" | "corSecundaria" | "estadio" | "camisas" | "emblema">;
+const ORIGINAIS = new Map<string, Visual>();
 
 /** Coloca (ou tira, com null) o time próprio da carreira no lugar do clube da vaga. */
 export function aplicarClubeProprio(cp: ClubeProprio | null | undefined) {
@@ -83,7 +97,18 @@ export function aplicarClubeProprio(cp: ClubeProprio | null | undefined) {
   if (!cp) return;
   const c = CLUBES.find((x) => x.id === cp.vaga);
   if (!c) return;
-  ORIGINAIS.set(c.id, { nome: c.nome, sigla: c.sigla, cor: c.cor, corSecundaria: c.corSecundaria });
-  Object.assign(c, { nome: cp.nome, sigla: cp.sigla, cor: cp.cor, corSecundaria: cp.corSecundaria });
+  const { nome, sigla, cor, corSecundaria, estadio, camisas, emblema } = c;
+  ORIGINAIS.set(c.id, { nome, sigla, cor, corSecundaria, estadio, camisas, emblema });
+  const carta = ESTADIOS.find((e) => e.id === cp.estadio) ?? ESTADIOS[0];
+  const proprio: Visual = {
+    nome: cp.nome,
+    sigla: cp.sigla,
+    cor: cp.cor,
+    corSecundaria: cp.corSecundaria,
+    estadio: { nome: cp.nomeEstadio, capacidade: carta.capacidade, atmosfera: carta.atmosfera, qualidade: carta.qualidade },
+    camisas: uniformesDoTimeProprio(cp),
+    emblema: cp.emblema,
+  };
+  Object.assign(c, proprio);
   CLUBES_PROPRIOS.set(c.id, cp);
 }

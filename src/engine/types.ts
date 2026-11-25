@@ -79,6 +79,8 @@ export interface Time {
   maxLendas?: number;
   /** ids do banco de reservas (até VAGAS_BANCO); sem valor, o jogo escolhe. */
   banco?: string[];
+  /** Vantagem de jogar em casa (atmosfera do estádio, ver estadios.ts); sem valor, a padrão do motor. */
+  fatorCasa?: number;
 }
 
 export type TipoEvento = "gol" | "chance" | "defesa" | "cartao" | "inicio" | "intervalo" | "fim" | "sub" | "tatica";

@@ -9,7 +9,14 @@ CREATE TABLE IF NOT EXISTS clubes (
   cor             CHAR(7)      NOT NULL DEFAULT '#888888',
   cor_secundaria  CHAR(7)      NULL,
   liga            VARCHAR(64)  NULL,
-  nivel           TINYINT UNSIGNED NULL
+  nivel           TINYINT UNSIGNED NULL,
+  -- Estádio real (data/estadios.txt): bilheteria e fator casa
+  estadio         VARCHAR(100) NULL,
+  capacidade      INT UNSIGNED NULL,
+  atmosfera       TINYINT UNSIGNED NULL,
+  qualidade       TINYINT UNSIGNED NULL,
+  -- JSON {camisas: [principal, reserva], emblema: {forma, simbolo}}
+  visual          TEXT NULL
 ) ENGINE=InnoDB;
 
 -- Jogadores atuais e clássicos no mesmo formato (docs/FORMATO-JOGADOR.md)

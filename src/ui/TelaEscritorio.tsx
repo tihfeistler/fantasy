@@ -4,6 +4,7 @@ import { formatarDinheiro, type Financas } from "../engine/mercado";
 import { escalar } from "../engine/ratings";
 import { ehLenda, type Time } from "../engine/types";
 import { Icone, type NomeIcone } from "./Icones";
+import { CartaoEstadio } from "./Estadio";
 
 export type AbaCarreira = "escritorio" | "elenco" | "partida" | "campeonato" | "copas" | "mercado" | "financas";
 
@@ -244,6 +245,11 @@ export function TelaEscritorio(p: Props) {
               <dd>{formatarDinheiro(p.financas.receitaPorRodada)}</dd>
             </div>
           </dl>
+        </article>
+
+        <article className="esc-cartao esc-estadio">
+          <h2>Estádio e uniformes</h2>
+          <CartaoEstadio clubeId={meuTime.id} />
         </article>
 
         <article className="esc-cartao esc-avisos">

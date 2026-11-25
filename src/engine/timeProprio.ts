@@ -1,6 +1,7 @@
 import type { Rng } from "./rng";
 import { LIGAS } from "./ligas";
 import type { Jogador, Posicao } from "./types";
+import { fatorBilheteria, type Estadio } from "./estadios";
 
 /**
  * Time próprio: em vez de assumir um clube existente, o técnico cria o seu
@@ -17,7 +18,15 @@ import type { Jogador, Posicao } from "./types";
 
 export type FormaEmblema = "escudo" | "redondo" | "losango" | "classico";
 export type SimboloEmblema = "estrela" | "coroa" | "raio" | "bola" | "listras" | "nenhum";
-export type ModeloCamisa = "lisa" | "listras" | "horizontais" | "faixa" | "metades" | "detalhes";
+export type ModeloCamisa =
+  | "lisa"
+  | "listras"
+  | "horizontais"
+  | "faixa"
+  | "metades"
+  | "detalhes"
+  | "faixa-peito"
+  | "faixa-central";
 
 export const FORMAS: { id: FormaEmblema; nome: string }[] = [
   { id: "escudo", nome: "Escudo" },
@@ -40,26 +49,37 @@ export const MODELOS_CAMISA: { id: ModeloCamisa; nome: string }[] = [
   { id: "faixa", nome: "Faixa diagonal" },
   { id: "metades", nome: "Metades" },
   { id: "detalhes", nome: "Lisa com detalhes" },
+  { id: "faixa-peito", nome: "Faixa no peito" },
+  { id: "faixa-central", nome: "Faixa central" },
 ];
 
-/** Cartas de estádio: quanto maior, mais bilheteria, mas custa mais do caixa inicial. */
-export interface CartaEstadio {
+/** Uma camisa: modelo e as duas cores (corpo e detalhe). */
+export interface Uniforme {
+  modelo: ModeloCamisa;
+  cor: string;
+  cor2: string;
+}
+
+/**
+ * Cartas de estádio. Capacidade, atmosfera e qualidade dão a bilheteria e o fator casa
+ * (estadios.ts); quanto melhor a carta, mais ela custa do caixa inicial.
+ */
+export interface CartaEstadio extends Omit<Estadio, "nome"> {
   id: string;
   nome: string;
-  capacidade: number;
-  /** Multiplica a bilheteria por rodada. */
-  fatorBilheteria: number;
   /** Sai do caixa inicial (R$ mil). */
   custo: number;
   raridade: "bronze" | "prata" | "ouro" | "elite" | "lenda";
 }
 export const ESTADIOS: CartaEstadio[] = [
-  { id: "municipal", nome: "Estádio Municipal", capacidade: 8000, fatorBilheteria: 0.8, custo: 0, raridade: "bronze" },
-  { id: "bairro", nome: "Estádio do Bairro", capacidade: 15000, fatorBilheteria: 1, custo: 1000, raridade: "prata" },
-  { id: "arena", nome: "Arena Moderna", capacidade: 25000, fatorBilheteria: 1.15, custo: 2500, raridade: "ouro" },
-  { id: "olimpico", nome: "Estádio Olímpico", capacidade: 40000, fatorBilheteria: 1.3, custo: 4000, raridade: "elite" },
-  { id: "monumental", nome: "Arena Monumental", capacidade: 60000, fatorBilheteria: 1.45, custo: 6000, raridade: "lenda" },
+  { id: "municipal", nome: "Estádio Municipal", capacidade: 8000, atmosfera: 60, qualidade: 45, custo: 0, raridade: "bronze" },
+  { id: "bairro", nome: "Estádio do Bairro", capacidade: 15000, atmosfera: 72, qualidade: 52, custo: 1000, raridade: "prata" },
+  { id: "arena", nome: "Arena Moderna", capacidade: 25000, atmosfera: 66, qualidade: 86, custo: 2500, raridade: "ouro" },
+  { id: "olimpico", nome: "Estádio Olímpico", capacidade: 40000, atmosfera: 58, qualidade: 76, custo: 4000, raridade: "elite" },
+  { id: "monumental", nome: "Arena Monumental", capacidade: 60000, atmosfera: 82, qualidade: 94, custo: 6000, raridade: "lenda" },
 ];
+/** Fator de bilheteria da carta (o mesmo cálculo dos estádios reais). */
+export const fatorDaCarta = (e: CartaEstadio) => fatorBilheteria({ ...e });
 
 export interface Identidade {
   nome: string;
@@ -77,7 +97,18 @@ export interface Identidade {
   cor: string;
   corSecundaria: string;
   emblema: { forma: FormaEmblema; simbolo: SimboloEmblema };
+  /** Modelo da camisa principal (nas duas cores do time). */
   camisa: ModeloCamisa;
+  /** Camisa reserva; sem ela (contas antigas), a principal com as cores invertidas. */
+  camisaReserva?: Uniforme;
+}
+
+/** As duas camisas do time próprio: principal nas cores do time e a reserva. */
+export function uniformesDoTimeProprio(i: Identidade): [Uniforme, Uniforme] {
+  return [
+    { modelo: i.camisa, cor: i.cor, cor2: i.corSecundaria },
+    i.camisaReserva ?? { modelo: i.camisa, cor: i.corSecundaria, cor2: i.cor },
+  ];
 }
 
 /** Time próprio já na carreira: a identidade e o clube cujo lugar ele ocupa. */
@@ -102,6 +133,13 @@ export function problemaNaIdentidade(i: Identidade): string | null {
   if (!FORMAS.some((f) => f.id === i.emblema.forma) || !SIMBOLOS.some((s) => s.id === i.emblema.simbolo))
     return "Monte o emblema.";
   if (!MODELOS_CAMISA.some((m) => m.id === i.camisa)) return "Escolha o modelo da camisa.";
+  if (i.camisaReserva) {
+    const r = i.camisaReserva;
+    if (!MODELOS_CAMISA.some((m) => m.id === r.modelo)) return "Escolha o modelo da camisa reserva.";
+    if (!COR.test(r.cor) || !COR.test(r.cor2)) return "Escolha as cores da camisa reserva.";
+    if (r.cor.toLowerCase() === r.cor2.toLowerCase()) return "A camisa reserva precisa de duas cores diferentes.";
+    if (r.cor.toLowerCase() === i.cor.toLowerCase()) return "A camisa reserva precisa de outra cor de fundo.";
+  }
   return null;
 }
 

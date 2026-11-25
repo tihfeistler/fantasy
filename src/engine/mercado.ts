@@ -77,12 +77,16 @@ export interface Financas {
  * cobrem a folha atual com uma pequena sobra (TV e patrocínio pagam 75%
  * da folha; a bilheteria dos jogos em casa, o resto e um pouco mais).
  */
-export function financasIniciais(t: Time): Financas {
+export function financasIniciais(
+  t: Time,
+  /** Fator do estádio (estadios.ts, fatorBilheteria). */
+  fatorEstadio = 1,
+): Financas {
   const folhaRodada = folhaMensal(t) / RODADAS_POR_MES;
   return {
     caixa: Math.round(valorDoElenco(t) * 0.1),
     receitaPorRodada: Math.round(folhaRodada * 0.75),
-    bilheteria: Math.round(folhaRodada * 0.6),
+    bilheteria: Math.round(folhaRodada * 0.6 * fatorEstadio),
     extrato: [],
   };
 }

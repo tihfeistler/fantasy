@@ -1,4 +1,4 @@
-import { CLUBES_PROPRIOS, estiloEscudo } from "../data/clubes";
+import { CLUBES, CLUBES_PROPRIOS, estiloEscudo } from "../data/clubes";
 import type { FormaEmblema, ModeloCamisa, SimboloEmblema } from "../engine/timeProprio";
 
 interface PropsEmblema {
@@ -71,7 +71,7 @@ function Simbolo({ simbolo, cor, contraste }: { simbolo: SimboloEmblema; cor: st
   }
 }
 
-/** Camisa do time próprio em SVG. */
+/** Camisa em SVG (modelo e duas cores): time próprio e clubes reais, estilizada. */
 export function Camisa({
   modelo,
   cor,
@@ -98,6 +98,8 @@ export function Camisa({
         {modelo === "horizontais" && [24, 44, 64, 84].map((y) => <rect key={y} x={0} y={y - 5} width={100} height={10} />)}
         {modelo === "faixa" && <polygon points="0,30 20,30 100,100 80,100 0,40" transform="translate(0 -8)" />}
         {modelo === "metades" && <rect x={50} y={0} width={50} height={100} />}
+        {modelo === "faixa-peito" && <rect x={0} y={34} width={100} height={16} />}
+        {modelo === "faixa-central" && <rect x={40} y={0} width={20} height={100} />}
         {modelo === "detalhes" && (
           <>
             <rect x={0} y={0} width={100} height={6} />
@@ -116,8 +118,8 @@ export function Camisa({
 const TAMANHO_ESCUDO: Record<string, number> = { mini: 28, grande: 58, enorme: 96 };
 
 /**
- * Escudo de um clube: o emblema desenhado, se for um time próprio; senão, a
- * sigla no fundo da cor do clube (sem escudos oficiais).
+ * Escudo de um clube desenhado em SVG: o emblema do time próprio, ou um escudo
+ * estilizado com a forma, a sigla e as cores reais do clube (sem arte oficial).
  */
 export function Escudo({
   time,
@@ -127,24 +129,26 @@ export function Escudo({
   className?: string;
 }) {
   const cp = CLUBES_PROPRIOS.get(time.id);
-  if (cp) {
-    const tam = Object.entries(TAMANHO_ESCUDO).find(([k]) => className.split(" ").includes(k))?.[1] ?? 44;
+  const clube = cp ? undefined : CLUBES.find((c) => c.id === time.id);
+  const emblema = cp?.emblema ?? clube?.emblema;
+  if (!emblema) {
     return (
-      <span className={`${className} escudo-proprio`}>
-        <Emblema
-          forma={cp.emblema.forma}
-          simbolo={cp.emblema.simbolo}
-          cor={cp.cor}
-          cor2={cp.corSecundaria}
-          sigla={cp.sigla}
-          tamanho={tam}
-        />
+      <span className={className} style={estiloEscudo(time.cor)}>
+        {time.sigla}
       </span>
     );
   }
+  const tam = Object.entries(TAMANHO_ESCUDO).find(([k]) => className.split(" ").includes(k))?.[1] ?? 44;
   return (
-    <span className={className} style={estiloEscudo(time.cor)}>
-      {time.sigla}
+    <span className={`${className} escudo-proprio`}>
+      <Emblema
+        forma={emblema.forma}
+        simbolo={emblema.simbolo}
+        cor={cp?.cor ?? clube!.cor}
+        cor2={cp?.corSecundaria ?? clube!.corSecundaria ?? "#ffffff"}
+        sigla={cp?.sigla ?? clube!.sigla}
+        tamanho={tam}
+      />
     </span>
   );
 }

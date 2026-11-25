@@ -181,7 +181,7 @@ export class PartidaAoVivo {
       );
     };
     const fator = Math.min(1, l.vagas.length / 11);
-    const mando = l.mandante ? PARAMS.vantagemMandante : 1;
+    const mando = l.mandante ? (l.time.fatorCasa ?? PARAMS.vantagemMandante) : 1;
     const t = EFEITO_TATICA[l.tatica];
     return {
       goleiro: media(["GOL"]) * fator,
