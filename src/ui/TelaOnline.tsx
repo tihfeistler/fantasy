@@ -261,8 +261,8 @@ export function TelaOnline() {
             <div className="amistoso">
               <h3>Amistoso com um amigo</h3>
               <p className="suave">
-                Convide pelo nome de técnico. Mesma partida ao vivo e mesmo salário, sem pontos de liga e com metade do
-                prêmio. O convite vale 5 minutos.
+                Convide pelo nome de técnico e joguem ao vivo, só pela diversão: o amistoso não cobra salário, não dá prêmio
+                e não mexe nos pontos de liga. O convite vale 5 minutos.
               </p>
               <form
                 className="proposta-form"
@@ -278,7 +278,7 @@ export function TelaOnline() {
                   value={amigo}
                   onChange={(e) => setAmigo(e.target.value)}
                 />
-                <button className="botao" disabled={!amigo.trim() || !!estado.impedimento}>
+                <button className="botao" disabled={!amigo.trim()}>
                   Convidar
                 </button>
               </form>
@@ -288,7 +288,7 @@ export function TelaOnline() {
                     <b>{c.nome}</b> chamou você para um amistoso.
                   </span>
                   <button className="botao primario" onClick={() => noEstado(() => online.responderConvite(c.id, true))}>
-                    Aceitar · {formatarDinheiro(sit.time.custo)}
+                    Aceitar amistoso
                   </button>
                   <button className="botao discreto" onClick={() => noEstado(() => online.responderConvite(c.id, false))}>
                     Recusar
@@ -297,7 +297,9 @@ export function TelaOnline() {
               ))}
               {estado.convites.enviados.map((c) => (
                 <div key={c.id} className="convite">
-                  <span className="suave">Esperando {c.nome} aceitar…</span>
+                  <span className="suave">
+                    Esperando {c.nome} aceitar o amistoso…
+                  </span>
                   <button className="botao discreto" onClick={() => noEstado(() => online.cancelarConvite(c.id))}>
                     Cancelar
                   </button>

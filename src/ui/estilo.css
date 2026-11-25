@@ -980,3 +980,8 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 .mercado-lista:empty { display: none; }
 .mercado-online .proposta-form { display: flex; gap: 6px; flex: 0 0 auto; }
 .mercado-online .proposta-form input { width: 90px; flex: 0 0 90px; font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--linha); background: var(--fundo); color: inherit; }
+/* Mercado online: linhas com número variável de ações, em flex. */
+.mercado-online .ml-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mercado-online .ml-linha .ml-nome { flex: 1 1 200px; min-width: 0; }
+.mercado-online .ml-linha .botao { width: auto; grid-column: auto; }
+.mercado-online .ml-linha .ml-num { display: flex; }

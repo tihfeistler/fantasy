@@ -6,8 +6,6 @@ import { VistaPartida } from "./VistaPartida";
 
 /** Prêmio por resultado (igual a PREMIO_RANQUEADO em api/online_lib.php). */
 export const PREMIO_RANQUEADO = { vitoria: [800, 60], empate: [400, 25], derrota: [200, 10] } as const;
-/** Amistoso: metade do prêmio e sem pontos de liga (PREMIO_AMISTOSO). */
-export const PREMIO_AMISTOSO = { vitoria: [400, 30], empate: [200, 12], derrota: [100, 5] } as const;
 
 interface Props {
   inicial: PartidaServidor;
@@ -103,21 +101,26 @@ export function PartidaOnline({ inicial, onVoltar }: Props) {
 
   let fimTexto: React.ReactNode = null;
   if (dados.status === "anulada") {
-    fimTexto = "Partida anulada: os placares dos dois técnicos não bateram ou ninguém relatou. O salário foi devolvido.";
+    fimTexto =
+      "Partida anulada: os placares dos dois técnicos não bateram ou ninguém relatou." +
+      (dados.tipo === "amistoso" ? "" : " O salário foi devolvido.");
   } else if (dados.status === "encerrada" && dados.gols) {
     const meuMandante = dados.meuTimeId === dados.mandante.id;
     const [g1, g2] = meuMandante ? dados.gols : [dados.gols[1], dados.gols[0]];
     const chave = g1 > g2 ? "vitoria" : g1 === g2 ? "empate" : "derrota";
-    const amistoso = dados.tipo === "amistoso";
-    const [dinheiro, moedas] = (amistoso ? PREMIO_AMISTOSO : PREMIO_RANQUEADO)[chave];
     const pdl = dados.pdl ?? 0;
-    fimTexto = (
-      <>
-        <b>{chave === "vitoria" ? "Vitória!" : chave === "empate" ? "Empate." : "Derrota."}</b>{" "}
-        {amistoso ? "Amistoso, sem pontos de liga." : `${pdl > 0 ? `+${pdl}` : pdl} pontos de liga.`} Prêmio:{" "}
-        {formatarDinheiro(dinheiro)} no caixa e {moedas} moedas.
-      </>
-    );
+    const titulo = <b>{chave === "vitoria" ? "Vitória!" : chave === "empate" ? "Empate." : "Derrota."}</b>;
+    if (dados.tipo === "amistoso") {
+      fimTexto = <>{titulo} Amistoso entre amigos: sem prêmio e sem pontos de liga.</>;
+    } else {
+      const [dinheiro, moedas] = PREMIO_RANQUEADO[chave];
+      fimTexto = (
+        <>
+          {titulo} {pdl > 0 ? `+${pdl}` : pdl} pontos de liga. Prêmio: {formatarDinheiro(dinheiro)} no caixa e {moedas}{" "}
+          moedas.
+        </>
+      );
+    }
   } else if (p.encerrada) {
     fimTexto = "Fim de jogo. Confirmando o placar com o servidor…";
   }

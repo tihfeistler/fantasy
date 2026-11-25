@@ -219,3 +219,16 @@ CREATE TABLE IF NOT EXISTS convites (
   FOREIGN KEY (de_id) REFERENCES usuarios(id) ON DELETE CASCADE,
   FOREIGN KEY (para_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- Aparelhos usados por cada conta (id aleatório guardado no navegador). Contas que
+-- dividem um aparelho são tratadas como ligadas: o ranqueado não as coloca uma contra
+-- a outra (evita alguém subir de divisão jogando contra a própria conta).
+CREATE TABLE IF NOT EXISTS dispositivos (
+  usuario_id      INT UNSIGNED NOT NULL,
+  dispositivo     VARCHAR(64)  NOT NULL,
+  ip              VARCHAR(45)  NULL,
+  ultimo_uso      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (usuario_id, dispositivo),
+  INDEX (dispositivo, ultimo_uso),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

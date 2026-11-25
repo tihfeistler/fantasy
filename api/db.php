@@ -36,7 +36,7 @@ function iniciarApi(): void
 {
     header('Access-Control-Allow-Origin: ' . config()['cors_origem']);
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Allow-Headers: Content-Type, X-Fantasy-Dispositivo');
     // Login por sessão (cookie): o front precisa usar credentials: "include".
     header('Access-Control-Allow-Credentials: true');
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') exit;
@@ -84,12 +84,29 @@ function iniciarSessao(): void
     }
 }
 
+/**
+ * Guarda o aparelho (id aleatório que o navegador manda no cabeçalho X-Fantasy-Dispositivo)
+ * e o IP de cada conta, uma vez por minuto no máximo. Serve para achar contas ligadas.
+ */
+function registrarDispositivo(int $uid): void
+{
+    $disp = (string) ($_SERVER['HTTP_X_FANTASY_DISPOSITIVO'] ?? '');
+    if (!preg_match('/^[A-Za-z0-9-]{16,64}$/', $disp)) return;
+    $chave = "disp_$disp";
+    if (($_SESSION[$chave] ?? 0) > time() - 60) return;
+    $_SESSION[$chave] = time();
+    db()->prepare('INSERT INTO dispositivos (usuario_id, dispositivo, ip) VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE ip = VALUES(ip), ultimo_uso = NOW()')
+        ->execute([$uid, $disp, substr((string) ($_SERVER['REMOTE_ADDR'] ?? ''), 0, 45)]);
+}
+
 /** Id do usuário logado, ou responde 401. */
 function exigirUsuario(): int
 {
     iniciarSessao();
     $id = $_SESSION['usuario_id'] ?? null;
     if (!$id) responder(['erro' => 'Faça login para jogar online.'], 401);
+    registrarDispositivo((int) $id);
     return (int) $id;
 }
 

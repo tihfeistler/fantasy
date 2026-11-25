@@ -86,7 +86,7 @@ Apache ou pelo `npm run dev` (a prévia sem servidor não tem modo online).
 
 1. **Atualize o banco**: no phpMyAdmin, importe `sql/schema.sql` de novo.
    Ele cria as tabelas novas (`times_online`, `ranqueado`, `fila`,
-   `partidas_online`, `decisoes_online`, `convites`) e não apaga nada.
+   `partidas_online`, `decisoes_online`, `convites`, `dispositivos`) e não apaga nada.
 2. **Importe os jogadores** se ainda não fez (passo 1.5): o kit inicial e a
    loja usam os jogadores atuais do banco, e os pacotes usam as lendas.
 3. Rode `npm run build` e abra http://localhost/fantasy/dist/ (ou use
@@ -110,7 +110,11 @@ Também dá para testar com as duas contas:
 
 - **Amistoso**: em *Ranqueado*, digite o nome da outra conta em "Amistoso
   com um amigo" e clique em Convidar. Na outra janela o convite aparece em
-  até 3 s; ao aceitar, a partida começa nas duas.
+  até 3 s; ao aceitar, a partida começa nas duas. O amistoso não cobra
+  salário, não dá prêmio nem pontos de liga.
+- **Contas no mesmo aparelho**: duas contas usadas na mesma janela (sem
+  ser anônima) ficam ligadas e não se enfrentam no ranqueado. Para testar o
+  ranqueado, use sempre janela normal + anônima, ou dois navegadores.
 - **Mercado**: numa conta, abra um pacote (aba *Cartas*), vá em *Mercado >
   Minhas lendas* e anuncie uma lenda. Na outra, em *Mercado > À venda*,
   compre ou faça uma proposta; a primeira conta responde em *Propostas*

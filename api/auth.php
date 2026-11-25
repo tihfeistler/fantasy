@@ -41,6 +41,7 @@ switch ($acao) {
             ->execute([$nome, password_hash($senha, PASSWORD_DEFAULT), MOEDAS_INICIAIS]);
         session_regenerate_id(true);
         $_SESSION['usuario_id'] = (int) db()->lastInsertId();
+        registrarDispositivo($_SESSION['usuario_id']);
         responder(usuarioPublico($_SESSION['usuario_id']), 201);
 
     case 'entrar':
@@ -50,6 +51,7 @@ switch ($acao) {
         if (!$u || !password_verify($senha, $u['senha_hash'])) responder(['erro' => 'Nome ou senha incorretos.'], 401);
         session_regenerate_id(true);
         $_SESSION['usuario_id'] = (int) $u['id'];
+        registrarDispositivo((int) $u['id']);
         responder(usuarioPublico((int) $u['id']));
 
     case 'sair':

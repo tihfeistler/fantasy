@@ -12,7 +12,7 @@
 // POST api/ranqueado.php {acao:"responder_convite", convite_id, aceitar:true|false}
 // POST api/ranqueado.php {acao:"cancelar_convite", convite_id}
 //
-// Amistoso: mesma partida ao vivo e mesmo salário, sem pontos de liga, com metade do prêmio.
+// Amistoso: mesma partida ao vivo, só pela diversão: sem salário, sem prêmio e sem pontos de liga.
 //
 // Como a partida funciona: ao parear dois técnicos, o servidor cobra o salário de cada um,
 // guarda a seed e os dois times e marca o início. O relógio é do servidor: cada minuto de
@@ -116,14 +116,17 @@ function encerrar(int $id, string $placar): void
     $s->execute([$v, $p['temporada']]);
     $pv = $s->fetch();
     $pontosM = $gm > $gv ? 1.0 : ($gm === $gv ? 0.5 : 0.0);
-    $amistoso = $p['tipo'] === 'amistoso';
+    if ($p['tipo'] === 'amistoso') {
+        // Amistoso não mexe em nada: só registra o placar.
+        $pdo->prepare("UPDATE partidas_online SET status = 'encerrada', gols_mandante = ?, gols_visitante = ?,
+            finalizada_em = NOW() WHERE id = ?")->execute([$gm, $gv, $id]);
+        $pdo->commit();
+        return;
+    }
     $deltas = [];
     foreach ([[$m, $pm, $pv, $pontosM], [$v, $pv, $pm, 1 - $pontosM]] as [$uid, $eu, $adv, $pontos]) {
         $chave = $pontos === 1.0 ? 'vitoria' : ($pontos === 0.5 ? 'empate' : 'derrota');
-        if ($amistoso) {
-            $delta = null;
-            [$dinheiro, $moedas] = PREMIO_AMISTOSO[$chave];
-        } else {
+        {
             $delta = variacaoPdl((int) $eu['tier'], (int) $eu['mmr'], $pontos);
             [$tier, $pdl] = aplicarPdl((int) $eu['tier'], (int) $eu['pdl'], $delta);
             $col = $pontos === 1.0 ? 'vitorias' : ($pontos === 0.5 ? 'empates' : 'derrotas');
@@ -164,14 +167,14 @@ function nomeDe(int $uid): string
 }
 
 /** Motivo para não poder jogar agora, ou null. */
-function impedimento(int $uid): ?string
+function impedimento(int $uid, bool $cobraSalario = true): ?string
 {
     $t = timeOnline($uid);
     $cartas = cartasDoUsuario($uid);
     $tit = array_filter($t['titulares'], fn($id) => isset($cartas[$id]));
     if (count($tit) < 11) return 'Escale 11 titulares no seu time online antes de procurar partida.';
     $custo = custoDoTime($t, $cartas);
-    if ($t['caixa'] < $custo) return 'Sem caixa para o salário da partida (' . $custo . ' mil). Jogue desafios de treino ou escale jogadores mais baratos.';
+    if ($cobraSalario && $t['caixa'] < $custo) return 'Sem caixa para o salário da partida (' . $custo . ' mil). Jogue desafios de treino ou escale jogadores mais baratos.';
     return null;
 }
 
@@ -187,9 +190,16 @@ function tentarParear(int $uid): ?int
         if (!$eu) return null;
         $s = $pdo->prepare('SELECT usuario_id, mmr, TIMESTAMPDIFF(SECOND, entrou_em, NOW(3)) AS espera FROM fila
             WHERE usuario_id <> ? AND visto_em > NOW(3) - INTERVAL ' . FILA_INATIVA . ' SECOND
-            ORDER BY ABS(mmr - ?) LIMIT 1');
+            ORDER BY ABS(mmr - ?) LIMIT 20');
         $s->execute([$uid, $eu['mmr']]);
-        $adv = $s->fetch();
+        // Contas do mesmo aparelho não se enfrentam no ranqueado.
+        $adv = null;
+        foreach ($s->fetchAll() as $c) {
+            if (!contasLigadas($uid, (int) $c['usuario_id'])) {
+                $adv = $c;
+                break;
+            }
+        }
         if (!$adv) return null;
         $janela = 100 + 20 * max((int) $eu['espera'], (int) $adv['espera']);
         if (abs((int) $adv['mmr'] - (int) $eu['mmr']) > $janela) return null;
@@ -212,7 +222,7 @@ function tentarParear(int $uid): ?int
     }
 }
 
-/** Cobra o salário dos dois, sorteia o mando e cria a partida (começa em ESPERA_INICIO segundos). */
+/** Cobra o salário dos dois (no ranqueado), sorteia o mando e cria a partida (começa em ESPERA_INICIO segundos). */
 function criarPartida(int $uid, int $outro, string $tipo): int
 {
     $pdo = db();
@@ -221,7 +231,8 @@ function criarPartida(int $uid, int $outro, string $tipo): int
     $custos = [];
     foreach ([$m, $v] as $x) {
         $t = timeOnline($x, true);
-        $custos[] = custoDoTime($t, cartasDoUsuario($x));
+        // Amistoso é só pela diversão: não cobra salário.
+        $custos[] = $tipo === 'amistoso' ? 0 : custoDoTime($t, cartasDoUsuario($x));
         $pdo->prepare('UPDATE times_online SET caixa = caixa - ? WHERE usuario_id = ?')->execute([end($custos), $x]);
         perfilRanqueado($x);
     }
@@ -244,8 +255,9 @@ function convites(int $uid): array
     $s->execute([$uid, $uid]);
     $r = ['recebidos' => [], 'enviados' => []];
     foreach ($s->fetchAll() as $c) {
-        if ((int) $c['para_id'] === $uid) $r['recebidos'][] = ['id' => (int) $c['id'], 'nome' => $c['de']];
-        else $r['enviados'][] = ['id' => (int) $c['id'], 'nome' => $c['para']];
+        $info = ['id' => (int) $c['id']];
+        if ((int) $c['para_id'] === $uid) $r['recebidos'][] = $info + ['nome' => $c['de']];
+        else $r['enviados'][] = $info + ['nome' => $c['para']];
     }
     return $r;
 }
@@ -372,7 +384,7 @@ switch ((string) ($d['acao'] ?? '')) {
         $s->execute([trim((string) ($d['nome'] ?? ''))]);
         $para = (int) ($s->fetchColumn() ?: erro('Não achei um técnico com esse nome.', 404));
         if ($para === $eu) erro('Convide outro técnico.');
-        if ($motivo = impedimento($eu)) erro($motivo);
+        if ($motivo = impedimento($eu, false)) erro($motivo);
         $pdo->prepare("UPDATE convites SET status = 'cancelado' WHERE de_id = ? AND para_id = ? AND status = 'pendente'")
             ->execute([$eu, $para]);
         $pdo->prepare('INSERT INTO convites (de_id, para_id) VALUES (?, ?)')->execute([$eu, $para]);
@@ -396,8 +408,8 @@ switch ((string) ($d['acao'] ?? '')) {
             }
             $de = (int) $c['de_id'];
             if (partidaAoVivoDe($eu) || partidaAoVivoDe($de)) erro('Um de vocês já está numa partida.');
-            if ($motivo = impedimento($eu)) erro($motivo);
-            if (impedimento($de)) erro(nomeDe($de) . ' não pode jogar agora (escalação ou caixa).');
+            if ($motivo = impedimento($eu, false)) erro($motivo);
+            if (impedimento($de, false)) erro(nomeDe($de) . ' não pode jogar agora: falta escalar 11 titulares.');
             $id = criarPartida($eu, $de, 'amistoso');
             $pdo->prepare("UPDATE convites SET status = 'aceito', partida_id = ? WHERE id = ?")->execute([$id, $c['id']]);
             $pdo->prepare('DELETE FROM fila WHERE usuario_id IN (?, ?)')->execute([$eu, $de]);

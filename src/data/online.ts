@@ -13,13 +13,31 @@ export class ErroApi extends Error {
   }
 }
 
+/**
+ * Id aleatório deste navegador, guardado no localStorage. O servidor usa para achar
+ * contas que dividem o mesmo aparelho (elas não se enfrentam no ranqueado).
+ */
+function dispositivo(): string {
+  const chave = "fantasy-dispositivo";
+  try {
+    let id = localStorage.getItem(chave);
+    if (!id) {
+      id = crypto.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-x`;
+      localStorage.setItem(chave, id);
+    }
+    return id;
+  } catch {
+    return "";
+  }
+}
+
 async function chamar<T>(arquivo: string, corpo?: object, qs = ""): Promise<T> {
   let r: Response;
   try {
     r = await fetch(`${BASE}/${arquivo}${qs}`, {
       method: corpo ? "POST" : "GET",
       credentials: "include",
-      headers: corpo ? { "Content-Type": "application/json" } : undefined,
+      headers: { ...(corpo ? { "Content-Type": "application/json" } : {}), "X-Fantasy-Dispositivo": dispositivo() },
       body: corpo ? JSON.stringify(corpo) : undefined,
     });
   } catch {
@@ -62,6 +80,12 @@ export interface SituacaoOnline {
   novas?: Jogador[];
 }
 
+/** Convite de amistoso entre amigos. */
+export interface Convite {
+  id: number;
+  nome: string;
+}
+
 export interface UltimaTemporada {
   temporada: number;
   divisaoMax: string;
@@ -93,7 +117,7 @@ export interface EstadoRanqueado {
   perfil: PerfilRanqueado;
   caixa: number;
   impedimento: string | null;
-  convites: { recebidos: { id: number; nome: string }[]; enviados: { id: number; nome: string }[] };
+  convites: { recebidos: Convite[]; enviados: Convite[] };
   ultimaTemporada: UltimaTemporada | null;
 }
 

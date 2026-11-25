@@ -254,9 +254,8 @@ function novoMmr(int $mmr, int $mmrAdv, float $pontos): int
     return (int) round($mmr + 32 * ($pontos - $esperado));
 }
 
-/** Prêmio por partida: [R$ mil no caixa, moedas]. O amistoso paga a metade (sem pontos de liga). */
+/** Prêmio por partida ranqueada: [R$ mil no caixa, moedas]. O amistoso entre amigos não paga nada. */
 const PREMIO_RANQUEADO = ['vitoria' => [800, 60], 'empate' => [400, 25], 'derrota' => [200, 10]];
-const PREMIO_AMISTOSO = ['vitoria' => [400, 30], 'empate' => [200, 12], 'derrota' => [100, 5]];
 
 /** Tira o jogador da escalação online se o usuário não tem mais nenhuma cópia da carta. */
 function tirarDaEscalacaoSeAcabou(int $uid, string $jogadorId): void
@@ -270,4 +269,16 @@ function tirarDaEscalacaoSeAcabou(int $uid, string $jogadorId): void
     $tira = fn($json) => json_encode(array_values(array_diff(json_decode($json, true) ?: [], [$jogadorId])));
     db()->prepare('UPDATE times_online SET titulares = ?, banco = ? WHERE usuario_id = ?')
         ->execute([$tira($t['titulares']), $tira($t['banco']), $uid]);
+}
+
+// ---------------------------------------------------------------- contas ligadas
+
+/** Contas que usaram o mesmo aparelho nos últimos 30 dias (não se enfrentam no ranqueado). */
+function contasLigadas(int $a, int $b): bool
+{
+    $s = db()->prepare('SELECT 1 FROM dispositivos d1 JOIN dispositivos d2 ON d2.dispositivo = d1.dispositivo
+        WHERE d1.usuario_id = ? AND d2.usuario_id = ? AND d1.ultimo_uso > NOW() - INTERVAL 30 DAY
+        AND d2.ultimo_uso > NOW() - INTERVAL 30 DAY LIMIT 1');
+    $s->execute([$a, $b]);
+    return (bool) $s->fetch();
 }

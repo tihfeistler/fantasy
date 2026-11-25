@@ -316,14 +316,19 @@ servidor dedicado.
 - Ranqueado (`api/ranqueado.php`): fila, pareamento, partida ao vivo,
   divisões, ranking top 100 e histórico. Tela na aba **Online**.
 - **Amistoso entre amigos**: convite pelo nome de técnico, vale 5 minutos.
-  Mesma partida ao vivo e mesmo salário, sem pontos de liga, com metade do
-  prêmio do ranqueado (vitória R$ 400 mil e 30 moedas).
+  Mesma partida ao vivo, só pela diversão: **não cobra salário, não dá
+  prêmio e não mexe nos pontos de liga** (decidido em 25/11/2026). Sem
+  prêmio, não há o que "farmar" jogando entre duas contas.
+- **Contas ligadas**: o navegador guarda um id de aparelho e o servidor
+  registra os aparelhos de cada conta. Contas que usaram o mesmo aparelho
+  nos últimos 30 dias não são pareadas no ranqueado (evita subir de
+  divisão jogando contra a própria conta).
 - **Mercado online** (aba Online > Mercado): lendas à venda entre técnicos
   reais, compra pelo preço, proposta, contraproposta, venda ao sistema.
   Cartas base não circulam entre técnicos (o servidor recusa). Carta
   vendida sai da escalação online.
-- Falta: as moedas/cartas da carreira contando no online, limite de cartas
-  online e proteção contra "farm" de amistosos entre duas contas.
+- Falta: as moedas/cartas da carreira contando no online e limite de
+  cartas online.
 
 ## 8. Plataforma, stack e roteiro
 
