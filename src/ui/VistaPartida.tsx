@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { estiloEscudo } from "../data/clubes";
 import { MAX_SUBSTITUICOES, type NovaDecisao, type PartidaAoVivo, type Tatica } from "../engine/match";
 import type { Time, TipoEvento } from "../engine/types";
@@ -38,9 +38,18 @@ interface Props {
   dica?: string;
 }
 
-/** Placar, narração e painel do técnico de uma partida (offline ou online). */
+/**
+ * Placar, narração e painel do técnico de uma partida (offline ou online).
+ * A partida ocupa a tela inteira: menu, saldos e o resto do jogo ficam
+ * escondidos até o técnico sair pelo botão da barra depois do apito final.
+ */
 export function VistaPartida(p: Props) {
   const [trocando, setTrocando] = useState<string | null>(null);
+  // Trava a rolagem da página por trás enquanto a partida está aberta.
+  useEffect(() => {
+    document.body.classList.add("com-partida");
+    return () => document.body.classList.remove("com-partida");
+  }, []);
   const [erro, setErro] = useState<string | null>(null);
   const { partida } = p;
   const decidir = async (d: NovaDecisao) => {
@@ -54,6 +63,7 @@ export function VistaPartida(p: Props) {
   const sigla = (id?: string) => (id === p.mandante.id ? p.mandante.sigla : id === p.visitante.id ? p.visitante.sigla : "");
 
   return (
+    <div className="partida-tela" role="dialog" aria-modal="true" aria-label={`${p.mandante.nome} x ${p.visitante.nome}`}>
     <div className="partida-interativa">
       <div className="barra">{p.controles}</div>
 
@@ -166,6 +176,7 @@ export function VistaPartida(p: Props) {
           </aside>
         )}
       </div>
+    </div>
     </div>
   );
 }
