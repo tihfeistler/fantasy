@@ -18,8 +18,18 @@ import { ehLenda, type Jogador, type Time } from "../engine/types";
 import { LojaCartasBase } from "./LojaCartasBase";
 import { PartidaOnline, PREMIO_RANQUEADO } from "./PartidaOnline";
 import { TelaElenco } from "./TelaElenco";
+import { TelaMercadoOnline } from "./TelaMercadoOnline";
 
 const LIGAS = ["bronze", "prata", "ouro", "platina", "diamante", "elite"];
+/** Igual a PREMIO_TEMPORADA em api/online_lib.php. */
+const PREMIO_TEMPORADA: [string, number][] = [
+  ["Bronze", 300],
+  ["Prata", 600],
+  ["Ouro", 1000],
+  ["Platina", 1500],
+  ["Diamante", 2500],
+  ["Elite", 4000],
+];
 const liga = (tier: number) => LIGAS[Math.min(5, Math.floor(tier / 4))];
 
 /** Modo online: conta, time de cartas no servidor, fila do ranqueado e ranking. */
@@ -30,7 +40,8 @@ export function TelaOnline() {
   const [estado, setEstado] = useState<EstadoRanqueado | null>(null);
   const [ranking, setRanking] = useState<Ranking | null>(null);
   const [partida, setPartida] = useState<PartidaServidor | null>(null);
-  const [modo, setModo] = useState<"ranqueado" | "time" | "cartas">("ranqueado");
+  const [modo, setModo] = useState<"ranqueado" | "time" | "cartas" | "mercado">("ranqueado");
+  const [amigo, setAmigo] = useState("");
   const [erro, setErro] = useState<string | null>(null);
   const [novas, setNovas] = useState<Jogador[] | null>(null);
 
@@ -67,9 +78,10 @@ export function TelaOnline() {
     if (usuario) carregar();
   }, [usuario, carregar]);
 
-  // Na fila, consulta a cada 2 s; o servidor pareia e devolve a partida.
+  // No saguão, consulta o servidor (2 s na fila, 3 s fora): pareamento, convites e partida que começou.
+  const noSaguao = !!usuario && !!estado && !partida;
   useEffect(() => {
-    if (!estado?.fila || partida) return;
+    if (!noSaguao) return;
     const id = setInterval(async () => {
       try {
         const e = await online.estado();
@@ -78,9 +90,20 @@ export function TelaOnline() {
       } catch (err) {
         falhou(err);
       }
-    }, 2000);
+    }, estado?.fila ? 2000 : 3000);
     return () => clearInterval(id);
-  }, [estado?.fila, partida]);
+  }, [noSaguao, estado?.fila]);
+
+  const noEstado = async (f: () => Promise<EstadoRanqueado>) => {
+    setErro(null);
+    try {
+      const e = await f();
+      setEstado(e);
+      if (e.partida?.status === "ao_vivo") setPartida(e.partida);
+    } catch (err) {
+      falhou(err);
+    }
+  };
 
   const acao = async (f: () => Promise<SituacaoOnline>) => {
     setErro(null);
@@ -177,6 +200,9 @@ export function TelaOnline() {
         <button className={modo === "cartas" ? "ativo" : ""} onClick={() => setModo("cartas")}>
           Cartas
         </button>
+        <button className={modo === "mercado" ? "ativo" : ""} onClick={() => setModo("mercado")}>
+          Mercado
+        </button>
       </div>
 
       {modo === "ranqueado" && (
@@ -224,6 +250,76 @@ export function TelaOnline() {
             </div>
           </div>
           {estado.impedimento && <p className="aviso">{estado.impedimento}</p>}
+          {estado.ultimaTemporada && (
+            <p className="premio">
+              Temporada {nomeTemporada(estado.ultimaTemporada.temporada)} encerrada: você chegou a{" "}
+              <b>{estado.ultimaTemporada.divisaoMax}</b> e ganhou <b>{estado.ultimaTemporada.moedas} moedas</b>.
+            </p>
+          )}
+
+          <div className="ranq-colunas">
+            <div className="amistoso">
+              <h3>Amistoso com um amigo</h3>
+              <p className="suave">
+                Convide pelo nome de técnico. Mesma partida ao vivo e mesmo salário, sem pontos de liga e com metade do
+                prêmio. O convite vale 5 minutos.
+              </p>
+              <form
+                className="proposta-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (amigo.trim()) noEstado(() => online.convidar(amigo.trim())).then(() => setAmigo(""));
+                }}
+              >
+                <input
+                  id="online-amigo"
+                  placeholder="Nome do amigo"
+                  aria-label="Nome do amigo"
+                  value={amigo}
+                  onChange={(e) => setAmigo(e.target.value)}
+                />
+                <button className="botao" disabled={!amigo.trim() || !!estado.impedimento}>
+                  Convidar
+                </button>
+              </form>
+              {estado.convites.recebidos.map((c) => (
+                <div key={c.id} className="convite">
+                  <span>
+                    <b>{c.nome}</b> chamou você para um amistoso.
+                  </span>
+                  <button className="botao primario" onClick={() => noEstado(() => online.responderConvite(c.id, true))}>
+                    Aceitar · {formatarDinheiro(sit.time.custo)}
+                  </button>
+                  <button className="botao discreto" onClick={() => noEstado(() => online.responderConvite(c.id, false))}>
+                    Recusar
+                  </button>
+                </div>
+              ))}
+              {estado.convites.enviados.map((c) => (
+                <div key={c.id} className="convite">
+                  <span className="suave">Esperando {c.nome} aceitar…</span>
+                  <button className="botao discreto" onClick={() => noEstado(() => online.cancelarConvite(c.id))}>
+                    Cancelar
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="temporada-premio">
+              <h3>Prêmio de fim de temporada</h3>
+              <p className="suave">
+                Pela maior divisão que você alcançar na temporada. Sua maior até agora: <b>{perfil.divisaoMax}</b>, que
+                vale <b>{perfil.premioPrevisto} moedas</b> se a temporada acabasse hoje. Na virada, todos descem 4
+                divisões.
+              </p>
+              <ul className="premios-temporada">
+                {PREMIO_TEMPORADA.map(([nome, moedas], i) => (
+                  <li key={nome} className={perfil.divisaoMax.startsWith(nome) ? "atual" : ""}>
+                    <span className={`rk-liga liga-${LIGAS[i]}`} /> {nome} <b>{moedas}</b>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <p className="suave">
             Vitória vale de 12 a 30 pontos de liga, derrota tira de 12 a 28 e empate não mexe. Com 100 pontos você sobe de
             divisão; abaixo de 0, desce. Prêmio por jogo: vitória {formatarDinheiro(PREMIO_RANQUEADO.vitoria[0])} e{" "}
@@ -263,7 +359,9 @@ export function TelaOnline() {
                         <span className="rk-div">
                           {h.status === "anulada"
                             ? "anulada"
-                            : `${h.meus} × ${h.deles} · ${h.pdl! > 0 ? "+" : ""}${h.pdl} PDL`}
+                            : h.tipo === "amistoso"
+                              ? `${h.meus} × ${h.deles} · amistoso`
+                              : `${h.meus} × ${h.deles} · ${h.pdl! > 0 ? "+" : ""}${h.pdl} PDL`}
                         </span>
                       </li>
                     ))}
@@ -292,6 +390,17 @@ export function TelaOnline() {
             }}
           />
         </>
+      )}
+
+      {modo === "mercado" && (
+        <TelaMercadoOnline
+          onMudou={() =>
+            online
+              .situacao()
+              .then(setSit)
+              .catch(() => null)
+          }
+        />
       )}
 
       {modo === "cartas" && (

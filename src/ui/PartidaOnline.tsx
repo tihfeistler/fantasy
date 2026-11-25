@@ -6,6 +6,8 @@ import { VistaPartida } from "./VistaPartida";
 
 /** Prêmio por resultado (igual a PREMIO_RANQUEADO em api/online_lib.php). */
 export const PREMIO_RANQUEADO = { vitoria: [800, 60], empate: [400, 25], derrota: [200, 10] } as const;
+/** Amistoso: metade do prêmio e sem pontos de liga (PREMIO_AMISTOSO). */
+export const PREMIO_AMISTOSO = { vitoria: [400, 30], empate: [200, 12], derrota: [100, 5] } as const;
 
 interface Props {
   inicial: PartidaServidor;
@@ -106,12 +108,14 @@ export function PartidaOnline({ inicial, onVoltar }: Props) {
     const meuMandante = dados.meuTimeId === dados.mandante.id;
     const [g1, g2] = meuMandante ? dados.gols : [dados.gols[1], dados.gols[0]];
     const chave = g1 > g2 ? "vitoria" : g1 === g2 ? "empate" : "derrota";
-    const [dinheiro, moedas] = PREMIO_RANQUEADO[chave];
+    const amistoso = dados.tipo === "amistoso";
+    const [dinheiro, moedas] = (amistoso ? PREMIO_AMISTOSO : PREMIO_RANQUEADO)[chave];
     const pdl = dados.pdl ?? 0;
     fimTexto = (
       <>
         <b>{chave === "vitoria" ? "Vitória!" : chave === "empate" ? "Empate." : "Derrota."}</b>{" "}
-        {pdl > 0 ? `+${pdl}` : pdl} pontos de liga. Prêmio: {formatarDinheiro(dinheiro)} no caixa e {moedas} moedas.
+        {amistoso ? "Amistoso, sem pontos de liga." : `${pdl > 0 ? `+${pdl}` : pdl} pontos de liga.`} Prêmio:{" "}
+        {formatarDinheiro(dinheiro)} no caixa e {moedas} moedas.
       </>
     );
   } else if (p.encerrada) {
@@ -134,14 +138,14 @@ export function PartidaOnline({ inicial, onVoltar }: Props) {
       controles={
         <>
           <div className="rodada-titulo">
-            <span className="rotulo">Ranqueado ao vivo</span>
+            <span className="rotulo">{dados.tipo === "amistoso" ? "Amistoso ao vivo" : "Ranqueado ao vivo"}</span>
             <b>
               {dados.mandante.nome} × {dados.visitante.nome}
             </b>
           </div>
           {terminou && (
             <button className="botao primario" onClick={onVoltar}>
-              Voltar ao ranqueado
+              Voltar ao online
             </button>
           )}
         </>

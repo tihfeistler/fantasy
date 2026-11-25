@@ -267,7 +267,11 @@ Inspirado no sistema de ligas dos jogos competitivos online:
   segundo de espera.
 - **Temporada** trimestral (2026 T4, 2027 T1...). Na virada, cada técnico
   desce 4 divisões e o MMR volta metade do caminho até 1000.
-  Ainda falta: prêmio de fim de temporada e classificatórias.
+- **Prêmio de fim de temporada (feito)**: moedas pela maior divisão
+  alcançada na temporada (Bronze 300, Prata 600, Ouro 1.000, Platina
+  1.500, Diamante 2.500, Elite 4.000), pago automaticamente no primeiro
+  acesso da temporada nova. Ainda falta: classificatórias e carta exclusiva
+  de temporada.
 - **Custo e prêmio**: ao parear, cada técnico paga o salário dos titulares
   (um quarto do mensal, lendas em dobro) do caixa do time online. Prêmio:
   vitória R$ 800 mil e 60 moedas, empate R$ 400 mil e 25, derrota R$ 200
@@ -311,8 +315,15 @@ servidor dedicado.
   continuam no navegador.
 - Ranqueado (`api/ranqueado.php`): fila, pareamento, partida ao vivo,
   divisões, ranking top 100 e histórico. Tela na aba **Online**.
-- Falta: desafio entre amigos, prêmio de fim de temporada, tela do mercado
-  online e as moedas/cartas da carreira contando no online.
+- **Amistoso entre amigos**: convite pelo nome de técnico, vale 5 minutos.
+  Mesma partida ao vivo e mesmo salário, sem pontos de liga, com metade do
+  prêmio do ranqueado (vitória R$ 400 mil e 30 moedas).
+- **Mercado online** (aba Online > Mercado): lendas à venda entre técnicos
+  reais, compra pelo preço, proposta, contraproposta, venda ao sistema.
+  Cartas base não circulam entre técnicos (o servidor recusa). Carta
+  vendida sai da escalação online.
+- Falta: as moedas/cartas da carreira contando no online, limite de cartas
+  online e proteção contra "farm" de amistosos entre duas contas.
 
 ## 8. Plataforma, stack e roteiro
 

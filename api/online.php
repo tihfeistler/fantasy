@@ -28,6 +28,7 @@ function situacao(int $uid): array
         'time' => $time + ['custo' => custoDoTime($time, $cartas)],
         'cartas' => array_values($cartas),
         'ranqueado' => perfilPublico(perfilRanqueado($uid)),
+        'ultimaTemporada' => ultimaTemporada($uid),
     ];
 }
 
@@ -82,11 +83,7 @@ switch ((string) ($d['acao'] ?? '')) {
         $pdo->prepare('DELETE FROM cartas WHERE id = ?')->execute([$c['id']]);
         $pdo->prepare('UPDATE usuarios SET moedas = moedas + ? WHERE id = ?')->execute([$valor, $eu]);
         $pdo->prepare('INSERT INTO vendas (jogador_id, vendedor_id, valor) VALUES (?, ?, ?)')->execute([$jid, $eu, $valor]);
-        // Sai da escalação.
-        $t = timeOnline($eu, true);
-        $tira = fn($ids) => json_encode(array_values(array_diff($ids, [$jid])));
-        $pdo->prepare('UPDATE times_online SET titulares = ?, banco = ? WHERE usuario_id = ?')
-            ->execute([$tira($t['titulares']), $tira($t['banco']), $eu]);
+        tirarDaEscalacaoSeAcabou($eu, $jid);
         $pdo->commit();
         responder(situacao($eu));
 

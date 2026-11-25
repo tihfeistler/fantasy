@@ -17,23 +17,21 @@
 // As moedas só são debitadas quando a venda acontece; uma proposta não reserva moedas.
 declare(strict_types=1);
 require __DIR__ . '/db.php';
+require __DIR__ . '/online_lib.php';
 iniciarApi();
 $eu = exigirUsuario();
 $pdo = db();
 
-function erro(string $msg, int $status = 422): never
-{
-    if (db()->inTransaction()) db()->rollBack();
-    responder(['erro' => $msg], $status);
-}
-
 /** Carta com dados do jogador, travada para a transação. */
 function cartaTravada(int $cartaId): array
 {
-    $s = db()->prepare('SELECT c.id, c.usuario_id, c.jogador_id, j.geral FROM cartas c
+    $s = db()->prepare('SELECT c.id, c.usuario_id, c.jogador_id, j.geral, j.tipo FROM cartas c
         JOIN jogadores j ON j.id = c.jogador_id WHERE c.id = ? FOR UPDATE');
     $s->execute([$cartaId]);
-    return $s->fetch() ?: erro('Carta não encontrada.', 404);
+    $c = $s->fetch() ?: erro('Carta não encontrada.', 404);
+    // Regra do mercado: cartas base (atuais) vêm do sistema e voltam para ele; só lendas circulam entre técnicos.
+    if ($c['tipo'] !== 'classico') erro('Cartas base não são negociadas entre técnicos. Venda ao sistema na aba Cartas.');
+    return $c;
 }
 
 function moedasTravadas(int $usuarioId): int
@@ -63,6 +61,7 @@ function transferir(array $carta, int $compradorId, int $valor): array
         ->execute([$carta['id']]);
     $pdo->prepare('INSERT INTO vendas (jogador_id, vendedor_id, comprador_id, valor, taxa) VALUES (?, ?, ?, ?, ?)')
         ->execute([$carta['jogador_id'], $vendedor, $compradorId, $valor, $taxa]);
+    tirarDaEscalacaoSeAcabou($vendedor, $carta['jogador_id']);
     return ['carta_id' => (int) $carta['id'], 'valor' => $valor, 'taxa' => $taxa];
 }
 
@@ -105,20 +104,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         ], $s->fetchAll()));
     }
     if ($acao === 'minhas') {
-        $s = $pdo->prepare('SELECT c.id AS carta_id, c.jogador_id, c.origem, a.id AS anuncio_id, a.preco
-            FROM cartas c LEFT JOIN anuncios a ON a.carta_id = c.id WHERE c.usuario_id = ? ORDER BY c.id');
+        // Só lendas: cartas base não circulam entre técnicos.
+        $s = $pdo->prepare("SELECT c.id AS carta_id, a.id AS anuncio_id, a.preco,
+            (SELECT COUNT(*) FROM cartas c2 WHERE c2.usuario_id = c.usuario_id AND c2.jogador_id = c.jogador_id) AS copias, j.*
+            FROM cartas c JOIN jogadores j ON j.id = c.jogador_id LEFT JOIN anuncios a ON a.carta_id = c.id
+            WHERE c.usuario_id = ? AND j.tipo = 'classico' ORDER BY j.geral DESC, c.id");
         $s->execute([$eu]);
-        $cartas = $s->fetchAll();
-        $s = $pdo->prepare("SELECT p.id, p.carta_id, p.valor, p.contra_valor, p.status, p.criado_em, c.jogador_id, u.nome AS comprador
-            FROM propostas p JOIN cartas c ON c.id = p.carta_id JOIN usuarios u ON u.id = p.comprador_id
+        $cartas = array_map(fn($r) => [
+            'carta_id' => (int) $r['carta_id'],
+            'anuncio_id' => $r['anuncio_id'] === null ? null : (int) $r['anuncio_id'],
+            'preco' => $r['preco'] === null ? null : (int) $r['preco'],
+            'venda_sistema' => valorDeVenda((int) $r['geral'], (int) $r['copias']),
+            'jogador' => linhaParaJogador($r),
+        ], $s->fetchAll());
+        $prop = fn($r) => [
+            'id' => (int) $r['proposta_id'],
+            'carta_id' => (int) $r['carta_id'],
+            'valor' => (int) $r['valor'],
+            'contra_valor' => $r['contra_valor'] === null ? null : (int) $r['contra_valor'],
+            'status' => $r['status'],
+            'outro' => $r['outro'],
+            'jogador' => linhaParaJogador($r),
+        ];
+        $s = $pdo->prepare("SELECT p.id AS proposta_id, p.carta_id, p.valor, p.contra_valor, p.status, u.nome AS outro, j.*
+            FROM propostas p JOIN cartas c ON c.id = p.carta_id JOIN jogadores j ON j.id = c.jogador_id
+            JOIN usuarios u ON u.id = p.comprador_id
             WHERE c.usuario_id = ? AND p.status IN ('aberta', 'contraproposta') ORDER BY p.criado_em DESC");
         $s->execute([$eu]);
-        $recebidas = $s->fetchAll();
-        $s = $pdo->prepare('SELECT p.id, p.carta_id, p.valor, p.contra_valor, p.status, p.criado_em, c.jogador_id
-            FROM propostas p JOIN cartas c ON c.id = p.carta_id WHERE p.comprador_id = ?
-            ORDER BY p.criado_em DESC LIMIT 100');
+        $recebidas = array_map($prop, $s->fetchAll());
+        $s = $pdo->prepare('SELECT p.id AS proposta_id, p.carta_id, p.valor, p.contra_valor, p.status, u.nome AS outro, j.*
+            FROM propostas p JOIN cartas c ON c.id = p.carta_id JOIN jogadores j ON j.id = c.jogador_id
+            JOIN usuarios u ON u.id = c.usuario_id WHERE p.comprador_id = ? ORDER BY p.criado_em DESC LIMIT 30');
         $s->execute([$eu]);
-        responder(['cartas' => $cartas, 'recebidas' => $recebidas, 'enviadas' => $s->fetchAll()]);
+        $m = $pdo->prepare('SELECT moedas FROM usuarios WHERE id = ?');
+        $m->execute([$eu]);
+        responder(['moedas' => (int) $m->fetchColumn(), 'cartas' => $cartas, 'recebidas' => $recebidas,
+            'enviadas' => array_map($prop, $s->fetchAll())]);
     }
     erro('Ação desconhecida.', 400);
 }
@@ -225,6 +246,7 @@ switch ($acao) {
         $pdo->prepare('UPDATE usuarios SET moedas = moedas + ? WHERE id = ?')->execute([$valor, $eu]);
         $pdo->prepare('INSERT INTO vendas (jogador_id, vendedor_id, comprador_id, valor) VALUES (?, ?, NULL, ?)')
             ->execute([$carta['jogador_id'], $eu, $valor]);
+        tirarDaEscalacaoSeAcabou($eu, $carta['jogador_id']);
         $pdo->commit();
         responder(['ok' => true, 'valor' => $valor]);
 

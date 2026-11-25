@@ -86,7 +86,7 @@ Apache ou pelo `npm run dev` (a prévia sem servidor não tem modo online).
 
 1. **Atualize o banco**: no phpMyAdmin, importe `sql/schema.sql` de novo.
    Ele cria as tabelas novas (`times_online`, `ranqueado`, `fila`,
-   `partidas_online`, `decisoes_online`) e não apaga nada.
+   `partidas_online`, `decisoes_online`, `convites`) e não apaga nada.
 2. **Importe os jogadores** se ainda não fez (passo 1.5): o kit inicial e a
    loja usam os jogadores atuais do banco, e os pacotes usam as lendas.
 3. Rode `npm run build` e abra http://localhost/fantasy/dist/ (ou use
@@ -105,6 +105,20 @@ Apache ou pelo `npm run dev` (a prévia sem servidor não tem modo online).
 8. No fim, as duas mostram o mesmo placar, os pontos de liga e o prêmio.
    Voltando ao ranqueado, o ranking e *Seus últimos jogos* já mostram a
    partida.
+
+Também dá para testar com as duas contas:
+
+- **Amistoso**: em *Ranqueado*, digite o nome da outra conta em "Amistoso
+  com um amigo" e clique em Convidar. Na outra janela o convite aparece em
+  até 3 s; ao aceitar, a partida começa nas duas.
+- **Mercado**: numa conta, abra um pacote (aba *Cartas*), vá em *Mercado >
+  Minhas lendas* e anuncie uma lenda. Na outra, em *Mercado > À venda*,
+  compre ou faça uma proposta; a primeira conta responde em *Propostas*
+  (aceitar, recusar ou contraproposta).
+- **Prêmio de fim de temporada**: para simular a virada, no phpMyAdmin
+  mude a coluna `temporada` das linhas de `ranqueado` para a anterior (ex.:
+  20264 vira 20263). No próximo acesso, a conta recebe as moedas pela maior
+  divisão e começa a temporada nova 4 divisões abaixo.
 
 Dicas:
 

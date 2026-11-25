@@ -163,22 +163,49 @@ function perfilRanqueado(int $uid, bool $travar = false): array
     $s->execute([$uid, $temp]);
     $p = $s->fetch();
     if (!$p) {
-        $ant = $pdo->prepare('SELECT tier, mmr FROM ranqueado WHERE usuario_id = ? AND temporada < ? ORDER BY temporada DESC LIMIT 1');
+        $ant = $pdo->prepare('SELECT * FROM ranqueado WHERE usuario_id = ? AND temporada < ? ORDER BY temporada DESC LIMIT 1');
         $ant->execute([$uid, $temp]);
         $a = $ant->fetch();
+        // Prêmio da temporada que acabou, pela maior divisão alcançada (só para quem jogou).
+        if ($a && $a['premio_moedas'] === null && $a['vitorias'] + $a['empates'] + $a['derrotas'] > 0) {
+            $moedas = premioDeTemporada((int) $a['tier_max']);
+            $pdo->prepare('UPDATE ranqueado SET premio_moedas = ? WHERE usuario_id = ? AND temporada = ? AND premio_moedas IS NULL')
+                ->execute([$moedas, $uid, $a['temporada']]);
+            $pdo->prepare('UPDATE usuarios SET moedas = moedas + ? WHERE id = ?')->execute([$moedas, $uid]);
+        }
         $tier = $a ? max(0, (int) $a['tier'] - 4) : 0;
         $mmr = $a ? (int) round(((int) $a['mmr'] + MMR_INICIAL) / 2) : MMR_INICIAL;
-        $pdo->prepare('INSERT IGNORE INTO ranqueado (usuario_id, temporada, tier, pdl, mmr) VALUES (?, ?, ?, 0, ?)')
-            ->execute([$uid, $temp, $tier, $mmr]);
+        $pdo->prepare('INSERT IGNORE INTO ranqueado (usuario_id, temporada, tier, tier_max, pdl, mmr) VALUES (?, ?, ?, ?, 0, ?)')
+            ->execute([$uid, $temp, $tier, $tier, $mmr]);
         $s->execute([$uid, $temp]);
         $p = $s->fetch();
     }
     return $p;
 }
 
+/** Moedas de fim de temporada pela liga da maior divisão: Bronze 300 ... Diamante 2.500, Elite 4.000. */
+const PREMIO_TEMPORADA = [300, 600, 1000, 1500, 2500, 4000];
+function premioDeTemporada(int $tierMax): int
+{
+    return PREMIO_TEMPORADA[min(5, intdiv($tierMax, 4))];
+}
+
+/** Resumo da última temporada encerrada com prêmio pago, ou null. */
+function ultimaTemporada(int $uid): ?array
+{
+    $s = db()->prepare('SELECT temporada, tier_max, premio_moedas FROM ranqueado
+        WHERE usuario_id = ? AND temporada < ? AND premio_moedas IS NOT NULL ORDER BY temporada DESC LIMIT 1');
+    $s->execute([$uid, temporadaAtual()]);
+    $r = $s->fetch();
+    return $r ? ['temporada' => (int) $r['temporada'], 'divisaoMax' => nomeDivisao((int) $r['tier_max']),
+        'moedas' => (int) $r['premio_moedas']] : null;
+}
+
 function perfilPublico(array $p): array
 {
     return [
+        'divisaoMax' => nomeDivisao((int) $p['tier_max']),
+        'premioPrevisto' => premioDeTemporada((int) $p['tier_max']),
         'temporada' => (int) $p['temporada'],
         'tier' => (int) $p['tier'],
         'divisao' => nomeDivisao((int) $p['tier']),
@@ -227,5 +254,20 @@ function novoMmr(int $mmr, int $mmrAdv, float $pontos): int
     return (int) round($mmr + 32 * ($pontos - $esperado));
 }
 
-/** Prêmio por partida ranqueada: [R$ mil no caixa, moedas]. */
+/** Prêmio por partida: [R$ mil no caixa, moedas]. O amistoso paga a metade (sem pontos de liga). */
 const PREMIO_RANQUEADO = ['vitoria' => [800, 60], 'empate' => [400, 25], 'derrota' => [200, 10]];
+const PREMIO_AMISTOSO = ['vitoria' => [400, 30], 'empate' => [200, 12], 'derrota' => [100, 5]];
+
+/** Tira o jogador da escalação online se o usuário não tem mais nenhuma cópia da carta. */
+function tirarDaEscalacaoSeAcabou(int $uid, string $jogadorId): void
+{
+    $s = db()->prepare('SELECT COUNT(*) FROM cartas WHERE usuario_id = ? AND jogador_id = ?');
+    $s->execute([$uid, $jogadorId]);
+    if ((int) $s->fetchColumn() > 0) return;
+    $s = db()->prepare('SELECT titulares, banco FROM times_online WHERE usuario_id = ?');
+    $s->execute([$uid]);
+    if (!$t = $s->fetch()) return;
+    $tira = fn($json) => json_encode(array_values(array_diff(json_decode($json, true) ?: [], [$jogadorId])));
+    db()->prepare('UPDATE times_online SET titulares = ?, banco = ? WHERE usuario_id = ?')
+        ->execute([$tira($t['titulares']), $tira($t['banco']), $uid]);
+}

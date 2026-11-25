@@ -40,6 +40,9 @@ export interface Usuario {
 
 export interface PerfilRanqueado {
   temporada: number;
+  /** Maior divisão alcançada na temporada e o prêmio de fim de temporada correspondente. */
+  divisaoMax: string;
+  premioPrevisto: number;
   tier: number;
   divisao: string;
   pdl: number;
@@ -54,13 +57,21 @@ export interface SituacaoOnline {
   time: { caixa: number; formacao: string; titulares: string[]; banco: string[]; custo: number };
   cartas: (Jogador & { copias: number })[];
   ranqueado: PerfilRanqueado;
+  ultimaTemporada: UltimaTemporada | null;
   /** Só na resposta de abrir_pacote. */
   novas?: Jogador[];
+}
+
+export interface UltimaTemporada {
+  temporada: number;
+  divisaoMax: string;
+  moedas: number;
 }
 
 export interface PartidaServidor {
   id: number;
   status: "ao_vivo" | "encerrada" | "anulada";
+  tipo: "ranqueado" | "amistoso";
   seed: number;
   mandante: Time;
   visitante: Time;
@@ -82,6 +93,8 @@ export interface EstadoRanqueado {
   perfil: PerfilRanqueado;
   caixa: number;
   impedimento: string | null;
+  convites: { recebidos: { id: number; nome: string }[]; enviados: { id: number; nome: string }[] };
+  ultimaTemporada: UltimaTemporada | null;
 }
 
 export interface Ranking {
@@ -93,6 +106,7 @@ export interface Ranking {
     id: number;
     adversario: string;
     status: string;
+    tipo: "ranqueado" | "amistoso";
     meus: number | null;
     deles: number | null;
     pdl: number | null;
@@ -121,7 +135,46 @@ export const online = {
     chamar<EstadoRanqueado>("ranqueado.php", { acao: "decidir", partida_id: partidaId, decisao }),
   relatar: (partidaId: number, gols: [number, number]) =>
     chamar<EstadoRanqueado>("ranqueado.php", { acao: "relatar", partida_id: partidaId, gols }),
+  convidar: (nome: string) => chamar<EstadoRanqueado>("ranqueado.php", { acao: "convidar", nome }),
+  responderConvite: (id: number, aceitar: boolean) =>
+    chamar<EstadoRanqueado>("ranqueado.php", { acao: "responder_convite", convite_id: id, aceitar }),
+  cancelarConvite: (id: number) => chamar<EstadoRanqueado>("ranqueado.php", { acao: "cancelar_convite", convite_id: id }),
+
+  anuncios: (f: { busca?: string; posicao?: string; ordem?: string } = {}) =>
+    chamar<AnuncioOnline[]>(
+      "mercado.php",
+      undefined,
+      `?${new URLSearchParams({ acao: "anuncios", ...Object.fromEntries(Object.entries(f).filter(([, v]) => v)) })}`,
+    ),
+  minhas: () => chamar<MinhasOnline>("mercado.php", undefined, "?acao=minhas"),
+  mercado: (acao: string, dados: object) => chamar<object>("mercado.php", { acao, ...dados }),
 };
+
+export interface AnuncioOnline {
+  anuncio_id: number;
+  carta_id: number;
+  preco: number;
+  vendedor: string;
+  jogador: Jogador;
+}
+
+export interface PropostaOnline {
+  id: number;
+  carta_id: number;
+  valor: number;
+  contra_valor: number | null;
+  status: "aberta" | "contraproposta" | "aceita" | "recusada" | "cancelada" | "expirada";
+  /** Comprador (recebidas) ou dono da carta (enviadas). */
+  outro: string;
+  jogador: Jogador;
+}
+
+export interface MinhasOnline {
+  moedas: number;
+  cartas: { carta_id: number; anuncio_id: number | null; preco: number | null; venda_sistema: number; jogador: Jogador }[];
+  recebidas: PropostaOnline[];
+  enviadas: PropostaOnline[];
+}
 
 /** Nome curto da temporada: 20264 → "2026 T4". */
 export const nomeTemporada = (t: number) => `${Math.floor(t / 10)} T${t % 10}`;

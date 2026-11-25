@@ -200,3 +200,22 @@ CREATE TABLE IF NOT EXISTS decisoes_online (
   dados           TEXT         NOT NULL,
   FOREIGN KEY (partida_id) REFERENCES partidas_online(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- Amistosos entre amigos e prêmio de fim de temporada (MariaDB: ADD COLUMN IF NOT EXISTS)
+ALTER TABLE partidas_online ADD COLUMN IF NOT EXISTS tipo ENUM('ranqueado','amistoso') NOT NULL DEFAULT 'ranqueado' AFTER temporada;
+ALTER TABLE ranqueado ADD COLUMN IF NOT EXISTS tier_max TINYINT UNSIGNED NOT NULL DEFAULT 0 AFTER tier;
+ALTER TABLE ranqueado ADD COLUMN IF NOT EXISTS premio_moedas INT UNSIGNED NULL;
+
+-- Convite de amistoso: vale por 5 minutos.
+CREATE TABLE IF NOT EXISTS convites (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  de_id           INT UNSIGNED NOT NULL,
+  para_id         INT UNSIGNED NOT NULL,
+  status          ENUM('pendente','aceito','recusado','cancelado') NOT NULL DEFAULT 'pendente',
+  partida_id      INT UNSIGNED NULL,
+  criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX (para_id, status),
+  INDEX (de_id, status),
+  FOREIGN KEY (de_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  FOREIGN KEY (para_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

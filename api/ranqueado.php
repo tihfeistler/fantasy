@@ -8,6 +8,11 @@
 // POST api/ranqueado.php {acao:"sair_fila"}
 // POST api/ranqueado.php {acao:"decidir", partida_id, decisao:{tipo:"tatica", tatica} | {tipo:"sub", sai, entra}}
 // POST api/ranqueado.php {acao:"relatar", partida_id, gols:[mandante, visitante]}
+// POST api/ranqueado.php {acao:"convidar", nome}                   amistoso com um amigo (vale 5 minutos)
+// POST api/ranqueado.php {acao:"responder_convite", convite_id, aceitar:true|false}
+// POST api/ranqueado.php {acao:"cancelar_convite", convite_id}
+//
+// Amistoso: mesma partida ao vivo e mesmo salário, sem pontos de liga, com metade do prêmio.
 //
 // Como a partida funciona: ao parear dois técnicos, o servidor cobra o salário de cada um,
 // guarda a seed e os dois times e marca o início. O relógio é do servidor: cada minuto de
@@ -61,6 +66,7 @@ function payloadPartida(array $p, int $uid): array
     return [
         'id' => (int) $p['id'],
         'status' => $p['status'],
+        'tipo' => $p['tipo'],
         'seed' => (int) $p['seed'],
         'mandante' => json_decode($p['time_mandante'], true),
         'visitante' => json_decode($p['time_visitante'], true),
@@ -110,14 +116,22 @@ function encerrar(int $id, string $placar): void
     $s->execute([$v, $p['temporada']]);
     $pv = $s->fetch();
     $pontosM = $gm > $gv ? 1.0 : ($gm === $gv ? 0.5 : 0.0);
+    $amistoso = $p['tipo'] === 'amistoso';
     $deltas = [];
     foreach ([[$m, $pm, $pv, $pontosM], [$v, $pv, $pm, 1 - $pontosM]] as [$uid, $eu, $adv, $pontos]) {
-        $delta = variacaoPdl((int) $eu['tier'], (int) $eu['mmr'], $pontos);
-        [$tier, $pdl] = aplicarPdl((int) $eu['tier'], (int) $eu['pdl'], $delta);
-        $col = $pontos === 1.0 ? 'vitorias' : ($pontos === 0.5 ? 'empates' : 'derrotas');
-        $pdo->prepare("UPDATE ranqueado SET tier = ?, pdl = ?, mmr = ?, $col = $col + 1 WHERE usuario_id = ? AND temporada = ?")
-            ->execute([$tier, $pdl, novoMmr((int) $eu['mmr'], (int) $adv['mmr'], $pontos), $uid, $p['temporada']]);
-        [$dinheiro, $moedas] = PREMIO_RANQUEADO[$pontos === 1.0 ? 'vitoria' : ($pontos === 0.5 ? 'empate' : 'derrota')];
+        $chave = $pontos === 1.0 ? 'vitoria' : ($pontos === 0.5 ? 'empate' : 'derrota');
+        if ($amistoso) {
+            $delta = null;
+            [$dinheiro, $moedas] = PREMIO_AMISTOSO[$chave];
+        } else {
+            $delta = variacaoPdl((int) $eu['tier'], (int) $eu['mmr'], $pontos);
+            [$tier, $pdl] = aplicarPdl((int) $eu['tier'], (int) $eu['pdl'], $delta);
+            $col = $pontos === 1.0 ? 'vitorias' : ($pontos === 0.5 ? 'empates' : 'derrotas');
+            $pdo->prepare("UPDATE ranqueado SET tier = ?, tier_max = GREATEST(tier_max, ?), pdl = ?, mmr = ?, $col = $col + 1
+                WHERE usuario_id = ? AND temporada = ?")
+                ->execute([$tier, $tier, $pdl, novoMmr((int) $eu['mmr'], (int) $adv['mmr'], $pontos), $uid, $p['temporada']]);
+            [$dinheiro, $moedas] = PREMIO_RANQUEADO[$chave];
+        }
         $pdo->prepare('UPDATE times_online SET caixa = caixa + ? WHERE usuario_id = ?')->execute([$dinheiro, $uid]);
         $pdo->prepare('UPDATE usuarios SET moedas = moedas + ? WHERE id = ?')->execute([$moedas, $uid]);
         $deltas[] = $delta;
@@ -189,28 +203,51 @@ function tentarParear(int $uid): ?int
             $tira->execute([$uid]);
             return null;
         }
-        [$m, $v] = random_int(0, 1) ? [$uid, $outro] : [$outro, $uid];
-        $pdo->beginTransaction();
-        $custos = [];
-        foreach ([$m, $v] as $x) {
-            $t = timeOnline($x, true);
-            $custos[] = custoDoTime($t, cartasDoUsuario($x));
-            $pdo->prepare('UPDATE times_online SET caixa = caixa - ? WHERE usuario_id = ?')->execute([end($custos), $x]);
-            perfilRanqueado($x);
-        }
-        $pdo->prepare('INSERT INTO partidas_online (temporada, mandante_id, visitante_id, seed, time_mandante, time_visitante,
-            custo_mandante, custo_visitante, inicio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(3) + INTERVAL ' . ESPERA_INICIO . ' SECOND)')
-            ->execute([temporadaAtual(), $m, $v, random_int(0, 2 ** 31 - 1),
-                json_encode(timeDaPartida($m, nomeDe($m)), JSON_UNESCAPED_UNICODE),
-                json_encode(timeDaPartida($v, nomeDe($v)), JSON_UNESCAPED_UNICODE), $custos[0], $custos[1]]);
-        $id = (int) $pdo->lastInsertId();
-        $tira->execute([$m]);
-        $tira->execute([$v]);
-        $pdo->commit();
+        $id = criarPartida($uid, $outro, 'ranqueado');
+        $tira->execute([$uid]);
+        $tira->execute([$outro]);
         return $id;
     } finally {
         $pdo->query("SELECT RELEASE_LOCK('fantasy_fila')");
     }
+}
+
+/** Cobra o salário dos dois, sorteia o mando e cria a partida (começa em ESPERA_INICIO segundos). */
+function criarPartida(int $uid, int $outro, string $tipo): int
+{
+    $pdo = db();
+    [$m, $v] = random_int(0, 1) ? [$uid, $outro] : [$outro, $uid];
+    $pdo->beginTransaction();
+    $custos = [];
+    foreach ([$m, $v] as $x) {
+        $t = timeOnline($x, true);
+        $custos[] = custoDoTime($t, cartasDoUsuario($x));
+        $pdo->prepare('UPDATE times_online SET caixa = caixa - ? WHERE usuario_id = ?')->execute([end($custos), $x]);
+        perfilRanqueado($x);
+    }
+    $pdo->prepare('INSERT INTO partidas_online (temporada, tipo, mandante_id, visitante_id, seed, time_mandante, time_visitante,
+        custo_mandante, custo_visitante, inicio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(3) + INTERVAL ' . ESPERA_INICIO . ' SECOND)')
+        ->execute([temporadaAtual(), $tipo, $m, $v, random_int(0, 2 ** 31 - 1),
+            json_encode(timeDaPartida($m, nomeDe($m)), JSON_UNESCAPED_UNICODE),
+            json_encode(timeDaPartida($v, nomeDe($v)), JSON_UNESCAPED_UNICODE), $custos[0], $custos[1]]);
+    $id = (int) $pdo->lastInsertId();
+    $pdo->commit();
+    return $id;
+}
+
+/** Convites de amistoso pendentes (dos últimos 5 minutos), recebidos e enviados. */
+function convites(int $uid): array
+{
+    $s = db()->prepare("SELECT c.id, c.de_id, c.para_id, ud.nome AS de, up.nome AS para FROM convites c
+        JOIN usuarios ud ON ud.id = c.de_id JOIN usuarios up ON up.id = c.para_id
+        WHERE c.status = 'pendente' AND c.criado_em > NOW() - INTERVAL 5 MINUTE AND (c.de_id = ? OR c.para_id = ?) ORDER BY c.id DESC");
+    $s->execute([$uid, $uid]);
+    $r = ['recebidos' => [], 'enviados' => []];
+    foreach ($s->fetchAll() as $c) {
+        if ((int) $c['para_id'] === $uid) $r['recebidos'][] = ['id' => (int) $c['id'], 'nome' => $c['de']];
+        else $r['enviados'][] = ['id' => (int) $c['id'], 'nome' => $c['para']];
+    }
+    return $r;
 }
 
 function estado(int $uid, ?int $partidaId): array
@@ -245,6 +282,8 @@ function estado(int $uid, ?int $partidaId): array
         'perfil' => perfilPublico(perfilRanqueado($uid)),
         'caixa' => $t['caixa'],
         'impedimento' => $p || $naFila ? null : impedimento($uid),
+        'convites' => convites($uid),
+        'ultimaTemporada' => ultimaTemporada($uid),
     ];
 }
 
@@ -271,6 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'id' => (int) $p['id'],
                 'adversario' => $m ? $p['nome_v'] : $p['nome_m'],
                 'status' => $p['status'],
+                'tipo' => $p['tipo'],
                 'meus' => $p['gols_mandante'] === null ? null : (int) ($m ? $p['gols_mandante'] : $p['gols_visitante']),
                 'deles' => $p['gols_mandante'] === null ? null : (int) ($m ? $p['gols_visitante'] : $p['gols_mandante']),
                 'pdl' => $p['pdl_mandante'] === null ? null : (int) ($m ? $p['pdl_mandante'] : $p['pdl_visitante']),
@@ -326,6 +366,45 @@ switch ((string) ($d['acao'] ?? '')) {
             $pdo->prepare("UPDATE partidas_online SET $col = ? WHERE id = ? AND $col IS NULL")->execute(["$gols[0]-$gols[1]", $p['id']]);
         }
         responder(estado($eu, (int) $p['id']));
+
+    case 'convidar':
+        $s = $pdo->prepare('SELECT id FROM usuarios WHERE nome = ?');
+        $s->execute([trim((string) ($d['nome'] ?? ''))]);
+        $para = (int) ($s->fetchColumn() ?: erro('Não achei um técnico com esse nome.', 404));
+        if ($para === $eu) erro('Convide outro técnico.');
+        if ($motivo = impedimento($eu)) erro($motivo);
+        $pdo->prepare("UPDATE convites SET status = 'cancelado' WHERE de_id = ? AND para_id = ? AND status = 'pendente'")
+            ->execute([$eu, $para]);
+        $pdo->prepare('INSERT INTO convites (de_id, para_id) VALUES (?, ?)')->execute([$eu, $para]);
+        responder(estado($eu, null));
+
+    case 'cancelar_convite':
+        $pdo->prepare("UPDATE convites SET status = 'cancelado' WHERE id = ? AND de_id = ? AND status = 'pendente'")
+            ->execute([(int) ($d['convite_id'] ?? 0), $eu]);
+        responder(estado($eu, null));
+
+    case 'responder_convite':
+        $pdo->query("SELECT GET_LOCK('fantasy_fila', 5)");
+        try {
+            $s = $pdo->prepare("SELECT * FROM convites WHERE id = ? AND para_id = ? AND status = 'pendente'
+                AND criado_em > NOW() - INTERVAL 5 MINUTE");
+            $s->execute([(int) ($d['convite_id'] ?? 0), $eu]);
+            $c = $s->fetch() ?: erro('Esse convite não vale mais.', 404);
+            if (empty($d['aceitar'])) {
+                $pdo->prepare("UPDATE convites SET status = 'recusado' WHERE id = ?")->execute([$c['id']]);
+                responder(estado($eu, null));
+            }
+            $de = (int) $c['de_id'];
+            if (partidaAoVivoDe($eu) || partidaAoVivoDe($de)) erro('Um de vocês já está numa partida.');
+            if ($motivo = impedimento($eu)) erro($motivo);
+            if (impedimento($de)) erro(nomeDe($de) . ' não pode jogar agora (escalação ou caixa).');
+            $id = criarPartida($eu, $de, 'amistoso');
+            $pdo->prepare("UPDATE convites SET status = 'aceito', partida_id = ? WHERE id = ?")->execute([$id, $c['id']]);
+            $pdo->prepare('DELETE FROM fila WHERE usuario_id IN (?, ?)')->execute([$eu, $de]);
+        } finally {
+            $pdo->query("SELECT RELEASE_LOCK('fantasy_fila')");
+        }
+        responder(estado($eu, $id));
 
     default:
         erro('Ação desconhecida.', 400);
