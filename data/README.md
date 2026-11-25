@@ -1,3 +1,17 @@
+# Bases de dados
+
+## Elencos atuais
+
+| Arquivo | Conteúdo |
+|---|---|
+| `clubes.json` | 184 clubes: Séries A e B (40) e as ligas da Inglaterra, Espanha, Itália, Alemanha, França, Portugal e Argentina (144). O campo `liga` diz onde cada um joga. |
+| `elencos-2026.txt`, `elencos-serie-b-2026.txt` | Elencos das Séries A e B. |
+| `elencos-estrangeiros-2026.txt` | Elencos das 7 ligas estrangeiras, lidos da Wikipédia em inglês em 25/11/2026 (temporada 2026-27 na Europa, 2026 na Argentina). |
+| `destaques-2026.txt`, `destaques-estrangeiros-2026.txt` | Geral alvo de jogadores conhecidos; nos estrangeiros, também a posição. |
+| `atuais.json` | Gerado: 5.430 jogadores atuais. |
+
+Depois de editar um `.txt`, rode `python3 scripts/gerar_atuais.py` e `php scripts/importar.php`. Os atributos de quem não está nos destaques saem do nível do clube e da numeração da camisa (cada escola numera de um jeito: Brasil, Europa e Argentina), então são rascunho.
+
 # Base de jogadores clássicos
 
 `jogadores.json` tem 386 jogadores aposentados (104 brasileiros, 48 seleções no total), no formato de `jogador.schema.json` e do tipo `Jogador` em `src/engine/types.ts`.
