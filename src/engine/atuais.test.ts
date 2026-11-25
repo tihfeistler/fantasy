@@ -7,11 +7,14 @@ import { simularPartida } from "./match";
 const times = montarTimesAtuais();
 
 describe("elencos atuais", () => {
-  it("tem as 9 ligas (Séries A e B + 7 estrangeiras) com elenco para escalar 11 com goleiro", () => {
+  it("todas as ligas têm número par de clubes, com elenco para escalar 11 com goleiro", () => {
     const tamanho = (d: string) => times.filter((t) => DIVISOES_INICIAIS[t.id] === d).length;
-    expect(LIGAS.map((l) => [l.id, tamanho(l.id)])).toEqual([
-      ["A", 20], ["B", 20], ["ING", 20], ["ESP", 20], ["ITA", 20], ["ALE", 18], ["FRA", 18], ["POR", 18], ["ARG", 30],
-    ]);
+    expect(LIGAS).toHaveLength(36);
+    for (const l of LIGAS) {
+      expect(tamanho(l.id), l.id).toBeGreaterThanOrEqual(10);
+      expect(tamanho(l.id) % 2, l.id).toBe(0);
+    }
+    expect(["A", "B", "ING", "ESP", "ITA"].map(tamanho)).toEqual([20, 20, 20, 20, 20]);
     for (const t of times) {
       const v = escalar(t);
       expect(v, t.id).toHaveLength(11);

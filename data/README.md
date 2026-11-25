@@ -4,13 +4,14 @@
 
 | Arquivo | Conteúdo |
 |---|---|
-| `clubes.json` | 184 clubes: Séries A e B (40) e as ligas da Inglaterra, Espanha, Itália, Alemanha, França, Portugal e Argentina (144). O campo `liga` diz onde cada um joga. |
+| `clubes.json` | 638 clubes em 36 divisões de 16 países (Brasil e Inglaterra até a 4ª divisão, os outros até a 2ª). O campo `liga` diz onde cada um joga (a lista de ligas está em `src/engine/ligas.ts`). |
 | `elencos-2026.txt`, `elencos-serie-b-2026.txt` | Elencos das Séries A e B. |
 | `elencos-estrangeiros-2026.txt` | Elencos das 7 ligas estrangeiras, lidos da Wikipédia em inglês em 25/11/2026 (temporada 2026-27 na Europa, 2026 na Argentina). |
 | `destaques-2026.txt`, `destaques-estrangeiros-2026.txt` | Geral alvo de jogadores conhecidos; nos estrangeiros, também a posição. |
-| `atuais.json` | Gerado: 5.430 jogadores atuais. |
+| `elencos-divisoes-2026.txt` | Elencos das divisões de baixo e dos 8 países novos (Holanda, Bélgica, Arábia Saudita, Noruega, Dinamarca, Escócia, Áustria e Sérvia), lidos da Wikipédia em inglês em 25/11/2026. Clubes sem elenco completo na Wikipédia (times B e sub-23 também) ficaram de fora, e cada liga tem número par de clubes. Rascunho para revisar. |
+| `atuais.json` | Gerado: 18.197 jogadores atuais. |
 
-Depois de editar um `.txt`, rode `python3 scripts/gerar_atuais.py` e `php scripts/importar.php`. Os atributos de quem não está nos destaques saem do nível do clube e da numeração da camisa (cada escola numera de um jeito: Brasil, Europa e Argentina), então são rascunho.
+Depois de editar um `.txt`, rode `python3 scripts/gerar_atuais.py` e `php scripts/importar.php`. Os atributos de quem não está nos destaques saem do nível do clube e da numeração da camisa (cada escola numera de um jeito: Brasil, Europa e Argentina). Nos clubes novos, o nível do clube é uma estimativa pela divisão, com ajuste à mão para os mais fortes, então são rascunho.
 
 # Base de jogadores clássicos
 

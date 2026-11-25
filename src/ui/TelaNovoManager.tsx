@@ -54,11 +54,10 @@ export function TelaNovoManager({ times, onCriar }: Props) {
         </div>
         <h1>Nova carreira</h1>
         <p className="suave">
-          Escolha seu nome de técnico e o clube que vai comandar em 2026: no
-          Brasileirão (Série A ou B, com acesso e rebaixamento) ou numa das ligas
-          da Inglaterra, Espanha, Itália, Alemanha, França, Portugal e Argentina.
-          O clube fica com você até o fim da carreira, e o mercado compra de
-          qualquer liga.
+          Escolha seu nome de técnico e o clube que vai comandar em 2026, em
+          qualquer divisão de {paises.length} países: Brasil e Inglaterra até a 4ª
+          divisão, os outros até a 2ª, todos com acesso e rebaixamento. O clube
+          fica com você até o fim da carreira, e o mercado compra de qualquer liga.
         </p>
       </div>
 

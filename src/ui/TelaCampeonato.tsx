@@ -9,7 +9,6 @@ import {
   nomeDaZona,
   premioFinal,
   trocarDivisoes,
-  VAGAS_ACESSO,
   zona,
   type Temporada,
 } from "../engine/campeonato";
@@ -20,8 +19,8 @@ interface Props {
   meuTime: Time;
   times: Map<string, Time>;
   temporada: Temporada;
-  /** A outra divisão, simulada junto. */
-  outraTemporada?: Temporada;
+  /** As outras divisões do país, simuladas junto. */
+  outrasTemporadas: Temporada[];
   /** Quem sai de graça no fim desta temporada (contrato terminando). */
   saidas: Jogador[];
   onRenovar: () => void;
@@ -30,24 +29,25 @@ interface Props {
 
 
 export function TelaCampeonato(props: Props) {
-  const { meuTime, times, temporada, outraTemporada, saidas, onRenovar, onNovaTemporada } = props;
-  const [verOutra, setVerOutra] = useState(false);
+  const { meuTime, times, temporada, outrasTemporadas, saidas, onRenovar, onNovaTemporada } = props;
+  const [verDiv, setVerDiv] = useState<string | null>(null);
   const nomes = new Map([...times.values()].map((t) => [t.id, t.nome]));
   const minhaDiv = divisaoDe(temporada);
   const tabela = calcularTabela(temporada, idsDaTemporada(temporada), nomes);
   const minhaPos = tabela.findIndex((l) => l.id === meuTime.id) + 1;
   const fim = temporada.rodadaAtual >= temporada.rodadas.length;
   // Tabela mostrada: a sua divisão ou a outra.
-  const vista = verOutra && outraTemporada ? outraTemporada : temporada;
+  const todas = [temporada, ...outrasTemporadas].sort(
+    (a, b) => ligaDe(divisaoDe(a)).nivel - ligaDe(divisaoDe(b)).nivel,
+  );
+  const vista = todas.find((t) => divisaoDe(t) === verDiv) ?? temporada;
   const vistaDiv = divisaoDe(vista);
   const tabelaVista = vista === temporada ? tabela : calcularTabela(vista, idsDaTemporada(vista), nomes);
   const disputadasVista = vista.rodadas.filter((jogos, r) => jogos.every((_, i) => vista.placares[chaveJogo(r, i)])).length;
   // Fim das duas divisões: quem sobe e quem cai.
-  const fimOutra = outraTemporada && outraTemporada.rodadaAtual >= outraTemporada.rodadas.length;
-  const novaDiv =
-    fim && fimOutra
-      ? trocarDivisoes(minhaDiv === "A" ? temporada : outraTemporada!, minhaDiv === "A" ? outraTemporada! : temporada)[meuTime.id]
-      : minhaDiv;
+  const fimTodas = todas.every((t) => t.rodadaAtual >= t.rodadas.length);
+  const novaDiv = fim && fimTodas ? (trocarDivisoes(...todas)[meuTime.id] ?? minhaDiv) : minhaDiv;
+  const subiu = ligaDe(novaDiv).nivel < ligaDe(minhaDiv).nivel;
   const campeao = times.get(tabela[0].id)!;
 
   const meusJogos = temporada.rodadas.map((jogos, r) => {
@@ -76,10 +76,10 @@ export function TelaCampeonato(props: Props) {
               <b>{premioFinal(minhaPos, minhaDiv, tabela.length)} moedas</b> de premiação.
             </p>
             {novaDiv !== minhaDiv && (
-              <p className={novaDiv === "A" ? "acesso" : "queda"}>
-                {novaDiv === "A"
-                  ? `Acesso! Em ${temporada.ano + 1} o ${meuTime.nome} joga a Série A, e a receita de TV dobra.`
-                  : `Rebaixado. Em ${temporada.ano + 1} o ${meuTime.nome} joga a Série B, com metade da receita de TV.`}
+              <p className={subiu ? "acesso" : "queda"}>
+                {subiu
+                  ? `Acesso! Em ${temporada.ano + 1} o ${meuTime.nome} joga a ${nomeDaDivisao(novaDiv)}, e a receita de TV dobra.`
+                  : `Rebaixado. Em ${temporada.ano + 1} o ${meuTime.nome} joga a ${nomeDaDivisao(novaDiv)}, com metade da receita de TV.`}
               </p>
             )}
             {saidas.length > 0 && (
@@ -109,14 +109,17 @@ export function TelaCampeonato(props: Props) {
               {disputadasVista} de {vista.rodadas.length} rodadas
             </span>
           </h2>
-          {outraTemporada && (
+          {todas.length > 1 && (
             <div className="alternar" role="group" aria-label="Divisão">
-              <button className={!verOutra ? "ativo" : ""} onClick={() => setVerOutra(false)}>
-                {nomeDaDivisao(minhaDiv)} (sua)
-              </button>
-              <button className={verOutra ? "ativo" : ""} onClick={() => setVerOutra(true)}>
-                {nomeDaDivisao(divisaoDe(outraTemporada))}
-              </button>
+              {todas.map((t) => {
+                const d = divisaoDe(t);
+                return (
+                  <button key={d} className={d === vistaDiv ? "ativo" : ""} onClick={() => setVerDiv(d)}>
+                    {nomeDaDivisao(d)}
+                    {d === minhaDiv ? " (sua)" : ""}
+                  </button>
+                );
+              })}
             </div>
           )}
           <div className="rolagem">
@@ -178,8 +181,9 @@ export function TelaCampeonato(props: Props) {
                 <i className={`zona-cor zona-${z.classe}`} /> {z.nome}
               </li>
             ))}
-            {vistaDiv === "B" && <li className="suave">Os {VAGAS_ACESSO} últimos da A descem para a B.</li>}
-            {!ligaDe(vistaDiv).par && <li className="suave">Ninguém cai: a segunda divisão deste país não está no jogo.</li>}
+            {!ligaDe(vistaDiv).vagas && ligaDe(vistaDiv).nivel === 1 && (
+              <li className="suave">Ninguém cai: a segunda divisão deste país não está no jogo.</li>
+            )}
           </ul>
         </div>
 

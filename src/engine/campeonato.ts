@@ -1,7 +1,7 @@
 import { simularPartida } from "./match";
 import { criarRng } from "./rng";
 import type { ResultadoPartida, Time } from "./types";
-import { ligaDe, nomeCurto, zonaDaLiga, type ClasseZona, type Divisao } from "./ligas";
+import { ligaDe, nomeCurto, outrasDivisoes, zonaDaLiga, type ClasseZona, type Divisao } from "./ligas";
 
 export type { Divisao } from "./ligas";
 /** Um jogo do calendário: ids de mandante e visitante. */
@@ -13,7 +13,7 @@ export type Placar = [golsMandante: number, golsVisitante: number];
  * estrangeiras. A Série C não existe no jogo: quem cai da B fica na B.
  */
 /** Quantos sobem da B e caem da A no fim da temporada. */
-export const VAGAS_ACESSO = 4;
+export const VAGAS_ACESSO = 4; // Série A e B (ver ligas.ts)
 
 export interface Temporada {
   ano: number;
@@ -84,8 +84,8 @@ export function novaTemporada(ids: string[], ano: number, seed: number, divisao:
 export const divisaoDe = (t: Temporada): Divisao => t.divisao ?? "A";
 /** "Série A", "Série B" ou o nome da liga estrangeira. */
 export const nomeDaDivisao = (d: Divisao) => nomeCurto(d);
-/** Divisão ligada por acesso e rebaixamento (só no Brasil). */
-export const divisaoPar = (d: Divisao): Divisao | undefined => ligaDe(d).par;
+/** As outras divisões do mesmo país, ligadas por acesso e rebaixamento. */
+export const divisoesVizinhas = (d: Divisao): Divisao[] => outrasDivisoes(d);
 
 /** Clubes que disputam a temporada (os do primeiro turno). */
 export const idsDaTemporada = (t: Temporada) => t.rodadas[0].flat();
@@ -98,15 +98,21 @@ export function jogarRodada(t: Temporada, times: Map<string, Time>): Temporada {
 }
 
 /**
- * Acesso e rebaixamento: os 4 últimos da A caem e os 4 primeiros da B sobem.
- * Devolve o mapa clube -> divisão para a próxima temporada.
+ * Acesso e rebaixamento entre as divisões de um país (temporadas em qualquer
+ * ordem). Entre cada divisão e a de baixo, os `vagas` últimos caem e os `vagas`
+ * primeiros sobem (Série A/B: 4). Devolve o mapa clube -> divisão da próxima temporada.
  */
-export function trocarDivisoes(serieA: Temporada, serieB: Temporada): Record<string, Divisao> {
-  const a = calcularTabela(serieA, idsDaTemporada(serieA));
-  const b = calcularTabela(serieB, idsDaTemporada(serieB));
+export function trocarDivisoes(...temporadas: Temporada[]): Record<string, Divisao> {
+  const ts = [...temporadas].sort((x, y) => ligaDe(divisaoDe(x)).nivel - ligaDe(divisaoDe(y)).nivel);
+  const tabelas = ts.map((t) => calcularTabela(t, idsDaTemporada(t)).map((l) => l.id));
   const novo: Record<string, Divisao> = {};
-  a.forEach((l, i) => (novo[l.id] = i >= a.length - VAGAS_ACESSO ? "B" : "A"));
-  b.forEach((l, i) => (novo[l.id] = i < VAGAS_ACESSO ? "A" : "B"));
+  ts.forEach((t, i) => tabelas[i].forEach((id) => (novo[id] = divisaoDe(t))));
+  for (let i = 0; i + 1 < ts.length; i++) {
+    const vagas = ligaDe(divisaoDe(ts[i])).vagas ?? 0;
+    const [cima, baixo] = [tabelas[i], tabelas[i + 1]];
+    cima.slice(cima.length - vagas).forEach((id) => (novo[id] = divisaoDe(ts[i + 1])));
+    baixo.slice(0, vagas).forEach((id) => (novo[id] = divisaoDe(ts[i])));
+  }
   return novo;
 }
 

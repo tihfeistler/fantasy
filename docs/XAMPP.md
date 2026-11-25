@@ -159,11 +159,14 @@ clubes da Série B.
   partida no ranqueado direto.
 - Comprar lenda no mercado respeita o limite da coleção (300, ampliável até 500).
 
-## Atualização de 25/11/2026 (ligas estrangeiras)
+## Atualização de 25/11/2026 (ligas estrangeiras e divisões de baixo)
 
-O jogo agora tem, além das Séries A e B, as ligas da Inglaterra, Espanha,
-Itália, Alemanha, França, Portugal e Argentina (144 clubes e 4.044 jogadores
-atuais a mais) e 85 lendas estrangeiras novas. Para atualizar uma instalação
+O jogo agora tem 16 países e 36 divisões: Brasil (Séries A a D) e Inglaterra
+(Premier League a League Two) até a 4ª divisão; Espanha, Itália, Alemanha,
+França, Portugal, Holanda, Bélgica, Argentina, Arábia Saudita, Noruega,
+Dinamarca, Escócia, Áustria e Sérvia com 1ª e 2ª divisão. São 638 clubes e
+18.197 jogadores atuais, mais 85 lendas estrangeiras novas. Em cada país há
+acesso e rebaixamento entre todas as divisões. Para atualizar uma instalação
 que já existe:
 
 1. Baixe a versão nova (`git pull` na pasta do projeto, dentro de
@@ -176,8 +179,9 @@ que já existe:
 
    Ele importa os clubes e jogadores novos e ajusta sozinho a tabela
    `carreiras` (a divisão passou de 1 letra para até 8, para guardar a liga).
-   Deve terminar com `Importados: 184 clubes, 5816 jogadores.`
+   Deve terminar com `Importados: 638 clubes, 18583 jogadores.`
 3. Gere o front de novo: `npm install` e `npm run build`.
 
 As carreiras e contas que já existem continuam valendo. Para treinar um clube
-estrangeiro, comece uma carreira nova e escolha o país na tela de clubes.
+estrangeiro ou de outra divisão, comece uma carreira nova e escolha o país na
+tela de clubes.

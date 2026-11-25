@@ -3,7 +3,9 @@
 Gera data/atuais.json (jogadores atuais) a partir de data/elencos-2026.txt
 (Série A), data/elencos-serie-b-2026.txt (Série B) e
 data/elencos-estrangeiros-2026.txt (Inglaterra, Espanha, Itália, Alemanha,
-França, Portugal e Argentina).
+França, Portugal e Argentina) e data/elencos-divisoes-2026.txt (divisões de
+baixo e Holanda, Bélgica, Arábia Saudita, Noruega, Dinamarca, Escócia, Áustria
+e Sérvia).
 
 Formato do .txt, uma linha por jogador:
     clubeId | camisa | GK/DF/MF/FW | NAC | Nome [| POSICAO_FINA] [| geral]
@@ -48,7 +50,8 @@ NUMERACAO = {
     "EU": ({4, 5, 15, 24}, {2, 3, 12, 22}, {10, 7, 11, 20}, {6, 8, 16}),
     "AR": ({2, 6, 26}, {3, 4, 13}, {10, 20}, {5, 8}),
 }
-ESCOLA = {"brasileirao-a": "BR", "brasileirao-b": "BR", "liga-argentina": "AR"}
+ESCOLA = {"brasileirao-a": "BR", "brasileirao-b": "BR", "brasileirao-c": "BR", "brasileirao-d": "BR",
+          "liga-argentina": "AR", "primera-nacional": "AR"}
 
 def posicoes_finas(jogadores, escola="BR"):
     """Distribui DF em ZAG/LAT e MF em VOL/MEI pela numeração."""
@@ -78,7 +81,8 @@ def main():
     clubes = {c["id"]: c for c in json.loads((RAIZ / "data/clubes.json").read_text("utf-8"))}
     por_clube = {}
     linhas = []
-    for arq in ("data/elencos-2026.txt", "data/elencos-serie-b-2026.txt", "data/elencos-estrangeiros-2026.txt"):
+    for arq in ("data/elencos-2026.txt", "data/elencos-serie-b-2026.txt", "data/elencos-estrangeiros-2026.txt",
+                "data/elencos-divisoes-2026.txt"):
         if (RAIZ / arq).exists():
             linhas += [(f"{arq}:{n}", l) for n, l in enumerate((RAIZ / arq).read_text("utf-8").splitlines(), 1)]
     for n, linha in linhas:

@@ -19,7 +19,7 @@ interface Props {
 }
 
 /** Finanças do clube: indicadores, como o dinheiro entra e sai, e o extrato. */
-export function TelaFinancas({ meuTime, financas, folha, noVermelho, divisao }: Props) {
+export function TelaFinancas({ meuTime, financas, folha, noVermelho }: Props) {
   const ultimo = financas.extrato[0]?.rodada;
   const saldoUltima = financas.extrato.filter((l) => l.rodada === ultimo).reduce((s, l) => s + l.valor, 0);
   const salarioRodada = Math.round(folha / RODADAS_POR_MES);
@@ -50,7 +50,7 @@ export function TelaFinancas({ meuTime, financas, folha, noVermelho, divisao }: 
           <h2>Por rodada</h2>
           <ul className="fin-linhas">
             <li>
-              <span>TV e patrocínio{divisao === "B" ? " (Série B: metade)" : ""}</span>
+              <span>TV e patrocínio</span>
               <b className="ent">{formatarDinheiro(financas.receitaPorRodada)}</b>
             </li>
             <li>
