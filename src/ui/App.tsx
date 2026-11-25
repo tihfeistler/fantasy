@@ -8,6 +8,7 @@ import {
   CLUBES,
   clubesDaDivisao,
   DIVISOES_INICIAIS,
+  estadioDoClube,
   montarTimesAtuais,
   NIVEL,
 } from "../data/clubes";
@@ -121,7 +122,8 @@ import {
 import { TelaMercadoCartas } from "./TelaMercadoCartas";
 import { TelaNovoManager } from "./TelaNovoManager";
 import { entradaDoTime, fonteLocal, TelaDraft, type FonteDraft } from "./TelaTimeProprio";
-import { ESTADIOS, type ClubeProprio, type EscolhaDraft, type Identidade } from "../engine/timeProprio";
+import { fatorBilheteria } from "../engine/estadios";
+import { ESTADIOS, fatorDaCarta, type ClubeProprio, type EscolhaDraft, type Identidade } from "../engine/timeProprio";
 import { TelaInicio } from "./TelaInicio";
 import { completa, TelaOnline, timeDe } from "./TelaOnline";
 import { CompletarCadastro, Entrar } from "./TelaConta";
@@ -203,7 +205,7 @@ const timeCartasInicial = () => ({
 });
 
 const financasDoClube = (clubeId: string): Financas =>
-  financasIniciais(montarTimesAtuais().find((t) => t.id === clubeId)!);
+  financasIniciais(montarTimesAtuais().find((t) => t.id === clubeId)!, fatorBilheteria(estadioDoClube(clubeId)));
 
 /** Lendas da conta que não estão no elenco da carreira (uma entrada por cópia). */
 function estoqueDaConta(s: SituacaoOnline, noElenco: string[] = []): string[] {
@@ -263,15 +265,14 @@ function carreiraDoTimeProprio(identidade: Identidade, escolhas: EscolhaDraft[],
   for (const id of ids) if (atuais.has(id)) transferencias[id] = vaga;
   const lendasDoDraft = [...ids].filter((id) => !atuais.has(id));
   const time = montarTimesAtuais(transferencias).find((t) => t.id === vaga)!;
-  const f = financasIniciais(time);
   const estadio = ESTADIOS.find((e) => e.id === identidade.estadio) ?? ESTADIOS[0];
+  const f = financasIniciais(time, fatorDaCarta(estadio));
   return {
     clubeProprio,
     transferencias,
     noElenco: lendasDoDraft.length ? { [vaga]: lendasDoDraft } : {},
     financas: {
       ...f,
-      bilheteria: Math.round(f.bilheteria * estadio.fatorBilheteria),
       caixa: Math.max(0, f.caixa - estadio.custo),
     },
   };

@@ -164,7 +164,6 @@ switch ((string) ($d['acao'] ?? '')) {
         // escolhido mexe na bilheteria e no caixa inicial.
         $proprio = timeProprio($eu);
         $posse = [];
-        $fatorBilheteria = 1.0;
         $custoEstadio = 0;
         if ($proprio) {
             if ($proprio['vaga'] !== $clube) erro('O clube desta conta é o seu time próprio.', 409);
@@ -172,11 +171,18 @@ switch ((string) ($d['acao'] ?? '')) {
             foreach (atuais([], $clube) as $id => $_) $posse[$id] = 0;
             $elenco = atuais(idsEscolhidos($proprio));
             foreach ($elenco as $id => $_) $posse[$id] = 1;
-            [$fatorBilheteria, $custoEstadio] = ESTADIOS[$proprio['identidade']['estadio']] ?? [1.0, 0];
+            [$cap, $atm, $qual, $custoEstadio] = ESTADIOS[$proprio['identidade']['estadio']] ?? ESTADIOS['municipal'];
+            $fatorBilheteria = fatorBilheteria($cap, $atm, $qual);
             $dados['clubeProprio'] = clubeProprioPublico($proprio);
         } else {
             $elenco = atuais([], $clube);
             unset($dados['clubeProprio']);
+            // O estádio real do clube mexe na bilheteria (src/engine/estadios.ts).
+            $q = $pdo->prepare('SELECT capacidade, atmosfera, qualidade FROM clubes WHERE id = ?');
+            $q->execute([$clube]);
+            $e = $q->fetch();
+            $fatorBilheteria = $e && $e['capacidade'] !== null
+                ? fatorBilheteria((int) $e['capacidade'], (int) $e['atmosfera'], (int) $e['qualidade']) : 1.0;
         }
         if (count($elenco) < 11) erro('Elenco do clube não encontrado. Rode scripts/importar.php.');
         $folha = folha($elenco, []);

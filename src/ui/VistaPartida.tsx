@@ -3,6 +3,8 @@ import { useEffect, useState, type ReactNode } from "react";
 import { MAX_SUBSTITUICOES, type NovaDecisao, type PartidaAoVivo, type Tatica } from "../engine/match";
 import type { Time, TipoEvento } from "../engine/types";
 import { setor } from "./CartaJogador";
+import { estadioDoClube } from "../data/clubes";
+import { publicoMedio } from "../engine/estadios";
 
 const ROTULO: Partial<Record<TipoEvento, string>> = {
   gol: "Gol",
@@ -82,6 +84,10 @@ export function VistaPartida(p: Props) {
             <span>{gols(p.visitante.id)}</span>
           </div>
           <div className={`relogio${p.aoVivo ? " ao-vivo" : ""}`}>{p.relogio}</div>
+          <div className="placar-estadio suave">
+            {estadioDoClube(p.mandante.id).nome} · {publicoMedio(estadioDoClube(p.mandante.id)).toLocaleString("pt-BR")}{" "}
+            torcedores
+          </div>
         </div>
       </div>
       <div className="progresso">

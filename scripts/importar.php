@@ -17,18 +17,27 @@ if ($col !== false && (int) $col < 8) {
 }
 // Bancos criados antes das copas: prêmios de copa já pagos.
 $pdo->exec('ALTER TABLE carreiras ADD COLUMN IF NOT EXISTS copas_pagas TEXT NULL AFTER bonus_inicial');
+// Bancos criados antes dos estádios: estádio, capacidade, atmosfera, qualidade e visual dos clubes.
+$pdo->exec('ALTER TABLE clubes ADD COLUMN IF NOT EXISTS estadio VARCHAR(100) NULL,
+    ADD COLUMN IF NOT EXISTS capacidade INT UNSIGNED NULL, ADD COLUMN IF NOT EXISTS atmosfera TINYINT UNSIGNED NULL,
+    ADD COLUMN IF NOT EXISTS qualidade TINYINT UNSIGNED NULL, ADD COLUMN IF NOT EXISTS visual TEXT NULL');
 $pdo->beginTransaction();
 
 $arqClubes = "$raiz/data/clubes.json";
 $nClubes = 0;
 if (is_file($arqClubes)) {
-    $st = $pdo->prepare('INSERT INTO clubes (id, nome, sigla, cor, cor_secundaria, liga, nivel)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+    $st = $pdo->prepare('INSERT INTO clubes (id, nome, sigla, cor, cor_secundaria, liga, nivel,
+            estadio, capacidade, atmosfera, qualidade, visual)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE nome=VALUES(nome), sigla=VALUES(sigla), cor=VALUES(cor),
-        cor_secundaria=VALUES(cor_secundaria), liga=VALUES(liga), nivel=VALUES(nivel)');
+        cor_secundaria=VALUES(cor_secundaria), liga=VALUES(liga), nivel=VALUES(nivel), estadio=VALUES(estadio),
+        capacidade=VALUES(capacidade), atmosfera=VALUES(atmosfera), qualidade=VALUES(qualidade), visual=VALUES(visual)');
     foreach (json_decode(file_get_contents($arqClubes), true, flags: JSON_THROW_ON_ERROR) as $c) {
         $st->execute([$c['id'], $c['nome'], $c['sigla'], $c['cor'] ?? '#888888',
-            $c['corSecundaria'] ?? null, $c['liga'] ?? null, $c['nivel'] ?? null]);
+            $c['corSecundaria'] ?? null, $c['liga'] ?? null, $c['nivel'] ?? null,
+            $c['estadio']['nome'] ?? null, $c['estadio']['capacidade'] ?? null, $c['estadio']['atmosfera'] ?? null,
+            $c['estadio']['qualidade'] ?? null,
+            isset($c['camisas']) ? json_encode(['camisas' => $c['camisas'], 'emblema' => $c['emblema']], JSON_UNESCAPED_UNICODE) : null]);
         $nClubes++;
     }
 }

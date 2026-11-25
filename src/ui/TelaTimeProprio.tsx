@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { CLUBES } from "../data/clubes";
+import { fatorCasa } from "../engine/estadios";
 import { LIGAS } from "../engine/ligas";
 import {
   CHANCES_DRAFT,
@@ -17,6 +18,9 @@ import {
   problemaNaIdentidade,
   raridadeDraft,
   siglaSugerida,
+  fatorDaCarta,
+  uniformesDoTimeProprio,
+  type Uniforme,
   SIMBOLOS,
   sortearOpcoes,
   TOTAL_DRAFT,
@@ -58,6 +62,7 @@ export const IDENTIDADE_INICIAL: Identidade = {
   corSecundaria: "#ffffff",
   emblema: { forma: "escudo", simbolo: "estrela" },
   camisa: "lisa",
+  camisaReserva: { modelo: "lisa", cor: "#ffffff", cor2: "#1e5bb8" },
 };
 
 const PALETA = ["#c8102e", "#1e5bb8", "#0b7a5a", "#000000", "#ffffff", "#f2c500", "#f36c21", "#6a3fb5", "#7a0019", "#5bc2e7"];
@@ -76,6 +81,8 @@ export function CamposTimeProprio({
   const muda = (parcial: Partial<Identidade>) => onChange({ ...v, ...parcial });
   const entrada = entradaDoTime(v.divisao);
   const problema = tocado ? problemaNaIdentidade(v) : null;
+  const [, reserva] = uniformesDoTimeProprio(v);
+  const mudaReserva = (parcial: Partial<Uniforme>) => muda({ camisaReserva: { ...reserva, ...parcial } });
   return (
     <div className="time-proprio">
       <div className="tp-previa" style={{ "--cor-clube": v.cor } as React.CSSProperties}>
@@ -88,6 +95,7 @@ export function CamposTimeProprio({
           tamanho={92}
         />
         <Camisa modelo={v.camisa} cor={v.cor} cor2={v.corSecundaria} tamanho={92} />
+        <Camisa modelo={reserva.modelo} cor={reserva.cor} cor2={reserva.cor2} tamanho={64} />
         <div className="tp-previa-info">
           <b>{v.nome.trim() || "Seu time"}</b>
           <span className="suave">
@@ -177,7 +185,11 @@ export function CamposTimeProprio({
           >
             <b>{e.nome}</b>
             <span>{e.capacidade.toLocaleString("pt-BR")} lugares</span>
-            <span>Bilheteria {e.fatorBilheteria < 1 ? "−" : "+"}{Math.round(Math.abs(e.fatorBilheteria - 1) * 100)}%</span>
+            <span>Atmosfera {e.atmosfera} · Qualidade {e.qualidade}</span>
+            <span>
+              Bilheteria {fatorDaCarta(e) < 1 ? "−" : "+"}
+              {Math.round(Math.abs(fatorDaCarta(e) - 1) * 100)}% · Casa +{Math.round((fatorCasa(e) - 1) * 100)}%
+            </span>
             <span>{e.custo ? `Custa R$ ${(e.custo / 1000).toLocaleString("pt-BR")} mi` : "Sem custo"}</span>
           </button>
         ))}
@@ -258,6 +270,32 @@ export function CamposTimeProprio({
             <span>{m.nome}</span>
           </button>
         ))}
+      </div>
+      <span className="tp-rotulo">Camisa reserva</span>
+      <div className="tp-opcoes">
+        {MODELOS_CAMISA.map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            className={reserva.modelo === m.id ? "ativo" : ""}
+            aria-pressed={reserva.modelo === m.id}
+            onClick={() => mudaReserva({ modelo: m.id })}
+            title={m.nome}
+          >
+            <Camisa modelo={m.id} cor={reserva.cor} cor2={reserva.cor2} tamanho={44} />
+            <span>{m.nome}</span>
+          </button>
+        ))}
+      </div>
+      <div className="cad-linha">
+        <div className="tp-cores">
+          <span className="tp-rotulo">Fundo da reserva</span>
+          <Cores valor={reserva.cor} onChange={(cor) => mudaReserva({ cor })} id="tp-reserva-cor" />
+        </div>
+        <div className="tp-cores">
+          <span className="tp-rotulo">Detalhe da reserva</span>
+          <Cores valor={reserva.cor2} onChange={(cor2) => mudaReserva({ cor2 })} id="tp-reserva-cor2" />
+        </div>
       </div>
       {problema && <span className="cad-erro">{problema}</span>}
       <p className="suave">

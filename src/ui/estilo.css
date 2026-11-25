@@ -1322,3 +1322,15 @@ body.com-partida { overflow: hidden; }
 @media (max-width: 860px) {
   .draft-corpo { grid-template-columns: 1fr; }
 }
+
+/* ---- Estádio e uniformes (escritório) ---- */
+.est-cartao { display: grid; gap: 10px; }
+.est-topo { display: grid; gap: 2px; }
+.est-nome { font-size: 1.1em; }
+.est-nota { display: grid; gap: 4px; font-size: 0.92em; }
+.est-nota > i { display: block; height: 6px; border-radius: 3px; background: #ffffff1a; overflow: hidden; }
+.est-nota > i > i { display: block; height: 100%; border-radius: 3px; background: linear-gradient(90deg, #f2c500, #f36c21); }
+.est-efeito { margin: 0; }
+.est-camisas { display: flex; gap: 16px; }
+.est-camisas figure { margin: 0; display: grid; justify-items: center; gap: 2px; font-size: 0.85em; }
+.placar-estadio { font-size: 0.8em; margin-top: 4px; text-align: center; }

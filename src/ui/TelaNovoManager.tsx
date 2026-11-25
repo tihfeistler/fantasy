@@ -1,5 +1,5 @@
 import { Escudo } from "./Emblema";
-import { DIVISOES_INICIAIS } from "../data/clubes";
+import { DIVISOES_INICIAIS, estadioDoClube } from "../data/clubes";
 import { useMemo, useState } from "react";
 import { escalar } from "../engine/ratings";
 import { LIGAS } from "../engine/ligas";
@@ -197,7 +197,7 @@ export function TelaNovoManager({
                     ? "Digite seu nome para continuar."
                     : !escolhido
                       ? "Escolha um clube."
-                      : `${nome.trim()} no ${escolhido.t.nome}.`}
+                      : `${nome.trim()} no ${escolhido.t.nome}. Estádio: ${estadioDoClube(escolhido.t.id).nome} (${estadioDoClube(escolhido.t.id).capacidade.toLocaleString("pt-BR")} lugares).`}
                 </span>
                 <button
                   className="botao primario"
