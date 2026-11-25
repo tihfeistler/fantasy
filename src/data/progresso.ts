@@ -3,6 +3,7 @@ import type { Divisao, Temporada } from "../engine/campeonato";
 import type { Financas } from "../engine/mercado";
 import type { MercadoCartas } from "../engine/mercadoCartas";
 import type { TimeCartas } from "../engine/desafios";
+import type { Copa } from "../engine/copas";
 import { LIMITE_CARTAS_INICIAL } from "../engine/pacotes";
 
 /**
@@ -56,6 +57,10 @@ export interface Progresso {
   noVermelho?: number;
   /** O caixa do antigo time de cartas já foi somado ao do clube (caixa único). */
   caixaUnico?: boolean;
+  /** Copas da temporada (nacional e continental), em mata-mata. */
+  copas?: Copa[];
+  /** Copas de temporadas encerradas: campeão e até onde o clube do técnico foi. */
+  historicoCopas?: { ano: number; id: string; nome: string; campeao: string; campanha?: string }[];
   /** Temporadas encerradas. */
   historico?: { ano: number; posicao: number; campeao: string; divisao?: Divisao }[];
 }

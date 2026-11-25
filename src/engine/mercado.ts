@@ -39,6 +39,7 @@ export type TipoLancamento =
   | "desafio-custo"
   | "desafio-premio"
   | "partida"
+  | "copa"
   | "aviso";
 
 export interface Lancamento {

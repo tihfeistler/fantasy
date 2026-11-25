@@ -15,6 +15,8 @@ if ($col !== false && (int) $col < 8) {
     $pdo->exec("ALTER TABLE carreiras MODIFY divisao VARCHAR(8) NOT NULL DEFAULT 'A'");
     echo "Tabela carreiras atualizada para as ligas estrangeiras.\n";
 }
+// Bancos criados antes das copas: prêmios de copa já pagos.
+$pdo->exec('ALTER TABLE carreiras ADD COLUMN IF NOT EXISTS copas_pagas TEXT NULL AFTER bonus_inicial');
 $pdo->beginTransaction();
 
 $arqClubes = "$raiz/data/clubes.json";
