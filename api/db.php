@@ -79,7 +79,11 @@ function corpoJson(): array
 function iniciarSessao(): void
 {
     if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_set_cookie_params(['httponly' => true, 'samesite' => 'Lax']);
+        // Login vale 30 dias: sem isso o cookie some ao fechar o navegador e o PHP
+        // apaga a sessão depois de 24 min parada (padrão do XAMPP).
+        $duracao = 30 * 24 * 3600;
+        ini_set('session.gc_maxlifetime', (string) $duracao);
+        session_set_cookie_params(['lifetime' => $duracao, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax']);
         session_start();
     }
 }

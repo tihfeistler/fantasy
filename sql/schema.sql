@@ -277,3 +277,6 @@ CREATE TABLE IF NOT EXISTS lancamentos (
 -- Bancos criados antes de 25/11/2026 (MariaDB/XAMPP).
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS limite_cartas SMALLINT UNSIGNED NOT NULL DEFAULT 300 AFTER moedas;
 ALTER TABLE carreiras ADD COLUMN IF NOT EXISTS ultima_partida INT NOT NULL DEFAULT 0 AFTER ultima_premiacao;
+
+-- Dono da carta quando a proposta foi feita (para mostrar a quem foi a proposta depois da venda).
+ALTER TABLE propostas ADD COLUMN IF NOT EXISTS vendedor_id INT UNSIGNED NULL AFTER comprador_id;

@@ -150,3 +150,11 @@ O jogo agora abre pedindo login, e a carreira fica salva na conta. Importe
 adiciona colunas novas) e rode `php scripts/importar.php` para trazer os 20
 clubes da Série B.
 
+
+## Atualização de 25/11/2026 (testes de ponta a ponta)
+
+- Importe `sql/schema.sql` de novo: ele adiciona a coluna `propostas.vendedor_id`.
+- O login agora dura 30 dias (antes caía ao fechar o navegador).
+- Conta nova já vem com o time de cartas escalado no 4-4-2 e pode procurar
+  partida no ranqueado direto.
+- Comprar lenda no mercado respeita o limite da coleção (300, ampliável até 500).

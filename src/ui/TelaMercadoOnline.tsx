@@ -212,7 +212,10 @@ export function TelaMercadoOnline({ onMudou }: Props) {
           <ul className="mercado-lista">
             {minhas?.enviadas.map((p) => (
               <li key={p.id} className="ml-linha">
-                <Info j={p.jogador} extra={`para ${p.outro}: ${p.valor} moedas`} />
+                <Info
+                  j={p.jogador}
+                  extra={`para ${p.outro}: ${p.status === "aceita" && p.contra_valor ? p.contra_valor : p.valor} moedas`}
+                />
                 {p.status === "contraproposta" ? (
                   <>
                     <span className="suave">{p.outro} pede {p.contra_valor} moedas.</span>

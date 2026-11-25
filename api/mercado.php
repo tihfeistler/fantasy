@@ -48,6 +48,11 @@ function transferir(array $carta, int $compradorId, int $valor): array
     $vendedor = (int) $carta['usuario_id'];
     if ($compradorId === $vendedor) erro('Você não pode comprar a própria carta.');
     if (moedasTravadas($compradorId) < $valor) erro('Moedas insuficientes.');
+    // O estoque de lendas tem limite (300, ampliável até 500).
+    $s = $pdo->prepare("SELECT u.limite_cartas - (SELECT COUNT(*) FROM cartas c JOIN jogadores j ON j.id = c.jogador_id
+        WHERE c.usuario_id = u.id AND j.tipo = 'classico') FROM usuarios u WHERE u.id = ?");
+    $s->execute([$compradorId]);
+    if ((int) $s->fetchColumn() < 1) erro('Sem espaço na coleção. Venda cartas ou amplie a coleção.');
     moedasTravadas($vendedor);
     $taxa = (int) ceil($valor * TAXA_MERCADO);
     $pdo->prepare('UPDATE usuarios SET moedas = moedas - ? WHERE id = ?')->execute([$valor, $compradorId]);
@@ -134,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $recebidas = array_map($prop, $s->fetchAll());
         $s = $pdo->prepare('SELECT p.id AS proposta_id, p.carta_id, p.valor, p.contra_valor, p.status, u.nome AS outro, j.*
             FROM propostas p JOIN cartas c ON c.id = p.carta_id JOIN jogadores j ON j.id = c.jogador_id
-            JOIN usuarios u ON u.id = c.usuario_id WHERE p.comprador_id = ? ORDER BY p.criado_em DESC LIMIT 30');
+            JOIN usuarios u ON u.id = COALESCE(p.vendedor_id, c.usuario_id) WHERE p.comprador_id = ? ORDER BY p.criado_em DESC LIMIT 30');
         $s->execute([$eu]);
         $m = $pdo->prepare('SELECT moedas FROM usuarios WHERE id = ?');
         $m->execute([$eu]);
@@ -181,8 +186,8 @@ switch ($acao) {
         // Uma proposta aberta por carta e comprador: a nova substitui a antiga.
         $pdo->prepare("UPDATE propostas SET status = 'cancelada', respondida_em = NOW()
             WHERE carta_id = ? AND comprador_id = ? AND status IN ('aberta', 'contraproposta')")->execute([$carta['id'], $eu]);
-        $pdo->prepare('INSERT INTO propostas (carta_id, comprador_id, valor) VALUES (?, ?, ?)')
-            ->execute([$carta['id'], $eu, $valor]);
+        $pdo->prepare('INSERT INTO propostas (carta_id, comprador_id, vendedor_id, valor) VALUES (?, ?, ?, ?)')
+            ->execute([$carta['id'], $eu, $carta['usuario_id'], $valor]);
         $id = (int) $pdo->lastInsertId();
         $pdo->commit();
         responder(['ok' => true, 'proposta_id' => $id], 201);

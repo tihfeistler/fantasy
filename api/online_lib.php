@@ -79,15 +79,31 @@ function timeOnline(int $uid, bool $travar = false): array
     $s->execute([$uid]);
     $t = $s->fetch();
     if (!$t) {
-        $pdo->prepare('INSERT IGNORE INTO times_online (usuario_id, caixa, formacao, titulares, banco) VALUES (?, ?, ?, ?, ?)')
-            ->execute([$uid, CAIXA_INICIAL_ONLINE, '4-4-2', '[]', '[]']);
+        $novo = $pdo->prepare('INSERT IGNORE INTO times_online (usuario_id, caixa, formacao, titulares, banco) VALUES (?, ?, ?, ?, ?)');
+        $novo->execute([$uid, CAIXA_INICIAL_ONLINE, '4-4-2', '[]', '[]']);
+    }
+    // Só quem criou a linha entrega o kit (duas consultas ao mesmo tempo não dão kit em dobro).
+    if (!$t && $novo->rowCount() > 0) {
         $ins = $pdo->prepare("INSERT INTO cartas (usuario_id, jogador_id, origem) VALUES (?, ?, 'kit')");
+        // O kit já vem escalado no 4-4-2 (os melhores de cada posição), para dar para jogar o ranqueado de cara.
+        $vagas = ['GOL' => 1] + FORMACOES['4-4-2'];
+        $titulares = [];
+        $banco = [];
         foreach (KIT_INICIAL as $pos => $n) {
-            $q = $pdo->prepare("SELECT id FROM jogadores WHERE tipo = 'atual' AND posicao = ? AND geral BETWEEN 58 AND 68
-                ORDER BY RAND() LIMIT $n");
+            $q = $pdo->prepare("SELECT id FROM (SELECT id, geral FROM jogadores WHERE tipo = 'atual' AND posicao = ?
+                AND geral BETWEEN 58 AND 68 ORDER BY RAND() LIMIT $n) x ORDER BY geral DESC");
             $q->execute([$pos]);
-            foreach ($q->fetchAll(PDO::FETCH_COLUMN) as $jid) $ins->execute([$uid, $jid]);
+            $ids = $q->fetchAll(PDO::FETCH_COLUMN);
+            foreach ($ids as $i => $jid) {
+                $ins->execute([$uid, $jid]);
+                if ($i < ($vagas[$pos] ?? 0)) $titulares[] = $jid;
+                else $banco[] = $jid;
+            }
         }
+        $pdo->prepare('UPDATE times_online SET titulares = ?, banco = ? WHERE usuario_id = ?')
+            ->execute([json_encode($titulares), json_encode(array_slice($banco, 0, VAGAS_BANCO)), $uid]);
+    }
+    if (!$t) {
         $s->execute([$uid]);
         $t = $s->fetch();
     }
