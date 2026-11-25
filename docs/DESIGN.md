@@ -172,6 +172,9 @@ técnico mexe durante a partida:
 - **Cansaço**: a energia cai a partir dos 30 minutos em campo, até 60%;
   quem tem mais físico cansa menos. Quem entra chega descansado.
 - O jogo pausa sozinho no intervalo; há pausa manual e "Ir para o fim".
+- A partida abre numa **tela única**, em todos os modos (carreira, desafios,
+  ranqueado e Amistoso): só placar, narração e painel do técnico, sem o menu
+  e os saldos. Depois do apito final, o botão da barra volta para o jogo.
 - **Técnico da IA**: fica ofensivo se perde a partir dos 65', defensivo se
   ganha a partir dos 75', e troca o mais cansado aos 60', 70' e 80'.
 - Cada decisão é guardada com o minuto. Seed + decisões reproduzem a
