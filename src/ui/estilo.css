@@ -925,3 +925,45 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
   .partida-grade { grid-template-columns: minmax(0, 1fr); }
   .painel-tecnico { order: -1; }
 }
+
+/* ---------- Online / ranqueado ---------- */
+.link { background: none; border: 0; padding: 0; color: var(--suave); text-decoration: underline; cursor: pointer; font: inherit; font-size: 13px; text-align: left; }
+.link:hover { color: var(--destaque); }
+.online-nome { font-size: 20px !important; overflow-wrap: anywhere; }
+.aviso-online, .entrar { max-width: 520px; margin: 24px auto; padding: 24px; border: 1px solid var(--linha); border-radius: 16px; background: var(--painel); }
+.aviso-online h2, .entrar h2 { margin-top: 0; }
+.entrar { display: flex; flex-direction: column; gap: 12px; }
+.entrar label { display: flex; flex-direction: column; gap: 4px; color: var(--suave); font-size: 13px; }
+.entrar input { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--linha); background: var(--fundo, #0b1430); color: inherit; }
+.entrar .link { align-self: center; }
+.ranq-perfil { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 18px; border: 1px solid var(--linha); border-radius: 16px; background: var(--painel); margin-bottom: 12px; }
+.ranq-info { flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.ranq-info h2 { margin: 0; font-size: 30px; }
+.ranq-acao { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.procurando { color: var(--destaque); font-weight: 700; animation: piscar 1.2s ease-in-out infinite; }
+@keyframes piscar { 50% { opacity: 0.45; } }
+.pdl { height: 10px; border-radius: 99px; background: var(--linha); overflow: hidden; max-width: 360px; }
+.pdl i { display: block; height: 100%; background: var(--destaque); border-radius: 99px; transition: width 0.4s; }
+.emblema { flex: 0 0 auto; width: 84px; height: 84px; display: grid; place-items: center; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); font-family: var(--fonte-titulo); font-weight: 800; font-size: 26px; color: #10182e; }
+.liga-bronze { background: linear-gradient(160deg, #e0a070, #8a5230); }
+.liga-prata { background: linear-gradient(160deg, #eef2f7, #8b95a7); }
+.liga-ouro { background: linear-gradient(160deg, #ffe08a, #c9921c); }
+.liga-platina { background: linear-gradient(160deg, #a6f0e0, #2d9c8b); }
+.liga-diamante { background: linear-gradient(160deg, #b9d4ff, #4c6fd6); }
+.liga-elite { background: linear-gradient(160deg, #ffb3d1, #9b3fd6); }
+.ranq-colunas { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 8px; }
+.ranking { list-style: none; margin: 0; padding: 0; border: 1px solid var(--linha); border-radius: 12px; overflow: hidden; }
+.ranking li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-top: 1px solid var(--linha); }
+.ranking li:first-child { border-top: 0; }
+.ranking li.eu { background: rgba(255, 201, 60, 0.12); }
+.rk-pos { width: 24px; text-align: right; color: var(--suave); font-variant-numeric: tabular-nums; }
+.rk-liga { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; }
+.rk-nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.rk-div { color: var(--suave); font-size: 13px; white-space: nowrap; }
+.pacote-online { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 14px 18px; border: 1px solid var(--linha); border-radius: 14px; background: var(--painel); margin-bottom: 12px; }
+.pacote-online h3 { margin: 0 0 4px; }
+.pacote-online p { margin: 0; }
+@media (max-width: 600px) {
+  .ranq-acao { align-items: stretch; width: 100%; }
+  .emblema { width: 64px; height: 64px; font-size: 20px; }
+}

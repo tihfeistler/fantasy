@@ -258,29 +258,61 @@ Inspirado no sistema de ligas dos jogos competitivos online:
 - **Divisões**: Bronze, Prata, Ouro, Platina, Diamante, cada uma com 4
   níveis (IV a I), e acima delas **Elite** (sem níveis, pontos livres) e
   um **Top 100** por pontos. **[suposição: nomes]**
-- **Pontos de liga (PL)**: vitória dá cerca de +20, derrota cerca de -18 e
-  empate +/-2, ajustados pela força escondida (MMR, tipo Elo): ganhar de
-  quem tem MMR maior rende mais. Com 100 PL sobe de nível; com 0 PL e
-  derrota, cai (proteção de 3 jogos ao subir de divisão).
-- **Classificatórias**: 5 partidas iniciais definem a divisão de entrada.
-- **Pareamento** pelo MMR, com faixa que se alarga com a espera.
-- **Temporada ranqueada** de 2 a 3 meses; no fim, prêmio pela divisão
-  máxima alcançada (moedas, pacotes, carta exclusiva de temporada) e reset
-  parcial dos pontos.
-- **Partida em tempo real**: o servidor simula com o motor determinístico
-  e libera a narração minuto a minuto para os dois técnicos ao mesmo
-  tempo (cerca de 3 minutos por jogo). Cada técnico pode mexer durante o
-  jogo: tática (defensivo, equilibrado, ofensivo) e até 5 substituições, como na partida interativa já feita; a
-  mudança vale a partir do minuto seguinte. No PHP/XAMPP, sem websocket, o
-  cliente consulta o servidor a cada 1 a 2 segundos.
-- Abandono conta como derrota.
+- **Pontos de liga (PDL)**: vitória dá de 12 a 30 e derrota tira de 12 a
+  28, conforme o MMR escondido (Elo, K = 32) comparado ao MMR esperado da
+  divisão (Bronze IV = 800, +40 por divisão): quem joga acima da divisão
+  sobe rápido. Empate não mexe nos pontos (só no MMR). Com 100 PDL sobe;
+  abaixo de 0 cai para a divisão de baixo com 75. Bronze IV não cai.
+- **Pareamento** pelo MMR, com janela de 100 pontos que abre 20 por
+  segundo de espera.
+- **Temporada** trimestral (2026 T4, 2027 T1...). Na virada, cada técnico
+  desce 4 divisões e o MMR volta metade do caminho até 1000.
+  Ainda falta: prêmio de fim de temporada e classificatórias.
+- **Custo e prêmio**: ao parear, cada técnico paga o salário dos titulares
+  (um quarto do mensal, lendas em dobro) do caixa do time online. Prêmio:
+  vitória R$ 800 mil e 60 moedas, empate R$ 400 mil e 25, derrota R$ 200
+  mil e 10.
+- **Partida em tempo real (feita)**: 90 minutos em 3 minutos de relógio
+  (2 s por minuto), começando 8 s depois do pareamento. Cada técnico muda
+  a tática e faz até 5 substituições.
+
+### Online: como a partida é sincronizada (feito)
+
+O motor não foi portado para PHP. O servidor é o **juiz do relógio e das
+decisões**, e os dois navegadores rodam o mesmo motor determinístico:
+
+1. Ao parear, o servidor guarda a seed, os dois times (cartas, escalação
+   e banco) e o horário de início.
+2. Cada decisão (tática ou substituição) é gravada com o minuto do
+   servidor + 1. Os clientes consultam o servidor a cada segundo e só
+   mostram minutos que o servidor já liberou, então uma decisão nunca
+   chega "atrasada": os dois veem a mesma partida.
+3. No apito final cada cliente relata o placar. Placares iguais encerram a
+   partida e mexem nos pontos. Diferentes anulam o jogo e devolvem o
+   salário (sinal de trapaça ou de diferença entre navegadores). Se só um
+   relatar (o outro fechou a página), vale o relato dele depois de 20 s.
+   Sem relato em 2 minutos, a partida é anulada.
+4. Quem abandona não perde automaticamente: o time segue em campo sem
+   mexidas e o resultado do motor vale. **[mudou do plano: "abandono
+   conta como derrota"]**
+
+Limite conhecido: um cliente adulterado que relata sozinho (o outro
+abandonou) pode inventar o placar. A proteção completa é portar o motor
+para PHP ou rodar um verificador em Node no servidor; fica para a fase do
+servidor dedicado.
 
 ### Online: o que já existe
 
 - Contas e login (`api/auth.php`), mercado de cartas entre técnicos
-  (`api/mercado.php`). Falta ligar o front ao servidor.
-- Servidor autoritativo das partidas: motor portado para PHP com testes de
-  paridade por seed (seção 8).
+  (`api/mercado.php`, ainda sem tela).
+- Time de cartas online (`api/online.php`): kit inicial de 16 cartas base,
+  R$ 2 mi de caixa, compra e venda de cartas base, pacotes de lendas e
+  escalação salva no servidor. Separado da carreira e dos desafios, que
+  continuam no navegador.
+- Ranqueado (`api/ranqueado.php`): fila, pareamento, partida ao vivo,
+  divisões, ranking top 100 e histórico. Tela na aba **Online**.
+- Falta: desafio entre amigos, prêmio de fim de temporada, tela do mercado
+  online e as moedas/cartas da carreira contando no online.
 
 ## 8. Plataforma, stack e roteiro
 
@@ -292,10 +324,9 @@ Inspirado no sistema de ligas dos jogos competitivos online:
   importador `scripts/importar.php` carrega os JSON de `data/` no banco.
 - **Onde roda a partida**: no modo solo, o motor TypeScript roda no
   navegador (rápido, funciona offline). No modo online, o servidor precisa
-  decidir o resultado para ninguém trapacear, então o motor será **portado
-  para PHP**, com testes que garantem que a mesma seed dá o mesmo placar nas
-  duas versões. **[suposição]** A alternativa seria trocar o backend para
-  Node e reaproveitar o motor sem portar, mas isso tira a facilidade do XAMPP.
+  decidir o resultado. Por enquanto os dois navegadores rodam o motor e o
+  servidor confere se os placares batem (seção 7). Portar o motor para PHP,
+  ou ter um verificador em Node, fecha a brecha do relato solitário.
 
 | Fase | Entrega |
 | --- | --- |

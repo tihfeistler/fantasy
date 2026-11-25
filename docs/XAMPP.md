@@ -79,7 +79,45 @@ npm run build
 Abra http://localhost/fantasy/dist/. O build usa caminhos relativos e
 chama a API em `../api/`.
 
-## 3. Problemas comuns
+## 3. Testar o ranqueado online com duas contas
+
+O ranqueado precisa do Apache e do MySQL ligados e do front servido pelo
+Apache ou pelo `npm run dev` (a prévia sem servidor não tem modo online).
+
+1. **Atualize o banco**: no phpMyAdmin, importe `sql/schema.sql` de novo.
+   Ele cria as tabelas novas (`times_online`, `ranqueado`, `fila`,
+   `partidas_online`, `decisoes_online`) e não apaga nada.
+2. **Importe os jogadores** se ainda não fez (passo 1.5): o kit inicial e a
+   loja usam os jogadores atuais do banco, e os pacotes usam as lendas.
+3. Rode `npm run build` e abra http://localhost/fantasy/dist/ (ou use
+   `npm run dev` e http://localhost:5173).
+4. **Abra duas sessões separadas**, porque o login fica num cookie do
+   navegador: uma janela normal e uma **janela anônima** (ou Chrome e
+   Edge). Em cada uma, comece uma carreira qualquer para entrar no jogo.
+5. Nas duas, abra a aba **Online**, clique em *Não tenho conta* e crie
+   técnicos diferentes (ex.: "Tiago" e "Teste"). Cada conta ganha R$ 2 mi
+   de caixa, 1.500 moedas e 16 cartas base, já escaladas.
+6. Clique em **Procurar partida** nas duas. Em poucos segundos o servidor
+   pareia as contas e a partida começa (8 s de contagem, depois 3 minutos
+   de jogo).
+7. Durante o jogo, mude a tática e faça substituições numa janela: a
+   mudança aparece na narração das duas janelas no mesmo minuto.
+8. No fim, as duas mostram o mesmo placar, os pontos de liga e o prêmio.
+   Voltando ao ranqueado, o ranking e *Seus últimos jogos* já mostram a
+   partida.
+
+Dicas:
+
+- Para testar mais rápido, acelere o relógio em `api/config.local.php`:
+  `'seg_por_minuto' => 0.5` faz o jogo durar 45 s.
+- A aba *Cartas* abre pacotes de lendas (500 moedas) e compra cartas base;
+  *Meu time* salva a escalação no servidor.
+- Se uma janela for fechada no meio do jogo, a outra continua e o placar
+  dela vale 20 s depois do apito final.
+- Para recomeçar do zero: `DELETE FROM usuarios;` no phpMyAdmin apaga as
+  contas e tudo ligado a elas.
+
+## 4. Problemas comuns
 
 - *"Não consegui falar com a API PHP"* na aba Lendas: Apache ou MySQL
   desligado, banco não criado ou importador não rodado.

@@ -120,3 +120,83 @@ CREATE TABLE IF NOT EXISTS vendas (
   vendida_em      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX (jogador_id, vendida_em)
 ) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- Ranqueado online (docs/DESIGN.md, seção 7)
+-- ---------------------------------------------------------------------
+
+-- Cartas base (jogadores atuais) também ficam em `cartas`: 'kit' é o kit
+-- inicial e 'sistema' é compra direta com moedas.
+ALTER TABLE cartas MODIFY origem ENUM('pacote','objetivo','troca','mercado','sistema','kit') NOT NULL;
+
+-- Time de cartas online: caixa (R$ mil) e escalação (ids em JSON).
+CREATE TABLE IF NOT EXISTS times_online (
+  usuario_id      INT UNSIGNED PRIMARY KEY,
+  caixa           INT          NOT NULL DEFAULT 2000,
+  formacao        VARCHAR(10)  NOT NULL DEFAULT '4-4-2',
+  titulares       TEXT         NOT NULL,
+  banco           TEXT         NOT NULL,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Perfil de cada temporada: divisão (tier 0 = Bronze IV ... 19 = Diamante I, 20 = Elite),
+-- pontos de liga (pdl) e MMR escondido.
+CREATE TABLE IF NOT EXISTS ranqueado (
+  usuario_id      INT UNSIGNED NOT NULL,
+  temporada       INT UNSIGNED NOT NULL,
+  tier            TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  pdl             INT          NOT NULL DEFAULT 0,
+  mmr             INT          NOT NULL DEFAULT 1000,
+  vitorias        INT UNSIGNED NOT NULL DEFAULT 0,
+  empates         INT UNSIGNED NOT NULL DEFAULT 0,
+  derrotas        INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (usuario_id, temporada),
+  INDEX (temporada, tier, pdl),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Fila de procura de partida. visto_em é atualizado a cada consulta do cliente.
+CREATE TABLE IF NOT EXISTS fila (
+  usuario_id      INT UNSIGNED PRIMARY KEY,
+  mmr             INT          NOT NULL,
+  entrou_em       DATETIME(3)  NOT NULL,
+  visto_em        DATETIME(3)  NOT NULL,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Partida ao vivo: o servidor guarda seed, times e decisões e marca o relógio;
+-- os dois clientes rodam o mesmo motor determinístico e relatam o placar.
+CREATE TABLE IF NOT EXISTS partidas_online (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  temporada       INT UNSIGNED NOT NULL,
+  mandante_id     INT UNSIGNED NOT NULL,
+  visitante_id    INT UNSIGNED NOT NULL,
+  seed            INT UNSIGNED NOT NULL,
+  time_mandante   MEDIUMTEXT   NOT NULL,
+  time_visitante  MEDIUMTEXT   NOT NULL,
+  custo_mandante  INT UNSIGNED NOT NULL,
+  custo_visitante INT UNSIGNED NOT NULL,
+  inicio          DATETIME(3)  NOT NULL,
+  status          ENUM('ao_vivo','encerrada','anulada') NOT NULL DEFAULT 'ao_vivo',
+  relato_mandante  VARCHAR(10) NULL,
+  relato_visitante VARCHAR(10) NULL,
+  gols_mandante   TINYINT UNSIGNED NULL,
+  gols_visitante  TINYINT UNSIGNED NULL,
+  pdl_mandante    INT          NULL,
+  pdl_visitante   INT          NULL,
+  finalizada_em   DATETIME     NULL,
+  INDEX (mandante_id, status),
+  INDEX (visitante_id, status),
+  FOREIGN KEY (mandante_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+  FOREIGN KEY (visitante_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Tática e substituições enviadas durante o jogo, já com o minuto em que valem.
+CREATE TABLE IF NOT EXISTS decisoes_online (
+  id              INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  partida_id      INT UNSIGNED NOT NULL,
+  usuario_id      INT UNSIGNED NOT NULL,
+  minuto          TINYINT UNSIGNED NOT NULL,
+  dados           TEXT         NOT NULL,
+  FOREIGN KEY (partida_id) REFERENCES partidas_online(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

@@ -89,7 +89,7 @@ function exigirUsuario(): int
 {
     iniciarSessao();
     $id = $_SESSION['usuario_id'] ?? null;
-    if (!$id) responder(['erro' => 'Faça login para usar o mercado.'], 401);
+    if (!$id) responder(['erro' => 'Faça login para jogar online.'], 401);
     return (int) $id;
 }
 

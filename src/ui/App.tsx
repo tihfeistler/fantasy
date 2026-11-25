@@ -52,15 +52,17 @@ import { TelaLendas } from "./TelaLendas";
 import { TelaMercado } from "./TelaMercado";
 import { TelaMercadoCartas } from "./TelaMercadoCartas";
 import { TelaNovoManager } from "./TelaNovoManager";
+import { TelaOnline } from "./TelaOnline";
 import { TelaPartida } from "./TelaPartida";
 
-type Aba = "elenco" | "partida" | "campeonato" | "mercado" | "desafios" | "estoque" | "lendas";
+type Aba = "elenco" | "partida" | "campeonato" | "mercado" | "desafios" | "online" | "estoque" | "lendas";
 const ABAS: { id: Aba; nome: string }[] = [
   { id: "elenco", nome: "Elenco" },
   { id: "partida", nome: "Partida" },
   { id: "campeonato", nome: "Campeonato" },
   { id: "mercado", nome: "Mercado" },
   { id: "desafios", nome: "Desafios" },
+  { id: "online", nome: "Online" },
   { id: "estoque", nome: "Estoque" },
   { id: "lendas", nome: "Lendas" },
 ];
@@ -691,6 +693,7 @@ export function App() {
             onDevolver={devolver}
           />
         )}
+        {aba === "online" && <TelaOnline />}
         {aba === "lendas" && <TelaLendas />}
       </main>
       <footer className="rodape">
