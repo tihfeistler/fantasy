@@ -1,6 +1,6 @@
 # Base de jogadores clássicos
 
-`jogadores.json` tem 301 jogadores aposentados (104 brasileiros, 42 seleções), no formato de `jogador.schema.json` e do tipo `Jogador` em `src/engine/types.ts`.
+`jogadores.json` tem 386 jogadores aposentados (104 brasileiros, 48 seleções no total), no formato de `jogador.schema.json` e do tipo `Jogador` em `src/engine/types.ts`.
 
 ## Como editar
 

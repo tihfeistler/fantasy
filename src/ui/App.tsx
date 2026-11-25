@@ -21,6 +21,8 @@ import {
   calcularTabela,
   chaveJogo,
   divisaoDe,
+  divisaoPar,
+  nomeDaDivisao,
   idsDaTemporada,
   jogarRodada,
   novaTemporada,
@@ -144,7 +146,11 @@ const criarTemporada = (
   divisoes: Record<string, Divisao>,
   d: Divisao,
 ) => novaTemporada(clubesDaDivisao(divisoes, d), ano, novaSeed(), d);
-const outraDivisao = (d: Divisao): Divisao => (d === "A" ? "B" : "A");
+/** A outra divisão do Brasil, simulada junto; nas ligas estrangeiras não há. */
+const outraTemporadaDe = (ano: number, divisoes: Record<string, Divisao>, d: Divisao) => {
+  const par = divisaoPar(d);
+  return par ? criarTemporada(ano, divisoes, par) : undefined;
+};
 
 /** Time de cartas novo: caixa inicial e um kit de cartas base fracas. */
 const timeCartasInicial = () => ({
@@ -230,14 +236,14 @@ export function App() {
           DIVISOES_INICIAIS[p.manager.clubeId],
         ),
       };
-    if (p.manager && p.temporada && !p.outraTemporada)
+    if (p.manager && p.temporada && !p.outraTemporada && divisaoPar(divisaoDe(p.temporada)))
       p = {
         ...p,
         // Começa na rodada 0 e alcança a do manager na próxima rodada jogada.
-        outraTemporada: criarTemporada(
+        outraTemporada: outraTemporadaDe(
           p.temporada.ano,
           p.divisoes ?? DIVISOES_INICIAIS,
-          outraDivisao(divisaoDe(p.temporada)),
+          divisaoDe(p.temporada),
         ),
       };
     if (p.manager && !p.financas)
@@ -1148,19 +1154,19 @@ export function App() {
       if (financas)
         financas = lancar(financas, [
           {
-            rodada: 38,
+            rodada: punida.rodadas.length,
             descricao: `Premiação: ${posicao}º lugar`,
-            valor: premiacaoEmDinheiro(financas, posicao),
+            valor: premiacaoEmDinheiro(financas, posicao, tabela.length),
             tipo: "premiacao",
             ano: punida.ano,
-            moedas: premioFinal(posicao, divisao),
+            moedas: premioFinal(posicao, divisao, tabela.length),
           },
         ]);
       return {
         ...p,
         temporada: punida,
         financas,
-        moedas: p.moedas + premioFinal(posicao, divisao),
+        moedas: p.moedas + premioFinal(posicao, divisao, tabela.length),
         historico: [
           ...(p.historico ?? []),
           { ano: prox.ano, posicao, campeao: tabela[0].id, divisao },
@@ -1213,7 +1219,7 @@ export function App() {
         divisoes,
         financas,
         temporada: criarTemporada(ano, divisoes, minha),
-        outraTemporada: criarTemporada(ano, divisoes, outraDivisao(minha)),
+        outraTemporada: outraTemporadaDe(ano, divisoes, minha),
         transferencias: {
           ...p.transferencias,
           ...Object.fromEntries(
@@ -1279,10 +1285,10 @@ export function App() {
         DIVISOES_INICIAIS,
         DIVISOES_INICIAIS[clubeId],
       ),
-      outraTemporada: criarTemporada(
+      outraTemporada: outraTemporadaDe(
         ANO_INICIAL,
         DIVISOES_INICIAIS,
-        outraDivisao(DIVISOES_INICIAIS[clubeId]),
+        DIVISOES_INICIAIS[clubeId],
       ),
       financas: financasDoClube(clubeId),
       caixaUnico: true,
@@ -1508,7 +1514,7 @@ export function App() {
           <span className="clube-info">
             <b>{meuTime.nome}</b>
             <span className="suave">
-              Série {divisaoDe(temporada)} · {posicao}º · Técnico:{" "}
+              {nomeDaDivisao(divisaoDe(temporada))} · {posicao}º · Técnico:{" "}
               {progresso.manager.nome}
             </span>
           </span>
@@ -1598,7 +1604,7 @@ export function App() {
             ) : (
               <section className="tela">
                 <p className="vazio-partida">
-                  A Série {divisaoDe(temporada)} {temporada.ano} acabou.{" "}
+                  {nomeDaDivisao(divisaoDe(temporada))} {temporada.ano} acabou.{" "}
                   <button
                     className="link-nome"
                     onClick={() => setAba("campeonato")}

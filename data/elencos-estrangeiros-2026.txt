@@ -1,0 +1,4350 @@
+# Elencos atuais das ligas estrangeiras (RASCUNHO para revisar).
+# Fonte: seções de elenco da Wikipédia em inglês, lidas em 25/11/2026. Camisa 0 = número desconhecido.
+# Mesmo formato de elencos-2026.txt: clubeId | camisa | GK/DF/MF/FW | NAC | Nome [| POSICAO_FINA] [| geral]
+# Depois de editar: python3 scripts/gerar_atuais.py && php scripts/importar.php
+
+# ===== Inglaterra — Premier League 2026-27
+
+# --- Arsenal
+arsenal | 1 | GK | ESP | David Raya
+arsenal | 2 | DF | FRA | William Saliba
+arsenal | 3 | DF | ESP | Cristhian Mosquera
+arsenal | 4 | DF | ENG | Ben White
+arsenal | 5 | DF | ECU | Piero Hincapié
+arsenal | 6 | DF | BRA | Gabriel Magalhães
+arsenal | 7 | FW | ENG | Bukayo Saka
+arsenal | 8 | MF | NOR | Martin Ødegaard
+arsenal | 10 | MF | ENG | Eberechi Eze
+arsenal | 12 | DF | NED | Jurriën Timber
+arsenal | 13 | GK | ESP | Kepa Arrizabalaga
+arsenal | 14 | FW | SWE | Viktor Gyökeres
+arsenal | 15 | DF | ENG | Ezri Konsa
+arsenal | 17 | FW | GRE | Christos Tzolis
+arsenal | 20 | FW | ENG | Noni Madueke
+arsenal | 23 | MF | ESP | Mikel Merino
+arsenal | 29 | FW | GER | Kai Havertz
+arsenal | 30 | GK | FRA | Illan Meslier
+arsenal | 33 | DF | ITA | Riccardo Calafiori
+arsenal | 36 | MF | ESP | Martín Zubimendi
+arsenal | 39 | MF | BRA | Bruno Guimarães
+arsenal | 41 | MF | ENG | Declan Rice
+arsenal | 49 | DF | ENG | Myles Lewis-Skelly
+
+# --- Aston Villa
+aston-villa | 1 | GK | JPN | Zion Suzuki
+aston-villa | 2 | DF | POL | Matty Cash
+aston-villa | 3 | DF | SWE | Victor Lindelöf
+aston-villa | 4 | DF | ENG | Taylor Harwood-Bellis
+aston-villa | 5 | DF | ENG | Tyrone Mings
+aston-villa | 6 | MF | ENG | Ross Barkley
+aston-villa | 7 | MF | SCO | John McGinn
+aston-villa | 8 | MF | FRA | Boubacar Kamara
+aston-villa | 10 | FW | ARG | Emiliano Buendía
+aston-villa | 11 | FW | SEN | Nicolas Jackson
+aston-villa | 13 | DF | ITA | Matteo Ruggeri
+aston-villa | 14 | DF | ESP | Pau Torres
+aston-villa | 17 | FW | ARG | Alejandro Garnacho
+aston-villa | 18 | FW | ENG | Tammy Abraham
+aston-villa | 19 | FW | SEN | Ibrahim Mbaye
+aston-villa | 22 | DF | NED | Ian Maatsen
+aston-villa | 24 | MF | BEL | Amadou Onana
+aston-villa | 26 | MF | NED | Lamare Bogarde
+aston-villa | 27 | MF | GER | Leon Goretzka
+aston-villa | 29 | DF | COD | Aaron Wan-Bissaka
+aston-villa | 35 | MF | BRA | João Gomes
+aston-villa | 39 | FW | ENG | Brian Madjo
+aston-villa | 40 | GK | NED | Marco Bizot
+aston-villa | 42 | GK | ENG | James Wright
+aston-villa | 44 | MF | SUI | Johan Manzambi
+aston-villa | 47 | FW | BRA | Alysson
+aston-villa | 48 | DF | SEN | Modou Kéba Cissé
+aston-villa | 53 | MF | ENG | George Hemmings
+
+# --- Bournemouth
+bournemouth | 1 | GK | SRB | Đorđe Petrović
+bournemouth | 2 | DF | MEX | Julián Araujo
+bournemouth | 3 | DF | FRA | Adrien Truffert
+bournemouth | 4 | MF | ENG | Lewis Cook
+bournemouth | 5 | DF | ENG | James Hill
+bournemouth | 6 | DF | ARG | Julio Soler
+bournemouth | 7 | MF | WAL | David Brooks
+bournemouth | 8 | MF | ENG | Alex Scott
+bournemouth | 9 | FW | BRA | Evanilson
+bournemouth | 10 | MF | SCO | Ryan Christie
+bournemouth | 11 | FW | SCO | Ben Gannon-Doak
+bournemouth | 12 | MF | USA | Tyler Adams
+bournemouth | 14 | DF | POR | António Silva
+bournemouth | 15 | DF | ENG | Adam Smith
+bournemouth | 16 | MF | ENG | Marcus Tavernier
+bournemouth | 17 | GK | ENG | Fraser Forster
+bournemouth | 18 | DF | FRA | Bafodé Diakité
+bournemouth | 19 | FW | NED | Justin Kluivert
+bournemouth | 20 | GK | ITA | Michele Di Gregorio
+bournemouth | 21 | MF | MAR | Amine Adli
+bournemouth | 22 | FW | FRA | Eli Junior Kroupi
+bournemouth | 24 | DF | ESP | Juanlu Sánchez
+bournemouth | 27 | MF | HUN | Alex Tóth
+bournemouth | 28 | DF | ENG | Max Aarons
+bournemouth | 29 | FW | CAN | Daniel Jebbison
+bournemouth | 30 | FW | URU | Álvaro Rodríguez
+bournemouth | 37 | FW | BRA | Rayan
+bournemouth | 44 | DF | SRB | Veljko Milosavljević
+
+# --- Brentford
+brentford | 1 | GK | IRL | Caoimhín Kelleher
+brentford | 2 | DF | SCO | Aaron Hickey
+brentford | 3 | DF | JAM | Rico Henry
+brentford | 4 | DF | NED | Sepp van den Berg
+brentford | 6 | MF | UKR | Yehor Yarmolyuk
+brentford | 7 | FW | GER | Kevin Schade
+brentford | 8 | MF | DEN | Mathias Jensen
+brentford | 9 | FW | BRA | Igor Thiago
+brentford | 10 | MF | ENG | Josh Dasilva
+brentford | 11 | FW | BFA | Dango Ouattara
+brentford | 12 | GK | ISL | Hákon Valdimarsson
+brentford | 13 | FW | ENG | Callum Wilson
+brentford | 14 | MF | POR | Fábio Carvalho
+brentford | 17 | MF | NED | Antoni Milambo
+brentford | 18 | MF | MLI | Mamadou Sangaré
+brentford | 19 | FW | ENG | Jaidon Anthony
+brentford | 20 | DF | NOR | Kristoffer Ajer
+brentford | 22 | DF | IRL | Nathan Collins
+brentford | 23 | MF | ENG | Keane Lewis-Potter
+brentford | 24 | MF | DEN | Mikkel Damsgaard
+brentford | 25 | DF | SEN | El Hadji Malick Diouf
+brentford | 27 | MF | GER | Vitaly Janelt
+brentford | 31 | GK | ENG | Ellery Balcombe
+brentford | 33 | DF | ITA | Michael Kayode
+brentford | 36 | DF | KOR | Kim Ji-soo
+brentford | 39 | FW | BRA | Gustavo Nunes
+brentford | 44 | DF | AUT | Jannik Schuster
+brentford | 47 | FW | BEL | Kaye Furo
+brentford | 48 | DF | NGA | Benjamin Fredrick
+
+# --- Brighton
+brighton | 1 | GK | NED | Bart Verbruggen
+brighton | 3 | DF | ALG | Jaouen Hadjam
+brighton | 4 | DF | NED | Pascal Struijk
+brighton | 5 | DF | ENG | Lewis Dunk
+brighton | 7 | MF | JPN | Kaoru Mitoma
+brighton | 8 | MF | ENG | Jack Hinshelwood
+brighton | 9 | FW | GRE | Stefanos Tzimas
+brighton | 10 | FW | FRA | Georginio Rutter
+brighton | 11 | MF | GAM | Yankuba Minteh
+brighton | 12 | FW | CAN | Promise David
+brighton | 13 | MF | GER | Pascal Groß
+brighton | 14 | MF | ESP | Chema Andrés
+brighton | 15 | MF | GHA | Ibrahim Osman
+brighton | 19 | FW | GRE | Charalampos Kostoulas
+brighton | 20 | DF | POR | Costinha
+brighton | 21 | DF | FRA | Olivier Boscagli
+brighton | 23 | GK | ENG | Jason Steele
+brighton | 24 | DF | TUR | Ferdi Kadıoğlu
+brighton | 25 | MF | PAR | Diego Gómez
+brighton | 26 | MF | SWE | Yasin Ayari
+brighton | 27 | DF | NED | Mats Wieffer
+brighton | 28 | FW | IRL | Evan Ferguson
+brighton | 29 | DF | BEL | Maxim De Cuyper
+brighton | 30 | DF | AUT | Michael Svoboda
+brighton | 33 | MF | DEN | Matt O'Riley
+brighton | 35 | MF | CIV | Malick Yalcouyé
+brighton | 36 | MF | NGA | Zadok Yohanna
+brighton | 38 | GK | CAN | Tom McGill
+brighton | 39 | MF | NGA | Femi Azeez
+brighton | 44 | DF | CRO | Luka Vušković
+
+# --- Chelsea
+chelsea | 1 | GK | ARG | Emiliano Martínez
+chelsea | 2 | DF | ITA | Marco Palestra
+chelsea | 3 | DF | FRA | Wesley Fofana
+chelsea | 4 | MF | ARG | Valentín Barco
+chelsea | 5 | DF | FRA | Maxence Lacroix
+chelsea | 6 | DF | ENG | Levi Colwill
+chelsea | 7 | FW | POR | Pedro Neto
+chelsea | 9 | FW | BRA | João Pedro
+chelsea | 10 | MF | ENG | Cole Palmer
+chelsea | 11 | FW | ENG | Jamie Gittens
+chelsea | 14 | MF | ENG | Jordan Henderson
+chelsea | 17 | MF | ENG | Morgan Rogers
+chelsea | 18 | FW | ENG | Danny Welbeck
+chelsea | 21 | DF | NED | Jorrel Hato
+chelsea | 22 | FW | NED | Emmanuel Emegha
+chelsea | 23 | FW | POR | Geovany Quenda
+chelsea | 24 | DF | ENG | Reece James
+chelsea | 25 | MF | ECU | Moisés Caicedo
+chelsea | 27 | DF | FRA | Malo Gusto
+chelsea | 28 | GK | ENG | Teddy Sharman-Lowe
+chelsea | 29 | DF | ESP | Pep Chavarría
+chelsea | 30 | DF | ARG | Aarón Anselmino
+chelsea | 31 | MF | ENG | Reggie Watson
+chelsea | 32 | MF | ENG | Mahdi Nicoll-Jazuli
+chelsea | 34 | DF | ENG | Josh Acheampong
+chelsea | 37 | DF | ENG | Olutayo Subuloye
+chelsea | 39 | GK | BEL | Mike Penders
+chelsea | 41 | FW | BRA | Estêvão
+chelsea | 44 | GK | USA | Gabriel Slonina
+chelsea | 45 | MF | BEL | Roméo Lavia
+
+# --- Coventry City
+coventry | 1 | GK | SWE | Oliver Dovin
+coventry | 2 | DF | JAM | Ethan Pinnock
+coventry | 3 | DF | WAL | Jay Dasilva
+coventry | 4 | DF | ENG | Bobby Thomas
+coventry | 5 | MF | ENG | Jack Rudoni
+coventry | 6 | MF | ENG | Matt Grimes
+coventry | 7 | FW | JPN | Tatsuhiro Sakamoto
+coventry | 8 | MF | GHA | Caleb Yirenkyi
+coventry | 9 | FW | ENG | Ellis Simms
+coventry | 10 | FW | JAM | Ephron Mason-Clark
+coventry | 11 | FW | USA | Haji Wright
+coventry | 12 | DF | ENG | Stephen Mfuni
+coventry | 13 | GK | ENG | Ben Wilson
+coventry | 14 | FW | NGA | Taiwo Awoniyi
+coventry | 16 | MF | NGA | Frank Onyeka
+coventry | 17 | FW | FRA | Loum Tchaouna
+coventry | 19 | GK | ENG | Carl Rushworth
+coventry | 20 | DF | ENG | Kaine Kesler-Hayden
+coventry | 21 | DF | ENG | Jake Bidwell
+coventry | 22 | DF | JAM | Joel Latibeaudiere
+coventry | 23 | FW | GHA | Brandon Thomas-Asante
+coventry | 24 | DF | SUI | Aurèle Amenda
+coventry | 25 | GK | ENG | Dan Bentley
+coventry | 26 | DF | ENG | Luke Woolfenden
+coventry | 27 | DF | NED | Milan van Ewijk
+coventry | 28 | MF | ENG | Josh Eccles
+coventry | 29 | MF | DEN | Victor Torp
+coventry | 34 | FW | CIV | Yann Gboho
+coventry | 38 | MF | NED | Gustavo Hamer
+coventry | 49 | FW | GUI | Sidiki Cherif
+
+# --- Crystal Palace
+crystal-palace | 1 | GK | ENG | Dean Henderson
+crystal-palace | 3 | DF | ENG | Tyrick Mitchell
+crystal-palace | 4 | DF | MAR | Chadi Riad
+crystal-palace | 5 | DF | FRA | Axel Disasi
+crystal-palace | 6 | DF | FRA | Jaydee Canvot
+crystal-palace | 7 | FW | SEN | Ismaïla Sarr
+crystal-palace | 8 | MF | COL | Jefferson Lerma
+crystal-palace | 9 | FW | ENG | Eddie Nketiah
+crystal-palace | 10 | FW | ESP | Yeremy Pino
+crystal-palace | 11 | FW | ENG | Dwight McNeil
+crystal-palace | 12 | FW | USA | Zavier Gozo
+crystal-palace | 14 | FW | FRA | Jean-Philippe Mateta
+crystal-palace | 17 | DF | JPN | Takehiro Tomiyasu
+crystal-palace | 18 | MF | JPN | Daichi Kamada
+crystal-palace | 19 | MF | ENG | Will Hughes
+crystal-palace | 20 | MF | ENG | Adam Wharton
+crystal-palace | 21 | DF | ITA | Honest Ahanor
+crystal-palace | 22 | FW | NOR | Jørgen Strand Larsen
+crystal-palace | 23 | MF | NED | Quinten Timber
+crystal-palace | 24 | FW | CHI | Darío Osorio
+crystal-palace | 25 | DF | ISR | Anan Khalaili
+crystal-palace | 26 | DF | USA | Chris Richards
+crystal-palace | 28 | MF | MLI | Cheick Doucouré
+crystal-palace | 29 | FW | CIV | Evann Guessand
+crystal-palace | 30 | DF | ESP | Óscar Mingueza
+crystal-palace | 31 | GK | ENG | Remi Matthews
+crystal-palace | 33 | DF | ENG | Ben Chilwell
+crystal-palace | 44 | GK | ARG | Walter Benítez
+
+# --- Everton
+everton | 1 | GK | ENG | Jordan Pickford
+everton | 2 | DF | ENG | Ainsley Maitland-Niles
+everton | 4 | DF | ENG | Jarrad Branthwaite
+everton | 5 | DF | ENG | Michael Keane
+everton | 6 | DF | ENG | James Tarkowski
+everton | 8 | MF | ENG | Kiernan Dewsbury-Hall
+everton | 10 | MF | ENG | Jack Grealish
+everton | 11 | FW | FRA | Thierno Barry
+everton | 12 | GK | IRL | Mark Travers
+everton | 15 | DF | IRL | Jake O'Brien
+everton | 16 | DF | UKR | Vitalii Mykolenko
+everton | 19 | FW | ENG | Tyrique George
+everton | 20 | FW | ENG | Tyler Dibling
+everton | 22 | FW | WAL | Brennan Johnson
+everton | 23 | MF | DEN | Christian Nørgaard
+everton | 24 | MF | ARG | Charly Alcaraz
+everton | 30 | MF | ENG | Hayden Hackney
+everton | 31 | GK | WAL | Tom King
+everton | 34 | MF | GER | Merlin Röhl
+everton | 37 | MF | ENG | James Garner
+everton | 45 | MF | ENG | Harrison Armstrong
+
+# --- Fulham
+fulham | 1 | GK | GER | Bernd Leno
+fulham | 2 | DF | NED | Kenny Tete
+fulham | 3 | DF | NGA | Calvin Bassey
+fulham | 4 | DF | ESP | Jorge Cuenca
+fulham | 5 | DF | DEN | Joachim Andersen
+fulham | 6 | MF | ENG | Harrison Reed
+fulham | 7 | FW | ESP | Gonzalo García
+fulham | 8 | MF | ESP | César Palacios
+fulham | 9 | FW | BRA | Rodrigo Muniz
+fulham | 10 | MF | SCO | Tom Cairney
+fulham | 11 | FW | BRA | Kevin
+fulham | 14 | FW | NOR | Oscar Bobb
+fulham | 15 | MF | SWE | Hugo Larsson
+fulham | 16 | MF | NOR | Sander Berge
+fulham | 17 | MF | NGA | Alex Iwobi
+fulham | 18 | FW | SWE | Jonah Kusi-Asare
+fulham | 19 | MF | NIR | Shea Charles
+fulham | 20 | MF | ESP | Manuel Ángel
+fulham | 21 | DF | BEL | Timothy Castagne
+fulham | 22 | DF | AUT | David Affengruber
+fulham | 23 | GK | FRA | Benjamin Lecomte
+fulham | 24 | MF | ENG | Josh King
+fulham | 30 | MF | ENG | Ryan Sessegnon
+fulham | 32 | MF | ENG | Emile Smith Rowe
+fulham | 33 | DF | USA | Antonee Robinson
+fulham | 36 | GK | USA | Alex Borto
+
+# --- Hull City
+hull-city | 1 | GK | ENG | Jack Butland
+hull-city | 2 | DF | ENG | Lewie Coyle
+hull-city | 3 | DF | ENG | Ryan Giles
+hull-city | 4 | DF | ENG | Charlie Hughes
+hull-city | 5 | MF | JPN | Hidemasa Morita
+hull-city | 6 | DF | NGA | Semi Ajayi
+hull-city | 7 | FW | WAL | Sorba Thomas
+hull-city | 8 | MF | BEL | Eliot Matazo
+hull-city | 9 | FW | SCO | Oli McBurnie
+hull-city | 10 | FW | ALG | Mohamed Belloumi
+hull-city | 11 | MF | ENG | Joe Gelhardt
+hull-city | 12 | GK | ENG | Dillon Phillips
+hull-city | 14 | MF | NOR | Jens Hjertø-Dahl
+hull-city | 15 | DF | IRL | John Egan
+hull-city | 17 | DF | NIR | Paddy McNair
+hull-city | 18 | DF | ENG | Brooke Norton-Cuffy
+hull-city | 19 | GK | GRE | Konstantinos Tzolakis
+hull-city | 20 | MF | ECU | Óscar Zambrano
+hull-city | 21 | FW | SWE | Elliot Stroud
+hull-city | 22 | DF | AUS | Lucas Herrington
+hull-city | 23 | DF | ENG | Matt Targett
+hull-city | 24 | MF | ENG | Darko Gyabi
+hull-city | 25 | MF | ENG | Matt Crooks
+hull-city | 26 | MF | ENG | Kieran Dowell
+hull-city | 27 | MF | ENG | Regan Slater
+hull-city | 28 | FW | GER | Ilyas Ansah
+hull-city | 29 | MF | FRA | Lucas Gourna-Douath
+hull-city | 32 | DF | SEN | Nobel Mendy
+hull-city | 33 | MF | TUR | Abdülkadir Ömür
+hull-city | 36 | MF | GRE | Christos Mouzakitis
+hull-city | 42 | MF | ENG | Tim Iroegbunam
+hull-city | 47 | FW | FRA | Robinio Vaz
+hull-city | 50 | FW | FRA | Mohamed-Ali Cho
+
+# --- Ipswich Town
+ipswich | 1 | GK | ENG | Alex Palmer
+ipswich | 2 | DF | ENG | Darnell Furlong
+ipswich | 3 | DF | ENG | Leif Davis
+ipswich | 4 | DF | CIV | Cédric Kipré
+ipswich | 5 | MF | NED | Azor Matusiwa
+ipswich | 6 | DF | MAR | Issa Diop
+ipswich | 7 | FW | GHA | Abdul Fatawu
+ipswich | 8 | FW | NOR | Sindre Walle Egeli
+ipswich | 9 | FW | NED | Zian Flemming
+ipswich | 10 | FW | PAR | Julio Enciso
+ipswich | 11 | FW | ENG | Jaden Philogene
+ipswich | 12 | MF | POR | Florentino Luís
+ipswich | 14 | MF | IRL | Jack Taylor
+ipswich | 19 | FW | BRA | Emersonn
+ipswich | 20 | FW | IRL | Kasey McAteer
+ipswich | 23 | MF | SRB | Saša Lukić
+ipswich | 24 | DF | ENG | Jacob Greaves
+ipswich | 25 | MF | ARG | Exequiel Palacios
+ipswich | 26 | DF | IRL | Dara O'Shea
+ipswich | 27 | GK | ENG | David Button
+ipswich | 28 | GK | ENG | Christian Walton
+ipswich | 29 | FW | ENG | Chuba Akpom
+ipswich | 32 | MF | CHI | Marcelino Núñez
+ipswich | 33 | FW | ALB | Anis Mehmeti
+ipswich | 37 | GK | NED | Kjell Scherpen
+ipswich | 38 | FW | JPN | Daizen Maeda
+ipswich | 42 | DF | CIV | Abdoul Ouattara
+ipswich | 47 | FW | ENG | Jack Clarke
+
+# --- Leeds United
+leeds | 1 | GK | ENG | James Trafford
+leeds | 2 | DF | ENG | Jayden Bogle
+leeds | 3 | DF | SWE | Gabriel Gudmundsson
+leeds | 4 | MF | WAL | Ethan Ampadu
+leeds | 5 | DF | BIH | Tarik Muharemović
+leeds | 6 | DF | WAL | Joe Rodon
+leeds | 7 | MF | WAL | Daniel James
+leeds | 8 | MF | ENG | Sean Longstaff
+leeds | 9 | FW | ENG | Dominic Calvert-Lewin
+leeds | 10 | MF | WAL | Harry Wilson
+leeds | 11 | MF | USA | Brenden Aaronson
+leeds | 14 | FW | GER | Lukas Nmecha
+leeds | 15 | DF | SVN | Jaka Bijol
+leeds | 16 | GK | GER | Michael Zetterer
+leeds | 18 | MF | GER | Anton Stach
+leeds | 19 | FW | SUI | Noah Okafor
+leeds | 21 | GK | ENG | Alex Cairns
+leeds | 22 | MF | JPN | Ao Tanaka
+leeds | 23 | FW | FRA | Jean-Mattéo Bahoya
+leeds | 24 | DF | ENG | James Justin
+leeds | 26 | DF | FRA | Melvin Bard
+leeds | 30 | DF | SUI | Nico Elvedi
+leeds | 44 | MF | BUL | Ilia Gruev
+leeds | 65 | DF | WAL | Jayden Lienou
+
+# --- Liverpool
+liverpool | 1 | GK | BRA | Alisson Becker
+liverpool | 2 | DF | ENG | Joe Gomez
+liverpool | 3 | MF | JPN | Wataru Endo
+liverpool | 4 | DF | NED | Virgil van Dijk
+liverpool | 5 | DF | FRA | Jérémy Jacquet
+liverpool | 6 | DF | HUN | Milos Kerkez
+liverpool | 7 | MF | GER | Florian Wirtz
+liverpool | 8 | MF | HUN | Dominik Szoboszlai
+liverpool | 9 | FW | SWE | Alexander Isak
+liverpool | 10 | MF | ARG | Alexis Mac Allister
+liverpool | 12 | DF | NIR | Conor Bradley
+liverpool | 14 | FW | ITA | Federico Chiesa
+liverpool | 15 | DF | ITA | Giovanni Leoni
+liverpool | 18 | FW | NED | Cody Gakpo
+liverpool | 21 | DF | GRE | Kostas Tsimikas
+liverpool | 22 | FW | FRA | Hugo Ekitike
+liverpool | 23 | FW | ESP | Víctor Muñoz
+liverpool | 25 | GK | GEO | Giorgi Mamardashvili
+liverpool | 28 | GK | ENG | Freddie Woodman
+liverpool | 29 | FW | FRA | Bradley Barcola
+liverpool | 30 | DF | NED | Jeremie Frimpong
+liverpool | 33 | DF | URU | Ronald Araújo
+liverpool | 38 | MF | NED | Ryan Gravenberch
+liverpool | 42 | MF | ENG | Trey Nyoni
+liverpool | 44 | DF | ENG | Luke Chambers
+liverpool | 53 | MF | ENG | James McConnell
+liverpool | 56 | GK | CZE | Vítězslav Jaroš
+liverpool | 67 | FW | WAL | Lewis Koumas
+liverpool | 73 | FW | ENG | Rio Ngumoha
+liverpool | 76 | FW | ENG | Jayden Danns
+liverpool | 95 | GK | ENG | Harvey Davies
+
+# --- Manchester City
+manchester-city | 1 | GK | ITA | Gianluigi Donnarumma
+manchester-city | 3 | DF | POR | Rúben Dias
+manchester-city | 5 | MF | ENG | Elliot Anderson
+manchester-city | 6 | DF | ENG | Marc Guéhi
+manchester-city | 7 | FW | SEN | Iliman Ndiaye
+manchester-city | 8 | MF | CRO | Mateo Kovačić
+manchester-city | 9 | FW | NOR | Erling Haaland
+manchester-city | 10 | MF | FRA | Rayan Cherki
+manchester-city | 11 | FW | BEL | Jérémy Doku
+manchester-city | 13 | GK | ENG | Marcus Bettinelli
+manchester-city | 17 | MF | ARG | Enzo Fernández
+manchester-city | 21 | DF | ALG | Rayan Aït-Nouri
+manchester-city | 22 | DF | BRA | Vitor Reis
+manchester-city | 24 | DF | CRO | Joško Gvardiol
+manchester-city | 27 | DF | POR | Matheus Nunes
+manchester-city | 28 | GK | ARG | Gerónimo Rulli
+manchester-city | 32 | MF | MAR | Ayyoub Bouaddi
+manchester-city | 33 | MF | ENG | Nico O'Reilly
+manchester-city | 37 | FW | BRA | Allan
+manchester-city | 42 | FW | GHA | Antoine Semenyo
+manchester-city | 45 | DF | UZB | Abdukodir Khusanov
+manchester-city | 47 | MF | ENG | Phil Foden
+manchester-city | 56 | FW | ENG | Ryan McAidoo
+manchester-city | 61 | DF | ENG | Kaden Braithwaite
+manchester-city | 75 | MF | GER | Floyd Samba
+manchester-city | 82 | DF | ENG | Rico Lewis
+
+# --- Manchester United
+manchester-united | 1 | GK | BEL | Senne Lammens
+manchester-united | 2 | DF | POR | Diogo Dalot
+manchester-united | 3 | DF | MAR | Noussair Mazraoui
+manchester-united | 4 | DF | NED | Matthijs de Ligt
+manchester-united | 5 | DF | ENG | Harry Maguire
+manchester-united | 6 | DF | ARG | Lisandro Martínez
+manchester-united | 7 | MF | ENG | Mason Mount
+manchester-united | 8 | MF | POR | Bruno Fernandes
+manchester-united | 9 | FW | ENG | Marcus Rashford
+manchester-united | 10 | FW | BRA | Matheus Cunha
+manchester-united | 11 | FW | NED | Joshua Zirkzee
+manchester-united | 12 | GK | WAL | Karl Darlow
+manchester-united | 13 | DF | DEN | Patrick Dorgu
+manchester-united | 15 | DF | FRA | Leny Yoro
+manchester-united | 16 | FW | CIV | Amad Diallo
+manchester-united | 17 | MF | BRA | Andrey Santos
+manchester-united | 18 | MF | BEL | Youri Tielemans
+manchester-united | 19 | FW | CMR | Bryan Mbeumo
+manchester-united | 20 | MF | CMR | Carlos Baleba
+manchester-united | 22 | GK | ENG | Tom Heaton
+manchester-united | 23 | DF | ENG | Luke Shaw
+manchester-united | 25 | MF | URU | Manuel Ugarte
+manchester-united | 26 | DF | ENG | Ayden Heaven
+manchester-united | 30 | FW | SVN | Benjamin Šeško
+manchester-united | 31 | FW | ENG | Shea Lacey
+manchester-united | 37 | MF | ENG | Kobbie Mainoo
+manchester-united | 38 | MF | ENG | Jack Fletcher
+manchester-united | 39 | MF | SCO | Tyler Fletcher
+manchester-united | 41 | DF | ENG | Harry Amass
+manchester-united | 45 | GK | NIR | Dermot Mee
+
+# --- Newcastle United
+newcastle | 1 | GK | ENG | Nick Pope
+newcastle | 2 | DF | ENG | Tino Livramento
+newcastle | 3 | DF | ENG | Lewis Hall
+newcastle | 4 | DF | NED | Sven Botman
+newcastle | 5 | DF | SUI | Fabian Schär
+newcastle | 6 | MF | ESP | Nico González
+newcastle | 7 | FW | BRA | Joelinton
+newcastle | 8 | MF | FRA | Aladji Bamba
+newcastle | 9 | FW | COD | Yoane Wissa
+newcastle | 10 | FW | DEN | William Osula
+newcastle | 11 | FW | ENG | Harvey Barnes
+newcastle | 12 | DF | GER | Malick Thiaw
+newcastle | 14 | MF | NED | Sean Steur
+newcastle | 17 | FW | CIV | Bazoumana Touré
+newcastle | 19 | FW | SWE | Anthony Elanga
+newcastle | 20 | FW | BEL | Matias Fernandez-Pardo
+newcastle | 21 | GK | CZE | Lukáš Horníček
+newcastle | 23 | MF | ENG | Jacob Murphy
+newcastle | 24 | GK | FRA | Ewen Jaouen
+newcastle | 28 | MF | ENG | Joe Willock
+newcastle | 29 | GK | ENG | Mark Gillespie
+newcastle | 31 | GK | ENG | Aidan Harris
+newcastle | 33 | DF | ENG | Dan Burn
+newcastle | 37 | DF | BIH | Amar Dedić
+newcastle | 41 | MF | ENG | Jacob Ramsey
+newcastle | 67 | MF | ENG | Lewis Miley
+
+# --- Nottingham Forest
+nottingham-forest | 2 | DF | CIV | Ousmane Diomande
+nottingham-forest | 3 | DF | WAL | Neco Williams
+nottingham-forest | 5 | DF | BRA | Murillo
+nottingham-forest | 6 | MF | CIV | Ibrahim Sangaré
+nottingham-forest | 7 | FW | ENG | Callum Hudson-Odoi
+nottingham-forest | 8 | MF | ARG | Nicolás Domínguez
+nottingham-forest | 9 | FW | NZL | Chris Wood
+nottingham-forest | 10 | MF | ENG | Morgan Gibbs-White
+nottingham-forest | 11 | FW | BRA | Igor Jesus
+nottingham-forest | 12 | GK | BRA | John Victor
+nottingham-forest | 14 | FW | SUI | Dan Ndoye
+nottingham-forest | 15 | FW | FRA | Arnaud Kalimuendo
+nottingham-forest | 19 | FW | ENG | Liam Delap
+nottingham-forest | 21 | MF | AUT | Xaver Schlager
+nottingham-forest | 22 | MF | ENG | Ryan Yates
+nottingham-forest | 23 | DF | BRA | Jair Cunha
+nottingham-forest | 24 | MF | ENG | James McAtee
+nottingham-forest | 25 | DF | GER | Luca Netz
+nottingham-forest | 26 | GK | BEL | Matz Sels
+nottingham-forest | 27 | DF | COL | Daniel Muñoz
+nottingham-forest | 31 | DF | SRB | Nikola Milenković
+nottingham-forest | 33 | GK | GER | Steven Benda
+nottingham-forest | 34 | DF | NGA | Ola Aina
+nottingham-forest | 37 | DF | ITA | Nicolò Savona
+
+# --- Sunderland
+sunderland | 4 | DF | AUT | Kevin Danso
+sunderland | 5 | DF | NIR | Dan Ballard
+sunderland | 6 | DF | FRA | Dayann Methalie
+sunderland | 7 | FW | MAR | Chemsdine Talbi
+sunderland | 8 | MF | IRL | Alan Browne
+sunderland | 9 | FW | NED | Brian Brobbey
+sunderland | 10 | FW | ECU | Nilson Angulo
+sunderland | 11 | MF | ENG | Chris Rigg
+sunderland | 12 | DF | BEL | Thomas Meunier
+sunderland | 13 | MF | ENG | Luke O'Nien
+sunderland | 14 | FW | ENG | Romaine Mundle
+sunderland | 15 | DF | PAR | Omar Alderete
+sunderland | 17 | DF | MOZ | Reinildo
+sunderland | 18 | FW | HAI | Wilson Isidor
+sunderland | 19 | MF | SEN | Habib Diarra
+sunderland | 20 | DF | FRA | Nordi Mukiele
+sunderland | 21 | GK | ENG | Simon Moore
+sunderland | 22 | GK | NED | Robin Roefs
+sunderland | 27 | MF | COD | Noah Sadiki
+sunderland | 28 | MF | FRA | Enzo Le Fée
+sunderland | 29 | MF | COD | Jules Ahoka
+sunderland | 31 | GK | SWE | Melker Ellborg
+sunderland | 32 | DF | NIR | Trai Hume
+sunderland | 34 | MF | SUI | Granit Xhaka
+sunderland | 37 | FW | CIV | Jocelin Ta Bi
+sunderland | 39 | FW | BEL | Malick Fofana
+sunderland | 46 | MF | MTN | Abdoullah Ba
+sunderland | 50 | FW | ECU | Juan Riquelme Angulo
+sunderland | 57 | FW | UKR | Timur Tutyerov
+
+# --- Tottenham Hotspur
+tottenham | 3 | DF | SCO | Andy Robertson
+tottenham | 4 | DF | ENG | Tosin Adarabioyo
+tottenham | 5 | DF | ARG | Marcos Senesi
+tottenham | 6 | DF | NED | Jan Paul van Hecke
+tottenham | 7 | MF | NED | Xavi Simons
+tottenham | 8 | MF | ENG | Conor Gallagher
+tottenham | 9 | FW | BRA | Richarlison
+tottenham | 10 | MF | ENG | James Maddison
+tottenham | 11 | FW | FRA | Mathys Tel
+tottenham | 13 | DF | ITA | Destiny Udogie
+tottenham | 14 | MF | ENG | Archie Gray
+tottenham | 15 | MF | SWE | Lucas Bergvall
+tottenham | 16 | MF | ITA | Sandro Tonali
+tottenham | 17 | FW | BRA | Sávio
+tottenham | 18 | MF | POR | Mateus Fernandes
+tottenham | 19 | FW | ENG | Dominic Solanke
+tottenham | 20 | FW | GHA | Mohammed Kudus
+tottenham | 21 | FW | SWE | Dejan Kulusevski
+tottenham | 22 | FW | EGY | Omar Marmoush
+tottenham | 23 | DF | ESP | Pedro Porro
+tottenham | 27 | FW | UKR | Mykhailo Mudryk
+tottenham | 28 | FW | FRA | Wilson Odobert
+tottenham | 30 | MF | URU | Rodrigo Bentancur
+tottenham | 31 | GK | CZE | Antonín Kinský
+tottenham | 33 | DF | WAL | Ben Davies
+tottenham | 37 | DF | NED | Micky van de Ven
+tottenham | 39 | GK | SVK | Martin Dúbravka
+tottenham | 40 | GK | USA | Brandon Austin
+tottenham | 68 | MF | ENG | Luca Williams-Barnett
+
+# ===== Espanha — La Liga 2026-27
+
+# --- Alavés
+alaves | 1 | GK | ESP | Antonio Sivera
+alaves | 2 | DF | ARG | Nicolás Valentini
+alaves | 3 | DF | MAR | Youssef Enríquez
+alaves | 4 | MF | ESP | Denis Suárez
+alaves | 5 | DF | ARG | Facundo Garcés
+alaves | 6 | MF | ESP | Ander Guevara
+alaves | 7 | MF | ESP | Ángel Pérez
+alaves | 8 | MF | ESP | Antonio Blanco
+alaves | 9 | FW | DOM | Mariano Díaz
+alaves | 10 | MF | ESP | Carles Aleñá
+alaves | 11 | FW | ESP | Toni Martínez
+alaves | 12 | DF | ESP | Hugo Novoa
+alaves | 13 | GK | ARG | Adrián Rodríguez
+alaves | 14 | DF | ARG | Nahuel Tenaglia
+alaves | 15 | FW | ARG | Lucas Boyé
+alaves | 16 | DF | FIN | Ville Koski
+alaves | 17 | DF | ESP | Jonny Otto
+alaves | 18 | MF | ESP | Mikel Rodríguez
+alaves | 19 | MF | ESP | Pablo Ibáñez
+alaves | 20 | FW | ESP | Aitor Mañas
+alaves | 21 | MF | ALG | Abde Rebbach
+alaves | 22 | MF | ESP | Miguel Rodríguez
+alaves | 23 | MF | URU | Carlos Protesoni
+alaves | 24 | MF | GUI | Selu Diallo
+alaves | 27 | DF | ESP | Xanet Olaiz
+alaves | 29 | MF | ESP | Izei Hernández
+alaves | 31 | GK | CAN | Grégoire Świderski
+
+# --- Athletic Bilbao
+athletic-bilbao | 1 | GK | ESP | Unai Simón
+athletic-bilbao | 3 | DF | ESP | Dani Vivian
+athletic-bilbao | 4 | DF | ESP | Aitor Paredes
+athletic-bilbao | 5 | DF | ESP | Yeray Álvarez
+athletic-bilbao | 6 | MF | ESP | Beñat Prados
+athletic-bilbao | 7 | FW | ESP | Álex Berenguer
+athletic-bilbao | 8 | MF | ESP | Oihan Sancet
+athletic-bilbao | 9 | FW | GHA | Iñaki Williams
+athletic-bilbao | 10 | FW | ESP | Nico Williams
+athletic-bilbao | 11 | FW | ESP | Gorka Guruzeta
+athletic-bilbao | 12 | DF | ESP | Jesús Areso
+athletic-bilbao | 13 | GK | MEX | Álex Padilla
+athletic-bilbao | 14 | DF | ESP | Aymeric Laporte
+athletic-bilbao | 15 | DF | ESP | Hugo Rincón
+athletic-bilbao | 16 | MF | ESP | Iñigo Ruiz de Galarreta
+athletic-bilbao | 17 | DF | ESP | Yuri Berchiche
+athletic-bilbao | 18 | MF | ESP | Mikel Jauregizar
+athletic-bilbao | 20 | MF | ESP | Alejandro Rego
+athletic-bilbao | 21 | FW | MAR | Maroan Sannadi
+athletic-bilbao | 22 | FW | ESP | Nico Serrano
+athletic-bilbao | 23 | FW | ESP | Robert Navarro
+athletic-bilbao | 24 | MF | ESP | Beñat Gerenabarrena
+athletic-bilbao | 25 | FW | GNB | Álvaro Djaló
+athletic-bilbao | 27 | DF | ESP | Unai Egiluz
+athletic-bilbao | 28 | MF | ESP | Peio Canales
+athletic-bilbao | 30 | DF | ESP | Iker Monreal
+athletic-bilbao | 31 | DF | FRA | Johaneko Louis-Jean
+athletic-bilbao | 33 | FW | ESP | Christian Imga
+athletic-bilbao | 34 | FW | ESP | Txus Vizcay
+athletic-bilbao | 35 | FW | ESP | Aritz Conde
+athletic-bilbao | 44 | MF | ESP | Selton Sánchez
+
+# --- Atlético de Madrid
+atletico-madrid | 1 | GK | ARG | Juan Musso
+atletico-madrid | 3 | MF | MEX | Obed Vargas
+atletico-madrid | 4 | MF | ESP | Rodrigo Mendoza
+atletico-madrid | 5 | MF | USA | Johnny Cardoso
+atletico-madrid | 6 | MF | ESP | Koke
+atletico-madrid | 7 | MF | KOR | Lee Kang-in
+atletico-madrid | 8 | MF | ESP | Pablo Barrios
+atletico-madrid | 9 | FW | NOR | Alexander Sørloth
+atletico-madrid | 10 | MF | ESP | Álex Baena
+atletico-madrid | 11 | FW | NGA | Ademola Lookman
+atletico-madrid | 13 | GK | SVN | Jan Oblak
+atletico-madrid | 14 | DF | ESP | Marcos Llorente
+atletico-madrid | 15 | FW | CAN | Jonathan David
+atletico-madrid | 16 | MF | ESP | Arnau Ortiz
+atletico-madrid | 17 | DF | SVK | Dávid Hancko
+atletico-madrid | 18 | DF | ESP | Marc Pubill
+atletico-madrid | 19 | FW | ARG | Julián Alvarez
+atletico-madrid | 20 | MF | ARG | Giuliano Simeone
+atletico-madrid | 21 | DF | ARG | Cristian Romero
+atletico-madrid | 22 | DF | ESP | Alejandro Grimaldo
+atletico-madrid | 23 | MF | DEN | Morten Hjulmand
+atletico-madrid | 24 | DF | ESP | Robin Le Normand
+atletico-madrid | 25 | GK | ESP | Salvi Esquivel
+atletico-madrid | 30 | DF | ESP | Dani Martínez
+
+# --- Barcelona
+barcelona | 1 | GK | ESP | Joan Garcia
+barcelona | 2 | DF | POR | João Cancelo
+barcelona | 3 | DF | ESP | Alejandro Balde
+barcelona | 4 | MF | ESP | Brian Fariñas
+barcelona | 5 | DF | ESP | Pau Cubarsí
+barcelona | 6 | MF | ESP | Gavi
+barcelona | 7 | MF | ESP | Fermín López
+barcelona | 8 | MF | ESP | Pedri
+barcelona | 9 | FW | BRA | Gabriel Jesus
+barcelona | 10 | FW | ESP | Lamine Yamal
+barcelona | 11 | FW | BRA | Raphinha
+barcelona | 12 | DF | ESP | Xavi Espart
+barcelona | 13 | GK | POL | Wojciech Szczęsny
+barcelona | 14 | FW | GER | Karim Adeyemi
+barcelona | 15 | DF | DEN | Andreas Christensen
+barcelona | 16 | MF | ESP | Rodri
+barcelona | 17 | FW | ENG | Anthony Gordon
+barcelona | 18 | DF | ESP | Gerard Martín
+barcelona | 19 | FW | SWE | Roony Bardghji
+barcelona | 20 | MF | ESP | Dani Olmo
+barcelona | 21 | MF | NED | Frenkie de Jong
+barcelona | 22 | MF | ESP | Marc Bernal
+barcelona | 23 | DF | FRA | Jules Koundé
+barcelona | 24 | DF | ESP | Eric Garcia
+barcelona | 25 | GK | CRO | Dominik Livaković
+barcelona | 27 | FW | BEL | Jesse Bisiwu
+barcelona | 29 | FW | EGY | Hamza Abdelkarim
+
+# --- Celta de Vigo
+celta | 1 | GK | TUR | Altay Bayındır
+celta | 2 | DF | SWE | Carl Starfelt
+celta | 3 | DF | ESP | Marcos Alonso
+celta | 4 | DF | SEN | Abdoulaye Faye
+celta | 5 | DF | ESP | Sergio Carreira
+celta | 6 | MF | GUI | Ilaix Moriba
+celta | 7 | FW | ESP | Borja Iglesias
+celta | 8 | MF | ESP | Miguel Román
+celta | 9 | FW | ESP | Ferran Jutglà
+celta | 10 | FW | ESP | Iago Aspas
+celta | 11 | FW | ESP | Pablo Durán
+celta | 13 | GK | ROU | Ionuț Radu
+celta | 14 | MF | ESP | Aleix Febas
+celta | 15 | DF | ESP | Álvaro Núñez
+celta | 16 | FW | ESP | Hugo González
+celta | 17 | DF | ESP | Javi Rueda
+celta | 18 | DF | ESP | Yoel Lago
+celta | 19 | FW | SWE | Williot Swedberg
+celta | 20 | DF | ESP | Javi Rodríguez
+celta | 21 | DF | URU | Sebastián Cáceres
+celta | 22 | DF | ESP | Javi Galán
+celta | 23 | FW | ESP | Hugo Álvarez
+celta | 24 | FW | MAR | Couhaib Driouech
+celta | 25 | GK | ESP | Iván Villar
+celta | 39 | FW | MAR | Jones El-Abdellaoui
+
+# --- Deportivo La Coruña
+deportivo-la-coruna | 1 | GK | ESP | Germán Parreño
+deportivo-la-coruna | 2 | DF | ESP | Adrià Altimira
+deportivo-la-coruna | 3 | DF | ESP | Arnau Comas
+deportivo-la-coruna | 4 | DF | BEL | Lucas Noubi
+deportivo-la-coruna | 5 | DF | ESP | Dani Barcia
+deportivo-la-coruna | 6 | MF | ESP | Marc Casadó
+deportivo-la-coruna | 7 | FW | GAB | Pierre-Emerick Aubameyang
+deportivo-la-coruna | 8 | MF | ESP | Diego Villares
+deportivo-la-coruna | 9 | FW | NED | Zakaria Eddahchouri
+deportivo-la-coruna | 10 | FW | ESP | Yeremay Hernández
+deportivo-la-coruna | 11 | FW | ESP | David Mella
+deportivo-la-coruna | 12 | DF | ITA | Giacomo Quagliata
+deportivo-la-coruna | 13 | GK | ESP | Leo Román
+deportivo-la-coruna | 14 | MF | ESP | Riki Rodríguez
+deportivo-la-coruna | 15 | DF | ESP | Miguel Loureiro
+deportivo-la-coruna | 16 | MF | ITA | Lorenzo Amatucci
+deportivo-la-coruna | 17 | DF | ESP | Angeliño
+deportivo-la-coruna | 18 | MF | DEN | Jonathan Asp Jensen
+deportivo-la-coruna | 19 | FW | ESP | Luismi Cruz
+deportivo-la-coruna | 20 | DF | URU | José María Giménez
+deportivo-la-coruna | 21 | MF | ESP | Mario Soriano
+deportivo-la-coruna | 22 | DF | POL | Bright Ede
+deportivo-la-coruna | 23 | DF | ESP | Ximo Navarro
+deportivo-la-coruna | 24 | FW | ESP | Adama Traoré
+deportivo-la-coruna | 25 | GK | ESP | Álvaro Fernández
+deportivo-la-coruna | 32 | FW | CMR | Bil Nsongo
+
+# --- Elche
+elche | 1 | GK | ARG | Matías Dituro
+elche | 2 | DF | ESP | Buba Sangaré
+elche | 3 | DF | ISR | Roy Revivo
+elche | 4 | DF | ESP | Bambo Diaby
+elche | 5 | MF | ARG | Federico Redondo
+elche | 6 | DF | ESP | Pedro Bigas
+elche | 7 | MF | ESP | Yago Santiago
+elche | 8 | MF | ESP | Marc Aguado
+elche | 9 | FW | ARG | Ezequiel Ponce
+elche | 10 | MF | ARG | Facundo Buonanotte
+elche | 11 | MF | ESP | Germán Valera
+elche | 12 | MF | ESP | Gonzalo Villar
+elche | 13 | GK | ESP | Alejandro Iturbe
+elche | 14 | FW | ESP | Fer Niño
+elche | 15 | DF | ARG | Kevin Lomónaco
+elche | 16 | MF | POR | Martim Neto
+elche | 17 | MF | ESP | Josan
+elche | 18 | MF | FRA | Thomas Lemar
+elche | 19 | MF | COD | Grady Diangana
+elche | 20 | FW | ESP | Tete Morente
+elche | 21 | FW | CHI | Lucas Cepeda
+elche | 22 | DF | ESP | Rubén Sánchez
+elche | 23 | DF | ESP | Víctor Chust
+elche | 24 | FW | ARG | Abiel Osorio
+elche | 26 | DF | CRO | Matía Barzić
+elche | 29 | MF | MAR | Ali Houary
+elche | 32 | MF | MAR | Adam Boayar
+elche | 47 | MF | ESP | Javi Morcillo
+
+# --- Espanyol
+espanyol | 1 | GK | ESP | Ángel Fortuño
+espanyol | 2 | DF | ESP | Andoni Gorosabel
+espanyol | 3 | DF | NED | Quilindschy Hartman
+espanyol | 4 | MF | ESP | Urko González de Zárate
+espanyol | 5 | DF | GER | Clemens Riedel
+espanyol | 6 | DF | URU | Leandro Cabrera
+espanyol | 7 | FW | ESP | Javi Puado
+espanyol | 8 | MF | ESP | Edu Expósito
+espanyol | 9 | FW | ESP | Roberto Fernández
+espanyol | 10 | MF | ESP | Pol Lozano
+espanyol | 11 | FW | ESP | Pere Milla
+espanyol | 13 | GK | SRB | Marko Dmitrović
+espanyol | 14 | DF | ESP | Unai Nuñez
+espanyol | 15 | FW | ESP | Bryan Zaragoza
+espanyol | 16 | DF | SVN | Vanja Drkušić
+espanyol | 17 | FW | ESP | Jofre Carreras
+espanyol | 18 | FW | ESP | Marcos Fernández
+espanyol | 19 | FW | ESP | Kike García
+espanyol | 20 | MF | BRA | Gabriel Moscardo
+espanyol | 21 | DF | ESP | Roger Hinojo
+espanyol | 22 | MF | ESP | Álex Calatrava
+espanyol | 23 | DF | MAR | Omar El Hilali
+espanyol | 24 | FW | ENG | Tyrhys Dolan
+espanyol | 26 | MF | ESP | Rafel Bauzà
+espanyol | 28 | FW | ESP | Javi Hernández
+
+# --- Getafe
+getafe | 1 | GK | CZE | Jiří Letáček
+getafe | 2 | DF | TOG | Dakonam Djené
+getafe | 3 | DF | ESP | Davinchi
+getafe | 4 | DF | GEO | Saba Sazonov
+getafe | 5 | DF | MAR | Abdel Abqar
+getafe | 6 | MF | ESP | Mario Martín
+getafe | 7 | FW | ESP | Juanmi
+getafe | 8 | MF | SRB | Nemanja Gudelj
+getafe | 9 | FW | ESP | Borja Mayoral
+getafe | 10 | FW | URU | Martín Satriano
+getafe | 11 | MF | ESP | Ramon Terrats
+getafe | 13 | GK | ESP | David Soria
+getafe | 14 | DF | ESP | Dani Carvajal
+getafe | 15 | DF | URU | Sebastián Boselli
+getafe | 16 | MF | ESP | Francho Serrano
+getafe | 17 | DF | ESP | Kiko Femenía
+getafe | 18 | MF | NGA | Christantus Uche
+getafe | 19 | FW | TUR | Enes Ünal
+getafe | 20 | FW | ESP | Iván Azón
+getafe | 21 | DF | ESP | Andrés García
+getafe | 22 | DF | COL | Johan Mojica
+getafe | 23 | MF | BEL | Orel Mangala
+getafe | 24 | DF | ARG | Zaid Romero
+getafe | 26 | DF | CIV | Jean Ives Valou
+
+# --- Levante
+levante | 1 | GK | ESP | Pablo Campos
+levante | 2 | DF | ALG | Aïssa Mandi
+levante | 3 | DF | AUT | Ifeanyi Ndukwe
+levante | 4 | DF | ESP | Adrián Dela
+levante | 5 | MF | ESP | Hugo Sotelo
+levante | 6 | MF | ESP | Dani Requena
+levante | 7 | FW | ESP | Roger Brugué
+levante | 8 | MF | ESP | Jon Ander Olasagasti
+levante | 9 | FW | ESP | Iván Romero
+levante | 10 | FW | SRB | Petar Ratkov
+levante | 11 | FW | BEL | Yanis Musuayi
+levante | 13 | GK | AUS | Mathew Ryan
+levante | 14 | DF | ESP | Jorge Cabello
+levante | 16 | MF | FRA | Axel Tape
+levante | 17 | DF | ESP | Víctor García
+levante | 18 | MF | FRA | Enzo Bardeli
+levante | 20 | MF | ESP | Oriol Rey
+levante | 21 | FW | CMR | Karl Etta Eyong
+levante | 22 | DF | GER | Jeremy Toljan
+levante | 23 | DF | ESP | Manu Sánchez
+levante | 24 | MF | ARG | Thiago Fernández
+levante | 27 | MF | ESP | Paco Cortés
+levante | 29 | DF | ESP | Nacho Pérez
+levante | 32 | GK | ESP | Álex Primo
+levante | 33 | DF | ESP | Marc Santos
+
+# --- Málaga
+malaga | 1 | GK | ESP | Alfonso Herrero
+malaga | 2 | MF | SWE | Jens Cajuste
+malaga | 3 | DF | ESP | Carlos Puga
+malaga | 4 | DF | ESP | Einar Galilea
+malaga | 5 | DF | ESP | Álex Pastor
+malaga | 6 | MF | ESP | Ramón
+malaga | 7 | MF | MAR | Haitam
+malaga | 8 | MF | ESP | Carlos Dotor
+malaga | 9 | FW | ESP | Chupete
+malaga | 10 | MF | ESP | David Larrubia
+malaga | 11 | MF | ESP | Joaquín Muñoz
+malaga | 12 | DF | ESP | José Salinas
+malaga | 13 | GK | ESP | Carlos López
+malaga | 14 | MF | ESP | Rafa
+malaga | 15 | DF | ESP | Ángel Recio
+malaga | 16 | DF | ESP | Diego Murillo
+malaga | 17 | FW | ESP | Eneko Jauregi
+malaga | 18 | MF | ESP | Pablo Martínez
+malaga | 19 | MF | ESP | Juan Cruz
+malaga | 20 | DF | ESP | Fernando Calero
+malaga | 21 | FW | ESP | Adrián Niño
+malaga | 22 | MF | ESP | Dani Lorenzo
+malaga | 23 | MF | ESP | Izan Merino
+malaga | 24 | MF | ESP | Julen Lobete
+malaga | 25 | DF | ESP | Juan Berrocal
+malaga | 31 | DF | ESP | Rafita
+malaga | 35 | MF | IRL | Aarón Ochoa
+malaga | 39 | DF | MAR | Adam Aznou
+
+# --- Osasuna
+osasuna | 1 | GK | ESP | Sergio Herrera
+osasuna | 5 | DF | ESP | Jorge Herrando
+osasuna | 6 | MF | ESP | Lucas Torró
+osasuna | 7 | MF | ESP | Jon Moncayola
+osasuna | 8 | MF | ESP | Iker Muñoz
+osasuna | 9 | FW | ESP | Raúl García
+osasuna | 10 | MF | ESP | Aimar Oroz
+osasuna | 11 | FW | ESP | Kike Barja
+osasuna | 13 | GK | ESP | Aitor Fernández
+osasuna | 14 | MF | ESP | Rubén García
+osasuna | 15 | DF | ESP | Diego Rico
+osasuna | 16 | MF | ESP | Moi Gómez
+osasuna | 17 | FW | CRO | Ante Budimir
+osasuna | 18 | FW | ESP | Raúl Moro
+osasuna | 19 | DF | FRA | Valentin Rosier
+osasuna | 20 | FW | FRA | Romain Del Castillo
+osasuna | 21 | MF | BEL | Jonathan Dubasin
+osasuna | 22 | DF | CMR | Enzo Boyomo
+osasuna | 23 | DF | ESP | Abel Bretones
+osasuna | 24 | DF | ESP | Alejandro Catena
+osasuna | 26 | MF | ESP | Mauro Echegoyen
+osasuna | 27 | DF | ESP | Iñigo Arguibide
+osasuna | 29 | MF | ESP | Asier Osambela
+osasuna | 48 | DF | GHA | Rockson Yeboah
+
+# --- Racing de Santander
+racing-santander | 1 | GK | SWE | Simon Eriksson
+racing-santander | 2 | DF | ESP | Álvaro Mantilla
+racing-santander | 3 | DF | ESP | Aarón Martín
+racing-santander | 4 | DF | ESP | Manu Hernando
+racing-santander | 5 | DF | ESP | Pablo Ramón
+racing-santander | 6 | MF | ESP | Íñigo Sainz-Maza
+racing-santander | 7 | FW | GEO | Giorgi Guliashvili
+racing-santander | 8 | MF | POR | André Almeida
+racing-santander | 9 | FW | ESP | Juan Carlos Arana
+racing-santander | 10 | MF | ESP | Iñigo Vicente
+racing-santander | 11 | FW | ESP | Andrés Martín
+racing-santander | 12 | FW | ESP | Asier Villalibre
+racing-santander | 13 | GK | ESP | Julen Agirrezabala
+racing-santander | 14 | MF | SEN | Maguette Gueye
+racing-santander | 15 | FW | ESP | Pablo García
+racing-santander | 16 | DF | URU | Facundo González
+racing-santander | 17 | DF | ESP | Jorge Salinas
+racing-santander | 18 | MF | ITA | Matteo Prati
+racing-santander | 19 | FW | ESP | Iker Luque
+racing-santander | 20 | MF | ESP | Sergio Canales
+racing-santander | 21 | FW | MAR | Yassir Zabiri
+racing-santander | 22 | DF | BRA | Pedro Felipe
+racing-santander | 23 | MF | ESP | Iván Martín
+racing-santander | 24 | DF | FRA | Jeanuël Belocian
+
+# --- Rayo Vallecano
+rayo-vallecano | 1 | GK | ESP | Dani Cárdenas
+rayo-vallecano | 2 | DF | ROU | Andrei Rațiu
+rayo-vallecano | 3 | DF | ALB | Marash Kumbulla
+rayo-vallecano | 4 | MF | ESP | Pedro Díaz
+rayo-vallecano | 5 | DF | ITA | Luiz Felipe
+rayo-vallecano | 6 | MF | SEN | Pathé Ciss
+rayo-vallecano | 7 | FW | ESP | Isi Palazón
+rayo-vallecano | 8 | MF | ESP | Unai López
+rayo-vallecano | 9 | FW | BRA | Alemão
+rayo-vallecano | 10 | FW | ESP | Sergio Camello
+rayo-vallecano | 11 | FW | ANG | Randy Nteka
+rayo-vallecano | 13 | GK | ARG | Augusto Batalla
+rayo-vallecano | 14 | MF | GEO | Giorgi Tsitaishvili
+rayo-vallecano | 15 | DF | ESP | Mujaid Sadick
+rayo-vallecano | 17 | DF | ESP | Adrià Pedrosa
+rayo-vallecano | 18 | MF | ESP | Álvaro García
+rayo-vallecano | 19 | FW | ESP | Jorge de Frutos
+rayo-vallecano | 20 | DF | ALB | Iván Balliu
+rayo-vallecano | 21 | FW | ESP | Fran Pérez
+rayo-vallecano | 22 | DF | ESP | Pelayo Fernández
+rayo-vallecano | 23 | MF | ESP | Óscar Valentín
+rayo-vallecano | 24 | DF | FRA | Florian Lejeune
+rayo-vallecano | 25 | GK | IDN | Emil Audero
+rayo-vallecano | 33 | DF | NED | Jozhua Vertrouwd
+rayo-vallecano | 36 | MF | ESP | Gnangoro Bouare
+rayo-vallecano | 37 | MF | ESP | Rayane Belaid
+
+# --- Real Betis
+betis | 1 | GK | ESP | Álvaro Valles
+betis | 2 | DF | ESP | Héctor Bellerín
+betis | 3 | DF | ESP | Diego Llorente
+betis | 4 | DF | BRA | Natan
+betis | 5 | DF | ESP | Marc Bartra
+betis | 6 | MF | URU | Facundo Bernal
+betis | 7 | FW | BRA | Antony
+betis | 8 | MF | ESP | Pablo Fornals
+betis | 9 | FW | COL | Cucho Hernández
+betis | 10 | FW | MAR | Abde Ezzalzouli
+betis | 11 | DF | ESP | Fran García
+betis | 12 | DF | ESP | Ángel Ortiz
+betis | 13 | GK | ESP | Diego Conde
+betis | 14 | FW | ESP | Iker Losada
+betis | 15 | MF | MEX | Álvaro Fidalgo
+betis | 16 | DF | ARG | Valentín Gómez
+betis | 17 | MF | ESP | Rodrigo Riquelme
+betis | 18 | MF | COL | Nelson Deossa
+betis | 19 | FW | IRL | Troy Parrott
+betis | 20 | MF | ARG | Giovanni Lo Celso
+betis | 21 | MF | ESP | Marc Roca
+betis | 22 | MF | ESP | Isco
+betis | 23 | DF | DOM | Junior Firpo
+betis | 24 | FW | ESP | Aitor Ruibal
+betis | 25 | MF | ESP | Dani Ceballos
+
+# --- Real Madrid
+real-madrid | 1 | GK | BEL | Thibaut Courtois
+real-madrid | 2 | DF | ESP | Raúl Asencio
+real-madrid | 3 | DF | BRA | Éder Militão
+real-madrid | 4 | DF | ESP | Dean Huijsen
+real-madrid | 5 | MF | ENG | Jude Bellingham
+real-madrid | 6 | MF | FRA | Eduardo Camavinga
+real-madrid | 7 | FW | BRA | Vinícius Júnior
+real-madrid | 8 | MF | URU | Federico Valverde
+real-madrid | 9 | FW | BRA | Endrick
+real-madrid | 10 | FW | FRA | Kylian Mbappé
+real-madrid | 11 | FW | BRA | Rodrygo
+real-madrid | 12 | DF | ENG | Trent Alexander-Arnold
+real-madrid | 13 | GK | UKR | Andriy Lunin
+real-madrid | 14 | MF | FRA | Aurélien Tchouaméni
+real-madrid | 15 | MF | TUR | Arda Güler
+real-madrid | 16 | DF | FRA | Ibrahima Konaté
+real-madrid | 17 | DF | ESP | Marc Cucurella
+real-madrid | 18 | DF | ESP | Álvaro Carreras
+real-madrid | 19 | FW | ESP | Carlos Espí
+real-madrid | 20 | MF | POR | Bernardo Silva
+real-madrid | 21 | FW | MAR | Brahim Díaz
+real-madrid | 22 | DF | GER | Antonio Rüdiger
+real-madrid | 23 | DF | FRA | Ferland Mendy
+real-madrid | 24 | DF | NED | Denzel Dumfries
+real-madrid | 25 | FW | CIV | Yan Diomande
+real-madrid | 27 | MF | ESP | Thiago Pitarch
+
+# --- Real Sociedad
+real-sociedad | 1 | GK | ESP | Álex Remiro
+real-sociedad | 2 | DF | VEN | Jon Aramburu
+real-sociedad | 3 | DF | ESP | Aihen Muñoz
+real-sociedad | 4 | MF | ESP | Jon Gorrotxategi
+real-sociedad | 5 | DF | ESP | Igor Zubeldia
+real-sociedad | 6 | DF | ESP | Jon Martín
+real-sociedad | 7 | FW | ESP | Ander Barrenetxea
+real-sociedad | 8 | MF | ESP | Beñat Turrientes
+real-sociedad | 9 | FW | ISL | Orri Óskarsson
+real-sociedad | 10 | FW | ESP | Mikel Oyarzabal
+real-sociedad | 11 | FW | POR | Gonçalo Guedes
+real-sociedad | 12 | FW | KEN | Job Ochieng
+real-sociedad | 13 | GK | ESP | Unai Marrero
+real-sociedad | 14 | MF | JPN | Takefusa Kubo
+real-sociedad | 15 | MF | ESP | Pablo Marín
+real-sociedad | 16 | DF | ESP | Jon Pacheco
+real-sociedad | 17 | MF | ESP | Sergio Gómez
+real-sociedad | 18 | MF | ESP | Carlos Soler
+real-sociedad | 19 | DF | SEN | Mamadou Sarr
+real-sociedad | 20 | DF | ESP | Álvaro Odriozola
+real-sociedad | 21 | MF | VEN | Yangel Herrera
+real-sociedad | 22 | DF | ESP | Héctor Fort
+real-sociedad | 23 | MF | RUS | Arsen Zakharyan
+real-sociedad | 24 | MF | CRO | Luka Sučić
+
+# --- Sevilla
+sevilla | 1 | GK | GRE | Odysseas Vlachodimos
+sevilla | 2 | DF | ESP | Juan Iglesias
+sevilla | 3 | DF | ESP | Julio Díaz
+sevilla | 4 | DF | ESP | Kike Salas
+sevilla | 5 | DF | ESP | Andrés Castrín
+sevilla | 6 | MF | FRA | Lucien Agoumé
+sevilla | 7 | FW | ESP | Alfon González
+sevilla | 8 | MF | GEO | Giorgi Kochorashvili
+sevilla | 9 | FW | SCO | Robbie Ure
+sevilla | 10 | MF | ESP | Peque Fernández
+sevilla | 11 | FW | SUI | Rubén Vargas
+sevilla | 12 | DF | SEN | Arouna Sangante
+sevilla | 13 | GK | ESP | Fran González
+sevilla | 14 | MF | ESP | Manu Bueno
+sevilla | 15 | DF | POR | Fábio Cardoso
+sevilla | 16 | FW | ESP | Isaac Romero
+sevilla | 17 | DF | CHI | Gabriel Suazo
+sevilla | 18 | MF | ESP | Jon Guridi
+sevilla | 19 | FW | BEL | Lucas Stassin
+sevilla | 20 | FW | POR | Félix Correia
+sevilla | 21 | FW | NGA | Chidera Ejuke
+sevilla | 22 | DF | ESP | José Ángel Carmona
+sevilla | 23 | DF | BRA | Marcão
+sevilla | 24 | MF | FRA | Youssouf Fofana
+sevilla | 30 | FW | ESP | Miguel Sierra
+sevilla | 33 | GK | ESP | Rafa Romero
+
+# --- Valencia
+valencia | 1 | GK | MKD | Stole Dimitrievski
+valencia | 2 | MF | ARG | Guido Rodríguez
+valencia | 3 | DF | ESP | José Copete
+valencia | 4 | DF | GUI | Mouctar Diakhaby
+valencia | 5 | DF | ESP | César Tárrega
+valencia | 6 | FW | NGA | Umar Sadiq
+valencia | 7 | FW | NED | Arnaut Danjuma
+valencia | 8 | MF | ESP | Javi Guerra
+valencia | 9 | FW | ESP | Hugo Duro
+valencia | 10 | FW | ENG | Harvey Elliott
+valencia | 11 | FW | ESP | Luis Rioja
+valencia | 12 | DF | NED | Justin de Haas
+valencia | 13 | GK | ESP | Cristian Rivero
+valencia | 14 | DF | ESP | José Gayà
+valencia | 15 | MF | MLI | Aliou Dieng
+valencia | 16 | FW | ESP | Diego López
+valencia | 18 | MF | ESP | Pepelu
+valencia | 19 | FW | ESP | Dani Raba
+valencia | 20 | DF | GLP | Dimitri Foulquier
+valencia | 21 | DF | ESP | Jesús Vázquez
+valencia | 22 | DF | ESP | Arnau Martínez
+valencia | 23 | MF | SUI | Filip Ugrinić
+valencia | 24 | DF | ARG | Pablo Maffeo
+valencia | 25 | GK | NED | Kayne van Oevelen
+valencia | 39 | MF | JPN | Ryūnosuke Satō
+valencia | 0 | FW | ESP | Sergi Canós
+
+# --- Villarreal
+villarreal | 1 | GK | BRA | Luiz Júnior
+villarreal | 2 | DF | CPV | Logan Costa
+villarreal | 3 | DF | USA | Alex Freeman
+villarreal | 5 | MF | SEN | Alassane Diatta
+villarreal | 6 | DF | ESP | Pau Navarro
+villarreal | 7 | FW | ESP | Gerard Moreno
+villarreal | 8 | DF | ARG | Juan Foyth
+villarreal | 9 | FW | GEO | Georges Mikautadze
+villarreal | 10 | MF | ESP | Alberto Moleiro
+villarreal | 11 | FW | MAR | Ilias Akhomach
+villarreal | 12 | DF | POR | Renato Veiga
+villarreal | 13 | GK | ESP | Rubén Gómez
+villarreal | 14 | MF | ESP | Santi Comesaña
+villarreal | 15 | DF | URU | Santiago Mouriño
+villarreal | 16 | MF | ESP | Carlos Maciá
+villarreal | 17 | MF | CAN | Tajon Buchanan
+villarreal | 18 | MF | SEN | Pape Gueye
+villarreal | 19 | FW | CIV | Nicolas Pépé
+villarreal | 20 | DF | ESP | Carlos Romero
+villarreal | 21 | FW | CAN | Tani Oluwaseyi
+villarreal | 22 | FW | ESP | Ayoze Pérez
+villarreal | 23 | DF | ESP | Sergi Cardona
+villarreal | 24 | MF | CAN | Nathan Saliba
+villarreal | 25 | GK | HUN | Péter Gulácsi
+
+# ===== Itália — Serie A 2026-27
+
+# --- Atalanta
+atalanta | 3 | DF | CIV | Odilon Kossounou
+atalanta | 4 | DF | SWE | Isak Hien
+atalanta | 7 | FW | GHA | Kamaldeen Sulemana
+atalanta | 8 | MF | CRO | Mario Pašalić
+atalanta | 9 | FW | ITA | Gianluca Scamacca
+atalanta | 10 | MF | SRB | Lazar Samardžić
+atalanta | 11 | FW | ENG | Jonathan Rowe
+atalanta | 13 | MF | BRA | Éderson
+atalanta | 16 | DF | ITA | Raoul Bellanova
+atalanta | 17 | MF | BEL | Charles De Ketelaere
+atalanta | 18 | FW | ITA | Giacomo Raspadori
+atalanta | 19 | MF | CIV | Franck Kessié
+atalanta | 22 | GK | ITA | Thomas Pompei
+atalanta | 23 | DF | BIH | Sead Kolašinac
+atalanta | 29 | GK | ITA | Marco Carnesecchi
+atalanta | 31 | DF | DEN | Thomas Kristensen
+atalanta | 40 | DF | SVN | Relja Obrić
+atalanta | 42 | DF | ITA | Giorgio Scalvini
+atalanta | 47 | DF | ITA | Lorenzo Bernasconi
+atalanta | 57 | GK | ITA | Marco Sportiello
+atalanta | 59 | MF | POL | Nicola Zalewski
+atalanta | 70 | MF | ITA | Gianluca Gaetano
+atalanta | 77 | DF | ITA | Davide Zappacosta
+atalanta | 90 | FW | MNE | Nikola Krstović
+atalanta | 99 | MF | MKD | Eljif Elmas
+
+# --- Bologna
+bologna | 1 | GK | POL | Łukasz Skorupski
+bologna | 2 | DF | SWE | Emil Holm
+bologna | 3 | DF | BEL | Arthur Theate
+bologna | 4 | MF | ITA | Tommaso Pobega
+bologna | 5 | DF | NOR | Eivind Helland
+bologna | 6 | MF | CRO | Nikola Moro
+bologna | 7 | FW | ITA | Riccardo Orsolini
+bologna | 8 | MF | ARG | Mikel Amondarain
+bologna | 9 | FW | UKR | Artem Dovbyk
+bologna | 10 | MF | ITA | Federico Bernardeschi
+bologna | 11 | FW | BEL | Samuel Mbangula
+bologna | 14 | DF | NOR | Torbjørn Heggem
+bologna | 16 | DF | ITA | Nicolò Casale
+bologna | 17 | MF | MAR | Oussama El Azzouzi
+bologna | 18 | MF | VEN | Marco Libra
+bologna | 19 | MF | SCO | Lewis Ferguson
+bologna | 20 | DF | ITA | Nadir Zortea
+bologna | 21 | MF | DEN | Jens Odgaard
+bologna | 22 | FW | NED | Jay Enem
+bologna | 23 | DF | NIG | Rahim Alhassane
+bologna | 25 | GK | ITA | Massimo Pessina
+bologna | 28 | FW | ITA | Nicolò Cambiaghi
+bologna | 29 | DF | ITA | Lorenzo De Silvestri
+bologna | 33 | DF | ESP | Juan Miranda
+bologna | 36 | DF | ITA | Matteo Darmian
+bologna | 41 | DF | CZE | Martin Vitík
+bologna | 77 | GK | FIN | Ukko Happonen
+bologna | 91 | FW | ITA | Roberto Piccoli
+
+# --- Cagliari
+cagliari | 1 | GK | ITA | Elia Caprile
+cagliari | 2 | DF | POR | Zé Pedro
+cagliari | 3 | DF | ITA | Riyad Idrissi
+cagliari | 4 | MF | ITA | Alessandro Romano
+cagliari | 6 | MF | ENG | Harry Winks
+cagliari | 8 | MF | FRA | Michel Adopo
+cagliari | 9 | FW | ESP | Kevin Carlos
+cagliari | 10 | MF | ITA | Jacopo Fazzini
+cagliari | 12 | GK | ALB | Alen Sherri
+cagliari | 14 | MF | ITA | Alessandro Deiola
+cagliari | 15 | DF | URU | Juan Rodríguez
+cagliari | 17 | MF | ITA | Mattia Felici
+cagliari | 18 | FW | ANG | M'Bala Nzola
+cagliari | 19 | FW | FRA | Yael Trepy
+cagliari | 20 | FW | ITA | Riccardo Ciervo
+cagliari | 21 | MF | ITA | Roberto Gagliardini
+cagliari | 22 | DF | ITA | Raphael Kofler
+cagliari | 23 | GK | SRB | Boris Radunović
+cagliari | 24 | DF | ITA | Giuseppe Aurelio
+cagliari | 26 | DF | COL | Yerry Mina
+cagliari | 27 | MF | ZAM | Joseph Liteta
+cagliari | 28 | DF | JPN | Yukinari Sugawara
+cagliari | 30 | MF | ENG | Demi Akarakiri
+cagliari | 31 | FW | SEN | Paul Mendy
+cagliari | 32 | MF | BUL | Ivan Sulev
+cagliari | 33 | DF | SVK | Adam Obert
+cagliari | 35 | FW | ITA | Alessandro Sugamele
+cagliari | 36 | MF | ITA | Nicola Grandu
+cagliari | 39 | MF | GAM | Alieu Fadera
+cagliari | 70 | FW | ITA | Daniel Maldini
+cagliari | 79 | MF | FRA | Yanis Massolin
+
+# --- Como
+como | 1 | GK | FRA | Jean Butez
+como | 2 | DF | GER | Marc-Oliver Kempf
+como | 3 | DF | ESP | Álex Valle
+como | 4 | DF | ESP | Jacobo Ramón
+como | 5 | MF | ARG | Máximo Perrone
+como | 6 | MF | ESP | Luis Milla
+como | 7 | MF | FRA | Lucas Da Cunha
+como | 8 | MF | FRA | Maxence Caqueret
+como | 9 | FW | GRE | Anastasios Douvikas
+como | 10 | MF | ARG | Nico Paz
+como | 11 | FW | SEN | Assane Diao
+como | 13 | DF | ITA | Alberto Dossena
+como | 15 | MF | SWE | Adrian Lahdo
+como | 16 | DF | BRA | Kaiki Bruno
+como | 17 | FW | ESP | Jesús Rodríguez
+como | 18 | DF | ITA | Edoardo Goldaniga
+como | 20 | MF | CRO | Martin Baturina
+como | 21 | MF | ITA | Samuele Ricci
+como | 22 | GK | ITA | Mauro Vigorito
+como | 27 | DF | BRA | Yan Couto
+como | 28 | DF | CRO | Ivan Smolčić
+como | 30 | MF | ITA | Mattia Liberali
+como | 42 | FW | NED | Jayden Addai
+como | 53 | DF | COD | Willy Kambwala
+como | 90 | FW | ITA | Moise Kean
+como | 97 | GK | ESP | Robert Sánchez
+como | 99 | DF | ENG | Trevoh Chalobah
+
+# --- Fiorentina
+fiorentina | 2 | DF | BRA | Dodô
+fiorentina | 3 | DF | ROU | Radu Drăgușin
+fiorentina | 4 | MF | ITA | Marco Brescianini
+fiorentina | 5 | DF | CRO | Marin Pongračić
+fiorentina | 6 | DF | ITA | Luca Ranieri
+fiorentina | 14 | MF | FRA | Arthur Atta
+fiorentina | 17 | DF | POR | João Mário
+fiorentina | 19 | GK | ITA | Luca Lezzerini
+fiorentina | 20 | DF | ESP | Álex Jiménez
+fiorentina | 21 | DF | ESP | Víctor Valdepeñas
+fiorentina | 23 | FW | GNB | Beto
+fiorentina | 25 | FW | SWE | Alieu Njie
+fiorentina | 27 | MF | ITA | Cher Ndour
+fiorentina | 28 | FW | POR | Pedro Gonçalves
+fiorentina | 29 | FW | ITA | Wilfried Gnonto
+fiorentina | 30 | FW | ARG | Franco Mastantuono
+fiorentina | 32 | FW | ARG | Mateo Pellegrino
+fiorentina | 33 | DF | BRA | Viery
+fiorentina | 42 | MF | CIV | Christ Inao Oulaï
+fiorentina | 43 | GK | ESP | David de Gea
+fiorentina | 44 | MF | ITA | Nicolò Fagioli
+fiorentina | 53 | GK | DEN | Oliver Christensen
+fiorentina | 65 | DF | ITA | Fabiano Parisi
+
+# --- Frosinone
+frosinone | 2 | DF | ITA | Giorgio Cittadini
+frosinone | 3 | DF | ITA | Gabriele Calvani
+frosinone | 4 | MF | CIV | Ben Lhassine Kone
+frosinone | 5 | DF | ITA | Wisdom Amey
+frosinone | 7 | FW | ALG | Farès Ghedjemis
+frosinone | 9 | FW | ITA | Antonio Raimondo
+frosinone | 10 | MF | AUT | Romano Schmid
+frosinone | 11 | FW | ROU | Daniel Bîrligea
+frosinone | 12 | GK | ITA | Matteo Pisseri
+frosinone | 14 | MF | ITA | Giacomo Calò
+frosinone | 16 | MF | ITA | Matteo Cichella
+frosinone | 17 | FW | GEO | Giorgi Kvernadze
+frosinone | 20 | DF | GAB | Anthony Oyono
+frosinone | 22 | GK | ITA | Lorenzo Palmisani
+frosinone | 24 | FW | ITA | Alessio Zerbin
+frosinone | 25 | DF | NGA | Kevin Akpoguma
+frosinone | 27 | MF | AUT | Florian Grillitsch
+frosinone | 30 | DF | ITA | Ilario Monterisi
+frosinone | 34 | MF | MAR | Anouar El Azzouzi
+frosinone | 40 | FW | ITA | Seydou Fini
+frosinone | 70 | FW | ALB | Luis Hasa
+frosinone | 71 | DF | SRB | Aleksa Terzić
+frosinone | 73 | MF | ITA | Patrizio Masini
+frosinone | 74 | DF | EGY | Omar Fayed
+frosinone | 79 | DF | ITA | Gabriele Bracaglia
+frosinone | 89 | FW | SVK | Tomáš Bobček
+frosinone | 90 | DF | CMR | Enzo Tchato
+frosinone | 91 | GK | ITA | Sebastiano Desplanches
+frosinone | 96 | MF | ITA | Francesco Gelli
+frosinone | 0 | GK | BIH | Eldin Lolić
+
+# --- Genoa
+genoa | 1 | GK | NED | Justin Bijlow
+genoa | 2 | DF | ALB | Mario Mitaj
+genoa | 3 | DF | NED | Kingsley Ehizibue
+genoa | 4 | MF | BRA | Alex Amorim
+genoa | 5 | DF | NOR | Leo Østigård
+genoa | 8 | MF | ITA | Tommaso Baldanzi
+genoa | 9 | FW | POR | Vitinha
+genoa | 10 | FW | BRA | Júnior Messias
+genoa | 11 | MF | SUI | Ethan Meichtry
+genoa | 16 | DF | ENG | Cody Drameh
+genoa | 17 | FW | AUT | Elias Havel
+genoa | 18 | FW | MNE | Milutin Osmajić
+genoa | 19 | FW | ALB | Joi Nuredini
+genoa | 20 | DF | ITA | Stefano Sabelli
+genoa | 22 | DF | MEX | Johan Vásquez
+genoa | 25 | MF | CIV | Hamed Traorè
+genoa | 27 | DF | ITA | Alessandro Marcandalli
+genoa | 29 | FW | ITA | Lorenzo Colombo
+genoa | 31 | DF | AUT | David Puczka
+genoa | 32 | MF | DEN | Morten Frendrup
+genoa | 34 | DF | DEN | Sebastian Otoa
+genoa | 39 | GK | ITA | Daniele Sommariva
+genoa | 71 | MF | ITA | Samuel Wiafe
+genoa | 76 | FW | ITA | Lorenzo Venturino
+genoa | 77 | MF | ISL | Mikael Egill Ellertsson
+genoa | 92 | FW | ITA | Stephan El Shaarawy
+genoa | 97 | MF | SUI | Djibril Sow
+genoa | 99 | GK | AUT | Franz Stolz
+
+# --- Inter de Milão
+inter | 1 | GK | ESP | Josep Martínez
+inter | 5 | MF | SRB | Aleksandar Stanković
+inter | 6 | DF | ENG | John Stones
+inter | 7 | MF | POL | Piotr Zieliński
+inter | 8 | MF | CRO | Petar Sučić
+inter | 9 | FW | FRA | Marcus Thuram
+inter | 10 | FW | ARG | Lautaro Martínez
+inter | 11 | MF | BRA | Luis Henrique
+inter | 12 | GK | ITA | Raffaele Di Gennaro
+inter | 14 | FW | CIV | Ange-Yoan Bonny
+inter | 17 | MF | FRA | Andy Diouf
+inter | 20 | MF | TUR | Hakan Çalhanoğlu
+inter | 21 | MF | ENG | Curtis Jones
+inter | 22 | MF | ARM | Henrikh Mkhitaryan
+inter | 23 | MF | ITA | Nicolò Barella
+inter | 25 | DF | SUI | Manuel Akanji
+inter | 28 | DF | FRA | Benjamin Pavard
+inter | 30 | DF | BRA | Carlos Augusto
+inter | 31 | DF | GER | Yann Bisseck
+inter | 32 | DF | ITA | Federico Dimarco
+inter | 49 | GK | ITA | Ivan Provedel
+inter | 94 | FW | ITA | Pio Esposito
+inter | 95 | DF | ITA | Alessandro Bastoni
+inter | 99 | DF | ENG | Djed Spence
+
+# --- Juventus
+juventus | 1 | GK | POL | Kamil Grabara
+juventus | 2 | DF | TUR | Zeki Çelik
+juventus | 3 | DF | BRA | Bremer
+juventus | 4 | DF | ITA | Federico Gatti
+juventus | 5 | MF | ITA | Manuel Locatelli
+juventus | 6 | DF | ENG | Lloyd Kelly
+juventus | 7 | FW | POR | Francisco Conceição
+juventus | 8 | MF | NED | Teun Koopmeiners
+juventus | 9 | FW | FRA | Randal Kolo Muani
+juventus | 10 | FW | TUR | Kenan Yıldız
+juventus | 11 | FW | KOS | Edon Zhegrova
+juventus | 12 | MF | BRA | Douglas Luiz
+juventus | 13 | FW | CIV | Jérémie Boga
+juventus | 14 | FW | POL | Arkadiusz Milik
+juventus | 15 | DF | FRA | Pierre Kalulu
+juventus | 17 | MF | BIH | Kerim Alajbegović
+juventus | 18 | FW | ITA | Jeff Ekhator
+juventus | 19 | MF | FRA | Khéphren Thuram
+juventus | 20 | DF | ITA | Andrea Cambiaso
+juventus | 22 | MF | USA | Weston McKennie
+juventus | 23 | GK | ITA | Carlo Pinsoglio
+juventus | 24 | DF | ITA | Daniele Rugani
+juventus | 25 | GK | ITA | Guglielmo Vicario
+juventus | 26 | DF | COL | Jhon Lucumí
+juventus | 27 | FW | GER | Nick Woltemade
+juventus | 29 | MF | SEN | Pape Matar Sarr
+juventus | 31 | FW | ARG | Nico González
+juventus | 32 | DF | COL | Juan Cabal
+juventus | 33 | GK | BRA | Neto
+
+# --- Lazio
+lazio | 2 | DF | POR | Diogo Leite
+lazio | 3 | DF | ITA | Luca Pellegrini
+lazio | 5 | DF | NED | Danilho Doekhi
+lazio | 6 | MF | ITA | Nicolò Rovella
+lazio | 7 | MF | NGA | Fisayo Dele-Bashiru
+lazio | 8 | MF | ESP | Bruno Galassi
+lazio | 9 | FW | ITA | Andrea Pinamonti
+lazio | 10 | MF | ITA | Mattia Zaccagni
+lazio | 11 | FW | DEN | Gustav Isaksen
+lazio | 14 | FW | NED | Tijjani Noslin
+lazio | 15 | DF | ITA | Romano Floriani Mussolini
+lazio | 16 | MF | ITA | Davide Frattesi
+lazio | 17 | DF | POR | Nuno Tavares
+lazio | 21 | MF | MAR | Reda Belahyane
+lazio | 22 | FW | ITA | Matteo Cancellieri
+lazio | 23 | DF | ESP | Alfonso Pedraza
+lazio | 24 | MF | NED | Kenneth Taylor
+lazio | 25 | DF | DEN | Oliver Provstgaard
+lazio | 28 | MF | POL | Adrian Przyborek
+lazio | 29 | MF | ITA | Manuel Lazzari
+lazio | 32 | MF | ITA | Danilo Cataldi
+lazio | 35 | GK | GRE | Christos Mandas
+lazio | 37 | DF | CRO | Josip Šutalo
+lazio | 40 | GK | ITA | Edoardo Motta
+lazio | 55 | GK | ITA | Alessio Furlanetto
+lazio | 59 | GK | ITA | Davide Renzetti
+lazio | 63 | FW | ITA | Federico Serra
+lazio | 71 | MF | ITA | Valerio Farcomeni
+lazio | 76 | DF | BRA | Filipe Bordon
+lazio | 77 | DF | MNE | Adam Marušić
+lazio | 80 | FW | ISL | Albert Guðmundsson
+
+# --- Lecce
+lecce | 1 | GK | ITA | Marco Bleve
+lecce | 2 | DF | FRA | Ali Dembélé
+lecce | 3 | DF | IRL | Corrie Ndaba
+lecce | 4 | DF | ANG | Kialonda Gaspar
+lecce | 5 | DF | GER | Jamil Siebert
+lecce | 7 | FW | SWE | Amar Fatah
+lecce | 8 | MF | TOG | Sadik Fofana
+lecce | 9 | FW | SRB | Nikola Štulić
+lecce | 10 | MF | ALB | Medon Berisha
+lecce | 11 | FW | NIG | Konan N'Dri
+lecce | 14 | MF | MAR | Youssef Maleh
+lecce | 16 | MF | ISR | Omri Gandelman
+lecce | 17 | DF | POR | Danilo Veiga
+lecce | 18 | DF | FRA | Gaby Jean
+lecce | 20 | MF | SRB | Ivan Ilić
+lecce | 22 | FW | ESP | Paco Esteban
+lecce | 25 | DF | ITA | Antonino Gallo
+lecce | 28 | MF | NED | Olaf Gorter
+lecce | 29 | MF | MLI | Lassana Coulibaly
+lecce | 30 | GK | ITA | Wladimiro Falcone
+lecce | 31 | DF | GER | Elijah Scott
+lecce | 32 | GK | ROU | Alexandru Borbei
+lecce | 33 | GK | BUL | Plamen Penev
+lecce | 34 | MF | DEN | Hjalte Lærke
+lecce | 36 | DF | GER | Marlon Ubani
+lecce | 44 | DF | POR | Tiago Gabriel
+lecce | 50 | FW | ARG | Santiago Pierotti
+lecce | 69 | FW | FRA | Willem Geubbels
+lecce | 77 | MF | GUI | Mohamed Kaba
+lecce | 79 | MF | MTN | Oumar Ngom
+lecce | 80 | MF | BIH | Niko Kovač
+lecce | 99 | FW | SUI | Joël Monteiro
+
+# --- Milan
+milan | 1 | GK | ITA | Pietro Terracciano
+milan | 2 | DF | ECU | Pervis Estupiñán
+milan | 5 | DF | BEL | Koni De Winter
+milan | 8 | MF | ENG | Ruben Loftus-Cheek
+milan | 9 | FW | POR | Gonçalo Ramos
+milan | 11 | MF | USA | Christian Pulisic
+milan | 12 | MF | FRA | Adrien Rabiot
+milan | 13 | DF | FRA | Sankhoun Diawara
+milan | 14 | MF | CRO | Luka Modrić
+milan | 16 | GK | FRA | Mike Maignan
+milan | 20 | MF | ENG | Omari Hutchinson
+milan | 21 | MF | NGA | Samuel Chukwueze
+milan | 22 | FW | BEL | Diego Moreira
+milan | 23 | DF | ENG | Fikayo Tomori
+milan | 28 | MF | ITA | Christian Comotto
+milan | 30 | MF | SUI | Ardon Jashari
+milan | 31 | DF | SRB | Strahinja Pavlović
+milan | 33 | DF | ITA | Davide Bartesaghi
+milan | 34 | DF | ESP | Mario Gila
+milan | 35 | DF | BUL | Valeri Vladimirov
+milan | 42 | DF | ITA | Filippo Terracciano
+milan | 46 | DF | ITA | Matteo Gabbia
+milan | 56 | MF | BEL | Alexis Saelemaekers
+milan | 70 | MF | ITA | Alphadjo Cisse
+milan | 73 | FW | ITA | Francesco Camarda
+milan | 80 | MF | USA | Yunus Musah
+milan | 96 | GK | ITA | Lorenzo Torriani
+
+# --- Monza
+monza | 1 | GK | SWE | Noel Törnqvist
+monza | 2 | DF | GEO | Saba Goglichidze
+monza | 3 | DF | ITA | Lorenzo Lucchesi
+monza | 4 | DF | POL | Jan Ziółkowski
+monza | 5 | DF | FRA | Yvan Maye
+monza | 6 | DF | BUL | Valentin Antov
+monza | 7 | DF | POR | Ricardo Mangas
+monza | 8 | MF | FRA | Manga Foe Ondoa
+monza | 9 | FW | POR | Gustavo Varela
+monza | 10 | FW | ITA | Patrick Cutrone
+monza | 11 | MF | ENG | Omari Forson
+monza | 14 | MF | NGA | Ebenezer Akinsanmiro
+monza | 16 | FW | BEL | Cyril Ngonge
+monza | 17 | FW | SEN | Keita Baldé
+monza | 19 | DF | ITA | Samuele Birindelli
+monza | 20 | GK | SEN | Demba Thiam
+monza | 21 | MF | ITA | Leonardo Colombo
+monza | 22 | FW | ARG | Exequiel Zeballos
+monza | 24 | DF | MAR | Adam Bakoune
+monza | 26 | FW | ITA | Patrick Ciurria
+monza | 27 | MF | GER | Idrissa Touré
+monza | 28 | FW | ITA | Andrea Colpani
+monza | 32 | MF | ITA | Matteo Pessina
+monza | 43 | GK | SVN | Aljaž Strajnar
+monza | 44 | DF | ITA | Andrea Carboni
+monza | 46 | MF | ENG | Jay Robinson
+monza | 47 | FW | POR | Dany Mota
+monza | 60 | DF | ITA | Eddy Kouadio
+monza | 70 | FW | ITA | Kevin Martins
+monza | 80 | MF | ITA | Mathis Mout
+monza | 90 | MF | ITA | Michael Folorunsho
+
+# --- Napoli
+napoli | 1 | GK | ITA | Alex Meret
+napoli | 2 | DF | ITA | Costantino Favasuli
+napoli | 4 | DF | ITA | Alessandro Buongiorno
+napoli | 5 | DF | FRA | Benoît Badiashile
+napoli | 6 | MF | SCO | Billy Gilmour
+napoli | 7 | FW | BRA | David Neres
+napoli | 8 | MF | SCO | Scott McTominay
+napoli | 11 | MF | BEL | Kevin De Bruyne
+napoli | 12 | GK | ITA | Claudio Pugliese
+napoli | 13 | DF | KOS | Amir Rrahmani
+napoli | 14 | GK | UKR | Nikita Contini
+napoli | 16 | DF | ESP | Rafa Marín
+napoli | 17 | DF | URU | Mathías Olivera
+napoli | 19 | FW | DEN | Rasmus Højlund
+napoli | 20 | FW | ITA | Lorenzo Lucca
+napoli | 21 | FW | ITA | Matteo Politano
+napoli | 22 | DF | ITA | Giovanni Di Lorenzo
+napoli | 23 | FW | BRA | Giovane
+napoli | 26 | MF | ITA | Antonio Vergara
+napoli | 27 | FW | BRA | Alisson Santos
+napoli | 31 | DF | NED | Sam Beukema
+napoli | 32 | GK | SRB | Vanja Milinković-Savić
+napoli | 35 | DF | ITA | Luca Marianucci
+napoli | 37 | DF | ITA | Leonardo Spinazzola
+napoli | 68 | MF | SVK | Stanislav Lobotka
+napoli | 70 | FW | NED | Noa Lang
+napoli | 99 | MF | CMR | Frank Anguissa
+
+# --- Parma
+parma | 3 | DF | SEN | Abdoulaye Ndiaye
+parma | 4 | MF | SUI | Vincent Sierro
+parma | 5 | DF | ARG | Lautaro Valenti
+parma | 7 | FW | ESP | Ousmane Diallo
+parma | 8 | MF | USA | Benjamin Cremaschi
+parma | 9 | FW | ARG | David Romero
+parma | 10 | MF | ESP | Adrián Bernabé
+parma | 11 | FW | SWE | Pontus Almqvist
+parma | 14 | DF | ITA | Emanuele Valeri
+parma | 15 | DF | ITA | Enrico Delprato
+parma | 16 | MF | BEL | Mandela Keita
+parma | 19 | FW | MLI | El Bilal Touré
+parma | 20 | FW | CRO | Matija Frigan
+parma | 22 | GK | ITA | Simone Ghidotti
+parma | 23 | FW | FRA | Nesta Elphege
+parma | 25 | FW | ARG | Thomás de Martis
+parma | 27 | DF | SUI | Sascha Britschgi
+parma | 29 | DF | ARG | Franco Carboni
+parma | 30 | GK | ITA | Giovanni Daffara
+parma | 32 | MF | ARG | Christian Ordóñez
+parma | 34 | DF | BRA | Diego Carlos
+parma | 37 | DF | ARG | Mariano Troilo
+parma | 40 | GK | ITA | Edoardo Corvi
+parma | 41 | MF | ITA | Hans Nicolussi Caviglia
+parma | 47 | MF | SEN | Abdou-Salam Konate
+parma | 72 | DF | SVN | Dominik Drobnič
+parma | 76 | MF | ITA | Simone Lontani
+parma | 80 | MF | ITA | Giovanni Fabbian
+
+# --- Roma
+roma | 2 | DF | NED | Devyne Rensch
+roma | 3 | DF | GRE | Konstantinos Koulierakis
+roma | 4 | MF | ITA | Bryan Cristante
+roma | 5 | DF | CIV | Evan Ndicka
+roma | 7 | MF | ITA | Lorenzo Pellegrini
+roma | 9 | FW | ARG | Santiago Castro
+roma | 14 | FW | NED | Donyell Malen
+roma | 15 | MF | NED | Marten de Roon
+roma | 17 | MF | FRA | Manu Koné
+roma | 18 | FW | ARG | Matías Soulé
+roma | 20 | DF | ARG | Nahuel Molina
+roma | 21 | FW | ARG | Paulo Dybala
+roma | 22 | DF | ESP | Mario Hermoso
+roma | 23 | DF | ITA | Gianluca Mancini
+roma | 26 | DF | ARG | Leonardo Balerdi
+roma | 32 | GK | COL | Devis Vásquez
+roma | 43 | DF | BRA | Wesley
+roma | 61 | MF | ITA | Niccolò Pisilli
+roma | 68 | FW | ITA | Antonio Arena
+roma | 70 | GK | USA | Giorgio De Marzi
+roma | 77 | DF | ITA | Emanuele Lulli
+roma | 86 | MF | POR | Rodrigo Mora
+roma | 87 | DF | ITA | Daniele Ghilardi
+roma | 95 | GK | ITA | Pierluigi Gollini
+roma | 99 | GK | SRB | Mile Svilar
+
+# --- Sassuolo
+sassuolo | 3 | DF | SCO | Josh Doig
+sassuolo | 5 | DF | GNB | Fali Candé
+sassuolo | 6 | DF | POL | Sebastian Walukiewicz
+sassuolo | 7 | FW | AUS | Cristian Volpato
+sassuolo | 8 | MF | ITA | Andrea Ghion
+sassuolo | 9 | FW | SCO | Kieron Bowie
+sassuolo | 10 | FW | ITA | Domenico Berardi
+sassuolo | 11 | MF | ROU | Daniel Boloca
+sassuolo | 12 | GK | ITA | Giacomo Satalino
+sassuolo | 15 | DF | CRO | Duje Ćaleta-Car
+sassuolo | 16 | DF | BEL | Fedde Leysen
+sassuolo | 17 | MF | MNE | Vasilije Adžić
+sassuolo | 18 | MF | SRB | Nemanja Matić
+sassuolo | 19 | FW | DEN | Laurs Skjellerup
+sassuolo | 20 | DF | BEL | Ignace Van Der Brempt
+sassuolo | 21 | DF | IDN | Jay Idzes
+sassuolo | 22 | GK | ITA | Lorenzo Nyarko
+sassuolo | 25 | FW | ARG | Benja Domínguez
+sassuolo | 26 | DF | NED | Cas Odenthal
+sassuolo | 27 | DF | COL | Yeferson Paz
+sassuolo | 33 | DF | ESP | Rafa Obrador
+sassuolo | 35 | MF | ITA | Luca Lipani
+sassuolo | 36 | DF | ITA | Giorgio Vezzosi
+sassuolo | 42 | MF | NOR | Kristian Thorstvedt
+sassuolo | 45 | FW | FRA | Armand Laurienté
+sassuolo | 46 | DF | ITA | Simone Cinquegrano
+sassuolo | 49 | GK | KOS | Arijanet Muric
+sassuolo | 50 | MF | FRA | Darryl Bakola
+sassuolo | 55 | MF | GHA | Ibrahim Sulemana
+sassuolo | 77 | FW | ITA | Nicholas Pierini
+sassuolo | 80 | GK | ITA | Stefano Turati
+sassuolo | 90 | MF | CAN | Ismaël Koné
+sassuolo | 94 | FW | ITA | Sebastiano Esposito
+
+# --- Torino
+torino | 2 | DF | SCO | Nathan Patterson
+torino | 3 | DF | ITA | Cristiano Biraghi
+torino | 5 | DF | SUI | Eray Cömert
+torino | 6 | MF | TUR | Emirhan İlkhan
+torino | 7 | FW | MAR | Zakaria Aboukhlal
+torino | 8 | MF | ITA | Rolando Mandragora
+torino | 9 | FW | ITA | Pietro Pellegri
+torino | 10 | MF | CRO | Nikola Vlašić
+torino | 11 | FW | ITA | Gaetano Oristanio
+torino | 13 | DF | SUI | Ricardo Rodriguez
+torino | 15 | DF | ITA | Pietro Comuzzo
+torino | 17 | FW | CRO | Sandro Kulenović
+torino | 18 | FW | ARG | Giovanni Simeone
+torino | 19 | FW | SCO | Ché Adams
+torino | 20 | GK | BRA | Lucas Perri
+torino | 21 | MF | POR | Daniel Bragança
+torino | 22 | MF | ITA | Cesare Casadei
+torino | 23 | DF | EQG | Saúl Coco
+torino | 26 | GK | ITA | Diego Mascardi
+torino | 28 | MF | NED | Kian Fitz-Jim
+torino | 29 | DF | ITA | Niccolò Fortini
+torino | 44 | DF | ALB | Ardian Ismajli
+torino | 45 | DF | ALG | Rafik Belghali
+torino | 66 | MF | LTU | Gvidas Gineitis
+torino | 76 | GK | ITA | Lapo Siviero
+torino | 77 | MF | ITA | Alessio Cacciamani
+torino | 79 | MF | ITA | Andrea Luongo
+torino | 81 | GK | URU | Franco Israel
+torino | 91 | FW | COL | Duván Zapata
+
+# --- Udinese
+udinese | 4 | MF | SVN | Sandi Lovrić
+udinese | 5 | DF | AUT | David Alaba
+udinese | 6 | MF | ESP | Oier Zarraga
+udinese | 7 | FW | SEN | Idrissa Gueye
+udinese | 8 | MF | SWE | Jesper Karlström
+udinese | 9 | FW | ENG | Keinan Davis
+udinese | 10 | FW | ITA | Nicolò Zaniolo
+udinese | 11 | DF | CIV | Hassane Kamara
+udinese | 13 | DF | ITA | Nicolò Bertola
+udinese | 14 | DF | IRL | James Abankwah
+udinese | 15 | FW | CIV | Vakoun Bayo
+udinese | 16 | DF | ITA | Matteo Palma
+udinese | 20 | DF | COL | Juan David Arizala
+udinese | 23 | DF | KOS | Mërgim Vojvoda
+udinese | 24 | MF | POL | Jakub Piotrowski
+udinese | 27 | DF | BEL | Christian Kabasele
+udinese | 28 | DF | CIV | Oumar Solet
+udinese | 30 | MF | GEO | Giorgi Chakvetadze
+udinese | 32 | MF | NED | Jurgen Ekkelenkamp
+udinese | 38 | MF | SCO | Lennon Miller
+udinese | 40 | GK | NGA | Maduka Okoye
+udinese | 41 | GK | POL | Bartosz Mrozek
+udinese | 45 | FW | ITA | Giulio Vinciati
+udinese | 46 | MF | ESP | Unai Gómez
+udinese | 59 | DF | ITA | Alessandro Zanoli
+udinese | 77 | DF | CMR | Enzo Ebosse
+udinese | 91 | FW | SRB | Lazar Jovanović
+udinese | 93 | GK | ITA | Daniele Padelli
+
+# --- Venezia
+venezia | 1 | GK | SRB | Filip Stanković
+venezia | 2 | DF | ARG | Matías Moreno
+venezia | 3 | DF | BEL | Joël Schingtienne
+venezia | 4 | DF | CRO | Bartol Franjić
+venezia | 5 | DF | SUR | Ridgeciano Haps
+venezia | 6 | MF | USA | Gianluca Busio
+venezia | 7 | FW | KOS | Albion Rrahmani
+venezia | 8 | MF | ESP | Lamine Fanne
+venezia | 9 | FW | ITA | Andrea Adorante
+venezia | 10 | FW | ECU | John Yeboah
+venezia | 14 | DF | POR | Thierry Correia
+venezia | 15 | DF | BRA | Juan Jesus
+venezia | 16 | DF | GHA | Rufai Mohammed
+venezia | 17 | DF | GER | Armel Bella-Kotchap
+venezia | 18 | DF | FRA | Antoine Hainaut
+venezia | 19 | MF | SUI | Simon Sohm
+venezia | 20 | DF | BEL | Richie Sagrado
+venezia | 21 | MF | ISL | Þórir Jóhann Helgason
+venezia | 23 | GK | ITA | Matteo Grandi
+venezia | 25 | DF | MAR | Redouane Halhal
+venezia | 26 | MF | CRO | Toma Bašić
+venezia | 28 | GK | ITA | Alessio Pozzi
+venezia | 29 | FW | GER | Lion Lauberbach
+venezia | 30 | MF | ITA | Matteo Dagasso
+venezia | 32 | MF | GHA | Alfred Duncan
+venezia | 33 | DF | CRO | Marin Šverko
+venezia | 36 | MF | ITA | Lorenzo Berardi
+venezia | 45 | FW | NGA | Akor Adams
+venezia | 55 | MF | ITA | Simone Panada
+venezia | 56 | MF | POL | Kornel Lisman
+venezia | 70 | DF | ITA | Pasquale Mazzocchi
+venezia | 71 | MF | ESP | Kike Pérez
+venezia | 77 | MF | ESP | Toni Fernández
+venezia | 95 | DF | ESP | Ale Gomes
+
+# ===== Alemanha — Bundesliga 2026-27
+
+# --- Augsburg
+augsburg | 1 | GK | GER | Finn Dahmen
+augsburg | 2 | DF | GER | Calvin Brackelmann
+augsburg | 4 | MF | FRA | Han-Noah Massengo
+augsburg | 5 | DF | FRA | Chrislain Matsima
+augsburg | 6 | DF | NED | Jeffrey Gouweleeuw
+augsburg | 7 | DF | KOR | Seol Young-woo
+augsburg | 8 | MF | GER | Sima Suso
+augsburg | 9 | FW | POR | Rodrigo Ribeiro
+augsburg | 10 | MF | GER | Mert Kömür
+augsburg | 11 | FW | AUT | Michael Gregoritsch
+augsburg | 14 | MF | GER | Yannik Keitel
+augsburg | 15 | FW | BEN | Steve Mounié
+augsburg | 16 | DF | GER | Hennes Behrens
+augsburg | 18 | MF | GER | Tim Breithaupt
+augsburg | 19 | MF | GER | Robin Fellhauer
+augsburg | 20 | MF | FRA | Alexis Claude-Maurice
+augsburg | 21 | MF | GER | Arijon Ibrahimović
+augsburg | 22 | GK | CRO | Nediljko Labrović
+augsburg | 23 | FW | GER | Faik Sakar
+augsburg | 27 | DF | GER | Marius Wolf
+augsburg | 30 | MF | GER | Anton Kade
+augsburg | 32 | MF | SUI | Fabian Rieder
+augsburg | 35 | DF | SLE | Juma Bah
+augsburg | 37 | MF | GER | Tim Schnitzer
+augsburg | 39 | FW | NGA | Uchenna Ogundu
+augsburg | 40 | DF | GER | Noahkai Banks
+augsburg | 42 | MF | TUR | Mahmut Küçükşahin
+augsburg | 48 | GK | GER | Tom Wisbereit
+
+# --- Bayer Leverkusen
+leverkusen | 1 | GK | NED | Mark Flekken
+leverkusen | 2 | DF | ARG | Facundo Medina
+leverkusen | 3 | DF | ESP | Miguel Gutiérrez
+leverkusen | 4 | DF | ENG | Jarell Quansah
+leverkusen | 5 | DF | FRA | Loïc Badé
+leverkusen | 6 | MF | ARG | Equi Fernández
+leverkusen | 7 | MF | GER | Jonas Hofmann
+leverkusen | 8 | MF | GER | Robert Andrich
+leverkusen | 9 | FW | POR | Afonso Moreira
+leverkusen | 10 | FW | USA | Malik Tillman
+leverkusen | 11 | FW | FRA | Martin Terrier
+leverkusen | 12 | DF | BFA | Edmond Tapsoba
+leverkusen | 14 | FW | CZE | Patrik Schick
+leverkusen | 15 | DF | GER | Tim Oermann
+leverkusen | 17 | FW | ESP | Lucas Vázquez
+leverkusen | 18 | MF | GER | Kennet Eichhorn
+leverkusen | 19 | FW | FRA | Moussa Diaby
+leverkusen | 20 | DF | CIV | Guéla Doué
+leverkusen | 22 | FW | NGA | Victor Boniface
+leverkusen | 23 | FW | NGA | Nathan Tella
+leverkusen | 24 | MF | ESP | Aleix García
+leverkusen | 28 | GK | GER | Janis Blaswich
+leverkusen | 29 | FW | MAR | Eliesse Ben Seghir
+leverkusen | 30 | MF | ALG | Ibrahim Maza
+leverkusen | 35 | FW | CMR | Christian Kofane
+leverkusen | 36 | GK | GER | Niklas Lomb
+leverkusen | 42 | MF | GER | Montrell Culbreath
+
+# --- Bayern de Munique
+bayern | 1 | GK | GER | Manuel Neuer
+bayern | 2 | DF | FRA | Dayot Upamecano
+bayern | 3 | DF | KOR | Kim Min-jae
+bayern | 4 | DF | GER | Jonathan Tah
+bayern | 6 | MF | GER | Joshua Kimmich
+bayern | 7 | FW | GER | Serge Gnabry
+bayern | 8 | MF | GER | Tom Bischof
+bayern | 9 | FW | ENG | Harry Kane
+bayern | 10 | MF | GER | Jamal Musiala
+bayern | 11 | DF | GER | Nathaniel Brown
+bayern | 14 | FW | COL | Luis Díaz
+bayern | 17 | FW | FRA | Michael Olise
+bayern | 19 | DF | CAN | Alphonso Davies
+bayern | 21 | DF | JPN | Hiroki Itō
+bayern | 23 | DF | FRA | Sacha Boey
+bayern | 26 | GK | GER | Sven Ulreich
+bayern | 27 | MF | AUT | Konrad Laimer
+bayern | 34 | MF | MAR | Ismael Saibari
+bayern | 39 | MF | SEN | Bara Sapoko Ndiaye
+bayern | 40 | GK | GER | Jonas Urbig
+bayern | 42 | MF | GER | Lennart Karl
+bayern | 44 | DF | CRO | Josip Stanišić
+bayern | 45 | MF | GER | Aleksandar Pavlović
+bayern | 47 | MF | POR | David Santos Daiber
+
+# --- Borussia Dortmund
+borussia-dortmund | 1 | GK | SUI | Gregor Kobel
+borussia-dortmund | 3 | DF | GER | Waldemar Anton
+borussia-dortmund | 4 | DF | GER | Nico Schlotterbeck
+borussia-dortmund | 5 | DF | ALG | Ramy Bensebaini
+borussia-dortmund | 7 | MF | ENG | Jobe Bellingham
+borussia-dortmund | 8 | MF | GER | Felix Nmecha
+borussia-dortmund | 9 | FW | GUI | Serhou Guirassy
+borussia-dortmund | 14 | MF | GER | Maximilian Beier
+borussia-dortmund | 17 | MF | AUT | Carney Chukwuemeka
+borussia-dortmund | 18 | MF | ENG | Ethan Nwaneri
+borussia-dortmund | 19 | MF | GRE | Konstantinos Karetsas
+borussia-dortmund | 20 | MF | AUT | Marcel Sabitzer
+borussia-dortmund | 21 | FW | POR | Fábio Silva
+borussia-dortmund | 22 | DF | FRA | Joane Gadou
+borussia-dortmund | 23 | MF | GER | Emre Can
+borussia-dortmund | 24 | DF | SWE | Daniel Svensson
+borussia-dortmund | 25 | MF | NED | Joey Veerman
+borussia-dortmund | 26 | DF | NOR | Julian Ryerson
+borussia-dortmund | 28 | MF | ECU | Justin Lerma
+borussia-dortmund | 30 | GK | GER | Patrick Drewes
+borussia-dortmund | 31 | GK | GER | Silas Ostrzinski
+borussia-dortmund | 33 | GK | GER | Alexander Meyer
+borussia-dortmund | 36 | DF | BRA | Kauã Prates
+borussia-dortmund | 39 | DF | ITA | Filippo Mane
+borussia-dortmund | 40 | FW | ITA | Samuele Inácio
+borussia-dortmund | 41 | FW | USA | Mathis Albert
+borussia-dortmund | 44 | MF | LUX | Enzo dos Santos
+borussia-dortmund | 45 | MF | GRE | Giannis Konstantelias
+borussia-dortmund | 48 | MF | GER | Mussa Kaba
+borussia-dortmund | 49 | DF | ITA | Luca Reggiani
+
+# --- Borussia Mönchengladbach
+monchengladbach | 1 | GK | GER | Moritz Nicolas
+monchengladbach | 2 | DF | ITA | Fabio Chiarodia
+monchengladbach | 3 | FW | SWE | Isac Lidberg
+monchengladbach | 4 | DF | IDN | Kevin Diks
+monchengladbach | 5 | DF | POL | Jan Leszczyński
+monchengladbach | 6 | DF | JPN | Kō Itakura
+monchengladbach | 7 | MF | AUT | Kevin Stöger
+monchengladbach | 8 | MF | GER | Enzo Leopold
+monchengladbach | 9 | FW | FRA | Franck Honorat
+monchengladbach | 10 | MF | GER | Florian Neuhaus
+monchengladbach | 11 | FW | GER | Tim Kleindienst
+monchengladbach | 14 | DF | JPN | Daiki Hashioka
+monchengladbach | 16 | MF | GER | Philipp Sander
+monchengladbach | 17 | MF | KOR | Jens Castrop
+monchengladbach | 18 | FW | JPN | Shūto Machino
+monchengladbach | 19 | FW | GER | Nicolas Kühn
+monchengladbach | 20 | DF | GER | David Herold
+monchengladbach | 21 | GK | GER | Tobias Sippel
+monchengladbach | 22 | DF | UKR | Yukhym Konoplya
+monchengladbach | 23 | GK | GER | Jan Olschowsky
+monchengladbach | 25 | FW | GER | Robin Hack
+monchengladbach | 26 | DF | GER | Lukas Ullrich
+monchengladbach | 27 | MF | GER | Fritz Fleck
+monchengladbach | 29 | DF | USA | Joe Scally
+monchengladbach | 33 | GK | GER | Daniel Batz
+monchengladbach | 34 | MF | GER | Mathieu Nguefack
+monchengladbach | 35 | FW | GER | Josiah Uwakhonye
+monchengladbach | 36 | MF | GER | Wael Mohya
+monchengladbach | 38 | FW | SWE | Hugo Bolin
+monchengladbach | 39 | FW | GNB | Iaia Manco Danfa
+monchengladbach | 47 | MF | JPN | Zento Uno
+monchengladbach | 48 | DF | GER | Lion Schweers
+
+# --- Colônia
+colonia | 1 | GK | GER | Marvin Schwäbe
+colonia | 2 | DF | SUI | Joël Schmied
+colonia | 3 | DF | CRO | Borna Sosa
+colonia | 4 | DF | GER | Timo Hübers
+colonia | 5 | MF | GER | Tom Krauß
+colonia | 6 | MF | TUN | Ellyes Skhiri
+colonia | 7 | FW | GER | Luca Waldschmidt
+colonia | 8 | MF | ISL | Ísak Jóhannesson
+colonia | 9 | FW | GER | Ragnar Ache
+colonia | 10 | MF | GER | Said El Mala
+colonia | 11 | FW | ENG | Reigan Heskey
+colonia | 14 | DF | GHA | Gideon Mensah
+colonia | 15 | FW | BIH | Imad Rondić
+colonia | 17 | MF | BEL | Alessio Castro-Montes
+colonia | 19 | FW | GER | Malek El Mala
+colonia | 20 | GK | GER | Ron-Robert Zieler
+colonia | 21 | GK | FRA | Martin James
+colonia | 22 | DF | ENG | Jahmai Simpson-Pusey
+colonia | 23 | MF | AUS | Paul Okon-Engstler
+colonia | 24 | DF | GEO | Luka Lochoshvili
+colonia | 27 | FW | NED | Thijs Dallinga
+colonia | 28 | DF | NOR | Sebastian Sebulonsen
+colonia | 29 | MF | GER | Jan Thielmann
+colonia | 30 | FW | GER | Marius Bülter
+colonia | 31 | MF | POR | Gil Neves
+colonia | 33 | DF | NED | Rav van den Berg
+colonia | 34 | MF | GER | Fayssal Harchaoui
+colonia | 37 | MF | GER | Linton Maina
+colonia | 44 | GK | GER | Matthias Köbbing
+colonia | 47 | FW | ENG | Mikey Moore
+colonia | 49 | MF | GER | David Fürst
+
+# --- Eintracht Frankfurt
+eintracht-frankfurt | 1 | GK | GER | Noah Atubolu
+eintracht-frankfurt | 2 | DF | GER | Elias Baum
+eintracht-frankfurt | 3 | DF | TOG | Lilian Brassier
+eintracht-frankfurt | 4 | DF | GER | Robin Koch
+eintracht-frankfurt | 5 | DF | BRA | Otávio
+eintracht-frankfurt | 6 | MF | DEN | Oscar Højlund
+eintracht-frankfurt | 7 | FW | GER | Ansgar Knauff
+eintracht-frankfurt | 8 | MF | ALG | Farès Chaïbi
+eintracht-frankfurt | 9 | FW | GER | Jonathan Burkardt
+eintracht-frankfurt | 11 | FW | GER | Younes Ebnoutalib
+eintracht-frankfurt | 15 | MF | GER | Noël Aséko
+eintracht-frankfurt | 20 | FW | JPN | Ritsu Dōan
+eintracht-frankfurt | 22 | DF | USA | Timothy Chandler
+eintracht-frankfurt | 23 | MF | GER | Niko Iličević
+eintracht-frankfurt | 25 | MF | NGA | Raphael Onyedika
+eintracht-frankfurt | 26 | DF | JPN | Keita Kosugi
+eintracht-frankfurt | 27 | MF | GER | Mario Götze
+eintracht-frankfurt | 29 | FW | MAR | Ayoube Amaimouni
+eintracht-frankfurt | 31 | MF | SWE | Love Arrhov
+eintracht-frankfurt | 33 | GK | GER | Jens Grahl
+eintracht-frankfurt | 34 | DF | GER | Nnamdi Collins
+eintracht-frankfurt | 35 | FW | DEN | Malik Pimpong
+eintracht-frankfurt | 37 | DF | GER | Jeremiaha Maluze
+eintracht-frankfurt | 39 | GK | BIH | Amil Šiljević
+eintracht-frankfurt | 40 | GK | BRA | Kauã Santos
+eintracht-frankfurt | 42 | FW | TUR | Can Uzun
+eintracht-frankfurt | 44 | FW | GER | Jessic Ngankam
+
+# --- Elversberg
+elversberg | 1 | GK | GER | Frank Lehmann
+elversberg | 2 | DF | THA | Nicholas Mickelson
+elversberg | 3 | DF | FRA | Florian Le Joncour
+elversberg | 4 | DF | GER | Luis Seifert
+elversberg | 6 | MF | GUI | Amara Condé
+elversberg | 7 | MF | GER | Maurice Krattenmacher
+elversberg | 8 | MF | POL | Łukasz Poręba
+elversberg | 9 | FW | GER | Noel Futkeu
+elversberg | 10 | MF | GER | Noah Darvich
+elversberg | 12 | GK | GER | Elias Etringer
+elversberg | 15 | MF | GER | Raif Adam
+elversberg | 16 | FW | GER | Luca Pfeiffer
+elversberg | 17 | MF | GER | Frederik Schmahl
+elversberg | 19 | DF | GER | Lukas Pinckert
+elversberg | 20 | GK | AUT | Nicolas Kristof
+elversberg | 21 | DF | GER | Lasse Günther
+elversberg | 24 | FW | GER | Luca Schnellbacher
+elversberg | 25 | FW | BUL | Lukas Petkov
+elversberg | 26 | DF | GER | Luca Sirch
+elversberg | 28 | GK | GER | Tim Boss
+elversberg | 29 | MF | GER | Tom Zimmerschied
+elversberg | 30 | DF | GHA | Jan Gyamerah
+elversberg | 31 | DF | GER | Maximilian Rohr
+elversberg | 39 | MF | USA | Cole Campbell
+elversberg | 40 | MF | GER | Francis Onyeka
+elversberg | 42 | FW | FRA | David Mokwa
+elversberg | 43 | DF | GER | Felix Keidel
+
+# --- Freiburg
+freiburg | 1 | GK | GER | Mio Backhaus
+freiburg | 3 | DF | AUT | Philipp Lienhart
+freiburg | 5 | DF | GER | Anthony Jung
+freiburg | 6 | MF | GER | Patrick Osterhage
+freiburg | 7 | FW | GER | Derry Scherhant
+freiburg | 8 | MF | GER | Maximilian Eggestein
+freiburg | 9 | FW | GER | Lucas Höler
+freiburg | 14 | MF | JPN | Yuito Suzuki
+freiburg | 16 | MF | GER | Yannik Engelhardt
+freiburg | 17 | DF | GER | Lukas Kübler
+freiburg | 19 | MF | GER | Niklas Beste
+freiburg | 20 | MF | JPN | Rihito Yamamoto
+freiburg | 21 | GK | GER | Florian Müller
+freiburg | 22 | FW | BFA | Cyriaque Irié
+freiburg | 23 | MF | KOS | Florent Muslija
+freiburg | 24 | GK | GER | Jannik Huth
+freiburg | 27 | DF | TUR | Berkay Yılmaz
+freiburg | 28 | DF | GER | Matthias Ginter
+freiburg | 29 | DF | GER | Philipp Treu
+freiburg | 30 | DF | GER | Christian Günter
+freiburg | 31 | FW | CRO | Igor Matanović
+freiburg | 32 | MF | ITA | Vincenzo Grifo
+freiburg | 33 | DF | COD | Jordy Makengo
+freiburg | 37 | DF | GER | Max Rosenfelder
+freiburg | 39 | MF | SUI | Rouven Tarnutzer
+freiburg | 42 | FW | JPN | Keisuke Gotō
+freiburg | 43 | DF | SUI | Bruno Ogbus
+
+# --- Hamburgo
+hamburgo | 1 | GK | POR | Daniel Heuer Fernandes
+hamburgo | 3 | DF | NOR | David Møller Wolfe
+hamburgo | 4 | MF | MAR | Bilal Nadir
+hamburgo | 5 | MF | FRA | Martin Adeline
+hamburgo | 6 | MF | BEL | Albert Sambi Lokonga
+hamburgo | 7 | DF | MAR | Zakaria El Ouahdi
+hamburgo | 9 | FW | NGA | Terem Moffi
+hamburgo | 10 | MF | SUR | Immanuel Pherai
+hamburgo | 11 | MF | DEN | Albert Grønbæk
+hamburgo | 12 | GK | NOR | Sander Tangvik
+hamburgo | 15 | FW | DEN | Yussuf Poulsen
+hamburgo | 17 | DF | COM | Warmed Omari
+hamburgo | 18 | FW | GAM | Bakery Jatta
+hamburgo | 19 | FW | GER | Otto Stange
+hamburgo | 20 | MF | POR | Fábio Vieira
+hamburgo | 21 | MF | GER | Nicolai Remberg
+hamburgo | 22 | MF | GER | Kofi Amoako
+hamburgo | 23 | DF | NGA | Jordan Torunarigha
+hamburgo | 24 | MF | ARG | Nicolás Capaldo
+hamburgo | 27 | FW | ZAM | Patson Daka
+hamburgo | 28 | DF | SUI | Miro Muheim
+hamburgo | 33 | DF | BEL | Sebastiaan Bornauw
+hamburgo | 37 | DF | GER | Louis Lemke
+hamburgo | 38 | FW | NOR | Alexander Røssing-Lelesiit
+hamburgo | 39 | DF | GER | Joel Agyekum
+hamburgo | 40 | GK | FIN | Elias Lahti
+hamburgo | 41 | GK | GER | Fernando Dickes
+hamburgo | 43 | DF | GER | Shafiq Nandja
+
+# --- Hoffenheim
+hoffenheim | 1 | GK | GER | Oliver Baumann
+hoffenheim | 2 | DF | CZE | Robin Hranáč
+hoffenheim | 4 | DF | GER | Sean Dulic
+hoffenheim | 5 | DF | TUR | Ozan Kabak
+hoffenheim | 7 | MF | KOS | Leon Avdullahu
+hoffenheim | 8 | MF | AUT | Patrick Wimmer
+hoffenheim | 9 | FW | GER | Max Moerstedt
+hoffenheim | 10 | FW | CZE | Adam Hložek
+hoffenheim | 11 | FW | KOS | Fisnik Asllani
+hoffenheim | 13 | DF | BRA | Bernardo
+hoffenheim | 14 | FW | DEN | Adam Daghim
+hoffenheim | 15 | DF | FRA | Valentin Gendrey
+hoffenheim | 16 | MF | GER | Luis Engelns
+hoffenheim | 17 | MF | BEL | Nathan De Cat
+hoffenheim | 18 | MF | NED | Wouter Burger
+hoffenheim | 19 | FW | GER | Tim Lemperle
+hoffenheim | 20 | MF | GER | Bambasé Conté
+hoffenheim | 21 | DF | KOS | Albian Hajdari
+hoffenheim | 22 | MF | AUT | Alexander Prass
+hoffenheim | 27 | FW | CRO | Andrej Kramarić
+hoffenheim | 28 | DF | JPN | Kōki Machida
+hoffenheim | 29 | DF | GER | Natnael Abraha
+hoffenheim | 32 | MF | GER | Cajetan Lenz
+hoffenheim | 34 | DF | CZE | Vladimír Coufal
+hoffenheim | 36 | GK | ISL | Lúkas Petersson
+hoffenheim | 37 | GK | GER | Luca Philipp
+hoffenheim | 39 | DF | NED | Mats Rots
+
+# --- Mainz 05
+mainz | 1 | GK | GER | Alexander Schwolow
+mainz | 2 | DF | AUT | Phillipp Mwene
+mainz | 3 | DF | PER | Fabio Gruber
+mainz | 4 | DF | AUT | Stefan Posch
+mainz | 5 | MF | GER | Eric Martel
+mainz | 6 | MF | JPN | Kaishū Sano
+mainz | 7 | MF | KOR | Lee Jae-sung
+mainz | 8 | MF | GER | Paul Nebel
+mainz | 9 | FW | GER | Phillip Tietz
+mainz | 10 | MF | GER | Nadiem Amiri
+mainz | 11 | FW | GHA | Ransford-Yeboah Königsdörffer
+mainz | 15 | MF | USA | Lennard Maloney
+mainz | 16 | DF | GER | Stefan Bell
+mainz | 17 | FW | GER | Benedict Hollerbach
+mainz | 19 | DF | FRA | Anthony Caci
+mainz | 20 | MF | FIN | Otto Ruoppi
+mainz | 21 | DF | GER | Danny da Costa
+mainz | 23 | FW | SUR | Sheraldo Becker
+mainz | 24 | MF | JPN | Sōta Kawasaki
+mainz | 26 | FW | COD | Silas
+mainz | 27 | GK | GER | Robin Zentner
+mainz | 30 | DF | SUI | Silvan Widmer
+mainz | 31 | DF | GER | Dominik Kohr
+mainz | 39 | FW | CIV | Alynho Haïdara
+mainz | 40 | GK | GER | Maximilian Kinzig
+mainz | 48 | DF | POL | Kacper Potulski
+
+# --- Paderborn
+paderborn | 1 | GK | GER | Markus Schubert
+paderborn | 2 | DF | GER | Ruben Müller
+paderborn | 3 | DF | GER | Jonah Sticker
+paderborn | 4 | DF | GER | Nyamekye Awortwie-Grant
+paderborn | 5 | MF | USA | Santiago Castañeda
+paderborn | 6 | MF | GER | Tom Baack
+paderborn | 7 | MF | GER | Oliver Batista Meier
+paderborn | 8 | MF | BIH | Luka Đurić
+paderborn | 9 | FW | FRA | Rayan Philippe
+paderborn | 11 | FW | GER | Sven Michel
+paderborn | 15 | GK | GER | Nahuel Noll
+paderborn | 17 | DF | GER | Laurin Curda
+paderborn | 18 | FW | GER | Marvin Pieringer
+paderborn | 19 | FW | GER | Albert Millgramm
+paderborn | 20 | DF | GER | Felix Götze
+paderborn | 21 | DF | GER | Jano ter Horst
+paderborn | 22 | MF | GER | Mattes Hansen
+paderborn | 23 | MF | PHI | Raphael Obermair
+paderborn | 24 | DF | GER | Niklas Mohr
+paderborn | 25 | DF | GER | Tjark Scheller
+paderborn | 26 | MF | GER | Sebastian Klaas
+paderborn | 27 | FW | GER | Steffen Tigges
+paderborn | 28 | MF | GER | Laurin Ulrich
+paderborn | 29 | DF | GER | Clemens Lippmann
+paderborn | 30 | FW | GER | Stefano Marino
+paderborn | 31 | GK | GER | Florian Pruhs
+paderborn | 32 | FW | GER | Lasse Eickel
+paderborn | 33 | DF | GER | Marcel Hoffmeier
+paderborn | 38 | FW | GER | Deniz Zeitler
+paderborn | 40 | FW | CRO | Gabriel Vidović
+paderborn | 44 | MF | GER | Timur Gayret
+paderborn | 46 | DF | GER | Tristan Zobel
+
+# --- RB Leipzig
+rb-leipzig | 1 | GK | NOR | Ørjan Nyland
+rb-leipzig | 2 | DF | FRA | Abdoul Koné
+rb-leipzig | 3 | DF | FRA | Maxime Estève
+rb-leipzig | 4 | DF | HUN | Willi Orbán
+rb-leipzig | 6 | MF | COD | Ezechiel Banzuzi
+rb-leipzig | 7 | FW | NOR | Antonio Nusa
+rb-leipzig | 8 | MF | GER | Assan Ouédraogo
+rb-leipzig | 9 | FW | ESP | Marc Guiu
+rb-leipzig | 10 | MF | GER | Brajan Gruda
+rb-leipzig | 11 | FW | BEL | Johan Bakayoko
+rb-leipzig | 13 | MF | AUT | Nicolas Seiwald
+rb-leipzig | 14 | MF | AUT | Christoph Baumgartner
+rb-leipzig | 16 | DF | GER | Lukas Klostermann
+rb-leipzig | 17 | DF | GER | Ridle Baku
+rb-leipzig | 20 | MF | GER | Rocco Reitz
+rb-leipzig | 21 | MF | MAR | Neil El Aynaoui
+rb-leipzig | 22 | DF | GER | David Raum
+rb-leipzig | 23 | DF | FRA | Castello Lukeba
+rb-leipzig | 25 | GK | GER | Leopold Zingerle
+rb-leipzig | 26 | GK | BEL | Maarten Vandevoordt
+rb-leipzig | 27 | FW | FRA | Tidiam Gomis
+rb-leipzig | 28 | FW | FRA | Christopher Nkunku
+rb-leipzig | 30 | MF | SRB | Andrija Maksimović
+rb-leipzig | 35 | DF | GER | Max Finkgräfe
+rb-leipzig | 37 | MF | GER | Benno Kaltefleiter
+rb-leipzig | 39 | DF | GER | Benjamin Henrichs
+rb-leipzig | 40 | FW | BRA | Rômulo
+rb-leipzig | 45 | FW | FRA | Samba Konaté
+rb-leipzig | 47 | MF | GER | Viggo Gebel
+
+# --- Schalke 04
+schalke | 1 | GK | GER | Loris Karius
+schalke | 4 | DF | TUR | Hasan Kuruçay
+schalke | 5 | DF | GER | Timo Becker
+schalke | 6 | MF | GER | Ron Schallenberg
+schalke | 7 | FW | KOR | Hwang Hee-chan
+schalke | 8 | MF | GER | Robin Gosens
+schalke | 9 | FW | MLI | Moussa Sylla
+schalke | 10 | FW | BIH | Edin Džeko
+schalke | 11 | FW | FRA | Bryan Lasme
+schalke | 13 | MF | JPN | Satoshi Tanaka
+schalke | 14 | MF | GER | Janik Bachmann
+schalke | 15 | FW | DEN | Emil Højlund
+schalke | 17 | DF | SUI | Adrian Gantenbein
+schalke | 19 | FW | TUR | Kenan Karaman
+schalke | 20 | FW | AUT | Junior Adamu
+schalke | 21 | MF | AUT | Dejan Ljubičić
+schalke | 22 | GK | GER | Kevin Müller
+schalke | 23 | MF | MAR | Soufiane El-Faouzi
+schalke | 24 | MF | ALG | Adil Aouchiche
+schalke | 25 | DF | BIH | Nikola Katić
+schalke | 27 | MF | GER | Finn Porath
+schalke | 29 | MF | CMR | Junior Dina Ebimbe
+schalke | 33 | DF | GER | Vitalie Becker
+schalke | 36 | GK | GER | Johannes Siebeking
+schalke | 38 | MF | GER | Luca Vozar
+schalke | 39 | DF | AUT | Maximilian Wöber
+schalke | 43 | DF | TUR | Mertcan Ayhan
+
+# --- Stuttgart
+stuttgart | 1 | GK | GER | Fabian Bredlow
+stuttgart | 2 | DF | BEL | Ameen Al-Dakhil
+stuttgart | 3 | DF | NED | Ramon Hendriks
+stuttgart | 4 | DF | GER | Josha Vagnoman
+stuttgart | 6 | MF | GER | Angelo Stiller
+stuttgart | 7 | DF | GER | Maximilian Mittelstädt
+stuttgart | 8 | FW | POR | Tiago Tomás
+stuttgart | 9 | FW | BIH | Ermedin Demirović
+stuttgart | 10 | MF | GER | Chris Führich
+stuttgart | 11 | MF | MAR | Bilal El Khannouss
+stuttgart | 14 | DF | SUI | Luca Jaquez
+stuttgart | 16 | MF | TUR | Atakan Karazor
+stuttgart | 17 | FW | GER | Dženan Pejčinović
+stuttgart | 18 | FW | GER | Jamie Leweling
+stuttgart | 20 | DF | SUI | Leonidas Stergiou
+stuttgart | 21 | MF | GER | Grischa Prömel
+stuttgart | 22 | DF | FRA | Lorenz Assignon
+stuttgart | 23 | DF | FRA | Dan-Axel Zagadou
+stuttgart | 24 | DF | GER | Jeff Chabot
+stuttgart | 26 | FW | GER | Deniz Undav
+stuttgart | 28 | MF | DEN | Nikolas Nartey
+stuttgart | 29 | DF | GER | Finn Jeltsch
+stuttgart | 31 | FW | GER | Justin Diehl
+stuttgart | 33 | GK | GER | Marius Funk
+stuttgart | 39 | MF | GER | Ertuğrul Yiğit
+stuttgart | 41 | GK | GER | Dennis Seimen
+stuttgart | 43 | FW | GER | Jarzinho Malanga
+stuttgart | 44 | FW | SVK | Leo Sauer
+stuttgart | 46 | GK | GER | Stefan Drljača
+stuttgart | 47 | MF | AUT | Yanik Spalt
+
+# --- Union Berlin
+union-berlin | 1 | GK | DEN | Frederik Rønnow
+union-berlin | 2 | DF | GER | Felix Uduokhai
+union-berlin | 3 | DF | GER | Andrik Markgraf
+union-berlin | 4 | DF | BEL | Zeno Van Den Bosch
+union-berlin | 5 | DF | GER | Marvin Friedrich
+union-berlin | 6 | MF | GER | Aljoscha Kemlein
+union-berlin | 7 | FW | SCO | Oliver Burke
+union-berlin | 8 | MF | TUN | Rani Khedira
+union-berlin | 9 | FW | TUR | Livan Burcu
+union-berlin | 11 | MF | KOR | Jeong Woo-yeong
+union-berlin | 13 | MF | HUN | András Schäfer
+union-berlin | 14 | DF | AUT | Leopold Querfeld
+union-berlin | 15 | DF | GER | Tom Rothe
+union-berlin | 17 | DF | GHA | Derrick Köhn
+union-berlin | 18 | DF | CRO | Josip Juranović
+union-berlin | 19 | MF | GER | Janik Haberer
+union-berlin | 20 | MF | SUI | Michel Aebischer
+union-berlin | 21 | MF | GER | Tim Skarke
+union-berlin | 23 | FW | SRB | Andrej Ilić
+union-berlin | 24 | MF | DEN | Robert Skov
+union-berlin | 25 | GK | GER | Carl Klaus
+union-berlin | 27 | FW | CRO | Marin Ljubičić
+union-berlin | 28 | DF | AUT | Christopher Trimmel
+union-berlin | 29 | FW | CIV | Emmanuel Latte Lath
+union-berlin | 30 | MF | SUI | Kastriot Imeri
+union-berlin | 31 | GK | GER | Matheo Raab
+union-berlin | 32 | FW | JAM | Mekhi Gray
+union-berlin | 34 | DF | FRA | Stanley Nsoki
+union-berlin | 38 | FW | GER | Julien Friedrich
+union-berlin | 49 | MF | GER | Linus Güther
+
+# --- Werder Bremen
+werder-bremen | 1 | GK | EST | Karl Hein
+werder-bremen | 2 | DF | BEL | Olivier Deman
+werder-bremen | 3 | DF | POL | Oskar Wójcik
+werder-bremen | 4 | DF | GER | Niklas Stark
+werder-bremen | 5 | DF | GER | Amos Pieper
+werder-bremen | 6 | MF | DEN | Jens Stage
+werder-bremen | 8 | DF | GER | Mitchell Weiser
+werder-bremen | 9 | FW | GER | Keke Topp
+werder-bremen | 10 | FW | GER | Niclas Füllkrug
+werder-bremen | 11 | FW | GER | Justin Njinmah
+werder-bremen | 13 | DF | BRA | Arthur
+werder-bremen | 14 | MF | BEL | Senne Lynen
+werder-bremen | 15 | MF | SVK | Ludovit Reis
+werder-bremen | 16 | DF | SEN | Moussa N'Diaye
+werder-bremen | 17 | FW | AUT | Marco Grüll
+werder-bremen | 18 | MF | TUR | Eren Dinkçi
+werder-bremen | 19 | FW | HAI | Kenny Quetant
+werder-bremen | 20 | MF | ESP | Chuki
+werder-bremen | 23 | MF | POL | Dariusz Stalmach
+werder-bremen | 25 | GK | GER | Markus Kolke
+werder-bremen | 26 | FW | SUI | Cedric Itten
+werder-bremen | 27 | DF | NGA | Felix Agu
+werder-bremen | 28 | MF | FRA | Skelly Alvero
+werder-bremen | 29 | FW | GER | Salim Musah
+werder-bremen | 30 | GK | AUT | Alexander Schlager
+werder-bremen | 32 | DF | AUT | Marco Friedl
+werder-bremen | 33 | DF | GER | Mick Schmetgens
+werder-bremen | 34 | MF | TUR | Darwin Soylu
+werder-bremen | 35 | DF | GER | Luca Höcker
+werder-bremen | 36 | DF | GER | Mats Heitmann
+werder-bremen | 37 | GK | BUL | Stefan Smarkalev
+werder-bremen | 38 | FW | GER | Paul Erevbenagie
+werder-bremen | 44 | MF | NED | Youri Regeer
+
+# ===== França — Ligue 1 2026-27
+
+# --- Angers
+angers | 1 | GK | POR | Anthony Lopes
+angers | 2 | DF | HAI | Carlens Arcus
+angers | 4 | DF | MLI | Ousmane Camara
+angers | 6 | MF | FRA | Louis Mouton
+angers | 7 | FW | CTA | Usman Simbakoli
+angers | 8 | MF | NED | Branco van den Boomen
+angers | 9 | FW | FRA | Prosper Peter
+angers | 10 | FW | MAR | Amine Sbaï
+angers | 11 | FW | CMR | Harouna Djibirin
+angers | 14 | MF | MAR | Yassin Belkhdim
+angers | 16 | GK | CGO | Melvin Zinga
+angers | 17 | DF | FRA | Joseph Kalulu
+angers | 18 | FW | GAB | Jim Allevinah
+angers | 19 | FW | MAR | Amine El Ouazzani
+angers | 20 | DF | FRA | Marius Louër
+angers | 21 | DF | MTN | Jordan Lefort
+angers | 24 | DF | FRA | Emmanuel Biumla
+angers | 26 | FW | FRA | Anthony Bermont
+angers | 27 | DF | FRA | Lilian Raolisoa
+angers | 34 | DF | FRA | Maël Gernigon
+angers | 36 | MF | FRA | Bané Diatta
+angers | 37 | MF | FRA | Jules Bouffandeau
+angers | 40 | GK | MLI | Oumar Pona
+angers | 93 | MF | ALG | Haris Belkebla
+
+# --- Auxerre
+auxerre | 1 | GK | FRA | Paul Nardi
+auxerre | 3 | FW | GLP | Rémy Labeau Lascary
+auxerre | 4 | DF | COD | Axel Tuanzebe
+auxerre | 5 | MF | FRA | Kévin Danois
+auxerre | 8 | MF | FRA | Naouirou Ahamada
+auxerre | 9 | FW | ENG | Cameron Archer
+auxerre | 11 | FW | NED | Eros Maddy
+auxerre | 13 | DF | FRA | Telli Siwe
+auxerre | 15 | DF | CGO | Christ Makosso
+auxerre | 17 | MF | FRA | Pierre Ekwah
+auxerre | 18 | MF | SEN | Assane Dioussé
+auxerre | 19 | FW | CMR | Danny Namaso
+auxerre | 20 | DF | CIV | Sinaly Diomandé
+auxerre | 22 | DF | NOR | Fredrik Oppegård
+auxerre | 23 | GK | MTN | Mamadou Diop
+auxerre | 24 | DF | SUI | Bryan Okoh
+auxerre | 27 | DF | SEN | Lamine Sy
+auxerre | 28 | MF | FRA | Romain Faivre
+auxerre | 29 | DF | GHA | Marvin Senaya
+auxerre | 31 | FW | FRA | Ryan Rodin
+auxerre | 32 | FW | CMR | Rayan Mandengue
+auxerre | 34 | MF | FRA | Lamfia Dioubaté
+auxerre | 35 | DF | FRA | Elikya Legros
+auxerre | 36 | MF | FRA | Tidiane Devernois
+auxerre | 37 | GK | FRA | Louis Mezerette
+auxerre | 45 | DF | FRA | Salimou Danfakha
+auxerre | 46 | MF | BEL | Arthur Piedfort
+auxerre | 49 | FW | CHN | Wei Xiangxin
+auxerre | 77 | MF | CIV | Aristide Zossou
+auxerre | 92 | DF | CIV | Clément Akpa
+auxerre | 93 | DF | CIV | Sékou Fofana
+
+# --- Brest
+brest | 1 | GK | NOR | Egil Selvik
+brest | 2 | DF | FRA | Bradley Locko
+brest | 4 | DF | FRA | Gautier Lloris
+brest | 5 | DF | FRA | Brendan Chardonnet
+brest | 6 | MF | MLI | Mamady Diambou
+brest | 7 | MF | BEL | Joseph Nonge
+brest | 8 | MF | FRA | Hugo Magnetti
+brest | 10 | FW | FRA | Giovani Versini
+brest | 11 | FW | FRA | Noah Edjouma
+brest | 12 | DF | CIV | Luck Zogbé
+brest | 13 | MF | FRA | Joris Chotard
+brest | 16 | GK | FRA | Noé Poillion
+brest | 17 | FW | GNB | Mama Baldé
+brest | 18 | DF | FRA | Justin Bourgault
+brest | 19 | FW | FRA | Ludovic Ajorque
+brest | 23 | MF | MLI | Kamory Doumbia
+brest | 29 | MF | FRA | Lucas Tousart
+brest | 30 | GK | FRA | Mathieu Patouillet
+brest | 32 | FW | FRA | Mathis Lainé
+brest | 39 | FW | FRA | Djylian N'Guessan
+brest | 49 | GK | FRA | Romain Cagnon
+brest | 71 | DF | FRA | Raphaël Le Guen
+brest | 77 | DF | MTQ | Kenny Lala
+brest | 99 | FW | SEN | Pathé Mboup
+
+# --- Le Havre
+le-havre | 5 | DF | ALG | Ahmed Touba
+le-havre | 6 | MF | FRA | Junior Mwanga
+le-havre | 7 | MF | MAR | Amir Richardson
+le-havre | 9 | FW | NGA | Josh Maja
+le-havre | 10 | MF | SUI | Felix Mambimbi
+le-havre | 12 | DF | DEN | Elias Jelert
+le-havre | 14 | MF | SEN | Rassoul Ndiaye
+le-havre | 15 | DF | JPN | Ayumu Seko
+le-havre | 16 | GK | BEL | Arnaud Bodart
+le-havre | 17 | MF | JPN | Kaito Mizuta
+le-havre | 19 | FW | FRA | Joan Tincres
+le-havre | 20 | DF | FRA | Djibril Ouziad
+le-havre | 23 | DF | FRA | Vincent Sasso
+le-havre | 24 | MF | CIV | Guy-Noël Zohouri
+le-havre | 25 | FW | TAN | Mbwana Samatta
+le-havre | 26 | MF | FRA | Simon Ebonog
+le-havre | 27 | FW | FRA | Enzo Koffi
+le-havre | 29 | DF | FRA | Stephan Zagadou
+le-havre | 30 | FW | JPN | Sōta Nakamura
+le-havre | 32 | DF | FRA | Timothée Pembélé
+le-havre | 38 | FW | CIV | Rayan Fofana
+le-havre | 44 | MF | FRA | Ismaïl Bouneb
+le-havre | 50 | GK | FRA | Paul Argney
+le-havre | 77 | GK | COD | Lionel Mpasi
+le-havre | 78 | MF | FRA | Daren Mosengo
+le-havre | 93 | GK | FRA | Gauthier Gallon
+le-havre | 0 | FW | FRA | Élysée Logbo
+
+# --- Le Mans
+le-mans | 1 | GK | FRA | Ewan Hatfout
+le-mans | 5 | DF | MTQ | Harold Voyer
+le-mans | 6 | MF | CTA | Edwin Quarshie
+le-mans | 7 | FW | ALG | Billal Brahimi
+le-mans | 8 | MF | FRA | Alexandre Lauray
+le-mans | 9 | FW | FRA | Antoine Rabillard
+le-mans | 10 | MF | FRA | Jean Vercruysse
+le-mans | 11 | MF | ALG | Adil Bourabaa
+le-mans | 12 | DF | BRA | João Almeida
+le-mans | 13 | FW | SEN | Habib Diallo
+le-mans | 14 | FW | CTA | Louis Mafouta
+le-mans | 15 | DF | FRA | Noa Boissé
+le-mans | 16 | DF | ESP | Raúl Torrente
+le-mans | 17 | DF | FRA | Samuel Yohou
+le-mans | 18 | DF | FRA | Lucas Buades
+le-mans | 19 | DF | FRA | Djibril Sidibé
+le-mans | 20 | FW | FRA | William Harhouz
+le-mans | 21 | DF | FRA | Théo Eyoum
+le-mans | 22 | DF | FRA | Lucas Calodat
+le-mans | 23 | MF | FRA | Daouda Traoré
+le-mans | 25 | FW | SEN | Dame Gueye
+le-mans | 26 | DF | FRA | Rayan Bamba
+le-mans | 27 | MF | FRA | Martin Rossignol
+le-mans | 28 | FW | FRA | Erwan Colas
+le-mans | 29 | MF | FRA | Lucas Bretelle
+le-mans | 55 | GK | FRA | Augustin Delbecque
+le-mans | 76 | DF | ALG | Yasser Larouci
+le-mans | 98 | GK | FRA | Nicolas Kocik
+le-mans | 99 | FW | BRA | Enzo Vagner
+
+# --- Lens
+lens | 1 | GK | FRA | Régis Gurtner
+lens | 2 | DF | FRA | Ruben Aguilar
+lens | 3 | DF | POL | Maik Nawrocki
+lens | 4 | DF | BIH | Nidal Čelik
+lens | 5 | MF | MNE | Andrija Bulatović
+lens | 6 | DF | AUT | Samson Baidoo
+lens | 7 | FW | FRA | Florian Sotoca
+lens | 8 | MF | ALG | Yacine Titraoui
+lens | 9 | FW | BEL | Thorgan Hazard
+lens | 10 | MF | FRA | Florian Thauvin
+lens | 11 | FW | FRA | Odsonne Édouard
+lens | 13 | DF | ECU | Jhoanner Chávez
+lens | 14 | DF | FRA | Matthieu Udol
+lens | 16 | GK | FRA | Mathieu Gorgelin
+lens | 19 | FW | SEN | Abdallah Sima
+lens | 20 | DF | FRA | Jean-Clair Todibo
+lens | 21 | MF | MLI | Amadou Haidara
+lens | 22 | MF | POL | Michał Skóraś
+lens | 23 | DF | KSA | Saud Abdulhamid
+lens | 24 | DF | FRA | Jonathan Gradit
+lens | 25 | DF | FRA | Ismaëlo Ganiou
+lens | 27 | MF | FRA | Michaël Cuisance
+lens | 28 | FW | COD | Junior Kadile
+lens | 29 | FW | CRO | Franjo Ivanović
+lens | 31 | DF | MLI | Souleymane Sagnan
+lens | 32 | DF | FRA | Kyllian Antonio
+lens | 38 | MF | POR | Mezian Mesloub
+lens | 40 | GK | FRA | Robin Risser
+lens | 60 | GK | FRA | Ilan Jourdren
+
+# --- Lille
+lille | 1 | GK | TUR | Berke Özer
+lille | 2 | DF | SUI | Loun Srdanović
+lille | 3 | DF | BEL | Nathan Ngoy
+lille | 4 | DF | BRA | Alexsandro
+lille | 6 | MF | ALG | Nabil Bentaleb
+lille | 7 | FW | FRA | Dilane Bakwa
+lille | 8 | FW | FRA | Ethan Mbappé
+lille | 9 | FW | FRA | Olivier Giroud
+lille | 10 | MF | ISL | Hákon Haraldsson
+lille | 11 | FW | MAR | Osame Sahraoui
+lille | 12 | GK | PAR | Orlando Gill
+lille | 14 | MF | DEN | Maurits Kjærgaard
+lille | 15 | DF | FRA | Romain Perraud
+lille | 17 | MF | COD | Ngal'ayel Mukau
+lille | 18 | FW | JPN | Ayase Ueda
+lille | 19 | FW | TUR | Başar Önal
+lille | 21 | MF | FRA | Benjamin André
+lille | 22 | DF | POR | Tiago Santos
+lille | 23 | DF | FRA | Tanguy Nianzou
+lille | 24 | DF | IDN | Calvin Verdonk
+lille | 26 | DF | FRA | Isaac Cossier
+lille | 28 | FW | FRA | Gaëtan Perrin
+lille | 29 | FW | MAR | Hamza Igamane
+lille | 35 | FW | FRA | Soriba Diaoune
+lille | 38 | DF | FRA | Maxima Goffi
+
+# --- Lorient
+lorient | 1 | GK | FRA | Benjamin Leroy
+lorient | 2 | DF | FRA | Alec Georgen
+lorient | 3 | DF | TUN | Montassar Talbi
+lorient | 5 | DF | SEN | Formose Mendy
+lorient | 7 | MF | FRA | Bandiougou Fadiga
+lorient | 8 | MF | GLP | Noah Cadiou
+lorient | 9 | FW | CIV | Mohamed Bamba
+lorient | 10 | FW | DEN | Isak Jensen
+lorient | 11 | MF | FRA | Théo Le Bris
+lorient | 15 | FW | BEN | Aiyegun Tosin
+lorient | 17 | MF | FRA | Jean-Victor Makengo
+lorient | 18 | FW | FRA | Ibrahima Baldé
+lorient | 19 | FW | SEN | Souleymane Faye
+lorient | 20 | DF | GUI | Dembo Sylla
+lorient | 21 | GK | SEN | Bingourou Kamara
+lorient | 23 | MF | POR | Daniel Semedo
+lorient | 30 | DF | SVN | Srđan Kuzmić
+lorient | 32 | DF | GHA | Nathaniel Adjei
+lorient | 33 | MF | FRA | Gabin Bernardeau
+lorient | 38 | GK | SUI | Yvon Mvogo
+lorient | 42 | FW | CIV | Mamadou Koné
+lorient | 43 | DF | BFA | Arsène Kouassi
+lorient | 55 | DF | ITA | Nosa Edward Obaretin
+lorient | 62 | MF | CMR | Arthur Avom
+lorient | 72 | MF | COD | Noah Mbamba
+lorient | 77 | MF | GRE | Panos Katseris
+lorient | 95 | DF | FRA | Isaak Touré
+
+# --- Lyon
+lyon | 1 | GK | SVK | Dominik Greif
+lyon | 2 | MF | DEN | Mads Bidstrup
+lyon | 3 | DF | ARG | Nicolás Tagliafico
+lyon | 6 | MF | USA | Tanner Tessmann
+lyon | 7 | FW | GHA | Ernest Nuamah
+lyon | 8 | MF | FRA | Corentin Tolisso
+lyon | 10 | MF | CZE | Pavel Šulc
+lyon | 11 | FW | JPN | Keito Nakamura
+lyon | 13 | DF | SUI | Zachary Athekame
+lyon | 16 | DF | BRA | Abner
+lyon | 17 | FW | BEL | Loïs Openda
+lyon | 18 | MF | FRA | Khalis Merah
+lyon | 19 | DF | SEN | Moussa Niakhaté
+lyon | 20 | DF | AUT | Felix Bacher
+lyon | 21 | DF | NED | Ruben Kluivert
+lyon | 22 | DF | ANG | Clinton Mata
+lyon | 23 | MF | ENG | Tyler Morton
+lyon | 24 | FW | BEL | Julien Duranville
+lyon | 25 | GK | FRA | Justin Bengui
+lyon | 26 | FW | ALG | Kaïl Boudache
+lyon | 40 | GK | FRA | Rémy Descamps
+lyon | 45 | FW | FRA | Rémi Himbert
+lyon | 50 | GK | MLI | Lassine Diarra
+lyon | 76 | DF | BFA | Mohamed Ouédraogo
+lyon | 85 | DF | FRA | Noham Kamara
+lyon | 99 | MF | DEN | Noah Nartey
+
+# --- Monaco
+monaco | 1 | GK | FIN | Lukas Hradecky
+monaco | 2 | DF | BRA | Vanderson
+monaco | 4 | DF | NED | Jordan Teze
+monaco | 6 | MF | SUI | Denis Zakaria
+monaco | 7 | FW | FRA | Mathys Detourbet
+monaco | 8 | MF | SEN | Lamine Camara
+monaco | 9 | FW | USA | Folarin Balogun
+monaco | 10 | MF | RUS | Aleksandr Golovin
+monaco | 11 | FW | FRA | Matthis Abline
+monaco | 13 | DF | FRA | Christian Mawissa
+monaco | 14 | FW | DEN | Mika Biereth
+monaco | 15 | MF | ENG | Eric Dier
+monaco | 16 | GK | SUI | Philipp Köhn
+monaco | 17 | MF | COD | Stanis Idumbo
+monaco | 18 | MF | JPN | Takumi Minamino
+monaco | 19 | MF | FRA | Pape Cabral
+monaco | 20 | DF | POR | Flávio Nazinho
+monaco | 22 | DF | GHA | Mohammed Salisu
+monaco | 28 | MF | FRA | Mamadou Coulibaly
+monaco | 29 | FW | GER | Paris Brunner
+monaco | 31 | FW | ESP | Ansu Fati
+monaco | 37 | MF | FRA | Edan Diop
+monaco | 40 | GK | FRA | Jules Stawiecki
+monaco | 41 | MF | FRA | Aymen Assab
+monaco | 42 | FW | CIV | Oumar Konaté
+monaco | 44 | DF | BEL | Samuel Nibombé
+monaco | 46 | MF | MAR | Anis Soubeir
+monaco | 47 | FW | MAR | Safouane Benzahra
+monaco | 49 | DF | FRA | Ilane Touré
+monaco | 72 | DF | SEN | Sadibou Sané
+
+# --- Nice
+nice | 2 | DF | TUN | Ali Abdi
+nice | 5 | DF | EGY | Mohamed Abdelmonem
+nice | 6 | MF | ALG | Hicham Boudaoui
+nice | 7 | FW | FRA | Gauthier Hein
+nice | 8 | MF | FRA | Morgan Sanson
+nice | 9 | FW | ALG | Mohamed Amoura
+nice | 10 | FW | MAR | Sofiane Diop
+nice | 11 | FW | CIV | Elye Wahi
+nice | 19 | MF | FRA | Laurent Abergel
+nice | 21 | FW | SWE | Isak Jansson
+nice | 22 | MF | GUI | Issiaga Camara
+nice | 23 | GK | SEN | Yehvann Diouf
+nice | 27 | DF | FRA | Niels Nkounkou
+nice | 28 | MF | BEL | Axel Witsel
+nice | 29 | FW | CMR | Nathan Ngoumou
+nice | 33 | DF | SEN | Antoine Mendy
+nice | 34 | MF | FRA | Nassim Laarej
+nice | 35 | DF | FRA | Xavier Mandza
+nice | 36 | DF | GHA | Alidu Seidu
+nice | 39 | MF | FRA | Djibril Coulibaly
+nice | 44 | FW | FRA | Zoumana Diallo
+nice | 55 | DF | BDI | Youssouf Ndayishimiye
+nice | 60 | GK | FRA | Martin Ponsot
+nice | 64 | DF | CAN | Moïse Bombito
+nice | 77 | GK | ALG | Teddy Boulhendi
+nice | 84 | DF | MAR | Hamza Koutoune
+nice | 87 | MF | FRA | Everton Pereira
+nice | 92 | DF | FRA | Jonathan Clauss
+nice | 99 | MF | GHA | Salis Abdul Samed
+
+# --- Olympique de Marseille
+marseille | 1 | GK | NED | Jeffrey de Lange
+marseille | 4 | DF | ENG | CJ Egan-Riley
+marseille | 6 | MF | NGA | Tochukwu Nnadi
+marseille | 7 | MF | ENG | Angel Gomes
+marseille | 8 | MF | ALG | Himad Abdelli
+marseille | 9 | FW | ALG | Amine Gouiri
+marseille | 11 | FW | FRA | Neal Maupay
+marseille | 13 | DF | CAN | Derek Cornelius
+marseille | 14 | FW | BRA | Igor Paixão
+marseille | 18 | DF | CIV | Bamo Meïté
+marseille | 19 | MF | CTA | Geoffrey Kondogbia
+marseille | 21 | DF | MAR | Nayef Aguerd
+marseille | 22 | FW | USA | Timothy Weah
+marseille | 23 | MF | DEN | Pierre-Emile Højbjerg
+marseille | 25 | DF | SUI | Ulisses Garcia
+marseille | 29 | FW | CMR | Faris Moumbagna
+marseille | 33 | DF | ITA | Emerson Palmieri
+marseille | 40 | GK | BEL | Jelle Van Neck
+marseille | 43 | MF | FRA | Tadjidine Mmadi
+marseille | 48 | MF | FRA | Keyliane Abdallah
+marseille | 71 | MF | MLI | Nouhoum Kamissoko
+marseille | 74 | DF | ALG | Kelyann Bezahaf
+marseille | 77 | MF | MAR | Amine Harit
+marseille | 92 | GK | FRA | Théo Vermot
+
+# --- Paris FC
+paris-fc | 1 | GK | GER | Kevin Trapp
+paris-fc | 3 | DF | FRA | Emmanuel Mbemba
+paris-fc | 4 | MF | FRA | Vincent Marchetti
+paris-fc | 5 | DF | SEN | Moustapha Mbow
+paris-fc | 6 | DF | BRA | Otávio
+paris-fc | 7 | MF | FRA | Pablo Pagis
+paris-fc | 8 | MF | CIV | Patrick Zabi
+paris-fc | 9 | FW | MLI | Lassine Sinayoko
+paris-fc | 10 | MF | ALG | Ilan Kebbal
+paris-fc | 11 | FW | CIV | Jean-Philippe Krasso
+paris-fc | 14 | DF | MLI | Hamari Traoré
+paris-fc | 15 | FW | ITA | Luca Koleosho
+paris-fc | 16 | GK | FRA | Obed Nkambadio
+paris-fc | 17 | MF | MLI | Adama Camara
+paris-fc | 18 | FW | FRA | Omar Sissoko
+paris-fc | 19 | DF | FRA | Nhoa Sangui
+paris-fc | 21 | MF | FRA | Maxime Lopez
+paris-fc | 23 | MF | FRA | Rudy Matondo
+paris-fc | 25 | DF | FRA | Yoan Koré
+paris-fc | 27 | FW | NGA | Moses Simon
+paris-fc | 28 | DF | BEL | Thibault De Smet
+paris-fc | 31 | DF | ALG | Samir Chergui
+paris-fc | 33 | MF | FRA | Pierre Lees-Melou
+paris-fc | 42 | DF | ITA | Diego Coppola
+paris-fc | 93 | FW | FRA | Jonathan Ikoné
+
+# --- Paris Saint-Germain
+psg | 2 | DF | MAR | Achraf Hakimi
+psg | 4 | DF | BRA | Lucas Beraldo
+psg | 5 | DF | BRA | Marquinhos
+psg | 6 | DF | UKR | Illia Zabarnyi
+psg | 7 | FW | GEO | Khvicha Kvaratskhelia
+psg | 8 | MF | ESP | Fabián Ruiz
+psg | 9 | FW | ESP | Ferran Torres
+psg | 10 | FW | FRA | Ousmane Dembélé
+psg | 11 | MF | FRA | Maghnes Akliouche
+psg | 12 | DF | FRA | Lucas Digne
+psg | 14 | FW | FRA | Désiré Doué
+psg | 16 | GK | ITA | Alessandro Longoni
+psg | 17 | MF | POR | Vitinha
+psg | 21 | DF | FRA | Lucas Hernandez
+psg | 22 | FW | BEL | Mika Godts
+psg | 24 | MF | FRA | Senny Mayulu
+psg | 25 | DF | POR | Nuno Mendes
+psg | 27 | MF | ESP | Dro Fernández
+psg | 30 | GK | FRA | Lucas Chevalier
+psg | 33 | MF | FRA | Warren Zaïre-Emery
+psg | 39 | GK | RUS | Matvey Safonov
+psg | 47 | FW | FRA | Quentin Ndjantou
+psg | 51 | DF | ECU | Willian Pacho
+psg | 87 | MF | POR | João Neves
+
+# --- Rennes
+rennes | 4 | DF | ENG | Charlie Cresswell
+rennes | 5 | DF | POR | Gonçalo Oliveira
+rennes | 6 | MF | FRA | Djaoui Cissé
+rennes | 9 | FW | FRA | Esteban Lepaul
+rennes | 10 | MF | MTQ | Ludovic Blas
+rennes | 11 | FW | JOR | Musa Al-Taamari
+rennes | 12 | FW | ESP | Eliezer Mayenda
+rennes | 14 | DF | USA | Bryan Reynolds
+rennes | 16 | GK | FRA | Nicolas Lemaître
+rennes | 17 | MF | POL | Sebastian Szymański
+rennes | 18 | DF | CMR | Aboubakar Nagida
+rennes | 21 | MF | FRA | Valentin Rongier
+rennes | 22 | FW | SEN | Boulaye Dia
+rennes | 24 | DF | FRA | Anthony Rouault
+rennes | 26 | DF | FRA | Quentin Merlin
+rennes | 28 | MF | FRA | Adrien Thomasson
+rennes | 30 | GK | FRA | Brice Samba
+rennes | 35 | FW | ECU | Elías Legendre
+rennes | 45 | MF | FRA | Mahdi Camara
+rennes | 48 | DF | MAR | Abdelhamid Aït Boudlal
+rennes | 60 | GK | ALG | Kilian Belazzoug
+rennes | 65 | MF | GAB | Henrick Do Marcolino
+rennes | 70 | FW | FRA | Arnaud Nordin
+rennes | 90 | FW | SEN | Issa Soumaré
+rennes | 95 | MF | POL | Przemysław Frankowski
+rennes | 0 | MF | BEL | Ayanda Sishuba
+
+# --- Strasbourg
+strasbourg | 1 | GK | DEN | Filip Jörgensen
+strasbourg | 4 | DF | CRC | Jeyland Mitchell
+strasbourg | 6 | DF | FRA | Ismaël Doukouré
+strasbourg | 7 | FW | ENG | Sam Amo-Ameyaw
+strasbourg | 8 | MF | POL | Maxi Oyedele
+strasbourg | 9 | FW | ARG | Joaquín Panichelli
+strasbourg | 10 | MF | USA | Gio Reyna
+strasbourg | 11 | FW | SWE | Sebastian Nanasi
+strasbourg | 12 | GK | POL | Miłosz Piekutowski
+strasbourg | 14 | MF | POR | Dário Essugo
+strasbourg | 15 | DF | ARG | Mateo Del Blanco
+strasbourg | 16 | DF | SWE | Genesis Antwi
+strasbourg | 19 | FW | POR | Fábio Baldé
+strasbourg | 20 | FW | CIV | Martial Godo
+strasbourg | 21 | MF | SEN | Pape Demba Diop
+strasbourg | 23 | MF | POR | Diogo Sousa
+strasbourg | 24 | DF | DEN | Lucas Høgsberg
+strasbourg | 26 | MF | ENG | Omari Kellyman
+strasbourg | 28 | MF | FRA | Tyrese Noubissie
+strasbourg | 29 | MF | MAR | Samir El Mourabet
+strasbourg | 30 | FW | ESP | Jacobo Ortega
+strasbourg | 31 | DF | GER | Karim Coulibaly
+strasbourg | 36 | DF | ESP | Oso
+strasbourg | 37 | FW | FRA | Ghianny Kodia
+strasbourg | 40 | FW | DEN | Conrad Harder
+strasbourg | 42 | FW | BRA | Deivid Washington
+strasbourg | 45 | MF | SWE | Benjamin Brantlind
+strasbourg | 80 | FW | MAR | Gessime Yassine
+strasbourg | 0 | DF | FRA | Hermann Malonga
+strasbourg | 0 | FW | FRA | Sékou Mara
+
+# --- Toulouse
+toulouse | 2 | DF | DEN | Rasmus Nicolaisen
+toulouse | 5 | DF | FRA | Seny Koumbassa
+toulouse | 6 | MF | FRA | Alexis Vossah
+toulouse | 7 | FW | ARG | Julián Vignolo
+toulouse | 8 | MF | DEN | Thomas Jørgensen
+toulouse | 9 | FW | ARG | Santiago Hidalgo
+toulouse | 11 | FW | SWE | Sion Oppong
+toulouse | 12 | DF | CIV | Christ Tapé
+toulouse | 13 | FW | CAN | Jacen Russell-Rowe
+toulouse | 14 | MF | CAN | Niko Sigur
+toulouse | 15 | MF | NOR | Aron Dønnum
+toulouse | 16 | GK | FRA | Guillaume Restes
+toulouse | 17 | MF | GHA | Abu Francis
+toulouse | 18 | MF | FRA | Mathis Amougou
+toulouse | 19 | DF | GER | David Odogu
+toulouse | 20 | FW | DEN | Casper Tengstedt
+toulouse | 22 | DF | ALG | Rafik Messali
+toulouse | 23 | MF | VEN | Cristian Cásseres
+toulouse | 30 | GK | COM | Naïme Saïd Mchindra
+toulouse | 31 | MF | GER | Niklas Schmidt
+toulouse | 37 | FW | FRA | Ilyas Azizi
+toulouse | 49 | MF | FRA | Aymen Amaaouch
+toulouse | 60 | GK | FRA | Mathys Niflore
+toulouse | 94 | DF | FRA | Ismaïl Diallo
+
+# --- Troyes
+troyes | 1 | GK | FRA | Zacharie Boucher
+troyes | 2 | DF | FRA | Lucas Maronnier
+troyes | 3 | DF | FRA | Anis Ouzenadji
+troyes | 4 | DF | CIV | Junior Diaz
+troyes | 5 | DF | ITA | Paolo Gozzi
+troyes | 6 | DF | FRA | Adrien Monfray
+troyes | 7 | FW | GUI | Kandet Diawara
+troyes | 8 | MF | SEN | Mouhamed Diop
+troyes | 9 | FW | FRA | Jérémy Le Douaron
+troyes | 10 | MF | FRA | Merwan Ifnaoui
+troyes | 11 | MF | FRA | Iron Gomis
+troyes | 14 | DF | COM | Ismaël Boura
+troyes | 17 | MF | FRA | Antoine Mille
+troyes | 20 | FW | FRA | Renaud Ripart
+troyes | 22 | MF | FRA | Hugo Picard
+troyes | 23 | FW | FRA | Timothé Nkada
+troyes | 26 | MF | FRA | Alexandre Phliponeau
+troyes | 29 | MF | TOG | Dermane Karim
+troyes | 31 | DF | FRA | Noah Donkor
+troyes | 33 | GK | AUS | Patrick Beach
+troyes | 34 | FW | FRA | Ibrahim Traoré
+troyes | 35 | MF | FRA | Roman Murcy
+troyes | 36 | MF | FRA | Idrissa Soukouna
+troyes | 37 | FW | FRA | Christ Batola
+troyes | 39 | FW | CIV | Yacouba Koné
+troyes | 40 | GK | BFA | Hillel Konaté
+troyes | 41 | DF | FRA | Enisio Carneiro
+troyes | 44 | DF | FRA | Yvann Titi
+
+# ===== Portugal — Liga Portugal 2026-27
+
+# --- Académico de Viseu
+academico-viseu | 1 | GK | ESP | Marcos Lavín
+academico-viseu | 2 | DF | GRE | Nikos Michelis
+academico-viseu | 3 | DF | ESP | Miguel Ángel Brau
+academico-viseu | 5 | DF | BRA | Pedro Barcelos
+academico-viseu | 6 | MF | POR | André Ceitil
+academico-viseu | 7 | MF | POR | Luís Silva
+academico-viseu | 8 | MF | TUR | Cihan Kahraman
+academico-viseu | 9 | FW | MAR | Mohamed Bouldini
+academico-viseu | 10 | FW | CRC | Álvaro Zamora
+academico-viseu | 12 | GK | ESP | Juan Soriano
+academico-viseu | 14 | MF | GER | Soufiane Messeguem
+academico-viseu | 17 | FW | ESP | Valery Fernández
+academico-viseu | 18 | MF | ARG | Cristian Ferreira
+academico-viseu | 21 | DF | POR | Tomás Domingos
+academico-viseu | 22 | MF | ESP | Nils Mortimer
+academico-viseu | 29 | MF | CRO | Andro Babić
+academico-viseu | 31 | FW | BRA | João Guilherme
+academico-viseu | 33 | FW | BRA | André Clóvis
+academico-viseu | 41 | DF | FRA | Anthony Correia
+academico-viseu | 44 | DF | POR | Rúben Pereira
+academico-viseu | 45 | MF | ESP | Alejandro Mestanza
+academico-viseu | 47 | FW | CIV | Lorougnon Gohi
+academico-viseu | 55 | MF | POR | Tomás Silva
+academico-viseu | 57 | DF | POR | Gustavo Costa
+academico-viseu | 58 | GK | BRA | Matheus Sampaio
+academico-viseu | 66 | DF | BRA | Igor Milioransa
+academico-viseu | 75 | DF | POR | Robinho
+academico-viseu | 77 | FW | POR | Paulinho
+academico-viseu | 80 | GK | BRA | Raphael Nunes
+academico-viseu | 82 | DF | CAF | Hugo Gambor
+academico-viseu | 98 | GK | BRA | Ewerton
+
+# --- Alverca
+alverca | 1 | GK | FRA | Noah Raveyre
+alverca | 2 | DF | MAR | Nabil Touaizi
+alverca | 3 | DF | HON | Julián Martínez
+alverca | 4 | DF | GAM | Yaya Bojang
+alverca | 5 | MF | GHA | Sabit Abdulai
+alverca | 6 | MF | CIV | Davy Gui
+alverca | 7 | MF | ANG | André Vidigal
+alverca | 8 | MF | POR | Vasco Moreira
+alverca | 9 | FW | POR | Vivaldo Semedo
+alverca | 10 | FW | POR | Chiquinho
+alverca | 11 | MF | BEL | Cédric Nuozzi
+alverca | 12 | DF | NGA | Isaac James
+alverca | 14 | DF | FRA | Steven Baseya
+alverca | 15 | DF | BEL | Ikker Julian
+alverca | 17 | FW | LBN | Samy Merheg
+alverca | 18 | MF | MAR | Zakaria Kassary
+alverca | 19 | FW | MTN | Dawda Camara
+alverca | 20 | DF | POR | Diogo Spencer
+alverca | 21 | DF | ESP | Sergi Gómez
+alverca | 22 | FW | BRA | Figueiredo
+alverca | 23 | GK | POR | André Paulo
+alverca | 24 | DF | ENG | Mofe Jemide
+alverca | 25 | MF | BRA | Ian Luccas
+alverca | 26 | MF | BRA | Matheus França
+alverca | 27 | DF | ESP | Toni Tamarit
+alverca | 31 | GK | BRA | Matheus Mendes
+alverca | 33 | DF | FRA | Bastien Meupiyou
+alverca | 35 | MF | BRA | Rayan Lucas
+alverca | 55 | DF | POR | Francisco Chissumba
+alverca | 77 | DF | ESP | Óscar Torrellas
+alverca | 90 | MF | POR | Tiago Octávio
+alverca | 91 | GK | BRA | Jhonatan
+alverca | 93 | MF | BRA | Zé Rafael
+
+# --- Arouca
+arouca | 1 | GK | SVK | Jakub Vinarčík
+arouca | 2 | DF | ENG | Leo Shahar
+arouca | 3 | DF | ESP | José Fontán
+arouca | 4 | DF | POR | Diogo Monteiro
+arouca | 5 | DF | SRB | Boris Popović
+arouca | 6 | MF | NED | Espen van Ee
+arouca | 7 | MF | FRA | Naïs Djouahra
+arouca | 8 | MF | JPN | Taichi Fukui
+arouca | 9 | FW | FRA | Fally Mayulu
+arouca | 10 | MF | ESP | Pablo Gozálbez
+arouca | 11 | FW | ESP | Miguel Puche
+arouca | 12 | GK | URU | Ignacio de Arruabarrena
+arouca | 14 | MF | KOR | Lee Hyun-ju
+arouca | 15 | DF | ESP | Javi Sánchez
+arouca | 17 | FW | ESP | Iván Barbero
+arouca | 18 | DF | UKR | Orest Lebedenko
+arouca | 19 | FW | URU | Alfonso Trezza
+arouca | 20 | MF | CRO | Gabriel Rukavina
+arouca | 21 | MF | ESP | Mateo Flores
+arouca | 23 | FW | URU | Dylan Nandín
+arouca | 24 | FW | URU | Brian Mansilla
+arouca | 28 | DF | POR | Tiago Esgaio
+arouca | 37 | DF | ESP | Mario Climent
+arouca | 71 | GK | POR | Martim Duarte
+arouca | 77 | FW | KOR | Park Si-hoo
+arouca | 89 | MF | POR | Pedro Santos
+
+# --- Benfica
+benfica | 1 | GK | UKR | Anatoliy Trubin
+benfica | 2 | DF | FRA | Clément Lenglet
+benfica | 3 | DF | AUS | Alessandro Circati
+benfica | 5 | MF | ARG | Enzo Barrenechea
+benfica | 6 | DF | DEN | Alexander Bah
+benfica | 8 | MF | NOR | Fredrik Aursnes
+benfica | 10 | MF | UKR | Heorhiy Sudakov
+benfica | 11 | FW | BEL | Dodi Lukébakio
+benfica | 13 | MF | POL | Jakub Kamiński
+benfica | 14 | FW | GRE | Vangelis Pavlidis
+benfica | 16 | MF | POR | Manu Silva
+benfica | 18 | MF | LUX | Leandro Barreiro
+benfica | 21 | FW | NOR | Andreas Schjelderup
+benfica | 22 | FW | COL | Jhon Durán
+benfica | 24 | GK | POR | Samuel Soares
+benfica | 25 | FW | ARG | Gianluca Prestianni
+benfica | 26 | DF | SWE | Samuel Dahl
+benfica | 27 | MF | POR | Rafa Silva
+benfica | 30 | MF | ARG | Claudio Echeverri
+benfica | 33 | DF | BRA | Gabriel Índio
+benfica | 34 | DF | MAR | Souffian El Karouani
+benfica | 36 | MF | POR | João Palhinha
+benfica | 44 | DF | POR | Tomás Araújo
+benfica | 50 | GK | POR | Diogo Ferreira
+benfica | 58 | DF | POR | Daniel Banjaqui
+benfica | 62 | DF | POR | José Neto
+benfica | 72 | FW | POR | Anísio Cabral
+
+# --- Braga
+braga | 2 | DF | ESP | Víctor Gómez
+braga | 4 | DF | MLI | Sikou Niakaté
+braga | 6 | MF | BRA | Vitor Carvalho
+braga | 7 | DF | POR | Diogo Travassos
+braga | 8 | MF | POR | João Moutinho
+braga | 9 | FW | ESP | Fran Navarro
+braga | 10 | FW | ESP | Pau Víctor
+braga | 11 | FW | BRA | Gabriel Silva
+braga | 12 | GK | POR | Tiago Sá
+braga | 14 | DF | SWE | Gustaf Lagerbielke
+braga | 16 | MF | ESP | Tommy Marqués
+braga | 17 | FW | SRB | Jovan Milošević
+braga | 19 | FW | DEN | Jonas Wind
+braga | 20 | MF | CIV | Mario Dorgeles
+braga | 21 | MF | POR | Ricardo Horta
+braga | 22 | DF | ESP | Sergio Barcia
+braga | 23 | MF | BIH | Denis Huseinbašić
+braga | 26 | DF | GER | Bright Arrey-Mbi
+braga | 29 | MF | FRA | Jean-Baptiste Gorby
+braga | 31 | GK | BRA | Bernardo
+braga | 34 | MF | TUR | Demir Ege Tıknaz
+braga | 37 | DF | BIH | Adrian-Leon Barišić
+braga | 44 | DF | SUI | Adrian Bajrami
+braga | 50 | MF | POR | Diego Rodrigues
+braga | 73 | FW | POR | João Aragão
+braga | 77 | FW | ESP | Gabri Martínez
+braga | 78 | GK | POR | João Carvalho
+
+# --- Casa Pia
+casa-pia | 1 | GK | CRC | Patrick Sequeira
+casa-pia | 3 | DF | ANG | Khaly
+casa-pia | 4 | DF | POR | João Goulart
+casa-pia | 5 | DF | POR | Abdu Conté
+casa-pia | 8 | MF | POR | Gabi
+casa-pia | 9 | FW | POR | Henrique Araújo
+casa-pia | 10 | FW | POR | Rochinha
+casa-pia | 11 | MF | BEL | Mo Salah
+casa-pia | 16 | MF | ESP | Selvi Clua
+casa-pia | 17 | FW | FRA | Evans Maurin
+casa-pia | 18 | DF | POR | André Geraldes
+casa-pia | 19 | DF | URU | Kevin Prieto
+casa-pia | 20 | FW | GAM | Alassana Jatta
+casa-pia | 21 | FW | MAR | Aymen Zouin
+casa-pia | 22 | GK | POR | Daniel Azevedo
+casa-pia | 24 | MF | COL | Seba Pérez
+casa-pia | 27 | DF | BRA | Kaique Rocha
+casa-pia | 29 | FW | FRA | Jérémy Livolant
+casa-pia | 31 | GK | POR | André Gomes
+casa-pia | 43 | DF | BRA | David Sousa
+casa-pia | 44 | DF | BRA | Lipe
+casa-pia | 59 | MF | POR | Abdu Dafé
+casa-pia | 70 | MF | POR | João Rego
+casa-pia | 75 | DF | POR | Pedro Rosas
+casa-pia | 77 | MF | BEL | Benjamin Pauwels
+casa-pia | 80 | MF | GHA | Lawrence Ofori
+casa-pia | 90 | FW | BRA | Cassiano
+casa-pia | 95 | GK | CRO | Ivan Mandić
+casa-pia | 98 | MF | BRA | JP
+
+# --- Estoril Praia
+estoril | 1 | GK | ESP | Joel Robles
+estoril | 2 | DF | ESP | Ricard Sánchez
+estoril | 3 | DF | ESP | Fernando Medrano
+estoril | 4 | DF | POR | Ferro
+estoril | 5 | DF | BEL | Antef Tsoungui
+estoril | 6 | DF | ESP | Xavi Sintes
+estoril | 7 | FW | POR | André Lacximicant
+estoril | 8 | MF | POR | Xeka
+estoril | 9 | FW | FRA | Axel Camblan
+estoril | 10 | MF | SCO | Jordan Holsgrove
+estoril | 11 | FW | BIH | Nail Omerović
+estoril | 12 | MF | POR | João Carvalho
+estoril | 14 | FW | MAR | Yanis Begraoui
+estoril | 15 | DF | ESP | Ismael Sierra
+estoril | 16 | GK | SVN | Martin Turk
+estoril | 17 | FW | POR | Peixinho
+estoril | 19 | DF | POR | Tiago Parente
+estoril | 21 | DF | CRO | Roko Jurišić
+estoril | 22 | DF | POR | Pedro Carvalho
+estoril | 23 | GK | POR | Diogo Dias
+estoril | 25 | DF | CYP | Stelios Andreou
+estoril | 35 | DF | ENG | Samuel Amissah
+estoril | 38 | FW | ESP | Israel Salazar
+estoril | 42 | DF | POR | Jordan Arnolin
+estoril | 43 | GK | RSA | Fletcher Smythe-Lowe
+estoril | 44 | MF | FRA | Milan Robin
+estoril | 80 | MF | POR | Luís Gomes
+estoril | 90 | MF | POR | Tiago Brito
+estoril | 98 | DF | CPV | Fabrício Garcia
+estoril | 99 | FW | ALG | Rafik Guitane
+estoril | 0 | FW | ENG | Khayon Edwards
+
+# --- Estrela da Amadora
+estrela-amadora | 3 | DF | FRA | Lucas Mincarelli
+estrela-amadora | 4 | DF | BRA | Bernardo Schappo
+estrela-amadora | 5 | DF | SRB | Stefan Leković
+estrela-amadora | 6 | MF | SWE | Kevin Höög Jansson
+estrela-amadora | 8 | MF | BRA | Robinho
+estrela-amadora | 10 | FW | ROU | Ianis Stoica
+estrela-amadora | 11 | FW | URU | Rodrigo Dudok
+estrela-amadora | 14 | MF | CRO | Lovro Zvonarek
+estrela-amadora | 17 | DF | GNB | Jefferson Encada
+estrela-amadora | 18 | MF | MNE | Vuk Pavićević
+estrela-amadora | 19 | MF | ESP | Joan Jordán
+estrela-amadora | 21 | DF | GER | Max Scholze
+estrela-amadora | 22 | GK | POR | David Grilo
+estrela-amadora | 24 | GK | BRA | Léo Linck
+estrela-amadora | 28 | MF | FRA | Tom Moustier
+estrela-amadora | 29 | FW | ECU | Jeremy Arévalo
+estrela-amadora | 30 | DF | BRA | Luan Patrick
+estrela-amadora | 37 | FW | PUR | Leandro Antonetti
+estrela-amadora | 39 | MF | CIV | Eddy Doué
+estrela-amadora | 41 | FW | KOR | Yang Si-Woo
+estrela-amadora | 49 | FW | BEL | René Mitongo
+estrela-amadora | 51 | GK | POR | Diogo Pinto
+estrela-amadora | 55 | DF | POR | Rafa Soares
+estrela-amadora | 71 | MF | FRA | Emerson Vanga
+estrela-amadora | 72 | FW | BRA | Henrique Poniewas
+estrela-amadora | 78 | MF | POR | Santiago Serra
+estrela-amadora | 79 | DF | BUL | Atanas Chernev
+estrela-amadora | 80 | FW | BRA | Alisson Souza
+estrela-amadora | 93 | FW | FRA | Bénito
+estrela-amadora | 99 | FW | NGA | Abraham Marcus
+
+# --- Famalicão
+famalicao | 1 | GK | RUS | Ivan Zlobin
+famalicao | 2 | DF | BRA | Gustavo Garcia
+famalicao | 3 | DF | ECU | Leo Realpe
+famalicao | 4 | DF | NED | Finn van Breemen
+famalicao | 5 | DF | SUI | Leny Meyer
+famalicao | 6 | MF | NED | Tom van de Looi
+famalicao | 7 | FW | BRA | Sorriso
+famalicao | 8 | MF | ESP | Marcos Peña
+famalicao | 9 | FW | NGA | Umar Abubakar
+famalicao | 10 | MF | POR | Pedro Santos
+famalicao | 11 | FW | ESP | Óscar Aranda
+famalicao | 14 | MF | POR | Mathias De Amorim
+famalicao | 15 | DF | GNB | Víctor Rofino
+famalicao | 17 | DF | POR | Rodrigo Pinheiro
+famalicao | 18 | FW | SUI | Roméo Beney
+famalicao | 19 | MF | POR | Paulo Moreira
+famalicao | 21 | MF | HUN | Tamás Szűcs
+famalicao | 22 | GK | BRA | Gabriel Cabral
+famalicao | 23 | FW | POR | Gil Dias
+famalicao | 24 | MF | FRA | Mathis Jangéal
+famalicao | 25 | GK | MNE | Lazar Carević
+famalicao | 28 | DF | ANG | Pedro Bondo
+famalicao | 30 | DF | SRB | Vojin Serafimović
+famalicao | 33 | FW | MEX | Patricio Salas
+famalicao | 36 | DF | BRA | Matheus Mattara
+famalicao | 70 | FW | GRE | Georgios Koutsias
+
+# --- Gil Vicente
+gil-vicente | 1 | GK | SWE | André Picornell
+gil-vicente | 2 | DF | POR | José Silva
+gil-vicente | 3 | DF | ESP | Antonio Espigares
+gil-vicente | 4 | DF | FRA | Marvin Elimbi
+gil-vicente | 6 | MF | POR | Zé Carlos
+gil-vicente | 7 | FW | FRA | Tidjany Touré
+gil-vicente | 8 | MF | CIV | Mohamed Bamba
+gil-vicente | 9 | FW | BRA | Walace França
+gil-vicente | 10 | MF | ESP | Santi García
+gil-vicente | 11 | FW | POR | Joelson Fernandes
+gil-vicente | 12 | MF | DEN | Andreas Lausen
+gil-vicente | 17 | FW | ESP | Sergio Bermejo
+gil-vicente | 19 | MF | BRA | Guilherme Gomes
+gil-vicente | 20 | MF | POR | Gil Martins
+gil-vicente | 23 | FW | ESP | Héctor Hernández
+gil-vicente | 26 | DF | BRA | Weverson
+gil-vicente | 27 | FW | URU | Agustín Moreira
+gil-vicente | 30 | GK | BRA | Lucão
+gil-vicente | 32 | MF | URU | Martín Fernández
+gil-vicente | 39 | DF | ANG | Jonathan Buatu
+gil-vicente | 44 | GK | POR | Tiago Ferreira
+gil-vicente | 45 | DF | CPV | David Moreira
+gil-vicente | 47 | DF | POR | Ricardo Esgaio
+gil-vicente | 77 | FW | BRA | Murilo Costa
+gil-vicente | 82 | MF | POR | Gonçalo Maia
+gil-vicente | 86 | MF | POR | Diogo Prioste
+gil-vicente | 88 | MF | PER | Bassco Soyer
+gil-vicente | 94 | GK | BRA | Samuel Portugal
+gil-vicente | 95 | DF | FRA | Arthur Tchaptchet
+gil-vicente | 99 | FW | MLI | Mohamed Kaba
+
+# --- Marítimo
+maritimo | 1 | GK | POR | Gonçalo Tabuaço
+maritimo | 2 | DF | BRA | Igor Julião
+maritimo | 3 | DF | ENG | Nathanael Ogbeta
+maritimo | 4 | DF | POR | Rafael Fernandes
+maritimo | 5 | DF | POR | Nilton Varela
+maritimo | 6 | MF | POR | Rodrigo Andrade
+maritimo | 7 | FW | VEN | Enrique Zauner
+maritimo | 8 | MF | SUI | Maxime Dominguez
+maritimo | 9 | FW | POR | José Melro
+maritimo | 10 | MF | ESP | Martín Tejón
+maritimo | 11 | FW | MAR | Simo Bouzaidi
+maritimo | 12 | FW | CGO | Mons Bassouamina
+maritimo | 13 | GK | ESP | Alfonso Pastor
+maritimo | 14 | MF | POR | Raphael Guzzo
+maritimo | 15 | DF | POR | Tomás Tavares
+maritimo | 16 | MF | POR | Francisco Silva
+maritimo | 17 | FW | ESP | Adrián Butzke
+maritimo | 18 | MF | BIH | Vladan Danilović
+maritimo | 20 | FW | POR | Francisco Gomes
+maritimo | 21 | MF | NGA | Ibrahim Alani
+maritimo | 22 | DF | HUN | Gábor Szalai
+maritimo | 23 | DF | POR | Paulo Henrique
+maritimo | 25 | MF | ESP | Yellu Santiago
+maritimo | 27 | FW | GER | Samuel Bamba
+maritimo | 30 | GK | ESP | Fran Vieites
+maritimo | 34 | GK | MOZ | Kimiss Zavala
+maritimo | 35 | FW | BEL | Bryan Limbombe
+maritimo | 44 | DF | POR | Romain Correia
+maritimo | 66 | MF | NGA | Israel Ayuma
+maritimo | 68 | MF | POR | Nélio Batista
+maritimo | 90 | FW | GER | Maurice Boakye
+
+# --- Moreirense
+moreirense | 1 | GK | BRA | Aranha
+moreirense | 2 | DF | POR | Leandro
+moreirense | 4 | DF | BRA | Kevyn Monteiro
+moreirense | 7 | MF | POR | Manuel Mendonça
+moreirense | 8 | MF | SRB | Mateja Stjepanović
+moreirense | 9 | FW | MTQ | Alexandre Parsemain
+moreirense | 10 | FW | POR | Kiko Bondoso
+moreirense | 11 | FW | BRA | Landerson
+moreirense | 13 | GK | POR | André Ferreira
+moreirense | 17 | DF | ESP | Álvaro Martínez
+moreirense | 19 | FW | POR | Tiago Andrade
+moreirense | 20 | MF | POR | João Veloso
+moreirense | 21 | MF | ESP | Rodri
+moreirense | 23 | MF | ENG | Nile John
+moreirense | 25 | MF | POR | Afonso Assis
+moreirense | 26 | DF | BRA | Maracás
+moreirense | 27 | DF | POR | Kiko
+moreirense | 28 | MF | ZAM | Chipyoka Songa
+moreirense | 30 | MF | ENG | Jimi Gower
+moreirense | 31 | DF | BRA | Pedro Jesus
+moreirense | 32 | DF | BRA | Janderson
+moreirense | 44 | MF | ESP | Michael Dacosta
+moreirense | 65 | MF | BRA | Guilherme Liberato
+moreirense | 66 | DF | GNB | Gilberto Batista
+moreirense | 76 | DF | POR | Dinis Pinto
+moreirense | 77 | FW | ENG | Koby Mottoh
+moreirense | 79 | FW | CRO | Leonardo Vonić
+moreirense | 89 | FW | POR | Afonso Vieira
+moreirense | 99 | FW | BRA | Yan Maranhão
+
+# --- Nacional (Madeira)
+nacional-madeira | 1 | GK | ITA | Renato Marin
+nacional-madeira | 2 | DF | ECU | Daniel de la Cruz
+nacional-madeira | 4 | DF | BRA | Ulisses
+nacional-madeira | 5 | DF | POR | José Gomes
+nacional-madeira | 6 | MF | BRA | Matheus Dias
+nacional-madeira | 7 | MF | DEN | Markus Jensen
+nacional-madeira | 8 | MF | ESP | Miguel Baeza
+nacional-madeira | 9 | FW | ECU | Allen Obando
+nacional-madeira | 10 | FW | BRA | Daniel Júnior
+nacional-madeira | 11 | FW | CYP | Stavros Gavriil
+nacional-madeira | 12 | FW | KOR | Song Min-kyu
+nacional-madeira | 13 | GK | POR | João Gonçalves
+nacional-madeira | 14 | DF | CPV | Ivanildo Fernandes
+nacional-madeira | 15 | MF | TUN | Chiheb Labidi
+nacional-madeira | 17 | FW | BOL | Fernando Nava
+nacional-madeira | 20 | FW | POR | Matchoi Djaló
+nacional-madeira | 21 | MF | FRA | William Kokolo
+nacional-madeira | 22 | MF | POR | Filipe Soares
+nacional-madeira | 23 | MF | BRA | Mateus Iseppe
+nacional-madeira | 26 | MF | POR | Joel Silva
+nacional-madeira | 28 | MF | BRA | Igor Liziero
+nacional-madeira | 29 | FW | CMR | Njoya Abdel
+nacional-madeira | 30 | MF | POR | Martim Watts
+nacional-madeira | 31 | MF | CMR | Danel Dongmo
+nacional-madeira | 33 | DF | POR | Francisco Gonçalves
+nacional-madeira | 34 | DF | BRA | Léo Santos
+nacional-madeira | 38 | DF | BRA | Zé Vitor
+nacional-madeira | 50 | GK | BRA | Kevyn
+nacional-madeira | 52 | DF | BRA | Wesley Gasolina
+nacional-madeira | 88 | MF | BRA | Deivison
+nacional-madeira | 99 | FW | BRA | Pablo Ruan
+nacional-madeira | 0 | MF | BRA | Josué
+
+# --- Porto
+porto | 4 | DF | POL | Jakub Kiwior
+porto | 5 | DF | POL | Jan Bednarek
+porto | 6 | DF | ENG | Chris Smalling
+porto | 7 | FW | BRA | William Gomes
+porto | 8 | MF | DEN | Victor Froholdt
+porto | 9 | FW | ESP | Samu Aghehowa
+porto | 10 | MF | ESP | Gabri Veiga
+porto | 11 | FW | BRA | Pepê
+porto | 12 | DF | NGA | Zaidu Sanusi
+porto | 13 | MF | DOM | Pablo Rosario
+porto | 14 | GK | POR | Cláudio Ramos
+porto | 15 | MF | POR | Vasco Sousa
+porto | 16 | MF | KOR | Hwang In-beom
+porto | 17 | FW | ESP | Borja Sainz
+porto | 18 | DF | ARG | Nehuén Pérez
+porto | 19 | FW | POR | André Silva
+porto | 20 | DF | POR | Alberto Costa
+porto | 21 | DF | CRO | Dominik Prpić
+porto | 22 | MF | ARG | Alan Varela
+porto | 24 | GK | POR | João Costa
+porto | 29 | FW | MEX | Santiago Giménez
+porto | 33 | DF | BRA | Souza
+porto | 37 | FW | BRA | Gabriel Mec
+porto | 42 | MF | CIV | Seko Fofana
+porto | 50 | GK | POR | João Afonso
+porto | 52 | DF | POR | Martim Fernandes
+porto | 74 | DF | POR | Francisco Moura
+porto | 77 | FW | POL | Oskar Pietuszewski
+porto | 99 | GK | POR | Diogo Costa
+
+# --- Rio Ave
+rio-ave | 1 | GK | POL | Cezary Miszta
+rio-ave | 2 | DF | POR | Zé Carlos
+rio-ave | 3 | DF | COL | Simón García
+rio-ave | 5 | MF | GRE | Andreas Ntoi
+rio-ave | 6 | DF | ENG | Nelson Abbey
+rio-ave | 7 | FW | BRA | Diogo Bezerra
+rio-ave | 8 | MF | BRA | Ryan Guilherme
+rio-ave | 9 | FW | GNB | Tamble Monteiro
+rio-ave | 10 | MF | CRC | Brandon Aguilera
+rio-ave | 11 | FW | ESP | Jalen Blesa
+rio-ave | 13 | DF | FRA | Julien Lomboto
+rio-ave | 14 | DF | CZE | Jakub Brabec
+rio-ave | 17 | DF | GRE | Marios Vrousai
+rio-ave | 19 | MF | FRA | Malik Sellouki
+rio-ave | 20 | DF | POR | João Tomé
+rio-ave | 21 | FW | CZE | Radek Šiler
+rio-ave | 22 | GK | CRC | Kevin Chamorro
+rio-ave | 23 | DF | ARG | Francisco Petrasso
+rio-ave | 24 | DF | POR | Pedro Amaral
+rio-ave | 27 | FW | ARG | Tobías Medina
+rio-ave | 30 | FW | SVK | Roland Galčík
+rio-ave | 32 | GK | BRA | Vitor Hugo
+rio-ave | 39 | DF | BRA | Gustavo Mancha
+rio-ave | 44 | MF | HUN | Tamás Nikitscher
+rio-ave | 54 | MF | GRE | Georgios Liavas
+rio-ave | 68 | DF | BRA | Caike
+rio-ave | 70 | MF | SEN | Antoine Wenck
+rio-ave | 77 | FW | CRO | Dario Špikić
+rio-ave | 79 | MF | POR | Miguel Patrício
+rio-ave | 80 | FW | TOG | Sebastian Clemmensen
+rio-ave | 90 | MF | POR | Diogo Nascimento
+rio-ave | 99 | GK | NED | Ennio van der Gouw
+
+# --- Santa Clara
+santa-clara | 1 | GK | BRA | Lucas França
+santa-clara | 3 | DF | BRA | Henrique Silva
+santa-clara | 4 | DF | POR | Pedro Pacheco
+santa-clara | 5 | DF | BRA | Guilherme Romão
+santa-clara | 6 | MF | POR | Pedro Ferreira
+santa-clara | 7 | FW | BRA | Fernando
+santa-clara | 8 | MF | CPV | Djé Tavares
+santa-clara | 9 | FW | POR | Gonçalo Paciência
+santa-clara | 10 | FW | BRA | Brenner Lucas
+santa-clara | 11 | FW | BRA | Welinton Torrão
+santa-clara | 12 | GK | BRA | Neneca
+santa-clara | 17 | MF | POR | João Vasconcelos
+santa-clara | 18 | FW | POR | Afonso Duarte
+santa-clara | 19 | DF | BRA | Ythallo
+santa-clara | 20 | MF | POR | Tiago Ribeiro
+santa-clara | 21 | DF | POR | Emanuel Moreira
+santa-clara | 22 | MF | BRA | Vitinho
+santa-clara | 25 | MF | POR | Fredy
+santa-clara | 32 | DF | BRA | MT
+santa-clara | 41 | MF | BRA | Dani Borges
+santa-clara | 42 | DF | BRA | Lucas Soares
+santa-clara | 70 | FW | BRA | Vinícius Lopes
+santa-clara | 73 | FW | BRA | Léo Jacó
+santa-clara | 85 | DF | POR | Kamika
+santa-clara | 99 | FW | BRA | Sorriso
+
+# --- Sporting
+sporting | 1 | GK | POR | Rui Silva
+sporting | 4 | MF | DEN | Silas Andersen
+sporting | 5 | MF | ESP | Sergi Altimira
+sporting | 6 | DF | BEL | Zeno Debast
+sporting | 7 | FW | GRE | Fotis Ioannidis
+sporting | 8 | MF | POR | João Simões
+sporting | 9 | FW | POR | Rafael Nel
+sporting | 10 | FW | MOZ | Geny Catamo
+sporting | 11 | DF | POR | Nuno Santos
+sporting | 13 | DF | GRE | Georgios Vagiannidis
+sporting | 17 | MF | URU | Rodrigo Zalazar
+sporting | 18 | DF | MAR | Moncef Zekri
+sporting | 19 | FW | AUS | Nestory Irankunda
+sporting | 20 | FW | URU | Maximiliano Araújo
+sporting | 21 | MF | BRA | Pedro Lima
+sporting | 22 | DF | ESP | Iván Fresneda
+sporting | 25 | DF | POR | Gonçalo Inácio
+sporting | 28 | FW | ENG | Jesse Derry
+sporting | 30 | GK | BRA | Kaique Pereira
+sporting | 31 | FW | BRA | Luis Guilherme
+sporting | 41 | GK | BRA | Diego Callai
+sporting | 50 | DF | POR | Rodrigo Dias
+sporting | 55 | DF | SEN | Ibrahima Ba
+sporting | 58 | MF | POR | Flávio Gonçalves
+sporting | 72 | DF | POR | Eduardo Quaresma
+sporting | 73 | DF | POR | Eduardo Felicíssimo
+sporting | 77 | MF | ITA | Issa Doumbia
+sporting | 97 | FW | COL | Luis Suárez
+sporting | 99 | GK | POR | Francisco Silva
+
+# --- Vitória de Guimarães
+vitoria-guimaraes | 2 | DF | POR | Miguel Maga
+vitoria-guimaraes | 4 | DF | ESP | Óscar Rivas
+vitoria-guimaraes | 5 | DF | FRA | Ahmed Sidibé
+vitoria-guimaraes | 6 | MF | SRB | Matija Mitrović
+vitoria-guimaraes | 7 | FW | FRA | Oumar Camara
+vitoria-guimaraes | 8 | MF | POR | Gonçalo Nogueira
+vitoria-guimaraes | 9 | FW | AUT | Arnel Jakupović
+vitoria-guimaraes | 10 | MF | BRA | Alan
+vitoria-guimaraes | 11 | FW | BRA | Gustavo Silva
+vitoria-guimaraes | 13 | DF | POR | João Mendes
+vitoria-guimaraes | 15 | DF | COL | Yeimar Mosquera
+vitoria-guimaraes | 16 | MF | ANG | Beni Mukendi
+vitoria-guimaraes | 17 | MF | POR | Miguel Nogueira
+vitoria-guimaraes | 18 | FW | CPV | Telmo Arcanjo
+vitoria-guimaraes | 19 | MF | SWE | Victor Andersson
+vitoria-guimaraes | 20 | MF | POR | Samu
+vitoria-guimaraes | 21 | DF | CRO | Toni Borevković
+vitoria-guimaraes | 22 | GK | COL | Juan Castillo
+vitoria-guimaraes | 23 | DF | ROU | Tony Strata
+vitoria-guimaraes | 24 | FW | SEN | Alioune Ndoye
+vitoria-guimaraes | 28 | DF | BRA | Thiago Balieiro
+vitoria-guimaraes | 29 | FW | CIV | Patrick Ouotro
+vitoria-guimaraes | 35 | MF | ESP | Fabio Blanco
+vitoria-guimaraes | 44 | MF | BFA | Lohann Doucet
+vitoria-guimaraes | 45 | MF | POR | Marco Cruz
+vitoria-guimaraes | 48 | GK | POL | Oliwier Zych
+vitoria-guimaraes | 56 | MF | POR | Santiago Verdi
+vitoria-guimaraes | 80 | MF | POR | Rica Rocha
+vitoria-guimaraes | 82 | DF | POR | Francisco Dias
+vitoria-guimaraes | 98 | GK | BRA | Lucas Furtado
+
+# ===== Argentina — Liga Profesional 2026
+
+# --- Aldosivi
+aldosivi | 2 | DF | ARG | Leonardo Sigali
+aldosivi | 4 | DF | ARG | Rodrigo González
+aldosivi | 5 | MF | ARG | Nicolás Linares
+aldosivi | 7 | FW | ARG | Natanael Guzmán
+aldosivi | 8 | MF | ARG | Martín García
+aldosivi | 9 | FW | ARG | Nicolás Cordero
+aldosivi | 10 | MF | ARG | Nico Gaitán
+aldosivi | 11 | FW | ARG | Agustín Palavecino
+aldosivi | 13 | DF | ARG | Braian Cufré
+aldosivi | 14 | DF | ARG | Elías López
+aldosivi | 15 | MF | ARG | Francisco Perruzzi
+aldosivi | 16 | FW | ARG | Bautista Dadín
+aldosivi | 17 | DF | ARG | Federico Laurelli
+aldosivi | 18 | FW | ARG | Andrés Chávez
+aldosivi | 19 | MF | ARG | Lucas Castro
+aldosivi | 21 | FW | ARG | Matías Godoy
+aldosivi | 22 | MF | ARG | Alan Sosa
+aldosivi | 23 | GK | ARG | Ignacio Chicco
+aldosivi | 25 | DF | ARG | Néstor Breitenbruch
+aldosivi | 27 | FW | ARG | Tomás Fernández
+aldosivi | 28 | DF | ARG | Santiago Moya
+aldosivi | 29 | FW | SVN | Andrés Vombergar
+aldosivi | 32 | DF | ARG | Joaquín Pombo
+aldosivi | 33 | DF | ARG | Nicolás Zalazar
+aldosivi | 42 | GK | ARG | Lucas Acosta
+
+# --- Argentinos Juniors
+argentinos-juniors | 1 | GK | ARG | Agustín Mangiaut
+argentinos-juniors | 3 | DF | ARG | Luciano Sánchez
+argentinos-juniors | 4 | DF | ARG | Érik Godoy
+argentinos-juniors | 5 | MF | ARG | Facundo Carrizo
+argentinos-juniors | 6 | DF | ARG | Franco Vázquez
+argentinos-juniors | 7 | FW | ARG | Diego Porcel
+argentinos-juniors | 8 | MF | ARG | Hernán López Muñoz
+argentinos-juniors | 9 | FW | ARG | Gastón Verón
+argentinos-juniors | 10 | MF | ARG | Gabriel Florentín
+argentinos-juniors | 11 | MF | ARG | Nicolás Oroz
+argentinos-juniors | 12 | GK | ARG | Gonzalo Siri
+argentinos-juniors | 13 | DF | ARG | Santino Gianini
+argentinos-juniors | 14 | DF | ARG | Kevin Coronel
+argentinos-juniors | 15 | MF | ARG | Facundo Gutiérrez
+argentinos-juniors | 16 | DF | ARG | Francisco Álvarez
+argentinos-juniors | 17 | DF | ARG | Franco Paredes
+argentinos-juniors | 18 | MF | ARG | Federico Mancuello
+argentinos-juniors | 19 | FW | ARG | Matías Giménez
+argentinos-juniors | 20 | DF | ARG | Sebastián Prieto
+argentinos-juniors | 23 | DF | ARG | Mateo Mendoza
+argentinos-juniors | 25 | GK | CHI | Brayan Cortés
+argentinos-juniors | 26 | DF | ARG | Claudio Bravo
+argentinos-juniors | 27 | FW | ARG | Tomás Molina
+argentinos-juniors | 28 | MF | ARG | Joaquín Gho
+argentinos-juniors | 29 | FW | ARG | Emiliano Viveros
+argentinos-juniors | 30 | DF | PAR | Alan Núñez
+argentinos-juniors | 32 | MF | ARG | Gino Infantino
+argentinos-juniors | 35 | FW | ARG | Alan Alcaraz
+argentinos-juniors | 36 | MF | ARG | Gastón Bouhier
+argentinos-juniors | 41 | DF | ARG | Santiago Silveira
+argentinos-juniors | 48 | FW | ARG | Facundo Jainikoski
+argentinos-juniors | 49 | FW | JPN | Ryōga Kida
+
+# --- Atlético Tucumán
+atletico-tucuman | 1 | GK | ARG | Luis Ingolotti
+atletico-tucuman | 2 | DF | ARG | Ramiro Paunero
+atletico-tucuman | 3 | DF | URU | Maximiliano Villa
+atletico-tucuman | 6 | DF | ARG | Gianluca Ferrari
+atletico-tucuman | 7 | FW | ARG | Martín Benítez
+atletico-tucuman | 8 | MF | SYR | Ezequiel Ham
+atletico-tucuman | 9 | FW | ARG | Leandro Díaz
+atletico-tucuman | 11 | MF | ARG | Renzo Tesuri
+atletico-tucuman | 12 | GK | ARG | Patricio Albornoz
+atletico-tucuman | 14 | FW | ARG | Alexis Canelo
+atletico-tucuman | 15 | FW | ARG | Rodrigo Granillo
+atletico-tucuman | 16 | DF | ARG | Moisés Brandán
+atletico-tucuman | 17 | GK | ARG | Enrique Maza
+atletico-tucuman | 18 | MF | ARG | Ramiro Ruiz Rodríguez
+atletico-tucuman | 19 | MF | ARG | Leonel Vega
+atletico-tucuman | 20 | DF | ARG | Gastón Suso
+atletico-tucuman | 22 | MF | ARG | Facundo Pimienta
+atletico-tucuman | 23 | MF | ARG | Nicolás Laméndola
+atletico-tucuman | 24 | DF | ARG | Leonel Di Plácido
+atletico-tucuman | 25 | GK | ARG | Tomás Durso
+atletico-tucuman | 28 | MF | ARG | Gabriel Compagnucci
+atletico-tucuman | 29 | FW | ARG | Martín Ortega
+atletico-tucuman | 31 | MF | ARG | Lautaro Godoy
+atletico-tucuman | 32 | DF | ARG | Juan Infante
+atletico-tucuman | 33 | DF | ARG | Ramiro González
+atletico-tucuman | 35 | FW | ARG | Gabriel Abeldaño
+atletico-tucuman | 36 | DF | ARG | Luciano Vallejo
+atletico-tucuman | 37 | MF | ARG | Ezequiel Godoy
+atletico-tucuman | 38 | DF | ARG | Juan Posse
+
+# --- Banfield
+banfield | 4 | DF | ARG | Juan Luis Alfaro
+banfield | 6 | DF | ARG | Nicolás Meriano
+banfield | 7 | FW | ARG | Lisandro Piñero
+banfield | 8 | MF | ARG | Lautaro Ríos
+banfield | 9 | FW | URU | Adrián Balboa
+banfield | 10 | MF | ARG | Lautaro Gómez
+banfield | 11 | MF | ARG | Favio Álvarez
+banfield | 12 | DF | ARG | Marcos López
+banfield | 13 | DF | ARG | Brandon Oviedo
+banfield | 14 | DF | ARG | Nehuén Paz
+banfield | 15 | MF | ARG | Santiago Esquivel
+banfield | 18 | MF | ARG | Federico Medina
+banfield | 19 | DF | ARG | Lautaro Cano
+banfield | 20 | MF | ARM | Tomás Adoryán
+banfield | 21 | MF | ARG | Lautaro Villegas
+banfield | 22 | FW | URU | Alexander Machado
+banfield | 23 | MF | ARG | Lucas Palavecino
+banfield | 24 | MF | ARG | Santiago López García
+banfield | 25 | GK | ARG | Gino Santilli
+banfield | 27 | DF | SYR | Ignacio Abraham
+banfield | 28 | FW | ARG | Matías Hernández
+banfield | 29 | DF | ARG | Juan Iribarren
+banfield | 30 | FW | ARG | Federico Anselmo
+banfield | 31 | GK | ARG | Joaquín Molina
+banfield | 33 | MF | COL | Neyder Moreno
+banfield | 34 | DF | ARG | Santiago Daniele
+banfield | 35 | MF | ARG | Nacho Pais
+banfield | 37 | DF | ARG | Renzo Malanca
+banfield | 40 | MF | ARG | David Zalazar
+banfield | 50 | GK | ARG | Diego Rodríguez
+banfield | 70 | MF | COL | Manuel Arteaga
+banfield | 77 | MF | CHI | Thomas Rodríguez
+
+# --- Barracas Central
+barracas-central | 1 | GK | PAR | Juan Espínola
+barracas-central | 2 | DF | ARG | Nicolás Capraro
+barracas-central | 4 | DF | ARG | Damián Martínez
+barracas-central | 5 | MF | ARG | Dardo Miloc
+barracas-central | 6 | DF | ARG | Rodrigo Insúa
+barracas-central | 7 | FW | ARG | Juan Barbieri
+barracas-central | 8 | MF | ARG | Tomás Porra
+barracas-central | 9 | FW | ARG | Gonzalo Morales
+barracas-central | 10 | MF | ARG | Iván Tapia
+barracas-central | 11 | FW | ARM | Norberto Briasco
+barracas-central | 13 | DF | ARG | Rafael Barrios
+barracas-central | 14 | DF | ARG | Kevin Jappert
+barracas-central | 15 | DF | URU | Yonatthan Rak
+barracas-central | 16 | MF | ARG | Iván Guaraz
+barracas-central | 17 | DF | ARG | Elías Pereyra
+barracas-central | 18 | MF | ARG | Manuel Duarte
+barracas-central | 19 | MF | ARG | Carlos Arce
+barracas-central | 20 | FW | URU | Jhonatan Candia
+barracas-central | 21 | FW | ARG | Lucas Gamba
+barracas-central | 23 | FW | PUR | Wilfredo Rivera
+barracas-central | 24 | MF | ARG | Enzo Taborda
+barracas-central | 25 | MF | COL | Yeison Gordillo
+barracas-central | 28 | MF | PAR | Rodrigo Bogarín
+barracas-central | 30 | GK | ARG | Marcelo Miño
+barracas-central | 31 | DF | ARG | Nicolás Demartini
+barracas-central | 32 | DF | ARG | Fernando Tobio
+barracas-central | 33 | MF | ARG | Gonzalo Maroni
+barracas-central | 34 | FW | ARG | Nicolás Orsini
+barracas-central | 35 | MF | ARG | Esteban Rolón
+barracas-central | 36 | MF | ARG | Tomás Lavezzi
+barracas-central | 37 | DF | ARG | Gastón Campi
+barracas-central | 38 | GK | ARG | Juan Pablo Insúa
+barracas-central | 77 | FW | ARG | Facundo Bruera
+barracas-central | 79 | MF | ARG | Maximiliano Puig
+
+# --- Belgrano
+belgrano | 2 | DF | ARG | Alexis Maldonado
+belgrano | 3 | DF | ARG | Adrián Spörle
+belgrano | 5 | MF | ARG | Santiago Longo
+belgrano | 9 | FW | ARG | Lucas Passerini
+belgrano | 10 | MF | ARM | Lucas Zelarayán
+belgrano | 11 | MF | ARG | Francisco González Metilli
+belgrano | 13 | DF | ARG | Álvaro Ocampo
+belgrano | 14 | DF | ARG | Leonardo Morales
+belgrano | 16 | DF | URU | Federico Ricca
+belgrano | 17 | DF | ARG | Lisandro López
+belgrano | 20 | MF | ARG | Franco Vázquez
+belgrano | 21 | MF | ARG | Adrián Sánchez
+belgrano | 22 | FW | ARG | Nicolás Fernández
+belgrano | 23 | GK | ARG | Manuel Vicentini
+belgrano | 24 | MF | ARG | Emiliano Rigoni
+belgrano | 25 | GK | URU | Thiago Cardozo
+belgrano | 26 | DF | PAR | Alcides Benítez
+belgrano | 28 | GK | ARG | Matías Daniele
+belgrano | 29 | FW | ARG | Agustín Melano
+belgrano | 30 | MF | ARG | Gonzalo Zelarayán
+belgrano | 37 | FW | ARG | Lautaro Gutiérrez
+belgrano | 45 | DF | ARG | Agustín Falcón
+belgrano | 51 | MF | ARG | Ramiro Hernandes
+belgrano | 53 | MF | ARG | Juan Velázquez
+
+# --- Boca Juniors
+boca-juniors | 1 | GK | COL | Álvaro Montero
+boca-juniors | 2 | DF | ARG | Lautaro Di Lollo
+boca-juniors | 3 | DF | ARG | Lautaro Blanco
+boca-juniors | 4 | DF | ARG | Nicolás Figal
+boca-juniors | 5 | MF | ARG | Leandro Paredes
+boca-juniors | 6 | MF | ARG | Rodrigo Battaglia
+boca-juniors | 7 | MF | CHI | Carlos Palacios
+boca-juniors | 8 | MF | ARG | Tomás Belmonte
+boca-juniors | 9 | FW | ARG | Milton Giménez
+boca-juniors | 10 | MF | ARG | Tomás Aranda
+boca-juniors | 11 | FW | PAR | Ángel Romero
+boca-juniors | 12 | GK | ARG | Leandro Brey
+boca-juniors | 13 | GK | ARG | Javier García
+boca-juniors | 15 | MF | CHI | Williams Alarcón
+boca-juniors | 16 | FW | URU | Miguel Merentiel
+boca-juniors | 17 | DF | URU | Leandro Lozano
+boca-juniors | 18 | MF | ARG | Milton Delgado
+boca-juniors | 19 | FW | ARG | Leonel Flores
+boca-juniors | 20 | MF | ARG | Alan Velasco
+boca-juniors | 22 | MF | COL | Sebastián Villa
+boca-juniors | 23 | MF | ARG | Camilo Rey Domenech
+boca-juniors | 24 | DF | ARG | Dylan Gorosito
+boca-juniors | 25 | MF | ARG | Santiago Ascacíbar
+boca-juniors | 26 | DF | ARG | Marco Pellegrino
+boca-juniors | 27 | MF | ARG | Malcom Braida
+boca-juniors | 28 | FW | PAR | Adam Bareiro
+boca-juniors | 30 | FW | ECU | Enner Valencia
+boca-juniors | 32 | DF | ARG | Ayrton Costa
+boca-juniors | 42 | DF | ARG | Facundo Herrera
+
+# --- Central Córdoba
+central-cordoba | 1 | GK | ARG | Alan Aguerre
+central-cordoba | 2 | DF | ARG | Alejandro Maciel
+central-cordoba | 3 | DF | ARG | Leonardo Marchi
+central-cordoba | 5 | MF | ARG | Tiago Cravero
+central-cordoba | 6 | DF | ARG | Facundo Mansilla
+central-cordoba | 7 | FW | ARG | Diego Barrera
+central-cordoba | 8 | MF | ARG | Fernando Juárez
+central-cordoba | 9 | FW | ARG | Lucas Varaldo
+central-cordoba | 10 | MF | ARG | Marco Iacobellis
+central-cordoba | 11 | MF | ARG | Horacio Tijanovich
+central-cordoba | 12 | GK | ARG | Máximo Alvarez
+central-cordoba | 13 | DF | ARG | José Gómez
+central-cordoba | 17 | DF | ARG | Yuri Casermeiro
+central-cordoba | 18 | MF | ARG | Lucas González
+central-cordoba | 19 | FW | ARG | Ezequiel Naya
+central-cordoba | 20 | DF | ARG | Fernando Martínez
+central-cordoba | 21 | DF | COL | Felipe Aguilar
+central-cordoba | 22 | MF | ARG | Matías Vera
+central-cordoba | 23 | DF | PAR | Darío Cáceres
+central-cordoba | 25 | GK | ARG | Javier Vallejos
+central-cordoba | 26 | DF | ARG | Lucas Bernabéu
+central-cordoba | 27 | FW | URU | Michael Santos
+central-cordoba | 28 | FW | ARG | Leonardo Sequeira
+central-cordoba | 29 | FW | ARG | Joaquín Flores
+central-cordoba | 33 | DF | ARG | Santiago Moyano
+central-cordoba | 37 | FW | ARG | Alan Daian Laprida
+central-cordoba | 42 | DF | ARG | Juan Pablo Pignani
+central-cordoba | 47 | FW | ARG | Martín Cuitiño
+central-cordoba | 55 | MF | PAR | Juan Cardozo
+
+# --- Defensa y Justicia
+defensa-y-justicia | 1 | GK | ARG | Matías Borgogno
+defensa-y-justicia | 2 | DF | ARG | Samuel Lucero
+defensa-y-justicia | 3 | DF | PAR | Fernando Román
+defensa-y-justicia | 5 | MF | ARG | Julián López
+defensa-y-justicia | 6 | DF | URU | Ezequiel Burdín
+defensa-y-justicia | 8 | MF | CHI | César Pérez
+defensa-y-justicia | 9 | FW | ARG | Leandro Fernández
+defensa-y-justicia | 10 | MF | ARG | Aarón Molinas
+defensa-y-justicia | 11 | FW | ARG | Tiziano Perrotta
+defensa-y-justicia | 15 | MF | ARG | Santiago Sosa
+defensa-y-justicia | 16 | DF | ARG | Ayrton Portillo
+defensa-y-justicia | 17 | FW | ARG | Agustín Hausch
+defensa-y-justicia | 19 | FW | ARG | David Barbona
+defensa-y-justicia | 21 | DF | PAR | David Martínez
+defensa-y-justicia | 22 | MF | ARG | Maximiliano Porcel
+defensa-y-justicia | 23 | MF | ARG | Mateo Aguiar
+defensa-y-justicia | 24 | FW | URU | Juan Gutiérrez
+defensa-y-justicia | 25 | FW | ARG | Facundo Altamira
+defensa-y-justicia | 26 | MF | ARG | Jeremías Lucco
+defensa-y-justicia | 27 | FW | ARG | Domingo Blanco
+defensa-y-justicia | 28 | DF | ARG | Valentín Loza
+defensa-y-justicia | 29 | DF | ARG | Damián Fernández
+defensa-y-justicia | 30 | DF | ARG | Demián Domínguez
+defensa-y-justicia | 32 | DF | ARG | Nazareno Roselli
+defensa-y-justicia | 33 | DF | ARG | Lucas Souto
+defensa-y-justicia | 36 | GK | ARG | Lautaro Amadé
+defensa-y-justicia | 40 | DF | ARG | Máximo Rodríguez
+
+# --- Deportivo Riestra
+riestra | 1 | GK | ARG | Ignacio Arce
+riestra | 2 | DF | ARG | Carlos Quintana
+riestra | 3 | DF | ARG | Eric Tovo
+riestra | 4 | DF | COL | Yeison Murillo
+riestra | 5 | DF | ARG | Pedro Ramírez
+riestra | 6 | DF | ARG | Ignacio Gariglio
+riestra | 7 | FW | URU | Antony Alonso
+riestra | 8 | MF | ARG | Milton Céliz
+riestra | 9 | FW | ARG | Nicolás Benegas
+riestra | 10 | MF | ARG | Braian Sánchez
+riestra | 11 | FW | ARG | Alexander Díaz
+riestra | 12 | GK | ARG | Iván López
+riestra | 13 | DF | ARG | Rodrigo Gallo
+riestra | 14 | MF | ARG | Pablo Monje
+riestra | 15 | DF | ARG | Nicolás Sansotre
+riestra | 16 | MF | ARG | Nicolás Watson
+riestra | 17 | FW | ARG | Ángel Almada
+riestra | 19 | DF | ARG | Juan Randazzo
+riestra | 20 | MF | ARG | Thiago Lauro
+riestra | 21 | FW | ARG | Tomás González
+riestra | 22 | DF | ARG | Cristian Paz
+riestra | 23 | GK | PAR | Marino Arzamendia
+riestra | 24 | DF | ARG | Facundo Miño
+riestra | 27 | MF | ARG | Jonatan Goitía
+riestra | 29 | FW | ARG | Agustín Graneros
+riestra | 31 | MF | ARG | Mauro Smarra
+riestra | 32 | FW | ARG | Gonzalo Flores
+riestra | 35 | FW | ARG | Ángel Stringa
+riestra | 36 | DF | ARG | Mariano Bracamonte
+riestra | 40 | FW | ARG | Gabriel Obredor
+
+# --- Estudiantes
+estudiantes | 1 | GK | ARG | Fabricio Iacovich
+estudiantes | 4 | DF | ARG | Santiago Núñez
+estudiantes | 5 | DF | ARG | Marcos Rojo
+estudiantes | 7 | MF | ARG | José Sosa
+estudiantes | 8 | MF | URU | Gabriel Neves
+estudiantes | 9 | FW | ARG | Guido Carrillo
+estudiantes | 10 | FW | URU | Tiago Palacios
+estudiantes | 12 | GK | ARG | Rodrigo Borzone
+estudiantes | 13 | DF | ARG | Gastón Benedetti
+estudiantes | 14 | DF | ARG | Leandro González Pírez
+estudiantes | 15 | DF | PAR | Santiago Arzamendia
+estudiantes | 16 | GK | URU | Fernando Muslera
+estudiantes | 17 | FW | ARG | Joaquín Tobio Burgos
+estudiantes | 18 | FW | COL | Edwuin Cetré
+estudiantes | 19 | FW | ARG | Adolfo Gaich
+estudiantes | 20 | DF | ARG | Eric Meza
+estudiantes | 21 | MF | ARG | Ezequiel Piovi
+estudiantes | 22 | MF | ARG | Alexis Castro
+estudiantes | 24 | DF | ARG | Tomás Palacios
+estudiantes | 26 | DF | ARG | Ramiro Funes Mori
+estudiantes | 27 | FW | ARG | Lucas Alario
+estudiantes | 28 | FW | ARG | Brian Aguirre
+estudiantes | 29 | FW | ARG | Fabricio Pérez
+estudiantes | 31 | MF | ARG | Baltasar Rodríguez
+estudiantes | 32 | FW | ARG | Joaquín Correa
+estudiantes | 34 | MF | COL | Miguel Monsalve
+estudiantes | 35 | DF | ARG | Valente Pierani
+estudiantes | 36 | DF | ARG | Joaquín Pereyra
+estudiantes | 39 | MF | SYR | Jalil Elías
+estudiantes | 40 | DF | ARG | Eros Mancuso
+estudiantes | 52 | MF | ARG | Bautista Kociubinski
+
+# --- Estudiantes de Río Cuarto
+estudiantes-rio-cuarto | 1 | GK | ARG | Lucas Bruera
+estudiantes-rio-cuarto | 2 | DF | ARG | Gonzalo Maffini
+estudiantes-rio-cuarto | 3 | DF | ARG | Lucas Baños
+estudiantes-rio-cuarto | 4 | DF | ARG | Valentín Fenoglio
+estudiantes-rio-cuarto | 5 | MF | ARG | Alejandro Cabrera
+estudiantes-rio-cuarto | 6 | DF | ARG | Juan Antonini
+estudiantes-rio-cuarto | 7 | FW | ARG | Lucas González
+estudiantes-rio-cuarto | 8 | MF | ARG | Siro Rosané
+estudiantes-rio-cuarto | 9 | FW | PAR | Javier Ferreira
+estudiantes-rio-cuarto | 10 | MF | ARG | Tomás González
+estudiantes-rio-cuarto | 11 | FW | ARG | Martín Garnerone
+estudiantes-rio-cuarto | 12 | GK | ARG | Francisco Gualtieri
+estudiantes-rio-cuarto | 13 | MF | ARG | Francisco Romero
+estudiantes-rio-cuarto | 14 | DF | ARG | Gonzalo González
+estudiantes-rio-cuarto | 16 | FW | COL | Yeison Moreno
+estudiantes-rio-cuarto | 17 | MF | ARG | Gabriel Alanís
+estudiantes-rio-cuarto | 19 | MF | ARG | Nicolás Talpone
+estudiantes-rio-cuarto | 21 | DF | ARG | Matías Ruiz Díaz
+estudiantes-rio-cuarto | 22 | FW | ARG | Mauro Valiente
+estudiantes-rio-cuarto | 23 | DF | ARG | Fernando Rodríguez
+estudiantes-rio-cuarto | 27 | MF | ARG | Juan Garro
+estudiantes-rio-cuarto | 28 | DF | ARG | Facundo Cobos
+estudiantes-rio-cuarto | 29 | DF | ARG | Agustín Quiroga
+estudiantes-rio-cuarto | 30 | DF | ARG | Sergio Ojeda
+estudiantes-rio-cuarto | 31 | DF | ARG | Matías Valenti
+estudiantes-rio-cuarto | 32 | FW | ARG | Mateo Bajamich
+estudiantes-rio-cuarto | 40 | MF | ARG | Francesco Lo Celso
+estudiantes-rio-cuarto | 43 | GK | ARG | Agustín Lastra
+estudiantes-rio-cuarto | 45 | DF | ARG | Raúl Lozano
+estudiantes-rio-cuarto | 50 | FW | ARG | Ramón Ábila
+estudiantes-rio-cuarto | 77 | FW | SYR | Ibrahim Hesar
+estudiantes-rio-cuarto | 99 | FW | COL | Juan Chala
+
+# --- Gimnasia La Plata
+gimnasia-la-plata | 1 | GK | ARG | Máximo Cabrera
+gimnasia-la-plata | 2 | DF | ARG | Gonzalo González
+gimnasia-la-plata | 4 | DF | ARG | Renzo Giampaoli
+gimnasia-la-plata | 5 | MF | ARG | Ignacio Miramón
+gimnasia-la-plata | 6 | DF | ARG | Diego Mastrángelo
+gimnasia-la-plata | 7 | FW | ARG | Manuel Panaro
+gimnasia-la-plata | 8 | MF | ARG | Nacho Fernández
+gimnasia-la-plata | 9 | FW | ARG | Ivo Mammini
+gimnasia-la-plata | 10 | MF | ARG | Nicolás Barros Schelotto
+gimnasia-la-plata | 11 | FW | ARG | Jeremías Merlo
+gimnasia-la-plata | 12 | GK | IRL | Patricio Schroeder
+gimnasia-la-plata | 13 | DF | ARG | Germán Conti
+gimnasia-la-plata | 14 | DF | ARG | Gonzalo Errecalde
+gimnasia-la-plata | 15 | DF | ARG | Alejo Gelsomino
+gimnasia-la-plata | 16 | MF | ARG | Augusto Max
+gimnasia-la-plata | 18 | MF | ARG | Mateo Seoane
+gimnasia-la-plata | 19 | MF | ARG | Lucas Castro
+gimnasia-la-plata | 20 | FW | COL | Juan Pérez
+gimnasia-la-plata | 21 | DF | URU | Enzo Martínez
+gimnasia-la-plata | 22 | DF | ARG | Matías Melluso
+gimnasia-la-plata | 23 | GK | ARG | Nelson Insfrán
+gimnasia-la-plata | 24 | DF | ARG | Pedro Silva Torrejón
+gimnasia-la-plata | 25 | DF | ARG | Alexis Steimbach
+gimnasia-la-plata | 26 | FW | ARG | Franco Torres
+gimnasia-la-plata | 27 | GK | ARG | Julián Kadijević
+gimnasia-la-plata | 28 | FW | ARG | Cayetano Bolzán
+gimnasia-la-plata | 29 | FW | ARG | Agustín Auzmendi
+gimnasia-la-plata | 30 | FW | ARG | Jorge de Asís
+gimnasia-la-plata | 31 | DF | ARG | Bautista Barros Schelotto
+gimnasia-la-plata | 32 | FW | ARG | Marcelo Torres
+gimnasia-la-plata | 33 | MF | PAR | Pablo Aguiar
+gimnasia-la-plata | 34 | MF | ARG | Leandro Mamut
+gimnasia-la-plata | 35 | DF | ARG | Juan Cortazzo
+gimnasia-la-plata | 39 | MF | ARG | Facundo Di Biasi
+
+# --- Gimnasia de Mendoza
+gimnasia-mendoza | 2 | DF | ARG | Diego Mondino
+gimnasia-mendoza | 3 | DF | ARG | Matías Recalde
+gimnasia-mendoza | 4 | DF | ARG | Ezequiel Muñoz
+gimnasia-mendoza | 5 | MF | ARG | Nahuel Barboza
+gimnasia-mendoza | 6 | DF | ARG | Imanol González
+gimnasia-mendoza | 7 | FW | ARG | Luciano Cingolani
+gimnasia-mendoza | 8 | MF | ARG | Matías Vargas
+gimnasia-mendoza | 10 | FW | ARG | Nicolás Romano
+gimnasia-mendoza | 11 | FW | ARG | Santiago Rodríguez
+gimnasia-mendoza | 15 | FW | ARG | Ulises Sánchez
+gimnasia-mendoza | 16 | DF | ARG | Germán Guiffrey
+gimnasia-mendoza | 17 | FW | ARG | Ignacio Sabatini
+gimnasia-mendoza | 19 | MF | ARG | Julián Ceballos
+gimnasia-mendoza | 20 | MF | ARG | Tomás Ortiz
+gimnasia-mendoza | 21 | MF | ARG | Fermín Antonini
+gimnasia-mendoza | 22 | DF | PAR | Juan Franco
+gimnasia-mendoza | 23 | GK | ARG | César Rigamonti
+gimnasia-mendoza | 24 | DF | ARG | Franco Saavedra
+gimnasia-mendoza | 26 | FW | ARG | Facundo Lencioni
+gimnasia-mendoza | 27 | FW | PAR | Blas Armoa
+gimnasia-mendoza | 28 | MF | ARG | Tomás O'Connor
+gimnasia-mendoza | 29 | FW | ITA | Agustín Módica
+gimnasia-mendoza | 30 | MF | ARG | Esteban Fernández
+gimnasia-mendoza | 31 | GK | ARG | Lautaro Petruchi
+gimnasia-mendoza | 32 | DF | ARG | Luciano Paredes
+gimnasia-mendoza | 33 | FW | ARG | Brian Andrada
+gimnasia-mendoza | 35 | FW | ARG | Valentino Simoni
+gimnasia-mendoza | 36 | DF | ARG | Ismael Cortéz
+gimnasia-mendoza | 41 | DF | ARG | Gerónimo Patritti
+gimnasia-mendoza | 42 | DF | ARG | Lautaro Carrera
+
+# --- Huracán
+huracan | 1 | GK | ECU | Hernán Galíndez
+huracan | 2 | DF | SUI | Lucas Blondel
+huracan | 3 | DF | ARG | Lucas Carrizo
+huracan | 4 | DF | ARG | Federico Vera
+huracan | 5 | MF | URU | Rodrigo Fernández Cedrés
+huracan | 6 | DF | ARG | Fabio Pereyra
+huracan | 7 | FW | COL | Óscar Cortés
+huracan | 8 | MF | CHI | Leonardo Gil
+huracan | 9 | FW | ECU | Jordy Caicedo
+huracan | 10 | MF | PAR | Óscar Romero
+huracan | 11 | MF | ARG | Thaiel Peralta
+huracan | 15 | MF | URU | Facundo Waller
+huracan | 17 | FW | ARG | Juan Bisanz
+huracan | 19 | DF | ARG | Leandro Lescano
+huracan | 20 | MF | ARG | Emmanuel Ojeda
+huracan | 21 | DF | ARG | Hugo Nervo
+huracan | 22 | DF | ARG | Daniel Zabala
+huracan | 23 | FW | ARG | Ignacio Pussetto
+huracan | 25 | DF | ARG | César Ibáñez
+huracan | 27 | GK | ARG | Nazareno Durán
+huracan | 32 | GK | ARG | Sebastián Meza
+huracan | 33 | FW | CHI | Bruno Barticciotto
+huracan | 34 | DF | ARG | Ignacio Campo
+huracan | 35 | DF | ARG | Máximo Palazzo
+huracan | 41 | MF | ARG | Lautaro Mora
+huracan | 49 | FW | ARG | Tomás Uribe
+huracan | 52 | MF | ARG | Facundo Kalinger
+
+# --- Independiente
+independiente | 1 | GK | ARG | Joaquín Blázquez
+independiente | 2 | DF | ARG | Franco Calderón
+independiente | 3 | DF | ARG | Jonathan De Irastorza
+independiente | 4 | DF | COL | Santiago Arias
+independiente | 6 | FW | ARG | Chimy Ávila
+independiente | 7 | FW | ARG | Santiago Montiel
+independiente | 8 | FW | ARG | Maximiliano Meza
+independiente | 9 | FW | CHI | Iván Morales
+independiente | 10 | MF | CHI | Luciano Cabral
+independiente | 13 | DF | ARG | Juan Fedorco
+independiente | 14 | MF | CHI | Lautaro Millán
+independiente | 15 | FW | ARG | Imanol Machuca
+independiente | 16 | MF | ARG | Mateo Pérez Curci
+independiente | 19 | FW | URU | Matías Abaldo
+independiente | 20 | FW | ARG | Rodrigo Márquez
+independiente | 22 | DF | ARG | Facundo Zabala
+independiente | 23 | MF | ARG | Iván Marcone
+independiente | 29 | DF | ARG | Leonardo Godoy
+independiente | 32 | MF | ARG | David Martínez
+independiente | 33 | GK | ARG | Rodrigo Rey
+independiente | 34 | FW | ARG | Felipe Tempone
+independiente | 35 | DF | ARG | Juan Miguel Arrayago
+independiente | 36 | DF | ARG | Sebastián Valdez
+independiente | 37 | MF | ARG | Joel Medina
+independiente | 40 | MF | ARG | Ignacio Malcorra
+independiente | 77 | GK | URU | Santiago Mele
+
+# --- Independiente Rivadavia
+independiente-rivadavia | 2 | DF | URU | Leonard Costa
+independiente-rivadavia | 3 | DF | ARG | Juan Elordi
+independiente-rivadavia | 5 | MF | ARG | Tomás Bottari
+independiente-rivadavia | 6 | DF | ARG | Santiago Cena
+independiente-rivadavia | 7 | FW | ARG | Victorio Ramis
+independiente-rivadavia | 8 | MF | ARG | Leonel Bucca
+independiente-rivadavia | 9 | FW | PAR | Álex Arce
+independiente-rivadavia | 10 | MF | ARG | Matías Fernández
+independiente-rivadavia | 11 | MF | ARG | Gonzalo Ríos
+independiente-rivadavia | 12 | GK | ARG | Ramiro Macagno
+independiente-rivadavia | 13 | DF | ARG | Alejo Osella
+independiente-rivadavia | 14 | DF | ARG | Luciano Gómez
+independiente-rivadavia | 17 | FW | ARG | Maximiliano Salas
+independiente-rivadavia | 19 | FW | ARG | Rodrigo Atencio
+independiente-rivadavia | 20 | FW | ARG | Alessandro Riep
+independiente-rivadavia | 21 | GK | ARG | Emmanuel Gómez Riga
+independiente-rivadavia | 23 | MF | COL | Luis Díaz
+independiente-rivadavia | 25 | MF | PAR | José Florentín
+independiente-rivadavia | 27 | MF | ARG | Diego Crego
+independiente-rivadavia | 28 | DF | ARG | Alex Vigo
+independiente-rivadavia | 30 | GK | ARG | Nicolás Bolcato
+independiente-rivadavia | 32 | MF | ARG | Kevin Vázquez
+independiente-rivadavia | 34 | MF | ARG | Stefano Moreyra
+independiente-rivadavia | 36 | DF | ARG | Ezequiel Bonifacio
+independiente-rivadavia | 40 | DF | PAR | Iván Villalba
+independiente-rivadavia | 42 | DF | ARG | Sheyko Studer
+independiente-rivadavia | 43 | FW | ARG | Fabrizio Sartori
+independiente-rivadavia | 77 | MF | ARG | Luis Sequeira
+
+# --- Instituto
+instituto | 2 | DF | ARG | Hernán de la Fuente
+instituto | 3 | DF | ARG | Diego Sosa
+instituto | 5 | MF | ARG | Franco Moyano
+instituto | 6 | DF | ARG | Fernando Alarcón
+instituto | 7 | FW | CHI | Nicolás Guerra
+instituto | 8 | FW | ARG | Jonás Acevedo
+instituto | 9 | FW | ARG | Facundo Suárez
+instituto | 10 | MF | ARG | Alex Luna
+instituto | 11 | FW | URU | Matias Fonseca
+instituto | 13 | MF | ARG | Juan Ignacio Méndez
+instituto | 14 | MF | PAR | Wilder Viera
+instituto | 15 | MF | ARG | Matías Gallardo
+instituto | 17 | FW | ARG | Matías Tissera
+instituto | 19 | FW | URU | Lucas Sanseviero
+instituto | 20 | FW | COL | Jhon Córdoba
+instituto | 21 | MF | ARG | Jeremías Lázaro
+instituto | 22 | DF | ARG | Agustín Massaccesi
+instituto | 23 | DF | ARG | Andrés Meli
+instituto | 25 | FW | ARG | Lorenzo Albarracín
+instituto | 26 | DF | ARG | Leonel Mosevich
+instituto | 29 | GK | ARG | Marcos Ledesma
+instituto | 30 | DF | ARG | Jonatan Galván
+instituto | 32 | DF | ARG | Agustín Bravo
+instituto | 35 | GK | ARG | Emanuel Sittaro
+instituto | 44 | DF | ARG | Giuliano Cerato
+instituto | 55 | MF | ARG | Gustavo Abregú
+instituto | 61 | MF | ARG | Joaquín Medina
+instituto | 72 | FW | ARG | Luca Rafaelli
+
+# --- Lanús
+lanus | 1 | GK | ARG | Franco Petroli
+lanus | 2 | DF | ARG | Luciano Romero
+lanus | 3 | DF | ARG | Nicolás Morgantini
+lanus | 4 | DF | URU | Gonzalo Pérez
+lanus | 5 | MF | ARG | Felipe Peña Biafore
+lanus | 6 | DF | ARG | Sasha Marcich
+lanus | 8 | MF | ARG | Franco Watson
+lanus | 10 | MF | ARG | Marcelino Moreno
+lanus | 11 | FW | ARG | Eduardo Salvio
+lanus | 13 | DF | PAR | José Canale
+lanus | 15 | MF | COL | Raúl Loaiza
+lanus | 16 | MF | CHI | Matías Sepúlveda
+lanus | 17 | MF | ARG | Agustín Medina
+lanus | 18 | FW | ARG | Jeremías Chavero
+lanus | 19 | FW | COL | Yoshan Valois
+lanus | 20 | FW | PAR | Allan Wlk
+lanus | 22 | DF | ARG | Alexis González
+lanus | 24 | DF | ARG | Carlos Izquierdoz
+lanus | 26 | GK | ARG | Nahuel Losada
+lanus | 27 | MF | ARG | Facundo Sánchez
+lanus | 28 | DF | ARG | Octavio Ontivero
+lanus | 30 | MF | ARG | Agustín Cardozo
+lanus | 33 | DF | ARG | Tomás Guidara
+lanus | 35 | DF | PAR | Ronaldo Dejesús
+lanus | 37 | FW | ARG | Thomás De Martis
+lanus | 38 | FW | ARG | Benjamín Acosta
+lanus | 39 | MF | ARG | Thiago Laplace
+lanus | 77 | FW | ARG | Lucas Besozzi
+
+# --- Newell's Old Boys
+newells | 2 | DF | ARG | Ian Glavinovich
+newells | 3 | DF | ARG | Martín Luciano
+newells | 4 | DF | ARG | Alejo Montero
+newells | 5 | MF | ARG | Luca Regiardo
+newells | 6 | DF | ARG | Martín Ortega
+newells | 7 | FW | ARG | Walter Mazzantti
+newells | 8 | MF | ARG | David Sotelo
+newells | 9 | FW | URU | Matías Cóccaro
+newells | 10 | MF | ARG | Valentino Acuña
+newells | 15 | MF | USA | Alan Soñora
+newells | 16 | DF | ARG | Lucas Carrizo
+newells | 17 | DF | ARG | Lautaro Giannetti
+newells | 18 | FW | ARG | Mateo García
+newells | 19 | MF | ARG | Jerónimo Gómez Mattar
+newells | 20 | MF | ARG | Facundo Guch
+newells | 21 | GK | CHI | Gabriel Arias
+newells | 22 | DF | ARG | Oscar Salomón
+newells | 23 | DF | ARG | Nicolás Goitea
+newells | 24 | DF | ARG | Franco Escobar
+newells | 25 | DF | ARG | Bruno Cabrera
+newells | 26 | MF | ARG | Rodrigo Herrera
+newells | 27 | MF | ARG | Lucas Gómez
+newells | 28 | DF | ARG | Jerónimo Russo
+newells | 29 | MF | ARG | Marcelo Esponda
+newells | 30 | GK | ARG | Josué Reinatti
+newells | 31 | GK | ARG | Francisco Sciarini
+newells | 32 | FW | ARG | Santiago Solari
+newells | 33 | FW | ARG | Walter Núñez
+newells | 35 | MF | ARG | Blas Benedetto
+newells | 36 | FW | ARG | Francisco Scarpeccio
+newells | 39 | FW | ARG | Thomas Ríos
+newells | 99 | FW | URU | Juan Ignacio Ramírez
+
+# --- Platense
+platense | 1 | GK | ARG | Brian Bustos
+platense | 3 | DF | ARG | Tomás Silva
+platense | 4 | DF | ARG | Agustín Lagos
+platense | 5 | MF | ARG | Iván Gómez
+platense | 6 | DF | ARG | Eugenio Raggio
+platense | 7 | FW | ARG | Guido Mainero
+platense | 9 | FW | ARG | Tomás Nasif
+platense | 10 | MF | ARG | Franco Zapiola
+platense | 11 | FW | URU | Nicolás López
+platense | 13 | DF | ARG | Ignacio Vázquez
+platense | 15 | MF | ARG | Maximiliano Amarfil
+platense | 16 | FW | ARG | Gastón Togni
+platense | 17 | MF | ARG | Felipe Bussio
+platense | 18 | FW | ARG | Bautista Merlini
+platense | 19 | FW | PAR | Héctor Bobadilla
+platense | 20 | FW | ARG | Luciano Giménez
+platense | 21 | FW | ARG | Augusto Lotti
+platense | 22 | GK | ARG | Nicolás Sumavil
+platense | 23 | MF | ARG | Leonardo Heredia
+platense | 24 | MF | URU | Martín Barrios
+platense | 25 | DF | ARG | Juan Ignacio Saborido
+platense | 26 | MF | ARG | Pablo Ferreira
+platense | 27 | MF | ARG | Santiago Dalmasso
+platense | 28 | FW | ARG | Manuel Tucker
+platense | 29 | FW | ARG | Franco Minerva
+platense | 30 | GK | ARG | Juan Pablo Cozzani
+platense | 31 | DF | ARG | Víctor Cuesta
+platense | 32 | DF | ARG | Santiago Quirós
+platense | 33 | FW | ARG | Juan Carlos Gauto
+platense | 34 | DF | ARG | Mateo Mendía
+platense | 38 | DF | ARG | Celías Ingenthron
+platense | 42 | DF | ARG | Gonzalo Goñi
+platense | 43 | FW | ARG | Nicolás Retamar
+platense | 79 | FW | ARG | Bruno Sepúlveda
+
+# --- Racing Club
+racing-club | 1 | GK | ARG | Francisco Gómez
+racing-club | 2 | DF | ARG | Matías Pérez
+racing-club | 3 | DF | ARG | Marco Di Césare
+racing-club | 4 | DF | ARG | Ezequiel Cannavo
+racing-club | 5 | MF | ARG | Matías Kranevitter
+racing-club | 6 | DF | ARG | Marcos Rojo
+racing-club | 7 | FW | COL | Duván Vergara
+racing-club | 8 | MF | ARG | Alan Forneris
+racing-club | 9 | FW | ARG | Adrián Martínez
+racing-club | 10 | MF | USA | Matko Miljević
+racing-club | 11 | MF | ARG | Matías Zaracho
+racing-club | 14 | DF | ARG | Juan Barinaga
+racing-club | 16 | MF | CHI | Ulises Ortegoza
+racing-club | 17 | FW | ARG | Tomás Conechny
+racing-club | 18 | DF | URU | Alfonso Espino
+racing-club | 19 | DF | ARG | Ignacio Rodríguez
+racing-club | 20 | MF | ARG | Gastón Lodico
+racing-club | 21 | FW | ARG | Valentín Carboni
+racing-club | 22 | FW | ARG | Elías Torres
+racing-club | 23 | DF | ARG | Nazareno Colombo
+racing-club | 24 | MF | ARG | Adrián Fernández
+racing-club | 25 | GK | ARG | Facundo Cambeses
+racing-club | 30 | GK | ARG | Matías Tagliamonte
+racing-club | 32 | FW | ARG | Lautaro Díaz
+racing-club | 33 | MF | ARG | Leonel Pérez
+racing-club | 38 | DF | ARG | Mateo Martínez
+racing-club | 43 | DF | ARG | Gonzalo Escudero
+racing-club | 46 | MF | ARG | Alejandro Tello
+
+# --- River Plate
+river-plate | 2 | DF | ARG | Tobías Ramírez
+river-plate | 3 | DF | ARG | Francisco Ortega
+river-plate | 5 | DF | ARG | Juan Carlos Portillo
+river-plate | 6 | MF | ARG | Aníbal Moreno
+river-plate | 8 | MF | URU | Mauro Arambarri
+river-plate | 9 | FW | ARG | Sebastián Driussi
+river-plate | 10 | FW | ARG | Ángel Correa
+river-plate | 13 | DF | ARG | Lautaro Rivero
+river-plate | 15 | MF | ARG | Fausto Vera
+river-plate | 18 | FW | ARG | Lucas Beltrán
+river-plate | 19 | FW | COL | Rafael Santos Borré
+river-plate | 20 | DF | URU | Giovanni González
+river-plate | 21 | DF | ARG | Marcos Acuña
+river-plate | 23 | MF | ARG | Thiago Almada
+river-plate | 24 | MF | ARG | Juan Cruz Meza
+river-plate | 25 | MF | ARG | Lautaro Pereyra
+river-plate | 26 | MF | ARG | Tomás Galván
+river-plate | 28 | DF | ARG | Lucas Martínez Quarta
+river-plate | 29 | DF | ARG | Gonzalo Montiel
+river-plate | 30 | DF | ARG | Nicolás Otamendi
+river-plate | 31 | DF | ARG | Facundo González
+river-plate | 32 | FW | ARG | Agustín Ruberto
+river-plate | 33 | GK | ARG | Ezequiel Centurión
+river-plate | 41 | GK | ARG | Santiago Beltrán
+river-plate | 44 | MF | ARG | Lucas Silva
+river-plate | 50 | MF | ARG | Tobías Andrada
+river-plate | 57 | GK | ARG | Jeremías Martinet
+
+# --- Rosario Central
+rosario-central | 1 | GK | ARG | Axel Werner
+rosario-central | 2 | DF | PAR | Sebastián Zaracho
+rosario-central | 3 | DF | PAR | Agustín Sández
+rosario-central | 4 | DF | ARG | Ulises Ciccioli
+rosario-central | 5 | MF | ARG | Franco Ibarra
+rosario-central | 6 | DF | ARG | Juan Cruz Komar
+rosario-central | 8 | FW | COL | Jáminton Campaz
+rosario-central | 9 | FW | ARG | Marco Ruben
+rosario-central | 10 | FW | ARG | Franco Cervi
+rosario-central | 11 | FW | ARG | Ángel Di María
+rosario-central | 13 | DF | ARG | Gastón Ávila
+rosario-central | 15 | DF | URU | Facundo Mallo
+rosario-central | 16 | FW | ARG | Tomás Badaloni
+rosario-central | 18 | FW | ARG | Julián Fernández
+rosario-central | 19 | MF | ARG | Santiago Segovia
+rosario-central | 20 | MF | CHI | Vicente Pizarro
+rosario-central | 22 | FW | ARG | Enzo Copetti
+rosario-central | 23 | GK | ARG | Conan Ledesma
+rosario-central | 24 | DF | ARG | Juan Giménez
+rosario-central | 26 | FW | ARG | Giovanni Cantizano
+rosario-central | 27 | FW | ARG | Gaspar Duarte
+rosario-central | 28 | MF | ARG | Pol Fernández
+rosario-central | 31 | MF | ARG | Federico Navarro
+rosario-central | 32 | DF | ARG | Emanuel Coronel
+rosario-central | 33 | DF | ARG | Alexis Soto
+rosario-central | 38 | GK | ARG | Damián Fernández
+rosario-central | 39 | FW | ARG | Fabricio Oviedo
+rosario-central | 46 | DF | ARG | Ignacio Ovando
+rosario-central | 47 | DF | ARG | Luca Raffin
+rosario-central | 88 | MF | URU | Alan Rodríguez
+
+# --- San Lorenzo
+san-lorenzo | 1 | GK | ARG | Mateo Clemente
+san-lorenzo | 2 | DF | COL | Danilo Arboleda
+san-lorenzo | 3 | DF | ARG | Teo Rodríguez Pagano
+san-lorenzo | 5 | MF | ARG | Ignacio Perruzzi
+san-lorenzo | 6 | DF | URU | Mathías De Ritis
+san-lorenzo | 7 | FW | ARG | Ezequiel Cerutti
+san-lorenzo | 8 | MF | ARG | Manuel Insaurralde
+san-lorenzo | 9 | FW | ARG | Alexis Cuello
+san-lorenzo | 10 | MF | ARG | Facundo Gulli
+san-lorenzo | 11 | FW | ARG | Matías Reali
+san-lorenzo | 13 | MF | ARG | Juan Rattalino
+san-lorenzo | 14 | FW | ARG | Agustín Ladstatter
+san-lorenzo | 15 | MF | ARG | Mauricio Cardillo
+san-lorenzo | 16 | DF | URU | Guzmán Corujo
+san-lorenzo | 18 | FW | COL | Diego Herazo
+san-lorenzo | 19 | DF | SYR | Emiliano Amor
+san-lorenzo | 20 | GK | ARG | Facundo Altamirano
+san-lorenzo | 21 | FW | ARG | Gustavo Del Prete
+san-lorenzo | 22 | FW | ARG | Juan Pablo Álvarez
+san-lorenzo | 23 | DF | ARG | Gastón Hernández
+san-lorenzo | 24 | MF | ARG | Nicolás Tripichio
+san-lorenzo | 25 | GK | ARG | José Devecchi
+san-lorenzo | 26 | MF | ARG | Gonzalo Abrego
+san-lorenzo | 27 | MF | ARG | Martín Río
+san-lorenzo | 28 | FW | ARG | Nahuel Barrios
+san-lorenzo | 29 | FW | ARG | Rodrigo Auzmendi
+san-lorenzo | 30 | DF | ARG | Nahuel Arias
+san-lorenzo | 32 | DF | ARG | Ezequiel Herrera
+san-lorenzo | 35 | DF | ARG | Alejo Córdoba
+san-lorenzo | 36 | DF | ARG | Daniel Herrera
+san-lorenzo | 38 | MF | ARG | Facundo Farías
+san-lorenzo | 42 | DF | ARG | Franco Lorenzón
+
+# --- Sarmiento
+sarmiento | 1 | GK | COL | Iván Arboleda
+sarmiento | 2 | DF | ARG | Juan Manuel Insaurralde
+sarmiento | 3 | DF | ARG | Lucas Suárez
+sarmiento | 4 | DF | ARG | Juan Manuel Cabrera
+sarmiento | 5 | MF | ARG | Manuel García
+sarmiento | 6 | DF | ARG | Gastón Arturia
+sarmiento | 7 | FW | ARG | Pablo Magnín
+sarmiento | 8 | MF | ARG | Santiago Salle
+sarmiento | 9 | FW | ARG | Diego Churín
+sarmiento | 10 | FW | COL | Jhon Rentería
+sarmiento | 12 | GK | ARG | Thyago Ayala
+sarmiento | 14 | MF | ARG | Mauricio Martínez
+sarmiento | 15 | MF | ARG | Cristian Zabala
+sarmiento | 17 | DF | ARG | Jeremías Vallejos
+sarmiento | 18 | MF | PAR | Osmar Giménez
+sarmiento | 19 | FW | ARG | Julián Contrera
+sarmiento | 20 | DF | ARG | Ulises Giménez
+sarmiento | 21 | MF | ARG | Julián Mavilla
+sarmiento | 22 | FW | ARG | Gastón González
+sarmiento | 23 | MF | ARG | Elián Giménez
+sarmiento | 24 | FW | ARG | Jonathan Herrera
+sarmiento | 25 | MF | ARG | Carlos Villalba
+sarmiento | 26 | FW | ARG | Yair Arismendi
+sarmiento | 27 | FW | PAR | Junior Marabel
+sarmiento | 29 | DF | ARG | Thiago Santamaría
+sarmiento | 33 | DF | ARG | Gabriel Díaz
+sarmiento | 34 | DF | ARG | Agustín Seyral
+sarmiento | 39 | DF | ARG | Joel Godoy
+sarmiento | 40 | FW | ARG | Brandon Márquez
+sarmiento | 44 | DF | URU | Renzo Orihuela
+sarmiento | 77 | DF | ARG | Nicolás Pasquini
+
+# --- Talleres
+talleres | 1 | GK | ARG | Santino Barbi
+talleres | 2 | DF | ARG | Timoteo Chamorro
+talleres | 3 | DF | PAR | Alexandro Maidana
+talleres | 4 | DF | CHI | Matías Catalán
+talleres | 5 | MF | ARG | Matías Galarza
+talleres | 6 | DF | ARG | Román Riquelme
+talleres | 7 | FW | COL | Diego Valoyes
+talleres | 8 | MF | ARG | Federico Fattori
+talleres | 10 | MF | ARG | Giovanni Baroni
+talleres | 11 | FW | ARG | Valentín Depietri
+talleres | 13 | DF | ARG | Valentín Fascendini
+talleres | 15 | MF | ARG | Juan Sforza
+talleres | 17 | FW | URU | Agustín Álvarez
+talleres | 19 | MF | ARG | Franco Cristaldo
+talleres | 20 | DF | ARG | Augusto Schott
+talleres | 21 | MF | ARG | Matías Gómez
+talleres | 23 | DF | ARG | Gabriel Báez
+talleres | 24 | FW | ARG | Ignacio Alastra
+talleres | 25 | DF | ARG | Thiago Baroni
+talleres | 26 | MF | ARG | Mateo Cáceres
+talleres | 31 | MF | ARG | Bruno Trey
+talleres | 32 | GK | ARG | Ezequiel Unsain
+talleres | 35 | DF | ARG | Gonzalo Nuccio
+talleres | 36 | FW | ARG | Emiliano Chiavassa
+talleres | 37 | FW | BRA | Rick
+talleres | 39 | MF | ARG | Lautaro Ortiz
+talleres | 41 | DF | ARG | Tomás Olmos
+talleres | 44 | DF | ARG | Santiago Fernández
+talleres | 46 | MF | ARG | Jeremías Gallard
+talleres | 49 | FW | ARG | Valentín Dávila
+
+# --- Tigre
+tigre | 2 | DF | ARG | Joaquín Laso
+tigre | 3 | DF | ARG | Nahuel Banegas
+tigre | 4 | DF | ARG | Valentín Moreno
+tigre | 5 | MF | ARG | Bruno Leyes
+tigre | 7 | MF | ARG | Simón Rivero
+tigre | 8 | DF | ARG | Martín Garay
+tigre | 10 | MF | ARG | Jabes Saralegui
+tigre | 11 | MF | ARG | Tiago Serrago
+tigre | 12 | GK | ARG | Felipe Zenobio
+tigre | 15 | DF | ARG | Ángelo Marchese
+tigre | 16 | MF | ARG | Nicolás Dubersarsky
+tigre | 17 | DF | CHI | Guillermo Soto
+tigre | 18 | FW | ARG | Manuel Fernández
+tigre | 19 | FW | PAR | Alfio Oviedo
+tigre | 20 | DF | ARG | Alan Barrionuevo
+tigre | 21 | MF | ARG | Sebastián Medina
+tigre | 22 | FW | ARG | Santiago López
+tigre | 23 | DF | ARG | Gonzalo Requena
+tigre | 24 | DF | ARG | Federico Álvarez
+tigre | 25 | MF | ARG | Ian Subiabre
+tigre | 26 | GK | ARG | Lautaro Morales
+tigre | 27 | MF | ARG | Santiago González
+tigre | 28 | MF | ARG | Gonzalo Martínez
+tigre | 29 | FW | ARG | Ignacio Russo
+tigre | 32 | DF | ARG | Juan Villalba
+tigre | 33 | FW | URU | Mauro Méndez
+tigre | 38 | DF | ARG | Tomás Fernández
+tigre | 40 | DF | ARG | Luciano Minniti
+tigre | 42 | DF | URU | Ramón Arias
+
+# --- Unión de Santa Fe
+union-santa-fe | 2 | DF | URU | Maizon Rodríguez
+union-santa-fe | 3 | DF | ARG | Claudio Corvalán
+union-santa-fe | 4 | DF | URU | Emiliano Álvarez
+union-santa-fe | 5 | MF | ARG | Lucas Menossi
+union-santa-fe | 7 | FW | ARG | Franco Fragapane
+union-santa-fe | 8 | MF | ARG | Nicolás Palavecino
+union-santa-fe | 9 | FW | ARG | Agustín Colazo
+union-santa-fe | 10 | FW | ARG | Tomás González
+union-santa-fe | 11 | DF | ARG | Mateo Del Blanco
+union-santa-fe | 12 | DF | ARG | Bruno Pittón
+union-santa-fe | 13 | DF | ARG | Valentín Fascendini
+union-santa-fe | 19 | FW | ARG | Marcelo Estigarribia
+union-santa-fe | 20 | MF | ARG | Julián Palacios
+union-santa-fe | 21 | GK | ARG | Matías Mansilla
+union-santa-fe | 22 | MF | ARG | Brahian Cuello
+union-santa-fe | 23 | MF | ARG | Augusto Solari
+union-santa-fe | 25 | FW | ARG | Cristian Tarragona
+union-santa-fe | 26 | DF | ARG | Juan Pablo Ludueña
+union-santa-fe | 27 | MF | ARG | Enzo Roldán
+union-santa-fe | 28 | GK | ARG | Federico Gomes Gerth
+union-santa-fe | 29 | FW | ARG | Diego Díaz
+union-santa-fe | 30 | MF | ARG | Mauro Pittón
+union-santa-fe | 31 | FW | ARG | Misael Aguirre
+union-santa-fe | 32 | DF | ARG | Nicolás Paz
+union-santa-fe | 35 | DF | ARG | Lautaro Vargas
+union-santa-fe | 40 | GK | ARG | Lucas Meuli
+union-santa-fe | 43 | MF | ARG | Emilio Giaccone
+union-santa-fe | 46 | MF | ARG | Santiago Grella
+
+# --- Vélez Sarsfield
+velez | 1 | GK | ARG | Tomás Marchiori
+velez | 2 | DF | ARG | Emanuel Mammana
+velez | 3 | DF | ARG | Elías Gómez
+velez | 4 | DF | ARG | Joaquín García
+velez | 5 | MF | CHI | Claudio Baeza
+velez | 8 | MF | ARG | Lucas Robertone
+velez | 10 | MF | CHI | Diego Valdés
+velez | 11 | FW | ARG | Matías Pellegrini
+velez | 15 | FW | ARG | Dilan Godoy
+velez | 16 | DF | ARG | Lisandro Magallán
+velez | 17 | FW | ARG | Álex Verón
+velez | 18 | DF | ARG | Simón Escobar
+velez | 19 | DF | PAR | Leo Cristaldo
+velez | 21 | DF | ARG | Jano Gordon
+velez | 22 | MF | ARG | Manuel Lanzini
+velez | 25 | GK | ARG | Facundo Sanguinetti
+velez | 28 | FW | ARG | Simón Prima
+velez | 29 | MF | ARG | Rodrigo Aliendro
+velez | 32 | DF | ARG | Thiago Silvero
+velez | 33 | GK | ARG | Franco Villalba
+velez | 34 | GK | ARG | Álvaro Busso
+velez | 35 | MF | ARG | Matías Arias
+velez | 37 | FW | ARG | Juan Cruz Policella
+velez | 39 | FW | ARG | Thiago Aguirre
+velez | 48 | MF | ARG | Luca Feler
+velez | 77 | FW | PAR | Ronaldo Martínez

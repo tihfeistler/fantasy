@@ -1,0 +1,433 @@
+# Geral alvo (e posição) de jogadores conhecidos das ligas estrangeiras (RASCUNHO, opinião para calibrar o jogo).
+# Formato: clubeId | Nome | geral [| POSICAO]   (POSICAO: GOL/ZAG/LAT/VOL/MEI/ATA; vazia = pela numeração)
+# Quem não está aqui recebe o geral automático (nível do clube + papel). O nome precisa ser igual ao do elenco.
+
+# --- Inglaterra
+arsenal | David Raya | 86 | GOL
+arsenal | William Saliba | 87 | ZAG
+arsenal | Gabriel Magalhães | 86 | ZAG
+arsenal | Jurriën Timber | 83 | LAT
+arsenal | Riccardo Calafiori | 81 | LAT
+arsenal | Piero Hincapié | 82 | ZAG
+arsenal | Ben White | 80 | LAT
+arsenal | Declan Rice | 87 | VOL
+arsenal | Martín Zubimendi | 85 | VOL
+arsenal | Bruno Guimarães | 85 | VOL
+arsenal | Martin Ødegaard | 86 | MEI
+arsenal | Eberechi Eze | 84 | MEI
+arsenal | Mikel Merino | 82 | MEI
+arsenal | Bukayo Saka | 88 | ATA
+arsenal | Viktor Gyökeres | 85 | ATA
+arsenal | Kai Havertz | 83 | ATA
+arsenal | Noni Madueke | 80 | ATA
+arsenal | Myles Lewis-Skelly | 79 | LAT
+aston-villa | Pau Torres | 82 | ZAG
+aston-villa | John McGinn | 81 | MEI
+aston-villa | Boubacar Kamara | 82 | VOL
+aston-villa | Amadou Onana | 81 | VOL
+aston-villa | Leon Goretzka | 82 | VOL
+aston-villa | João Gomes | 81 | VOL
+aston-villa | Alejandro Garnacho | 81 | ATA
+aston-villa | Nicolas Jackson | 80 | ATA
+aston-villa | Ian Maatsen | 79 | LAT
+aston-villa | Matty Cash | 79 | LAT
+chelsea | Emiliano Martínez | 85 | GOL
+chelsea | Levi Colwill | 82 | ZAG
+chelsea | Wesley Fofana | 81 | ZAG
+chelsea | Reece James | 84 | LAT
+chelsea | Malo Gusto | 81 | LAT
+chelsea | Moisés Caicedo | 87 | VOL
+chelsea | Cole Palmer | 87 | MEI
+chelsea | Morgan Rogers | 83 | MEI
+chelsea | Pedro Neto | 83 | ATA
+chelsea | João Pedro | 84 | ATA
+chelsea | Estêvão | 82 | ATA
+chelsea | Jamie Gittens | 80 | ATA
+liverpool | Alisson Becker | 88 | GOL
+liverpool | Virgil van Dijk | 87 | ZAG
+liverpool | Ronald Araújo | 83 | ZAG
+liverpool | Jeremie Frimpong | 82 | LAT
+liverpool | Milos Kerkez | 81 | LAT
+liverpool | Conor Bradley | 79 | LAT
+liverpool | Ryan Gravenberch | 85 | VOL
+liverpool | Alexis Mac Allister | 86 | VOL
+liverpool | Dominik Szoboszlai | 85 | MEI
+liverpool | Florian Wirtz | 87 | MEI
+liverpool | Alexander Isak | 87 | ATA
+liverpool | Hugo Ekitike | 84 | ATA
+liverpool | Cody Gakpo | 83 | ATA
+liverpool | Bradley Barcola | 83 | ATA
+manchester-city | Gianluigi Donnarumma | 88 | GOL
+manchester-city | Rúben Dias | 86 | ZAG
+manchester-city | Joško Gvardiol | 85 | ZAG
+manchester-city | Marc Guéhi | 84 | ZAG
+manchester-city | Rayan Aït-Nouri | 82 | LAT
+manchester-city | Matheus Nunes | 80 | LAT
+manchester-city | Rico Lewis | 79 | LAT
+manchester-city | Enzo Fernández | 85 | VOL
+manchester-city | Elliot Anderson | 83 | VOL
+manchester-city | Mateo Kovačić | 82 | VOL
+manchester-city | Rayan Cherki | 84 | MEI
+manchester-city | Phil Foden | 85 | MEI
+manchester-city | Erling Haaland | 91 | ATA
+manchester-city | Jérémy Doku | 83 | ATA
+manchester-city | Antoine Semenyo | 83 | ATA
+manchester-city | Iliman Ndiaye | 80 | ATA
+manchester-united | Senne Lammens | 79 | GOL
+manchester-united | Lisandro Martínez | 82 | ZAG
+manchester-united | Matthijs de Ligt | 81 | ZAG
+manchester-united | Leny Yoro | 79 | ZAG
+manchester-united | Diogo Dalot | 80 | LAT
+manchester-united | Bruno Fernandes | 86 | MEI
+manchester-united | Carlos Baleba | 80 | VOL
+manchester-united | Kobbie Mainoo | 79 | VOL
+manchester-united | Youri Tielemans | 80 | VOL
+manchester-united | Bryan Mbeumo | 83 | ATA
+manchester-united | Matheus Cunha | 83 | ATA
+manchester-united | Benjamin Šeško | 81 | ATA
+manchester-united | Marcus Rashford | 81 | ATA
+newcastle | Nick Pope | 81 | GOL
+newcastle | Sven Botman | 81 | ZAG
+newcastle | Malick Thiaw | 81 | ZAG
+newcastle | Tino Livramento | 81 | LAT
+newcastle | Lewis Hall | 80 | LAT
+newcastle | Joelinton | 82 | VOL
+newcastle | Yoane Wissa | 81 | ATA
+newcastle | Anthony Elanga | 80 | ATA
+newcastle | Harvey Barnes | 79 | ATA
+tottenham | Micky van de Ven | 83 | ZAG
+tottenham | Jan Paul van Hecke | 81 | ZAG
+tottenham | Pedro Porro | 81 | LAT
+tottenham | Destiny Udogie | 80 | LAT
+tottenham | Andy Robertson | 80 | LAT
+tottenham | Rodrigo Bentancur | 79 | VOL
+tottenham | Sandro Tonali | 84 | VOL
+tottenham | Xavi Simons | 83 | MEI
+tottenham | James Maddison | 81 | MEI
+tottenham | Mohammed Kudus | 82 | ATA
+tottenham | Dejan Kulusevski | 81 | ATA
+tottenham | Omar Marmoush | 82 | ATA
+tottenham | Dominic Solanke | 80 | ATA
+tottenham | Sávio | 81 | ATA
+crystal-palace | Dean Henderson | 81 | GOL
+crystal-palace | Adam Wharton | 81 | VOL
+crystal-palace | Jean-Philippe Mateta | 80 | ATA
+crystal-palace | Ismaïla Sarr | 79 | ATA
+brighton | Kaoru Mitoma | 80 | ATA
+brighton | Bart Verbruggen | 80 | GOL
+brighton | Lewis Dunk | 78 | ZAG
+bournemouth | Evanilson | 79 | ATA
+bournemouth | Justin Kluivert | 79 | MEI
+bournemouth | Michele Di Gregorio | 81 | GOL
+bournemouth | Tyler Adams | 79 | VOL
+nottingham-forest | Murillo | 82 | ZAG
+nottingham-forest | Morgan Gibbs-White | 82 | MEI
+everton | Jordan Pickford | 81 | GOL
+everton | Jarrad Branthwaite | 80 | ZAG
+fulham | Bernd Leno | 80 | GOL
+
+# --- Espanha
+real-madrid | Thibaut Courtois | 89 | GOL
+real-madrid | Antonio Rüdiger | 84 | ZAG
+real-madrid | Éder Militão | 84 | ZAG
+real-madrid | Dean Huijsen | 84 | ZAG
+real-madrid | Ibrahima Konaté | 84 | ZAG
+real-madrid | Trent Alexander-Arnold | 84 | LAT
+real-madrid | Álvaro Carreras | 82 | LAT
+real-madrid | Marc Cucurella | 83 | LAT
+real-madrid | Denzel Dumfries | 82 | LAT
+real-madrid | Aurélien Tchouaméni | 85 | VOL
+real-madrid | Federico Valverde | 88 | VOL
+real-madrid | Eduardo Camavinga | 83 | VOL
+real-madrid | Jude Bellingham | 89 | MEI
+real-madrid | Arda Güler | 84 | MEI
+real-madrid | Bernardo Silva | 85 | MEI
+real-madrid | Kylian Mbappé | 91 | ATA
+real-madrid | Vinícius Júnior | 89 | ATA
+real-madrid | Rodrygo | 84 | ATA
+real-madrid | Endrick | 79 | ATA
+real-madrid | Brahim Díaz | 81 | MEI
+barcelona | Joan Garcia | 85 | GOL
+barcelona | Pau Cubarsí | 85 | ZAG
+barcelona | Eric Garcia | 81 | ZAG
+barcelona | Andreas Christensen | 80 | ZAG
+barcelona | Jules Koundé | 86 | LAT
+barcelona | Alejandro Balde | 83 | LAT
+barcelona | João Cancelo | 82 | LAT
+barcelona | Gerard Martín | 79 | LAT
+barcelona | Frenkie de Jong | 86 | VOL
+barcelona | Rodri | 88 | VOL
+barcelona | Pedri | 89 | MEI
+barcelona | Gavi | 83 | MEI
+barcelona | Dani Olmo | 84 | MEI
+barcelona | Fermín López | 83 | MEI
+barcelona | Lamine Yamal | 90 | ATA
+barcelona | Raphinha | 88 | ATA
+barcelona | Anthony Gordon | 83 | ATA
+barcelona | Karim Adeyemi | 81 | ATA
+barcelona | Gabriel Jesus | 80 | ATA
+atletico-madrid | Jan Oblak | 86 | GOL
+atletico-madrid | Cristian Romero | 85 | ZAG
+atletico-madrid | Robin Le Normand | 81 | ZAG
+atletico-madrid | Dávid Hancko | 82 | ZAG
+atletico-madrid | Marcos Llorente | 82 | LAT
+atletico-madrid | Alejandro Grimaldo | 84 | LAT
+atletico-madrid | Marc Pubill | 79 | LAT
+atletico-madrid | Morten Hjulmand | 83 | VOL
+atletico-madrid | Koke | 80 | VOL
+atletico-madrid | Pablo Barrios | 82 | VOL
+atletico-madrid | Johnny Cardoso | 80 | VOL
+atletico-madrid | Álex Baena | 84 | MEI
+atletico-madrid | Giuliano Simeone | 80 | MEI
+atletico-madrid | Julián Alvarez | 87 | ATA
+atletico-madrid | Ademola Lookman | 84 | ATA
+atletico-madrid | Alexander Sørloth | 81 | ATA
+atletico-madrid | Jonathan David | 82 | ATA
+athletic-bilbao | Unai Simón | 84 | GOL
+athletic-bilbao | Aymeric Laporte | 81 | ZAG
+athletic-bilbao | Dani Vivian | 81 | ZAG
+athletic-bilbao | Oihan Sancet | 82 | MEI
+athletic-bilbao | Nico Williams | 85 | ATA
+athletic-bilbao | Iñaki Williams | 80 | ATA
+villarreal | Gerard Moreno | 80 | ATA
+villarreal | Alberto Moleiro | 81 | MEI
+villarreal | Georges Mikautadze | 80 | ATA
+villarreal | Pape Gueye | 80 | VOL
+villarreal | Renato Veiga | 80 | ZAG
+betis | Isco | 82 | MEI
+betis | Antony | 81 | ATA
+betis | Giovanni Lo Celso | 80 | MEI
+betis | Abde Ezzalzouli | 80 | ATA
+real-sociedad | Mikel Oyarzabal | 83 | ATA
+real-sociedad | Takefusa Kubo | 82 | ATA
+real-sociedad | Álex Remiro | 81 | GOL
+
+# --- Itália
+inter | Lautaro Martínez | 88 | ATA
+inter | Marcus Thuram | 84 | ATA
+inter | Pio Esposito | 79 | ATA
+inter | Ange-Yoan Bonny | 79 | ATA
+inter | Nicolò Barella | 86 | VOL
+inter | Hakan Çalhanoğlu | 84 | VOL
+inter | Henrikh Mkhitaryan | 80 | MEI
+inter | Piotr Zieliński | 81 | MEI
+inter | Petar Sučić | 80 | MEI
+inter | Curtis Jones | 80 | MEI
+inter | Alessandro Bastoni | 86 | ZAG
+inter | Manuel Akanji | 83 | ZAG
+inter | John Stones | 82 | ZAG
+inter | Benjamin Pavard | 81 | ZAG
+inter | Yann Bisseck | 80 | ZAG
+inter | Federico Dimarco | 84 | LAT
+inter | Carlos Augusto | 79 | LAT
+inter | Josep Martínez | 80 | GOL
+inter | Ivan Provedel | 80 | GOL
+napoli | Kevin De Bruyne | 86 | MEI
+napoli | Scott McTominay | 86 | MEI
+napoli | Stanislav Lobotka | 84 | VOL
+napoli | Frank Anguissa | 82 | VOL
+napoli | Billy Gilmour | 80 | VOL
+napoli | Rasmus Højlund | 82 | ATA
+napoli | David Neres | 81 | ATA
+napoli | Matteo Politano | 80 | ATA
+napoli | Noa Lang | 80 | ATA
+napoli | Alessandro Buongiorno | 83 | ZAG
+napoli | Amir Rrahmani | 82 | ZAG
+napoli | Sam Beukema | 81 | ZAG
+napoli | Giovanni Di Lorenzo | 83 | LAT
+napoli | Mathías Olivera | 80 | LAT
+napoli | Vanja Milinković-Savić | 82 | GOL
+napoli | Alex Meret | 81 | GOL
+juventus | Kenan Yıldız | 85 | ATA
+juventus | Nick Woltemade | 82 | ATA
+juventus | Francisco Conceição | 82 | ATA
+juventus | Edon Zhegrova | 81 | ATA
+juventus | Teun Koopmeiners | 81 | MEI
+juventus | Khéphren Thuram | 82 | VOL
+juventus | Manuel Locatelli | 82 | VOL
+juventus | Weston McKennie | 80 | MEI
+juventus | Bremer | 85 | ZAG
+juventus | Pierre Kalulu | 81 | ZAG
+juventus | Federico Gatti | 80 | ZAG
+juventus | Andrea Cambiaso | 82 | LAT
+juventus | Guglielmo Vicario | 82 | GOL
+milan | Mike Maignan | 87 | GOL
+milan | Luka Modrić | 83 | MEI
+milan | Christian Pulisic | 84 | ATA
+milan | Adrien Rabiot | 83 | VOL
+milan | Ardon Jashari | 80 | VOL
+milan | Ruben Loftus-Cheek | 79 | MEI
+milan | Gonçalo Ramos | 81 | ATA
+milan | Strahinja Pavlović | 81 | ZAG
+milan | Fikayo Tomori | 81 | ZAG
+milan | Koni De Winter | 80 | ZAG
+milan | Pervis Estupiñán | 80 | LAT
+milan | Alexis Saelemaekers | 80 | LAT
+roma | Mile Svilar | 84 | GOL
+roma | Evan Ndicka | 82 | ZAG
+roma | Gianluca Mancini | 81 | ZAG
+roma | Manu Koné | 83 | VOL
+roma | Bryan Cristante | 80 | VOL
+roma | Lorenzo Pellegrini | 80 | MEI
+roma | Matías Soulé | 81 | ATA
+roma | Paulo Dybala | 81 | ATA
+roma | Donyell Malen | 81 | ATA
+roma | Wesley | 80 | LAT
+atalanta | Charles De Ketelaere | 83 | MEI
+atalanta | Éderson | 83 | VOL
+atalanta | Gianluca Scamacca | 81 | ATA
+atalanta | Giacomo Raspadori | 81 | ATA
+atalanta | Nikola Krstović | 80 | ATA
+atalanta | Isak Hien | 81 | ZAG
+atalanta | Giorgio Scalvini | 81 | ZAG
+atalanta | Marco Carnesecchi | 82 | GOL
+como | Nico Paz | 84 | MEI
+como | Moise Kean | 83 | ATA
+como | Robert Sánchez | 80 | GOL
+como | Maxence Caqueret | 80 | VOL
+bologna | Riccardo Orsolini | 81 | ATA
+bologna | Łukasz Skorupski | 80 | GOL
+lazio | Mattia Zaccagni | 81 | ATA
+lazio | Nicolò Rovella | 81 | VOL
+lazio | Davide Frattesi | 80 | MEI
+
+# --- Alemanha
+bayern | Manuel Neuer | 84 | GOL
+bayern | Jonas Urbig | 79 | GOL
+bayern | Dayot Upamecano | 85 | ZAG
+bayern | Jonathan Tah | 84 | ZAG
+bayern | Kim Min-jae | 83 | ZAG
+bayern | Alphonso Davies | 83 | LAT
+bayern | Josip Stanišić | 80 | LAT
+bayern | Konrad Laimer | 82 | LAT
+bayern | Joshua Kimmich | 87 | VOL
+bayern | Aleksandar Pavlović | 84 | VOL
+bayern | Tom Bischof | 79 | VOL
+bayern | Jamal Musiala | 88 | MEI
+bayern | Lennart Karl | 80 | MEI
+bayern | Harry Kane | 90 | ATA
+bayern | Michael Olise | 88 | ATA
+bayern | Luis Díaz | 86 | ATA
+bayern | Serge Gnabry | 82 | ATA
+borussia-dortmund | Gregor Kobel | 86 | GOL
+borussia-dortmund | Nico Schlotterbeck | 84 | ZAG
+borussia-dortmund | Waldemar Anton | 81 | ZAG
+borussia-dortmund | Julian Ryerson | 80 | LAT
+borussia-dortmund | Daniel Svensson | 79 | LAT
+borussia-dortmund | Felix Nmecha | 82 | VOL
+borussia-dortmund | Marcel Sabitzer | 80 | VOL
+borussia-dortmund | Jobe Bellingham | 81 | MEI
+borussia-dortmund | Ethan Nwaneri | 80 | MEI
+borussia-dortmund | Serhou Guirassy | 85 | ATA
+borussia-dortmund | Maximilian Beier | 80 | ATA
+leverkusen | Edmond Tapsoba | 82 | ZAG
+leverkusen | Loïc Badé | 81 | ZAG
+leverkusen | Aleix García | 81 | VOL
+leverkusen | Robert Andrich | 80 | VOL
+leverkusen | Malik Tillman | 81 | MEI
+leverkusen | Patrik Schick | 82 | ATA
+leverkusen | Victor Boniface | 80 | ATA
+leverkusen | Mark Flekken | 80 | GOL
+rb-leipzig | David Raum | 81 | LAT
+rb-leipzig | Castello Lukeba | 81 | ZAG
+rb-leipzig | Christoph Baumgartner | 80 | MEI
+rb-leipzig | Christopher Nkunku | 81 | ATA
+rb-leipzig | Antonio Nusa | 80 | ATA
+stuttgart | Deniz Undav | 81 | ATA
+stuttgart | Angelo Stiller | 81 | VOL
+stuttgart | Maximilian Mittelstädt | 80 | LAT
+eintracht-frankfurt | Jonathan Burkardt | 80 | ATA
+eintracht-frankfurt | Ritsu Dōan | 80 | ATA
+eintracht-frankfurt | Robin Koch | 80 | ZAG
+
+# --- França
+psg | Lucas Chevalier | 82 | GOL
+psg | Marquinhos | 85 | ZAG
+psg | Willian Pacho | 85 | ZAG
+psg | Illia Zabarnyi | 82 | ZAG
+psg | Lucas Beraldo | 79 | ZAG
+psg | Achraf Hakimi | 87 | LAT
+psg | Nuno Mendes | 87 | LAT
+psg | Lucas Hernandez | 81 | LAT
+psg | Vitinha | 88 | VOL
+psg | João Neves | 86 | VOL
+psg | Warren Zaïre-Emery | 82 | VOL
+psg | Fabián Ruiz | 84 | MEI
+psg | Senny Mayulu | 79 | MEI
+psg | Maghnes Akliouche | 81 | MEI
+psg | Ousmane Dembélé | 89 | ATA
+psg | Khvicha Kvaratskhelia | 87 | ATA
+psg | Désiré Doué | 85 | ATA
+psg | Ferran Torres | 81 | ATA
+marseille | Pierre-Emile Højbjerg | 81 | VOL
+marseille | Geoffrey Kondogbia | 79 | VOL
+marseille | Angel Gomes | 80 | MEI
+marseille | Amine Gouiri | 81 | ATA
+marseille | Igor Paixão | 80 | ATA
+marseille | Nayef Aguerd | 80 | ZAG
+monaco | Aleksandr Golovin | 80 | MEI
+monaco | Denis Zakaria | 81 | VOL
+monaco | Folarin Balogun | 80 | ATA
+monaco | Takumi Minamino | 79 | MEI
+monaco | Lamine Camara | 80 | VOL
+monaco | Vanderson | 79 | LAT
+lille | Olivier Giroud | 77 | ATA
+lille | Hákon Haraldsson | 80 | MEI
+lille | Berke Özer | 79 | GOL
+lille | Alexsandro | 80 | ZAG
+lyon | Corentin Tolisso | 79 | MEI
+lyon | Loïs Openda | 80 | ATA
+lyon | Nicolás Tagliafico | 78 | LAT
+lens | Robin Risser | 79 | GOL
+
+# --- Portugal
+sporting | Luis Suárez | 82 | ATA
+sporting | Maximiliano Araújo | 80 | LAT
+sporting | Gonçalo Inácio | 82 | ZAG
+sporting | Rui Silva | 80 | GOL
+sporting | Geny Catamo | 79 | ATA
+sporting | Zeno Debast | 80 | ZAG
+sporting | Iván Fresneda | 78 | LAT
+sporting | Rodrigo Zalazar | 79 | MEI
+porto | Diogo Costa | 84 | GOL
+porto | Jan Bednarek | 80 | ZAG
+porto | Jakub Kiwior | 80 | ZAG
+porto | Alan Varela | 81 | VOL
+porto | Victor Froholdt | 80 | VOL
+porto | Gabri Veiga | 80 | MEI
+porto | Samu Aghehowa | 82 | ATA
+porto | William Gomes | 79 | ATA
+porto | Pepê | 79 | ATA
+porto | Francisco Moura | 78 | LAT
+porto | Alberto Costa | 78 | LAT
+benfica | Anatoliy Trubin | 82 | GOL
+benfica | Tomás Araújo | 80 | ZAG
+benfica | Alexander Bah | 78 | LAT
+benfica | Samuel Dahl | 78 | LAT
+benfica | Enzo Barrenechea | 79 | VOL
+benfica | João Palhinha | 81 | VOL
+benfica | Fredrik Aursnes | 80 | MEI
+benfica | Heorhiy Sudakov | 81 | MEI
+benfica | Vangelis Pavlidis | 82 | ATA
+benfica | Dodi Lukébakio | 80 | ATA
+benfica | Jhon Durán | 79 | ATA
+
+# --- Argentina
+river-plate | Lucas Martínez Quarta | 77 | ZAG
+boca-juniors | Leandro Paredes | 79 | VOL
+boca-juniors | Miguel Merentiel | 76 | ATA
+racing-club | Adrián Martínez | 76 | ATA
+river-plate | Ángel Correa | 78 | ATA
+river-plate | Thiago Almada | 78 | MEI
+river-plate | Nicolás Otamendi | 76 | ZAG
+river-plate | Marcos Acuña | 75 | LAT
+river-plate | Gonzalo Montiel | 75 | LAT
+river-plate | Mauro Arambarri | 76 | VOL
+river-plate | Sebastián Driussi | 76 | ATA
+river-plate | Santiago Beltrán | 74 | GOL
+boca-juniors | Álvaro Montero | 75 | GOL
+boca-juniors | Ayrton Costa | 75 | ZAG
+racing-club | Marcos Rojo | 74 | ZAG
+racing-club | Matías Zaracho | 75 | MEI
+racing-club | Valentín Carboni | 76 | MEI
+racing-club | Facundo Cambeses | 75 | GOL

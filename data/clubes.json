@@ -358,5 +358,1301 @@
     "corSecundaria": "#ffffff",
     "liga": "brasileirao-b",
     "nivel": 61
+  },
+  {
+    "id": "arsenal",
+    "nome": "Arsenal",
+    "sigla": "ARS",
+    "cor": "#ef0107",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 88
+  },
+  {
+    "id": "aston-villa",
+    "nome": "Aston Villa",
+    "sigla": "AVL",
+    "cor": "#670e36",
+    "corSecundaria": "#95bfe5",
+    "liga": "premier-league",
+    "nivel": 83
+  },
+  {
+    "id": "bournemouth",
+    "nome": "Bournemouth",
+    "sigla": "BOU",
+    "cor": "#da291c",
+    "corSecundaria": "#000000",
+    "liga": "premier-league",
+    "nivel": 80
+  },
+  {
+    "id": "brentford",
+    "nome": "Brentford",
+    "sigla": "BRE",
+    "cor": "#e30613",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 79
+  },
+  {
+    "id": "brighton",
+    "nome": "Brighton",
+    "sigla": "BHA",
+    "cor": "#0057b8",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 81
+  },
+  {
+    "id": "chelsea",
+    "nome": "Chelsea",
+    "sigla": "CHE",
+    "cor": "#034694",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 86
+  },
+  {
+    "id": "coventry",
+    "nome": "Coventry City",
+    "sigla": "COV",
+    "cor": "#59cbe8",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 75
+  },
+  {
+    "id": "crystal-palace",
+    "nome": "Crystal Palace",
+    "sigla": "CRY",
+    "cor": "#1b458f",
+    "corSecundaria": "#c4122e",
+    "liga": "premier-league",
+    "nivel": 80
+  },
+  {
+    "id": "everton",
+    "nome": "Everton",
+    "sigla": "EVE",
+    "cor": "#003399",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 79
+  },
+  {
+    "id": "fulham",
+    "nome": "Fulham",
+    "sigla": "FUL",
+    "cor": "#ffffff",
+    "corSecundaria": "#000000",
+    "liga": "premier-league",
+    "nivel": 79
+  },
+  {
+    "id": "hull-city",
+    "nome": "Hull City",
+    "sigla": "HUL",
+    "cor": "#f5a12d",
+    "corSecundaria": "#000000",
+    "liga": "premier-league",
+    "nivel": 74
+  },
+  {
+    "id": "ipswich",
+    "nome": "Ipswich Town",
+    "sigla": "IPS",
+    "cor": "#3a64a3",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 75
+  },
+  {
+    "id": "leeds",
+    "nome": "Leeds United",
+    "sigla": "LEE",
+    "cor": "#ffffff",
+    "corSecundaria": "#1d428a",
+    "liga": "premier-league",
+    "nivel": 77
+  },
+  {
+    "id": "liverpool",
+    "nome": "Liverpool",
+    "sigla": "LIV",
+    "cor": "#c8102e",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 88
+  },
+  {
+    "id": "manchester-city",
+    "nome": "Manchester City",
+    "sigla": "MCI",
+    "cor": "#6cabdd",
+    "corSecundaria": "#1c2c5b",
+    "liga": "premier-league",
+    "nivel": 88
+  },
+  {
+    "id": "manchester-united",
+    "nome": "Manchester United",
+    "sigla": "MUN",
+    "cor": "#da291c",
+    "corSecundaria": "#000000",
+    "liga": "premier-league",
+    "nivel": 84
+  },
+  {
+    "id": "newcastle",
+    "nome": "Newcastle United",
+    "sigla": "NEW",
+    "cor": "#241f20",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 84
+  },
+  {
+    "id": "nottingham-forest",
+    "nome": "Nottingham Forest",
+    "sigla": "NFO",
+    "cor": "#dd0000",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 79
+  },
+  {
+    "id": "sunderland",
+    "nome": "Sunderland",
+    "sigla": "SUN",
+    "cor": "#eb172b",
+    "corSecundaria": "#ffffff",
+    "liga": "premier-league",
+    "nivel": 77
+  },
+  {
+    "id": "tottenham",
+    "nome": "Tottenham Hotspur",
+    "sigla": "TOT",
+    "cor": "#ffffff",
+    "corSecundaria": "#132257",
+    "liga": "premier-league",
+    "nivel": 83
+  },
+  {
+    "id": "alaves",
+    "nome": "Alavés",
+    "sigla": "ALA",
+    "cor": "#0761af",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 76
+  },
+  {
+    "id": "athletic-bilbao",
+    "nome": "Athletic Bilbao",
+    "sigla": "ATB",
+    "cor": "#ee2523",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 81
+  },
+  {
+    "id": "atletico-madrid",
+    "nome": "Atlético de Madrid",
+    "sigla": "ATM",
+    "cor": "#cb3524",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 86
+  },
+  {
+    "id": "barcelona",
+    "nome": "Barcelona",
+    "sigla": "BAR",
+    "cor": "#a50044",
+    "corSecundaria": "#004d98",
+    "liga": "la-liga",
+    "nivel": 89
+  },
+  {
+    "id": "celta",
+    "nome": "Celta de Vigo",
+    "sigla": "CEL",
+    "cor": "#8ac3ee",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 78
+  },
+  {
+    "id": "deportivo-la-coruna",
+    "nome": "Deportivo La Coruña",
+    "sigla": "DEP",
+    "cor": "#0067b1",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 74
+  },
+  {
+    "id": "elche",
+    "nome": "Elche",
+    "sigla": "ELC",
+    "cor": "#ffffff",
+    "corSecundaria": "#05642c",
+    "liga": "la-liga",
+    "nivel": 75
+  },
+  {
+    "id": "espanyol",
+    "nome": "Espanyol",
+    "sigla": "ESY",
+    "cor": "#007fc8",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 76
+  },
+  {
+    "id": "getafe",
+    "nome": "Getafe",
+    "sigla": "GET",
+    "cor": "#005999",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 76
+  },
+  {
+    "id": "levante",
+    "nome": "Levante",
+    "sigla": "LEV",
+    "cor": "#b4053f",
+    "corSecundaria": "#005399",
+    "liga": "la-liga",
+    "nivel": 74
+  },
+  {
+    "id": "malaga",
+    "nome": "Málaga",
+    "sigla": "MAL",
+    "cor": "#0097d8",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 73
+  },
+  {
+    "id": "osasuna",
+    "nome": "Osasuna",
+    "sigla": "OSA",
+    "cor": "#d91a21",
+    "corSecundaria": "#0a346f",
+    "liga": "la-liga",
+    "nivel": 77
+  },
+  {
+    "id": "racing-santander",
+    "nome": "Racing de Santander",
+    "sigla": "RSA",
+    "cor": "#00a650",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 73
+  },
+  {
+    "id": "rayo-vallecano",
+    "nome": "Rayo Vallecano",
+    "sigla": "RAY",
+    "cor": "#ffffff",
+    "corSecundaria": "#e53027",
+    "liga": "la-liga",
+    "nivel": 77
+  },
+  {
+    "id": "betis",
+    "nome": "Real Betis",
+    "sigla": "BET",
+    "cor": "#00954c",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 81
+  },
+  {
+    "id": "real-madrid",
+    "nome": "Real Madrid",
+    "sigla": "RMA",
+    "cor": "#ffffff",
+    "corSecundaria": "#febe10",
+    "liga": "la-liga",
+    "nivel": 90
+  },
+  {
+    "id": "real-sociedad",
+    "nome": "Real Sociedad",
+    "sigla": "RSO",
+    "cor": "#0067b1",
+    "corSecundaria": "#ffffff",
+    "liga": "la-liga",
+    "nivel": 80
+  },
+  {
+    "id": "sevilla",
+    "nome": "Sevilla",
+    "sigla": "SEV",
+    "cor": "#ffffff",
+    "corSecundaria": "#d71920",
+    "liga": "la-liga",
+    "nivel": 78
+  },
+  {
+    "id": "valencia",
+    "nome": "Valencia",
+    "sigla": "VAL",
+    "cor": "#ffffff",
+    "corSecundaria": "#ee3524",
+    "liga": "la-liga",
+    "nivel": 77
+  },
+  {
+    "id": "villarreal",
+    "nome": "Villarreal",
+    "sigla": "VIL",
+    "cor": "#ffe667",
+    "corSecundaria": "#005187",
+    "liga": "la-liga",
+    "nivel": 82
+  },
+  {
+    "id": "atalanta",
+    "nome": "Atalanta",
+    "sigla": "ATA",
+    "cor": "#1e71b8",
+    "corSecundaria": "#000000",
+    "liga": "serie-a-italia",
+    "nivel": 82
+  },
+  {
+    "id": "bologna",
+    "nome": "Bologna",
+    "sigla": "BOL",
+    "cor": "#1a2f48",
+    "corSecundaria": "#a21c26",
+    "liga": "serie-a-italia",
+    "nivel": 80
+  },
+  {
+    "id": "cagliari",
+    "nome": "Cagliari",
+    "sigla": "CAG",
+    "cor": "#002350",
+    "corSecundaria": "#a71930",
+    "liga": "serie-a-italia",
+    "nivel": 75
+  },
+  {
+    "id": "como",
+    "nome": "Como",
+    "sigla": "COM",
+    "cor": "#003da5",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 80
+  },
+  {
+    "id": "fiorentina",
+    "nome": "Fiorentina",
+    "sigla": "FIO",
+    "cor": "#482e92",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 79
+  },
+  {
+    "id": "frosinone",
+    "nome": "Frosinone",
+    "sigla": "FRO",
+    "cor": "#ffd200",
+    "corSecundaria": "#00539f",
+    "liga": "serie-a-italia",
+    "nivel": 72
+  },
+  {
+    "id": "genoa",
+    "nome": "Genoa",
+    "sigla": "GEN",
+    "cor": "#a6192e",
+    "corSecundaria": "#002147",
+    "liga": "serie-a-italia",
+    "nivel": 75
+  },
+  {
+    "id": "inter",
+    "nome": "Inter de Milão",
+    "sigla": "INT",
+    "cor": "#0068a8",
+    "corSecundaria": "#000000",
+    "liga": "serie-a-italia",
+    "nivel": 87
+  },
+  {
+    "id": "juventus",
+    "nome": "Juventus",
+    "sigla": "JUV",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 85
+  },
+  {
+    "id": "lazio",
+    "nome": "Lazio",
+    "sigla": "LAZ",
+    "cor": "#87d8f7",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 80
+  },
+  {
+    "id": "lecce",
+    "nome": "Lecce",
+    "sigla": "LEC",
+    "cor": "#ffed00",
+    "corSecundaria": "#d50032",
+    "liga": "serie-a-italia",
+    "nivel": 73
+  },
+  {
+    "id": "milan",
+    "nome": "Milan",
+    "sigla": "MIL",
+    "cor": "#fb090b",
+    "corSecundaria": "#000000",
+    "liga": "serie-a-italia",
+    "nivel": 85
+  },
+  {
+    "id": "monza",
+    "nome": "Monza",
+    "sigla": "MON",
+    "cor": "#e30613",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 73
+  },
+  {
+    "id": "napoli",
+    "nome": "Napoli",
+    "sigla": "NAP",
+    "cor": "#12a0d7",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 86
+  },
+  {
+    "id": "parma",
+    "nome": "Parma",
+    "sigla": "PAR",
+    "cor": "#ffd200",
+    "corSecundaria": "#00338d",
+    "liga": "serie-a-italia",
+    "nivel": 75
+  },
+  {
+    "id": "roma",
+    "nome": "Roma",
+    "sigla": "ROM",
+    "cor": "#8e1f2f",
+    "corSecundaria": "#f0bc42",
+    "liga": "serie-a-italia",
+    "nivel": 83
+  },
+  {
+    "id": "sassuolo",
+    "nome": "Sassuolo",
+    "sigla": "SAS",
+    "cor": "#00a752",
+    "corSecundaria": "#000000",
+    "liga": "serie-a-italia",
+    "nivel": 75
+  },
+  {
+    "id": "torino",
+    "nome": "Torino",
+    "sigla": "TOR",
+    "cor": "#881f19",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 77
+  },
+  {
+    "id": "udinese",
+    "nome": "Udinese",
+    "sigla": "UDI",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "serie-a-italia",
+    "nivel": 76
+  },
+  {
+    "id": "venezia",
+    "nome": "Venezia",
+    "sigla": "VEN",
+    "cor": "#000000",
+    "corSecundaria": "#f47b20",
+    "liga": "serie-a-italia",
+    "nivel": 73
+  },
+  {
+    "id": "augsburg",
+    "nome": "Augsburg",
+    "sigla": "FCA",
+    "cor": "#ba3733",
+    "corSecundaria": "#46714d",
+    "liga": "bundesliga",
+    "nivel": 76
+  },
+  {
+    "id": "leverkusen",
+    "nome": "Bayer Leverkusen",
+    "sigla": "B04",
+    "cor": "#e32221",
+    "corSecundaria": "#000000",
+    "liga": "bundesliga",
+    "nivel": 83
+  },
+  {
+    "id": "bayern",
+    "nome": "Bayern de Munique",
+    "sigla": "FCB",
+    "cor": "#dc052d",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 89
+  },
+  {
+    "id": "borussia-dortmund",
+    "nome": "Borussia Dortmund",
+    "sigla": "BVB",
+    "cor": "#fde100",
+    "corSecundaria": "#000000",
+    "liga": "bundesliga",
+    "nivel": 85
+  },
+  {
+    "id": "monchengladbach",
+    "nome": "Borussia Mönchengladbach",
+    "sigla": "BMG",
+    "cor": "#ffffff",
+    "corSecundaria": "#000000",
+    "liga": "bundesliga",
+    "nivel": 77
+  },
+  {
+    "id": "colonia",
+    "nome": "Colônia",
+    "sigla": "KOE",
+    "cor": "#ed1c24",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 75
+  },
+  {
+    "id": "eintracht-frankfurt",
+    "nome": "Eintracht Frankfurt",
+    "sigla": "SGE",
+    "cor": "#000000",
+    "corSecundaria": "#e1000f",
+    "liga": "bundesliga",
+    "nivel": 81
+  },
+  {
+    "id": "elversberg",
+    "nome": "Elversberg",
+    "sigla": "SVE",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 71
+  },
+  {
+    "id": "freiburg",
+    "nome": "Freiburg",
+    "sigla": "SCF",
+    "cor": "#000000",
+    "corSecundaria": "#e2001a",
+    "liga": "bundesliga",
+    "nivel": 79
+  },
+  {
+    "id": "hamburgo",
+    "nome": "Hamburgo",
+    "sigla": "HSV",
+    "cor": "#ffffff",
+    "corSecundaria": "#0a3f86",
+    "liga": "bundesliga",
+    "nivel": 75
+  },
+  {
+    "id": "hoffenheim",
+    "nome": "Hoffenheim",
+    "sigla": "TSG",
+    "cor": "#1961b5",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 79
+  },
+  {
+    "id": "mainz",
+    "nome": "Mainz 05",
+    "sigla": "M05",
+    "cor": "#c3141e",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 77
+  },
+  {
+    "id": "paderborn",
+    "nome": "Paderborn",
+    "sigla": "PAD",
+    "cor": "#005ca9",
+    "corSecundaria": "#000000",
+    "liga": "bundesliga",
+    "nivel": 71
+  },
+  {
+    "id": "rb-leipzig",
+    "nome": "RB Leipzig",
+    "sigla": "RBL",
+    "cor": "#ffffff",
+    "corSecundaria": "#dd0741",
+    "liga": "bundesliga",
+    "nivel": 82
+  },
+  {
+    "id": "schalke",
+    "nome": "Schalke 04",
+    "sigla": "S04",
+    "cor": "#004d9d",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 74
+  },
+  {
+    "id": "stuttgart",
+    "nome": "Stuttgart",
+    "sigla": "VFB",
+    "cor": "#ffffff",
+    "corSecundaria": "#e32219",
+    "liga": "bundesliga",
+    "nivel": 81
+  },
+  {
+    "id": "union-berlin",
+    "nome": "Union Berlin",
+    "sigla": "FCU",
+    "cor": "#eb1923",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 77
+  },
+  {
+    "id": "werder-bremen",
+    "nome": "Werder Bremen",
+    "sigla": "SVW",
+    "cor": "#1d9053",
+    "corSecundaria": "#ffffff",
+    "liga": "bundesliga",
+    "nivel": 77
+  },
+  {
+    "id": "angers",
+    "nome": "Angers",
+    "sigla": "ANG",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 73
+  },
+  {
+    "id": "auxerre",
+    "nome": "Auxerre",
+    "sigla": "AJA",
+    "cor": "#ffffff",
+    "corSecundaria": "#0064b0",
+    "liga": "ligue-1",
+    "nivel": 73
+  },
+  {
+    "id": "brest",
+    "nome": "Brest",
+    "sigla": "BRS",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 76
+  },
+  {
+    "id": "le-havre",
+    "nome": "Le Havre",
+    "sigla": "HAC",
+    "cor": "#9bcde4",
+    "corSecundaria": "#1a3a65",
+    "liga": "ligue-1",
+    "nivel": 73
+  },
+  {
+    "id": "le-mans",
+    "nome": "Le Mans",
+    "sigla": "LMF",
+    "cor": "#e30613",
+    "corSecundaria": "#ffd200",
+    "liga": "ligue-1",
+    "nivel": 70
+  },
+  {
+    "id": "lens",
+    "nome": "Lens",
+    "sigla": "RCL",
+    "cor": "#ffd700",
+    "corSecundaria": "#e30613",
+    "liga": "ligue-1",
+    "nivel": 79
+  },
+  {
+    "id": "lille",
+    "nome": "Lille",
+    "sigla": "LIL",
+    "cor": "#e01e13",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 80
+  },
+  {
+    "id": "lorient",
+    "nome": "Lorient",
+    "sigla": "FCL",
+    "cor": "#f58220",
+    "corSecundaria": "#000000",
+    "liga": "ligue-1",
+    "nivel": 73
+  },
+  {
+    "id": "lyon",
+    "nome": "Lyon",
+    "sigla": "OL",
+    "cor": "#ffffff",
+    "corSecundaria": "#1b3c8b",
+    "liga": "ligue-1",
+    "nivel": 80
+  },
+  {
+    "id": "monaco",
+    "nome": "Monaco",
+    "sigla": "ASM",
+    "cor": "#e51b22",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 81
+  },
+  {
+    "id": "nice",
+    "nome": "Nice",
+    "sigla": "NIC",
+    "cor": "#e2001a",
+    "corSecundaria": "#000000",
+    "liga": "ligue-1",
+    "nivel": 77
+  },
+  {
+    "id": "marseille",
+    "nome": "Olympique de Marseille",
+    "sigla": "OM",
+    "cor": "#2faee0",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 82
+  },
+  {
+    "id": "paris-fc",
+    "nome": "Paris FC",
+    "sigla": "PFC",
+    "cor": "#002f5f",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 75
+  },
+  {
+    "id": "psg",
+    "nome": "Paris Saint-Germain",
+    "sigla": "PSG",
+    "cor": "#004170",
+    "corSecundaria": "#da291c",
+    "liga": "ligue-1",
+    "nivel": 89
+  },
+  {
+    "id": "rennes",
+    "nome": "Rennes",
+    "sigla": "REN",
+    "cor": "#e13327",
+    "corSecundaria": "#000000",
+    "liga": "ligue-1",
+    "nivel": 78
+  },
+  {
+    "id": "strasbourg",
+    "nome": "Strasbourg",
+    "sigla": "STR",
+    "cor": "#009fe3",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 78
+  },
+  {
+    "id": "toulouse",
+    "nome": "Toulouse",
+    "sigla": "TFC",
+    "cor": "#5d2c86",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 75
+  },
+  {
+    "id": "troyes",
+    "nome": "Troyes",
+    "sigla": "TRO",
+    "cor": "#004b9b",
+    "corSecundaria": "#ffffff",
+    "liga": "ligue-1",
+    "nivel": 70
+  },
+  {
+    "id": "academico-viseu",
+    "nome": "Académico de Viseu",
+    "sigla": "ACV",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 65
+  },
+  {
+    "id": "alverca",
+    "nome": "Alverca",
+    "sigla": "ALV",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 67
+  },
+  {
+    "id": "arouca",
+    "nome": "Arouca",
+    "sigla": "ARO",
+    "cor": "#ffd200",
+    "corSecundaria": "#003b7a",
+    "liga": "liga-portugal",
+    "nivel": 68
+  },
+  {
+    "id": "benfica",
+    "nome": "Benfica",
+    "sigla": "SLB",
+    "cor": "#e20e0e",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 82
+  },
+  {
+    "id": "braga",
+    "nome": "Braga",
+    "sigla": "SCB",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 77
+  },
+  {
+    "id": "casa-pia",
+    "nome": "Casa Pia",
+    "sigla": "CPA",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 67
+  },
+  {
+    "id": "estoril",
+    "nome": "Estoril Praia",
+    "sigla": "EPR",
+    "cor": "#ffe500",
+    "corSecundaria": "#004b9b",
+    "liga": "liga-portugal",
+    "nivel": 69
+  },
+  {
+    "id": "estrela-amadora",
+    "nome": "Estrela da Amadora",
+    "sigla": "ESA",
+    "cor": "#e2001a",
+    "corSecundaria": "#00843d",
+    "liga": "liga-portugal",
+    "nivel": 66
+  },
+  {
+    "id": "famalicao",
+    "nome": "Famalicão",
+    "sigla": "FAM",
+    "cor": "#ffffff",
+    "corSecundaria": "#003b7a",
+    "liga": "liga-portugal",
+    "nivel": 71
+  },
+  {
+    "id": "gil-vicente",
+    "nome": "Gil Vicente",
+    "sigla": "GIL",
+    "cor": "#e2001a",
+    "corSecundaria": "#003b7a",
+    "liga": "liga-portugal",
+    "nivel": 70
+  },
+  {
+    "id": "maritimo",
+    "nome": "Marítimo",
+    "sigla": "MAR",
+    "cor": "#00843d",
+    "corSecundaria": "#e2001a",
+    "liga": "liga-portugal",
+    "nivel": 65
+  },
+  {
+    "id": "moreirense",
+    "nome": "Moreirense",
+    "sigla": "MOR",
+    "cor": "#00843d",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 68
+  },
+  {
+    "id": "nacional-madeira",
+    "nome": "Nacional (Madeira)",
+    "sigla": "NAC",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 66
+  },
+  {
+    "id": "porto",
+    "nome": "Porto",
+    "sigla": "FCP",
+    "cor": "#003c7f",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 82
+  },
+  {
+    "id": "rio-ave",
+    "nome": "Rio Ave",
+    "sigla": "RIO",
+    "cor": "#00843d",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 68
+  },
+  {
+    "id": "santa-clara",
+    "nome": "Santa Clara",
+    "sigla": "STC",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 68
+  },
+  {
+    "id": "sporting",
+    "nome": "Sporting",
+    "sigla": "SCP",
+    "cor": "#008057",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-portugal",
+    "nivel": 83
+  },
+  {
+    "id": "vitoria-guimaraes",
+    "nome": "Vitória de Guimarães",
+    "sigla": "VSC",
+    "cor": "#ffffff",
+    "corSecundaria": "#000000",
+    "liga": "liga-portugal",
+    "nivel": 72
+  },
+  {
+    "id": "aldosivi",
+    "nome": "Aldosivi",
+    "sigla": "ALD",
+    "cor": "#008c45",
+    "corSecundaria": "#ffd700",
+    "liga": "liga-argentina",
+    "nivel": 66
+  },
+  {
+    "id": "argentinos-juniors",
+    "nome": "Argentinos Juniors",
+    "sigla": "ARJ",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 71
+  },
+  {
+    "id": "atletico-tucuman",
+    "nome": "Atlético Tucumán",
+    "sigla": "TUC",
+    "cor": "#7fb2e5",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 67
+  },
+  {
+    "id": "banfield",
+    "nome": "Banfield",
+    "sigla": "BAN",
+    "cor": "#00843d",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 67
+  },
+  {
+    "id": "barracas-central",
+    "nome": "Barracas Central",
+    "sigla": "BAC",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 66
+  },
+  {
+    "id": "belgrano",
+    "nome": "Belgrano",
+    "sigla": "BEL",
+    "cor": "#7fc3ea",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 69
+  },
+  {
+    "id": "boca-juniors",
+    "nome": "Boca Juniors",
+    "sigla": "BOC",
+    "cor": "#103f79",
+    "corSecundaria": "#f3b229",
+    "liga": "liga-argentina",
+    "nivel": 76
+  },
+  {
+    "id": "central-cordoba",
+    "nome": "Central Córdoba",
+    "sigla": "CCO",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 66
+  },
+  {
+    "id": "defensa-y-justicia",
+    "nome": "Defensa y Justicia",
+    "sigla": "DYJ",
+    "cor": "#ffd700",
+    "corSecundaria": "#00843d",
+    "liga": "liga-argentina",
+    "nivel": 68
+  },
+  {
+    "id": "riestra",
+    "nome": "Deportivo Riestra",
+    "sigla": "RIE",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 65
+  },
+  {
+    "id": "estudiantes",
+    "nome": "Estudiantes",
+    "sigla": "EST",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 72
+  },
+  {
+    "id": "estudiantes-rio-cuarto",
+    "nome": "Estudiantes de Río Cuarto",
+    "sigla": "ERC",
+    "cor": "#ffffff",
+    "corSecundaria": "#000000",
+    "liga": "liga-argentina",
+    "nivel": 64
+  },
+  {
+    "id": "gimnasia-la-plata",
+    "nome": "Gimnasia La Plata",
+    "sigla": "GEL",
+    "cor": "#ffffff",
+    "corSecundaria": "#002b5c",
+    "liga": "liga-argentina",
+    "nivel": 67
+  },
+  {
+    "id": "gimnasia-mendoza",
+    "nome": "Gimnasia de Mendoza",
+    "sigla": "GEM",
+    "cor": "#ffffff",
+    "corSecundaria": "#000000",
+    "liga": "liga-argentina",
+    "nivel": 64
+  },
+  {
+    "id": "huracan",
+    "nome": "Huracán",
+    "sigla": "HUR",
+    "cor": "#ffffff",
+    "corSecundaria": "#e2001a",
+    "liga": "liga-argentina",
+    "nivel": 69
+  },
+  {
+    "id": "independiente",
+    "nome": "Independiente",
+    "sigla": "IND",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 71
+  },
+  {
+    "id": "independiente-rivadavia",
+    "nome": "Independiente Rivadavia",
+    "sigla": "IRV",
+    "cor": "#002b5c",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 67
+  },
+  {
+    "id": "instituto",
+    "nome": "Instituto",
+    "sigla": "INS",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 66
+  },
+  {
+    "id": "lanus",
+    "nome": "Lanús",
+    "sigla": "LAN",
+    "cor": "#7a1e2c",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 71
+  },
+  {
+    "id": "newells",
+    "nome": "Newell's Old Boys",
+    "sigla": "NOB",
+    "cor": "#e2001a",
+    "corSecundaria": "#000000",
+    "liga": "liga-argentina",
+    "nivel": 68
+  },
+  {
+    "id": "platense",
+    "nome": "Platense",
+    "sigla": "PLA",
+    "cor": "#5b3a1e",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 67
+  },
+  {
+    "id": "racing-club",
+    "nome": "Racing Club",
+    "sigla": "RCA",
+    "cor": "#7fc3ea",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 73
+  },
+  {
+    "id": "river-plate",
+    "nome": "River Plate",
+    "sigla": "RIV",
+    "cor": "#ffffff",
+    "corSecundaria": "#e2001a",
+    "liga": "liga-argentina",
+    "nivel": 77
+  },
+  {
+    "id": "rosario-central",
+    "nome": "Rosario Central",
+    "sigla": "ROS",
+    "cor": "#002b5c",
+    "corSecundaria": "#ffd700",
+    "liga": "liga-argentina",
+    "nivel": 71
+  },
+  {
+    "id": "san-lorenzo",
+    "nome": "San Lorenzo",
+    "sigla": "SLO",
+    "cor": "#002b5c",
+    "corSecundaria": "#e2001a",
+    "liga": "liga-argentina",
+    "nivel": 68
+  },
+  {
+    "id": "sarmiento",
+    "nome": "Sarmiento",
+    "sigla": "SAR",
+    "cor": "#00843d",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 64
+  },
+  {
+    "id": "talleres",
+    "nome": "Talleres",
+    "sigla": "TAL",
+    "cor": "#002b5c",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 70
+  },
+  {
+    "id": "tigre",
+    "nome": "Tigre",
+    "sigla": "TIG",
+    "cor": "#002b5c",
+    "corSecundaria": "#e2001a",
+    "liga": "liga-argentina",
+    "nivel": 67
+  },
+  {
+    "id": "union-santa-fe",
+    "nome": "Unión de Santa Fe",
+    "sigla": "USF",
+    "cor": "#e2001a",
+    "corSecundaria": "#ffffff",
+    "liga": "liga-argentina",
+    "nivel": 67
+  },
+  {
+    "id": "velez",
+    "nome": "Vélez Sarsfield",
+    "sigla": "VEL",
+    "cor": "#ffffff",
+    "corSecundaria": "#002b5c",
+    "liga": "liga-argentina",
+    "nivel": 70
   }
 ]

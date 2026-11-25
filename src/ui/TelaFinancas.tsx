@@ -1,4 +1,4 @@
-import type { Divisao } from "../engine/campeonato";
+import type { Divisao } from "../engine/ligas";
 import {
   formatarDinheiro,
   JUROS_DIVIDA,

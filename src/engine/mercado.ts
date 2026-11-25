@@ -149,8 +149,8 @@ export function dividaDaRodada(
 }
 
 /** Premiação em dinheiro pela posição final: o campeão leva 10 rodadas de receita. */
-export const premiacaoEmDinheiro = (f: Financas, posicao: number) =>
-  Math.round(f.receitaPorRodada * (21 - posicao) * 0.5);
+export const premiacaoEmDinheiro = (f: Financas, posicao: number, total = 20) =>
+  Math.round((f.receitaPorRodada * Math.max(1, total + 1 - posicao) * 10) / total);
 
 /**
  * Oferta e procura: quanto mais jogadores parecidos (mesma posição, geral

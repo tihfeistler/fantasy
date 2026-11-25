@@ -10,6 +10,9 @@ import {
   simularRodada,
   trocarDivisoes,
   zona,
+  nomeDaZona,
+  divisaoPar,
+  premioFinal,
 } from "./campeonato";
 
 const todos = montarTimesAtuais();
@@ -98,5 +101,18 @@ describe("Séries A e B", () => {
     expect(zona(5, "B")).toBeNull();
     expect(zona(20, "B")).toBeNull();
     expect(zona(18, "A")).toBe("rebaixamento");
+  });
+  it("ligas estrangeiras: vagas europeias, ninguém cai e Argentina em turno único", () => {
+    expect(zona(1, "ING")).toBe("libertadores");
+    expect(nomeDaZona(1, "ING")).toBe("Champions League");
+    expect(zona(20, "ING")).toBeNull();
+    expect(divisaoPar("ESP")).toBeUndefined();
+    expect(divisaoPar("A")).toBe("B");
+    const ids = Array.from({ length: 30 }, (_, i) => `c${i}`);
+    const t = novaTemporada(ids, 2026, 7, "ARG");
+    expect(t.rodadas).toHaveLength(29);
+    expect(t.rodadas.every((r) => r.length === 15)).toBe(true);
+    expect(premioFinal(30, "ARG", 30)).toBeGreaterThan(0);
+    expect(premioFinal(1, "ING")).toBe(4500);
   });
 });

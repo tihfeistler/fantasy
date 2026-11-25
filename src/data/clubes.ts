@@ -2,11 +2,12 @@ import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
 import clubesJson from "../../data/clubes.json";
 import atuaisJson from "../../data/atuais.json";
 import { FORMACOES } from "../engine/ratings";
-import type { Divisao } from "../engine/campeonato";
+import { divisaoDaChave, type Divisao } from "../engine/ligas";
 import type { Jogador, Time } from "../engine/types";
 
 /**
- * Clubes das Séries A e B com os elencos atuais (data/clubes.json + data/atuais.json),
+ * Clubes das Séries A e B e das ligas estrangeiras com os elencos atuais
+ * (data/clubes.json + data/atuais.json),
  * empacotados no front para o modo solo funcionar offline.
  * Os atributos são RASCUNHO: ver scripts/gerar_atuais.py.
  */
@@ -25,9 +26,9 @@ export const ATUAIS = atuaisJson as Jogador[];
 
 export const NIVEL = new Map(CLUBES.map((c) => [c.id, c.nivel]));
 
-/** Divisão de cada clube no começo da carreira (2026). */
+/** Divisão (liga) de cada clube no começo da carreira (2026). */
 export const DIVISOES_INICIAIS: Record<string, Divisao> = Object.fromEntries(
-  CLUBES.map((c) => [c.id, c.liga === "brasileirao-b" ? "B" : "A"]),
+  CLUBES.map((c) => [c.id, divisaoDaChave(c.liga)]),
 );
 /** Clubes de uma divisão, na ordem de data/clubes.json. */
 export const clubesDaDivisao = (divisoes: Record<string, Divisao>, d: Divisao) =>

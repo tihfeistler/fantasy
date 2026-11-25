@@ -5,13 +5,15 @@ import {
   chaveJogo,
   divisaoDe,
   idsDaTemporada,
+  nomeDaDivisao,
+  nomeDaZona,
   premioFinal,
   trocarDivisoes,
   VAGAS_ACESSO,
   zona,
-  type Zona,
   type Temporada,
 } from "../engine/campeonato";
+import { ligaDe } from "../engine/ligas";
 import type { Jogador, Time } from "../engine/types";
 
 interface Props {
@@ -26,14 +28,6 @@ interface Props {
   onNovaTemporada: () => void;
 }
 
-const NOME_ZONA: Record<Zona, string> = {
-  libertadores: "Libertadores",
-  pre: "Pré-Libertadores",
-  sula: "Sul-Americana",
-  rebaixamento: "Rebaixamento para a Série B",
-  acesso: "Acesso à Série A",
-};
-const ZONAS_A: Zona[] = ["libertadores", "pre", "sula", "rebaixamento"];
 
 export function TelaCampeonato(props: Props) {
   const { meuTime, times, temporada, outraTemporada, saidas, onRenovar, onNovaTemporada } = props;
@@ -72,14 +66,14 @@ export function TelaCampeonato(props: Props) {
       {fim && (
         <div className="fim-temporada">
           <div>
-            <span className="rotulo">Fim da Série {minhaDiv} {temporada.ano}</span>
+            <span className="rotulo">Fim da {nomeDaDivisao(minhaDiv)} {temporada.ano}</span>
             <h2>
               {campeao.id === meuTime.id ? `${meuTime.nome} campeão!` : `${campeao.nome} é o campeão`}
             </h2>
             <p>
-              Você terminou a Série {minhaDiv} em <b>{minhaPos}º lugar</b>
-              {zona(minhaPos, minhaDiv) ? ` (${NOME_ZONA[zona(minhaPos, minhaDiv)!]})` : ""} e recebeu{" "}
-              <b>{premioFinal(minhaPos, minhaDiv)} moedas</b> de premiação.
+              Você terminou a {nomeDaDivisao(minhaDiv)} em <b>{minhaPos}º lugar</b>
+              {nomeDaZona(minhaPos, minhaDiv, tabela.length) ? ` (${nomeDaZona(minhaPos, minhaDiv, tabela.length)})` : ""} e recebeu{" "}
+              <b>{premioFinal(minhaPos, minhaDiv, tabela.length)} moedas</b> de premiação.
             </p>
             {novaDiv !== minhaDiv && (
               <p className={novaDiv === "A" ? "acesso" : "queda"}>
@@ -110,7 +104,7 @@ export function TelaCampeonato(props: Props) {
       <div className="campeonato">
         <div className="classificacao">
           <h2>
-            Série {vistaDiv}{" "}
+            {nomeDaDivisao(vistaDiv)}{" "}
             <span className="suave">
               {disputadasVista} de {vista.rodadas.length} rodadas
             </span>
@@ -118,10 +112,10 @@ export function TelaCampeonato(props: Props) {
           {outraTemporada && (
             <div className="alternar" role="group" aria-label="Divisão">
               <button className={!verOutra ? "ativo" : ""} onClick={() => setVerOutra(false)}>
-                Série {minhaDiv} (sua)
+                {nomeDaDivisao(minhaDiv)} (sua)
               </button>
               <button className={verOutra ? "ativo" : ""} onClick={() => setVerOutra(true)}>
-                Série {divisaoDe(outraTemporada)}
+                {nomeDaDivisao(divisaoDe(outraTemporada))}
               </button>
             </div>
           )}
@@ -145,7 +139,7 @@ export function TelaCampeonato(props: Props) {
               <tbody>
                 {tabelaVista.map((l, i) => {
                   const t = times.get(l.id)!;
-                  const z = zona(i + 1, vistaDiv);
+                  const z = zona(i + 1, vistaDiv, tabelaVista.length);
                   return (
                     <tr key={l.id} className={`${l.id === meuTime.id ? "meu" : ""} ${z ? `zona-${z}` : ""}`}>
                       <td className="pos-tab">{i + 1}</td>
@@ -179,12 +173,13 @@ export function TelaCampeonato(props: Props) {
             </table>
           </div>
           <ul className="legenda-zonas">
-            {(vistaDiv === "A" ? ZONAS_A : (["acesso"] as Zona[])).map((z) => (
-              <li key={z}>
-                <i className={`zona-cor zona-${z}`} /> {NOME_ZONA[z]}
+            {ligaDe(vistaDiv).zonas.map((z) => (
+              <li key={z.nome}>
+                <i className={`zona-cor zona-${z.classe}`} /> {z.nome}
               </li>
             ))}
             {vistaDiv === "B" && <li className="suave">Os {VAGAS_ACESSO} últimos da A descem para a B.</li>}
+            {!ligaDe(vistaDiv).par && <li className="suave">Ninguém cai: a segunda divisão deste país não está no jogo.</li>}
           </ul>
         </div>
 

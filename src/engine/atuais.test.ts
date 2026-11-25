@@ -1,13 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { montarTimesAtuais } from "../data/clubes";
+import { DIVISOES_INICIAIS, montarTimesAtuais } from "../data/clubes";
+import { LIGAS } from "./ligas";
 import { escalar } from "./ratings";
 import { simularPartida } from "./match";
 
 const times = montarTimesAtuais();
 
 describe("elencos atuais", () => {
-  it("tem 40 clubes (Séries A e B) com elenco para escalar 11 com goleiro", () => {
-    expect(times).toHaveLength(40);
+  it("tem as 9 ligas (Séries A e B + 7 estrangeiras) com elenco para escalar 11 com goleiro", () => {
+    const tamanho = (d: string) => times.filter((t) => DIVISOES_INICIAIS[t.id] === d).length;
+    expect(LIGAS.map((l) => [l.id, tamanho(l.id)])).toEqual([
+      ["A", 20], ["B", 20], ["ING", 20], ["ESP", 20], ["ITA", 20], ["ALE", 18], ["FRA", 18], ["POR", 18], ["ARG", 30],
+    ]);
     for (const t of times) {
       const v = escalar(t);
       expect(v, t.id).toHaveLength(11);
@@ -30,5 +34,14 @@ describe("elencos atuais", () => {
       else if (r.golsMandante < r.golsVisitante) d++;
     }
     expect(v).toBeGreaterThan(d * 3);
+  });
+
+  it("os grandes da Europa são mais fortes que os do Brasil", () => {
+    const forca = (id: string) => {
+      const v = escalar(times.find((t) => t.id === id)!);
+      return v.reduce((s, x) => s + x.jogador.geral, 0) / v.length;
+    };
+    expect(forca("real-madrid")).toBeGreaterThan(forca("flamengo"));
+    expect(forca("flamengo")).toBeGreaterThan(forca("aldosivi"));
   });
 });
