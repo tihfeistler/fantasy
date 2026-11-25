@@ -35,6 +35,19 @@ import {
 } from "../engine/campeonato";
 import { FORMACOES } from "../engine/ratings";
 import {
+  avancarCopas,
+  campanha,
+  concluirFase,
+  copaPendente,
+  criarCopasDaTemporada,
+  faseAtual,
+  jogoDoClube,
+  premioDaFase,
+  registrarJogo,
+  vencedorDoJogo,
+  type Copa,
+} from "../engine/copas";
+import {
   contratosTerminando,
   destinoDaSaida,
   folhaComContratos,
@@ -92,6 +105,7 @@ import {
 import { Icone, type NomeIcone } from "./Icones";
 import { Lobby, type Modo } from "./Lobby";
 import { TelaCampeonato } from "./TelaCampeonato";
+import { PartidaCopa, TelaCopas } from "./TelaCopas";
 import { TelaEscritorio, type AbaCarreira } from "./TelaEscritorio";
 import { TelaFinancas } from "./TelaFinancas";
 import { TelaDesafios } from "./TelaDesafios";
@@ -124,6 +138,7 @@ const ABAS_CARREIRA: { id: AbaCarreira; nome: string; icone: NomeIcone }[] = [
   { id: "elenco", nome: "Elenco e tática", icone: "elenco" },
   { id: "partida", nome: "Partida", icone: "partida" },
   { id: "campeonato", nome: "Campeonato", icone: "campeonato" },
+  { id: "copas", nome: "Copas", icone: "copa" },
   { id: "mercado", nome: "Mercado", icone: "mercado" },
   { id: "financas", nome: "Finanças", icone: "financas" },
 ];
@@ -152,6 +167,24 @@ const outrasTemporadasDe = (ano: number, divisoes: Record<string, Divisao>, d: D
   divisoesVizinhas(d)
     .map((x) => criarTemporada(ano, divisoes, x))
     .filter((t) => t.rodadas.length > 0);
+/**
+ * Copas da temporada: a nacional do país do técnico e a continental. As vagas
+ * continentais do país saem de `tabelas` (temporada anterior); sem elas, da força.
+ */
+const copasDaTemporada = (
+  t: Temporada,
+  divisoes: Record<string, Divisao>,
+  tabelas?: Record<Divisao, string[]>,
+): Copa[] =>
+  criarCopasDaTemporada({
+    ano: t.ano,
+    seed: t.seed,
+    minhaDivisao: divisaoDe(t),
+    divisoes,
+    forca: NIVEL,
+    tabelas,
+    rodadas: t.rodadas.length,
+  });
 /** Outras divisões do save (saves antigos guardavam só uma). */
 const outrasDe = (p: Progresso): Temporada[] =>
   p.outrasTemporadas ?? (p.outraTemporada ? [p.outraTemporada] : []);
@@ -251,6 +284,9 @@ export function App() {
       ).filter((n) => !ja.some((o) => divisaoDe(o) === divisaoDe(n)));
       p = { ...p, outraTemporada: undefined, outrasTemporadas: [...ja, ...faltam] };
     }
+    // Saves de antes das copas: entram no começo de uma temporada.
+    if (p.manager && p.temporada && !p.copas && p.temporada.rodadaAtual === 0)
+      p = { ...p, copas: copasDaTemporada(p.temporada, p.divisoes ?? DIVISOES_INICIAIS) };
     if (p.manager && !p.financas)
       p = { ...p, financas: financasDoClube(p.manager.clubeId) };
     if (p.manager && !p.timeCartas) p = { ...p, ...timeCartasInicial() };
@@ -1140,8 +1176,11 @@ export function App() {
         mercadoCartas = r.mercado;
         moedasMercado = r.moedas;
       }
+      // Fases de copa que chegaram: as sem o técnico são simuladas; a dele espera o jogo.
+      const copas = p.copas && avancarCopas(p.copas, prox.rodadaAtual, mapaTimes, meuTimeId);
       p = {
         ...p,
+        copas,
         mercadoCartas,
         moedas: p.moedas + moedasMercado,
         noVermelho,
@@ -1179,9 +1218,13 @@ export function App() {
         ],
       };
     });
-    // Fim do campeonato: mostra a tabela final.
+    // Fim do campeonato: mostra a tabela final (ou o jogo de copa que falta).
     if (temporada && temporada.rodadaAtual + 1 >= temporada.rodadas.length)
-      setAba("campeonato");
+      setAba(
+        progresso.copas?.some((c) => !c.campeao && jogoDoClube(c, meuTimeId) >= 0)
+          ? "partida"
+          : "campeonato",
+      );
   };
   /** Quem sai de graça quando a temporada atual acabar (contrato terminando neste ano). */
   const saidas =
@@ -1198,10 +1241,32 @@ export function App() {
    * saída de quem não renovou (vai de graça para outro clube).
    */
   const novaTemporadaDoManager = () => {
+    if (temporada && progresso.copas && copaPendente(progresso.copas, temporada.rodadas.length, meuTimeId)) {
+      setAba("partida");
+      return;
+    }
     mudar((p) => {
       const t = p.temporada;
       if (!t) return p;
       const outras = outrasDe(p);
+      // Copas que sobraram terminam; o histórico guarda campeão e campanha.
+      const copasFeitas = avancarCopas(p.copas ?? [], Infinity, mapaTimes, meuTimeId);
+      const historicoCopas = [
+        ...(p.historicoCopas ?? []),
+        ...copasFeitas
+          .filter((c) => c.campeao)
+          .map((c) => ({
+            ano: c.ano,
+            id: c.id,
+            nome: c.nome,
+            campeao: c.campeao!,
+            campanha: campanha(c, meuTimeId)?.texto,
+          })),
+      ];
+      // Tabelas finais do país: definem as vagas continentais da próxima temporada.
+      const tabelas = Object.fromEntries(
+        [t, ...outras].map((x) => [divisaoDe(x), calcularTabela(x, idsDaTemporada(x)).map((l) => l.id)]),
+      );
       const antes = divisaoDe(t);
       let divisoes = p.divisoes ?? DIVISOES_INICIAIS;
       if ([t, ...outras].every((x) => x.rodadaAtual >= x.rodadas.length))
@@ -1214,11 +1279,14 @@ export function App() {
       const sai = new Set(saidas.map((j) => j.id));
       const todos = CLUBES.map((c) => c.id);
       const ano = t.ano + 1;
+      const proxima = criarTemporada(ano, divisoes, minha);
       return {
         ...p,
         divisoes,
         financas,
-        temporada: criarTemporada(ano, divisoes, minha),
+        historicoCopas,
+        copas: copasDaTemporada(proxima, divisoes, tabelas),
+        temporada: proxima,
         outraTemporada: undefined,
         outrasTemporadas: outrasTemporadasDe(ano, divisoes, minha),
         transferencias: {
@@ -1242,6 +1310,65 @@ export function App() {
     });
     setAba("partida");
   };
+
+  /**
+   * Fim do jogo de copa do técnico: grava o placar (pênaltis se empatou) e,
+   * se ele passou, paga o prêmio da fase no caixa e as moedas.
+   */
+  const fimDoJogoCopa = (copaId: string, r: ResultadoPartida) => {
+    const c = progresso.copas?.find((x) => x.id === copaId);
+    const i = c ? jogoDoClube(c, meuTimeId) : -1;
+    if (!c || i < 0 || !temporada) return null;
+    const feita = registrarJogo(c, i, r.golsMandante, r.golsVisitante);
+    const jogo = faseAtual(feita)!.jogos[i];
+    const fase = feita.fases.length - 1;
+    const passou = vencedorDoJogo(jogo) === meuTimeId;
+    const premio = premioDaFase(feita, fase);
+    const nomeFase = faseAtual(feita)!.nome;
+    mudar((p) => {
+      const atual = p.copas?.find((x) => x.id === copaId);
+      if (!atual || faseAtual(atual)?.jogos[i]?.placar) return p;
+      return {
+        ...p,
+        copas: p.copas!.map((x) => (x.id === copaId ? feita : x)),
+        moedas: p.moedas + (passou ? premio.moedas : 0),
+        financas:
+          passou && p.financas
+            ? lancar(p.financas, [
+                {
+                  rodada: p.temporada?.rodadaAtual ?? 0,
+                  ano: feita.ano,
+                  descricao: premio.final ? `${feita.nome}: campeão!` : `${feita.nome}: ${nomeFase} vencida`,
+                  valor: premio.valor,
+                  tipo: "copa",
+                  ref: `${copaId}:${fase}`,
+                  moedas: premio.moedas,
+                },
+              ])
+            : p.financas,
+      };
+    });
+    const pen = jogo.penaltis ? ` Nos pênaltis: ${jogo.penaltis[0]} × ${jogo.penaltis[1]}.` : "";
+    return passou ? (
+      <span>
+        {premio.final ? `Campeão da ${feita.nome}!` : `Classificado na ${feita.nome}!`}
+        {pen} Prêmio: <b>{formatarDinheiro(premio.valor)}</b> no caixa e <b>{premio.moedas} moedas</b>.
+      </span>
+    ) : (
+      <span>
+        Eliminado da {feita.nome} ({nomeFase.toLowerCase()}).{pen}
+      </span>
+    );
+  };
+  /** Depois do jogo de copa: os outros jogos da fase e o sorteio da próxima. */
+  const concluirCopa = (copaId: string) =>
+    mudar((p) => {
+      if (!p.copas || !p.temporada) return p;
+      const copas = p.copas.map((c) =>
+        c.id === copaId && faseAtual(c)?.jogos[jogoDoClube(c, meuTimeId)]?.placar ? concluirFase(c, mapaTimes) : c,
+      );
+      return { ...p, copas: avancarCopas(copas, p.temporada.rodadaAtual, mapaTimes, meuTimeId) };
+    });
 
   const premiar = (r: ResultadoPartida) => {
     const meus = r.mandanteId === meuTimeId ? r.golsMandante : r.golsVisitante;
@@ -1273,6 +1400,11 @@ export function App() {
   };
 
   const criarManager = (nome: string, clubeId: string) => {
+    const primeira = criarTemporada(
+      ANO_INICIAL,
+      DIVISOES_INICIAIS,
+      DIVISOES_INICIAIS[clubeId],
+    );
     const nova: Progresso = {
       ...PROGRESSO_INICIAL,
       manager: {
@@ -1281,11 +1413,8 @@ export function App() {
         criadoEm: new Date().toISOString().slice(0, 10),
       },
       divisoes: DIVISOES_INICIAIS,
-      temporada: criarTemporada(
-        ANO_INICIAL,
-        DIVISOES_INICIAIS,
-        DIVISOES_INICIAIS[clubeId],
-      ),
+      temporada: primeira,
+      copas: copasDaTemporada(primeira, DIVISOES_INICIAIS),
       outrasTemporadas: outrasTemporadasDe(
         ANO_INICIAL,
         DIVISOES_INICIAIS,
@@ -1379,6 +1508,8 @@ export function App() {
   const tabela = calcularTabela(temporada, idsDaTemporada(temporada), nomes);
   const posicao = tabela.findIndex((l) => l.id === meuTimeId) + 1;
   const fimTemporada = temporada.rodadaAtual >= temporada.rodadas.length;
+  const copas = progresso.copas ?? [];
+  const pendente = copaPendente(copas, temporada.rodadaAtual, meuTimeId);
   const jogoAtual = fimTemporada
     ? null
     : temporada.rodadas[temporada.rodadaAtual].find((j) =>
@@ -1396,7 +1527,12 @@ export function App() {
           ...a,
           ativo: aba === a.id,
           onClick: () => setAba(a.id),
-          contador: a.id === "mercado" && fimTemporada ? saidas.length : 0,
+          contador:
+            a.id === "mercado" && fimTemporada
+              ? saidas.length
+              : a.id === "copas" && pendente
+                ? 1
+                : 0,
         }))
       : modo === "ranqueado" && naConta
         ? ABAS_RANQUEADO.map((a) => ({
@@ -1578,6 +1714,7 @@ export function App() {
                 onColecao={() =>
                   irColecao(propostasCartas ? "cartas" : "estoque")
                 }
+                copaPendente={pendente?.nome}
               />
             )}
           {modo === "carreira" && aba === "financas" && progresso.financas && (
@@ -1594,7 +1731,16 @@ export function App() {
           )}
           {modo === "carreira" &&
             aba === "partida" &&
-            (temporada.rodadaAtual < temporada.rodadas.length ? (
+            (pendente ? (
+              <PartidaCopa
+                key={`${pendente.id}-${pendente.ano}-${pendente.fases.length}`}
+                copa={pendente}
+                meuTime={meuTime}
+                times={mapaTimes}
+                onFim={(r) => fimDoJogoCopa(pendente.id, r)}
+                onContinuar={() => concluirCopa(pendente.id)}
+              />
+            ) : temporada.rodadaAtual < temporada.rodadas.length ? (
               <TelaPartida
                 meuTime={meuTime}
                 times={mapaTimes}
@@ -1628,6 +1774,18 @@ export function App() {
                 setAba("mercado");
               }}
               onNovaTemporada={novaTemporadaDoManager}
+              copaPendente={pendente?.nome}
+            />
+          )}
+          {modo === "carreira" && aba === "copas" && (
+            <TelaCopas
+              copas={copas}
+              meuTime={meuTime}
+              times={mapaTimes}
+              rodadasJogadas={temporada.rodadaAtual}
+              historico={progresso.historicoCopas ?? []}
+              pendente={!!pendente}
+              onJogar={() => setAba("partida")}
             />
           )}
           {modo === "carreira" && aba === "mercado" && progresso.financas && (

@@ -231,6 +231,32 @@ um pouco mais **[suposição]**).
   metade.
 - Jogadores da B podem ser comprados no mercado como os da A.
 
+## 6c. Copas nacionais e continentais (feito em 25/11/2026)
+
+- Rodam junto com o campeonato da carreira (`src/engine/copas.ts`, aba
+  **Copas**). Mata-mata de jogo único; empate vai para os pênaltis.
+- **Copa nacional** do país do técnico (Copa do Brasil, FA Cup, Copa del Rey,
+  Coppa Italia, DFB-Pokal...): todos os clubes do país, de todas as
+  divisões. Quando o número de clubes não é potência de 2, os mais fracos
+  fazem uma fase preliminar e a primeira divisão entra direto. O clube pior
+  ranqueado joga em casa.
+- **Continental**: Libertadores (Brasil 1º ao 6º e Argentina 1º ao 3º, com
+  preliminar) e Champions League (32 clubes de 13 países, pelas zonas de
+  `ligas.ts`). O país do técnico classifica pela tabela final da temporada
+  anterior; os outros países, que não são simulados, pela força dos clubes.
+  Na primeira temporada, todos pela força. Arábia Saudita só tem a nacional.
+- As fases ficam espalhadas pela temporada (a data é a rodada da liga depois
+  da qual a fase é jogada). O técnico joga o jogo dele antes da rodada
+  seguinte; as copas sem ele são simuladas. A temporada só vira depois que
+  as copas acabam.
+- Prêmios no caixa único: a primeira fase vencida paga R$ 300 mil x fator da
+  liga na nacional (R$ 1 mi na Libertadores, R$ 2 mi na Champions), cada fase
+  seguinte paga o dobro e a final vencida paga o título junto. Moedas: 50 por
+  fase e 1.000 (nacional) ou 2.000 (continental) pelo título.
+- Servidor: lançamento `copa` com ref `copa:fase`, pago uma vez por fase em
+  cada temporada (`carreiras.copas_pagas`) e com teto pela fase. Como nas
+  partidas da liga, o servidor não refaz os jogos.
+
 ## 7. Modos de jogo (decidido em 24/11/2026)
 
 **Atualizado em 25/11/2026: o jogo todo é online, sempre com login.** Não
@@ -415,7 +441,7 @@ servidor dedicado.
 | 1 | Base de **clubes e elencos atuais** da Série A (rascunho feito: 20 clubes, 720 jogadores); escolher clube (feito); liga com tabela e calendário (prévia feita: 38 rodadas em turno e returno, sua partida narrada e as outras simuladas, classificação com zonas, premiação de fim de temporada e temporada seguinte) |
 | 2 | **Coleção de lendas**: moedas, pacotes, cartas, escalar clássicos (prévia feita: estoque, pacote de 5 cartas por 500 moedas, prêmio por partida, até 3 lendas entre os titulares, espaço de 300 cartas ampliável, progresso salvo no navegador) |
 | 3 | Carreira completa: mercado de atuais e finanças (prévia feita: compra, venda com propostas da IA, caixa, folha, extrato), temporadas, objetivos, save local |
-| 4 | Mais ligas (Série B, Europa), copas; PWA offline; polimento visual |
+| 4 | Mais ligas (Série B, Europa), copas (feitas); PWA offline; polimento visual |
 | 5 | Modo online: contas (API feita), mercado de cartas entre técnicos (API feita; na prévia, simulado), time de cartas, desafios PvE/PvP, ranqueado com divisões, ligas privadas |
 
 ## 9. Perguntas em aberto

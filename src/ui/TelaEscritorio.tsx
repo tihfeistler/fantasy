@@ -5,7 +5,7 @@ import { escalar } from "../engine/ratings";
 import { ehLenda, type Time } from "../engine/types";
 import { Icone, type NomeIcone } from "./Icones";
 
-export type AbaCarreira = "escritorio" | "elenco" | "partida" | "campeonato" | "mercado" | "financas";
+export type AbaCarreira = "escritorio" | "elenco" | "partida" | "campeonato" | "copas" | "mercado" | "financas";
 
 interface Props {
   meuTime: Time;
@@ -22,6 +22,8 @@ interface Props {
   onIr: (aba: AbaCarreira) => void;
   onContratos: () => void;
   onColecao: () => void;
+  /** Copa com jogo do técnico marcado antes da próxima rodada. */
+  copaPendente?: string;
 }
 
 interface Aviso {
@@ -65,6 +67,13 @@ export function TelaEscritorio(p: Props) {
   const trecho = tabela.slice(ini, ini + 5);
 
   const avisos: Aviso[] = [];
+  if (p.copaPendente)
+    avisos.push({
+      icone: "copa",
+      tipo: "bom",
+      texto: <>Jogo da {p.copaPendente} nesta semana, antes da próxima rodada da liga.</>,
+      acao: { rotulo: "Jogar", onClick: () => p.onIr("partida") },
+    });
   if (fim)
     avisos.push({
       icone: "campeonato",

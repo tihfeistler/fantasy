@@ -14,7 +14,8 @@
 // conferir: TV e bilheteria têm valor fixo e saem uma vez por rodada; o salário não pode ser
 // menor que a folha do elenco que o servidor sabe que é seu; compra e venda respeitam o valor
 // de mercado e quem é dono do jogador; premiação uma vez por temporada; prêmio de desafio só
-// depois de pagar a partida, com limite diário no treino (que é de graça).
+// depois de pagar a partida, com limite diário no treino (que é de graça); prêmio de copa uma vez
+// por fase de cada copa na temporada, com o teto da fase (src/engine/copas.ts).
 declare(strict_types=1);
 require __DIR__ . '/db.php';
 require __DIR__ . '/online_lib.php';
@@ -65,6 +66,28 @@ function infoDivisao(string $div): ?array
 {
     foreach (DIVISAO_DA_LIGA as [$id, $pais, $nivel]) if ($id === $div) return [$pais, $nivel];
     return null;
+}
+/**
+ * Copas (src/engine/copas.ts): prêmio da primeira fase vencida em R$ mil. Cada fase paga o dobro da
+ * anterior e a final vencida paga o título junto, então a fase k paga no máximo base * 2^(k+1).
+ * Copa nacional: 300 x fator de premiação da primeira divisão do país.
+ */
+const PREMIO_COPA = [
+    'copa-BRA' => 300, 'copa-ENG' => 450, 'copa-ESP' => 420, 'copa-ITA' => 390, 'copa-GER' => 390,
+    'copa-FRA' => 360, 'copa-POR' => 300, 'copa-NED' => 300, 'copa-BEL' => 270, 'copa-ARG' => 240,
+    'copa-KSA' => 300, 'copa-NOR' => 210, 'copa-DEN' => 210, 'copa-SCO' => 210, 'copa-AUT' => 210,
+    'copa-SRB' => 180, 'libertadores' => 1000, 'champions' => 2000,
+];
+/** MOEDAS_POR_FASE + MOEDAS_TITULO da continental. */
+const MOEDAS_COPA = 2050;
+const MAX_FASES_COPA = 8;
+
+/** [copa, fase] de um ref "copa-BRA:3", ou null. */
+function refCopa(string $ref): ?array
+{
+    if (!preg_match('/^([a-z]+(?:-[A-Z]{3})?):(\d)$/', $ref, $m) || !isset(PREMIO_COPA[$m[1]])) return null;
+    $fase = (int) $m[2];
+    return $fase < MAX_FASES_COPA ? [$m[1], $fase] : null;
 }
 const TREINOS_PREMIADOS_POR_DIA = 10;
 /** Desafios que dão uma lenda do adversário na primeira vitória (src/engine/desafios.ts). */
@@ -172,7 +195,7 @@ switch ((string) ($d['acao'] ?? '')) {
             ON DUPLICATE KEY UPDATE clube_id = VALUES(clube_id), divisao = VALUES(divisao), ano = VALUES(ano),
                 receita = VALUES(receita), bilheteria = VALUES(bilheteria), posse = VALUES(posse), ultima_rodada = 0,
                 ultima_bilheteria = 0, ultimo_salario = 0, ultima_premiacao = 0, ultima_partida = 0, seq = 0,
-                desafio_pendente = NULL, bonus_inicial = 1')
+                desafio_pendente = NULL, bonus_inicial = 1, copas_pagas = NULL')
             ->execute([$eu, $clube, DIVISAO_DA_LIGA[$liga][0] ?? 'A', (int) ($dados['temporada']['ano'] ?? 0),
                 $receita, $bilheteria, '{}']);
         if ($bonus) {
@@ -223,6 +246,7 @@ switch ((string) ($d['acao'] ?? '')) {
         $recusados = [];
         $aceitos = [];
         $moedasGanhas = 0;
+        $copasPagas = json_decode((string) ($c['copas_pagas'] ?? ''), true) ?: [];
         $contratosAntes = $antes['contratos'] ?? [];
         $contratosDepois = is_array($dados['contratos'] ?? null) ? $dados['contratos'] : [];
         usort($novos, fn($a, $b) => ($a['n'] ?? 0) <=> ($b['n'] ?? 0));
@@ -239,6 +263,7 @@ switch ((string) ($d['acao'] ?? '')) {
                 'partida' => $moedas <= MOEDAS_PARTIDA && $rodada > (int) $c['ultima_partida'],
                 'premiacao' => $moedas <= MOEDAS_TEMPORADA,
                 'desafio-premio' => $moedas <= (MOEDAS_DESAFIO[$ref] ?? 0),
+                'copa' => $moedas <= MOEDAS_COPA,
                 default => $moedas === 0,
             };
             $ok = $okMoedas && match ($tipo) {
@@ -262,6 +287,13 @@ switch ((string) ($d['acao'] ?? '')) {
                 'premiacao' => $valor >= 0 && $valor <= (int) $c['receita'] * 10 + 1
                     && (int) ($l['ano'] ?? 0) > (int) $c['ultima_premiacao'],
                 'desafio-custo' => $valor <= 0 && isset(PREMIO_DESAFIO[$ref]),
+                // Prêmio de copa: uma vez por fase de cada copa na temporada, até o teto da fase.
+                'copa' => (function () use ($ref, $valor, $l, $c, $copasPagas) {
+                    $rc = refCopa($ref);
+                    $chave = (int) ($l['ano'] ?? $c['ano']) . ':' . $ref;
+                    return $rc && $valor >= 0 && $valor <= PREMIO_COPA[$rc[0]] * 2 ** ($rc[1] + 1)
+                        && !in_array($chave, $copasPagas, true);
+                })(),
                 'desafio-premio' => $valor >= 0 && $c['desafio_pendente'] === $ref
                     && $valor <= (PREMIO_DESAFIO[$ref] ?? 0)
                     && ($ref !== 'treino' || $valor === 0 || ($c['treinos_dia'] === date('Y-m-d') ? (int) $c['treinos_hoje'] : 0)
@@ -281,6 +313,7 @@ switch ((string) ($d['acao'] ?? '')) {
                 'venda' => $posse[$ref] = 0,
                 'premiacao' => $c['ultima_premiacao'] = (int) $l['ano'],
                 'desafio-custo' => $c['desafio_pendente'] = $ref,
+                'copa' => $copasPagas[] = (int) ($l['ano'] ?? $c['ano']) . ':' . $ref,
                 default => null,
             };
             if ($tipo === 'desafio-premio') {
@@ -347,11 +380,11 @@ switch ((string) ($d['acao'] ?? '')) {
         $dados['financas']['bilheteria'] = (int) $c['bilheteria'];
         $pdo->prepare('UPDATE carreiras SET dados = ?, divisao = ?, ano = ?, receita = ?, bilheteria = ?, posse = ?,
                 ultima_rodada = ?, ultima_bilheteria = ?, ultimo_salario = ?, ultima_premiacao = ?, ultima_partida = ?, seq = ?,
-                desafio_pendente = ?, treinos_dia = ?, treinos_hoje = ? WHERE usuario_id = ?')
+                desafio_pendente = ?, treinos_dia = ?, treinos_hoje = ?, copas_pagas = ? WHERE usuario_id = ?')
             ->execute([json_encode($dados, JSON_UNESCAPED_UNICODE), $c['divisao'], $c['ano'], $c['receita'],
                 $c['bilheteria'], json_encode((object) $posse), $c['ultima_rodada'], $c['ultima_bilheteria'],
                 $c['ultimo_salario'], $c['ultima_premiacao'], $c['ultima_partida'], $c['seq'], $c['desafio_pendente'], $c['treinos_dia'],
-                $c['treinos_hoje'], $eu]);
+                $c['treinos_hoje'], json_encode(array_slice($copasPagas, -200)), $eu]);
         $pdo->commit();
         responder(['caixa' => $caixa, 'moedas' => moedasDe($eu), 'seq' => (int) $c['seq'], 'recusados' => $recusados,
             'corrigido' => ($dados['transferencias'] ?? []) !== $transf || ($dados['contratos'] ?? []) !== $contratosDepois]);

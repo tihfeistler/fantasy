@@ -25,6 +25,8 @@ interface Props {
   saidas: Jogador[];
   onRenovar: () => void;
   onNovaTemporada: () => void;
+  /** Copa com jogo do técnico ainda por disputar (a temporada só vira depois). */
+  copaPendente?: string;
 }
 
 
@@ -96,7 +98,7 @@ export function TelaCampeonato(props: Props) {
             )}
           </div>
           <button className="botao primario" onClick={onNovaTemporada}>
-            Começar temporada {temporada.ano + 1}
+            {props.copaPendente ? `Jogar a ${props.copaPendente}` : `Começar temporada ${temporada.ano + 1}`}
           </button>
         </div>
       )}

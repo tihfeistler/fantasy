@@ -14,6 +14,7 @@ const CAMINHOS = {
   lendas: "M12 3l2.6 5.5 6 .8-4.4 4.2 1.1 6L12 16.6 6.7 19.5l1.1-6L3.4 9.3l6-.8z",
   voltar: "M15 5l-7 7 7 7",
   alerta: "M12 4l9 16H3zM12 10v4M12 17v.5",
+  copa: "M3 4h5v4H3zM3 16h5v4H3zM8 6h3v12H8M11 12h3M14 10h7v4h-7z",
   noticia: "M5 5h12v14H5zM17 9h2v8a2 2 0 0 1-2 2M8 9h6M8 12h6M8 15h4",
 } as const;
 

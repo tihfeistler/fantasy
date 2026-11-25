@@ -1212,3 +1212,33 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 .lobby-conta.demo { color: var(--alerta); border-color: #8a6b12; }
 .aviso-conta { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--linha); background: var(--painel); font-size: 13px; color: var(--suave); }
 .aviso-conta b { color: var(--texto); }
+
+/* ---------- Copas ---------- */
+.copas .alternar { margin-bottom: 14px; }
+.copa-cabeca {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
+  margin-bottom: 16px; padding: 16px 18px; border: 1px solid var(--linha); border-radius: 14px;
+  background: linear-gradient(135deg, #16294d, var(--painel));
+}
+.copa-cabeca h2 { margin: 2px 0 6px; font-family: var(--fonte-titulo); font-size: 30px; font-weight: 800; text-transform: uppercase; }
+.copa-cabeca p { margin: 0; }
+.copa-vivo { color: var(--destaque); }
+.copa-campeao { display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--fonte-titulo); font-size: 18px; text-transform: uppercase; }
+.copa-corpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); gap: 18px; align-items: start; }
+.copa-fases { flex-wrap: wrap; }
+.copa-corpo .calendario li { grid-template-columns: 26px 1fr auto auto; }
+.copa-nota, .copa-folgas { font-size: 12px; margin: 10px 0 0; }
+.oj-time.eliminado { color: var(--apagado); text-decoration: line-through; }
+.copa-historico { margin-top: 18px; border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); padding: 14px; }
+.copa-historico h2 { margin: 0 0 10px; font-family: var(--fonte-titulo); font-size: 20px; font-weight: 800; text-transform: uppercase; }
+.copa-historico h2 .suave { font-family: var(--fonte-texto); font-size: 13px; font-weight: 500; text-transform: none; margin-left: 6px; }
+.copa-historico ul { list-style: none; margin: 0; padding: 0; }
+.copa-historico li { display: grid; grid-template-columns: 44px 1fr 1fr 1fr; gap: 8px; padding: 6px 0; border-top: 1px solid var(--linha); font-size: 13px; }
+.copa-historico li:first-child { border-top: 0; }
+.copa-historico li.meu { color: var(--destaque); font-weight: 700; }
+@media (max-width: 900px) {
+  .copa-corpo { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .copa-historico li { grid-template-columns: 40px 1fr; }
+}
