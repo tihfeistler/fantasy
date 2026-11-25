@@ -1,3 +1,4 @@
+import { nomeCurto, nomeDaLiga } from "../engine/ligas";
 import { estiloEscudo } from "../data/clubes";
 import { formatarDinheiro } from "../engine/mercado";
 import type { Time } from "../engine/types";
@@ -77,7 +78,7 @@ export function Lobby(p: Props) {
         </span>
         <h1>{meuTime.nome}</h1>
         <p>
-          Brasileirão Série {c.divisao} {c.ano} · <b>{c.posicao}º lugar</b>
+          {nomeDaLiga(c.divisao)} {c.ano} · <b>{c.posicao}º lugar</b>
         </p>
       </div>
 
@@ -88,11 +89,11 @@ export function Lobby(p: Props) {
           </span>
           <span className="lobby-texto">
             <span className="rotulo">
-              Carreira · Série {c.divisao} {c.ano}
+              Carreira · {nomeCurto(c.divisao)} {c.ano}
             </span>
             <b>{c.fim ? "Temporada encerrada" : `Rodada ${c.rodada} de ${c.totalRodadas}`}</b>
             <span className="lobby-detalhe">
-              {c.posicao}º lugar na Série {c.divisao}
+              {c.posicao}º lugar na {nomeCurto(c.divisao)}
               {c.proximo && (
                 <>
                   {" · "}Próximo: {c.proximo.casa ? "em casa" : "fora"} contra <b>{c.proximo.adv.nome}</b>

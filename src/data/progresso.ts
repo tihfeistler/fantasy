@@ -44,8 +44,10 @@ export interface Progresso {
   timeCartas?: TimeCartas;
   /** Brasileirão em andamento na divisão do manager (calendário, rodada atual e placares). */
   temporada?: Temporada;
-  /** A outra divisão, simulada rodada a rodada junto com a do manager. */
+  /** Saves antigos: a outra divisão (Série A ou B). Hoje vai em `outrasTemporadas`. */
   outraTemporada?: Temporada;
+  /** As outras divisões do país, simuladas rodada a rodada junto com a do manager. */
+  outrasTemporadas?: Temporada[];
   /** Divisão de cada clube (muda com acesso e rebaixamento). Sem valor: a de data/clubes.json. */
   divisoes?: Record<string, Divisao>;
   /** Contratos dos jogadores atuais do clube (quem não está aqui tem o contrato padrão). */

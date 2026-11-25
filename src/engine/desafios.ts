@@ -3,6 +3,7 @@ import { salarioMensal } from "./mercado";
 import { MAX_LENDAS_EM_CAMPO } from "./pacotes";
 import { criarRng } from "./rng";
 import { ehLenda, POSICOES, type Jogador, type Posicao, type Time } from "./types";
+import clubesJson from "../../data/clubes.json";
 
 /**
  * Time de cartas e desafios PvE.
@@ -73,6 +74,9 @@ function premios(d: number) {
   };
 }
 
+const LIGA_DO_CLUBE = new Map((clubesJson as { id: string; liga: string }[]).map((c) => [c.id, c.liga]));
+const daLiga = (ligas: string[]) => (j: Jogador) => ligas.includes(LIGA_DO_CLUBE.get(j.clubeId ?? "") ?? "");
+const melhoresPorPosicao = (js: Jogador[], n: number) => POSICOES.flatMap((p) => melhoresDe(js.filter((j) => j.posicao === p), n));
 const melhoresDe = (js: Jogador[], n: number) => [...js].sort((a, b) => b.geral - a.geral).slice(0, n);
 
 export const DESAFIOS: Desafio[] = [
@@ -113,9 +117,30 @@ export const DESAFIOS: Desafio[] = [
     descricao: "Os melhores jogadores atuais da Série A em cada posição.",
     dificuldade: 4,
     ...premios(4),
-    elenco: (a) => POSICOES.flatMap((p) => melhoresDe(a.filter((j) => j.posicao === p), 4)),
+    elenco: (a) => melhoresPorPosicao(a.filter(daLiga(["brasileirao-a"])), 4),
     cor: "#0b7a5a",
     sigla: "BRA",
+  },
+  {
+    id: "superclassico",
+    nome: "Superclássico argentino",
+    descricao: "Os melhores de River Plate e Boca Juniors num time só.",
+    dificuldade: 3,
+    ...premios(3),
+    elenco: (a) => melhoresDe(a.filter((j) => j.clubeId === "river-plate" || j.clubeId === "boca-juniors"), 22),
+    cor: "#103f79",
+    sigla: "SUP",
+  },
+  {
+    id: "europa",
+    nome: "Seleção da Europa",
+    descricao: "Os melhores jogadores atuais das cinco grandes ligas europeias em cada posição.",
+    dificuldade: 5,
+    ...premios(5),
+    elenco: (a) =>
+      melhoresPorPosicao(a.filter(daLiga(["premier-league", "la-liga", "serie-a-italia", "bundesliga", "ligue-1"])), 4),
+    cor: "#1d3f9b",
+    sigla: "EUR",
   },
   {
     id: "brasil-1970",

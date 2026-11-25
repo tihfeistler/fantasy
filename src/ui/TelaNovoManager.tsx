@@ -1,6 +1,7 @@
 import { DIVISOES_INICIAIS, estiloEscudo } from "../data/clubes";
 import { useMemo, useState } from "react";
 import { escalar } from "../engine/ratings";
+import { LIGAS } from "../engine/ligas";
 import type { Time } from "../engine/types";
 
 interface Props {
@@ -13,6 +14,7 @@ export function TelaNovoManager({ times, onCriar }: Props) {
   const [nome, setNome] = useState("");
   const [clubeId, setClubeId] = useState<string | null>(null);
   const [confirmando, setConfirmando] = useState(false);
+  const [pais, setPais] = useState("Brasil");
 
   // Força = média do geral dos 11 titulares automáticos; ordena do mais forte ao mais fraco.
   const lista = useMemo(
@@ -35,10 +37,12 @@ export function TelaNovoManager({ times, onCriar }: Props) {
   const nomeOk = nome.trim().length >= 2;
 
   // Dificuldade pela posição na própria divisão: terço de cima, do meio e de baixo.
-  const porDivisao = (["A", "B"] as const).map((d) => ({
-    d,
-    clubes: lista.filter((x) => DIVISOES_INICIAIS[x.t.id] === d),
+  const porDivisao = LIGAS.filter((l) => l.pais === pais).map((l) => ({
+    d: l.id,
+    nome: l.nome,
+    clubes: lista.filter((x) => DIVISOES_INICIAIS[x.t.id] === l.id),
   }));
+  const paises = [...new Set(LIGAS.map((l) => l.pais))];
   const dificuldade = (i: number, n: number) =>
     i < n / 3 ? "Favorito" : i < (2 * n) / 3 ? "Meio de tabela" : "Desafio";
 
@@ -50,9 +54,10 @@ export function TelaNovoManager({ times, onCriar }: Props) {
         </div>
         <h1>Nova carreira</h1>
         <p className="suave">
-          Escolha seu nome de técnico e o clube que vai comandar no Brasileirão
-          2026, na Série A ou na Série B. O clube fica com você até o fim da
-          carreira: os 4 últimos da A caem e os 4 primeiros da B sobem.
+          Escolha seu nome de técnico e o clube que vai comandar em 2026, em
+          qualquer divisão de {paises.length} países: Brasil e Inglaterra até a 4ª
+          divisão, os outros até a 2ª, todos com acesso e rebaixamento. O clube
+          fica com você até o fim da carreira, e o mercado compra de qualquer liga.
         </p>
       </div>
 
@@ -68,13 +73,27 @@ export function TelaNovoManager({ times, onCriar }: Props) {
         />
       </label>
 
-      {porDivisao.map(({ d, clubes }) => (
+      <div className="alternar nm-paises" role="tablist" aria-label="País">
+        {paises.map((p) => (
+          <button
+            key={p}
+            role="tab"
+            aria-selected={pais === p}
+            className={pais === p ? "ativo" : ""}
+            onClick={() => setPais(p)}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+
+      {porDivisao.map(({ d, nome, clubes }) => (
         <div key={d}>
-          <h2>Série {d}</h2>
+          <h2>{nome}</h2>
           <div
             className="nm-clubes"
             role="radiogroup"
-            aria-label={`Clubes da Série ${d}`}
+            aria-label={`Clubes da ${nome}`}
           >
             {clubes.map(({ t, forca }, i) => (
               <button

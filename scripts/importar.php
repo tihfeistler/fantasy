@@ -8,6 +8,13 @@ require __DIR__ . '/../api/db.php';
 
 $raiz = dirname(__DIR__);
 $pdo = db();
+// Bancos criados antes das ligas estrangeiras: a divisão da carreira era CHAR(1).
+$col = $pdo->query("SELECT CHARACTER_MAXIMUM_LENGTH FROM information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'carreiras' AND COLUMN_NAME = 'divisao'")->fetchColumn();
+if ($col !== false && (int) $col < 8) {
+    $pdo->exec("ALTER TABLE carreiras MODIFY divisao VARCHAR(8) NOT NULL DEFAULT 'A'");
+    echo "Tabela carreiras atualizada para as ligas estrangeiras.\n";
+}
 $pdo->beginTransaction();
 
 $arqClubes = "$raiz/data/clubes.json";

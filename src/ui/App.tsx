@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
+import { ligaDe } from "../engine/ligas";
 import {
   ATUAIS,
   CLUBES,
@@ -21,6 +22,8 @@ import {
   calcularTabela,
   chaveJogo,
   divisaoDe,
+  divisoesVizinhas,
+  nomeDaDivisao,
   idsDaTemporada,
   jogarRodada,
   novaTemporada,
@@ -144,7 +147,14 @@ const criarTemporada = (
   divisoes: Record<string, Divisao>,
   d: Divisao,
 ) => novaTemporada(clubesDaDivisao(divisoes, d), ano, novaSeed(), d);
-const outraDivisao = (d: Divisao): Divisao => (d === "A" ? "B" : "A");
+/** As outras divisões do país, simuladas junto com a do técnico. */
+const outrasTemporadasDe = (ano: number, divisoes: Record<string, Divisao>, d: Divisao) =>
+  divisoesVizinhas(d)
+    .map((x) => criarTemporada(ano, divisoes, x))
+    .filter((t) => t.rodadas.length > 0);
+/** Outras divisões do save (saves antigos guardavam só uma). */
+const outrasDe = (p: Progresso): Temporada[] =>
+  p.outrasTemporadas ?? (p.outraTemporada ? [p.outraTemporada] : []);
 
 /** Time de cartas novo: caixa inicial e um kit de cartas base fracas. */
 const timeCartasInicial = () => ({
@@ -230,16 +240,17 @@ export function App() {
           DIVISOES_INICIAIS[p.manager.clubeId],
         ),
       };
-    if (p.manager && p.temporada && !p.outraTemporada)
-      p = {
-        ...p,
-        // Começa na rodada 0 e alcança a do manager na próxima rodada jogada.
-        outraTemporada: criarTemporada(
-          p.temporada.ano,
-          p.divisoes ?? DIVISOES_INICIAIS,
-          outraDivisao(divisaoDe(p.temporada)),
-        ),
-      };
+    if (p.manager && p.temporada && !p.outrasTemporadas) {
+      // Saves antigos: a outra divisão vira a lista; as que faltam começam na
+      // rodada 0 e alcançam a do manager na próxima rodada jogada.
+      const ja = outrasDe(p);
+      const faltam = outrasTemporadasDe(
+        p.temporada.ano,
+        p.divisoes ?? DIVISOES_INICIAIS,
+        divisaoDe(p.temporada),
+      ).filter((n) => !ja.some((o) => divisaoDe(o) === divisaoDe(n)));
+      p = { ...p, outraTemporada: undefined, outrasTemporadas: [...ja, ...faltam] };
+    }
     if (p.manager && !p.financas)
       p = { ...p, financas: financasDoClube(p.manager.clubeId) };
     if (p.manager && !p.timeCartas) p = { ...p, ...timeCartasInicial() };
@@ -1064,14 +1075,14 @@ export function App() {
       if (!t) return p;
       // Garante a rodada completa mesmo que algo tenha ficado sem placar.
       const prox = jogarRodada(t, mapaTimes);
-      // A outra divisão joga a mesma rodada (e alcança a do manager em saves antigos).
-      let outraTemporada = p.outraTemporada;
-      while (
-        outraTemporada &&
-        outraTemporada.rodadaAtual <
-          Math.min(prox.rodadaAtual, outraTemporada.rodadas.length)
-      )
-        outraTemporada = jogarRodada(outraTemporada, mapaTimes);
+      // As outras divisões jogam a mesma rodada (e alcançam a do manager em
+      // saves antigos). Quando a do manager acaba, terminam as delas também.
+      const acabou = prox.rodadaAtual >= prox.rodadas.length;
+      const outrasTemporadas = outrasDe(p).map((o) => {
+        const alvo = acabou ? o.rodadas.length : Math.min(prox.rodadaAtual, o.rodadas.length);
+        while (o.rodadaAtual < alvo) o = jogarRodada(o, mapaTimes);
+        return o;
+      });
       // Dinheiro da rodada: receitas, bilheteria em casa e salários.
       const emCasa = t.rodadas[t.rodadaAtual].some(([m]) => m === meuTimeId);
       let financas =
@@ -1134,7 +1145,8 @@ export function App() {
         mercadoCartas,
         moedas: p.moedas + moedasMercado,
         noVermelho,
-        outraTemporada,
+        outraTemporada: undefined,
+        outrasTemporadas,
       };
       if (punida.rodadaAtual < punida.rodadas.length)
         return { ...p, temporada: punida, financas };
@@ -1148,19 +1160,19 @@ export function App() {
       if (financas)
         financas = lancar(financas, [
           {
-            rodada: 38,
+            rodada: punida.rodadas.length,
             descricao: `Premiação: ${posicao}º lugar`,
-            valor: premiacaoEmDinheiro(financas, posicao),
+            valor: premiacaoEmDinheiro(financas, posicao, tabela.length),
             tipo: "premiacao",
             ano: punida.ano,
-            moedas: premioFinal(posicao, divisao),
+            moedas: premioFinal(posicao, divisao, tabela.length),
           },
         ]);
       return {
         ...p,
         temporada: punida,
         financas,
-        moedas: p.moedas + premioFinal(posicao, divisao),
+        moedas: p.moedas + premioFinal(posicao, divisao, tabela.length),
         historico: [
           ...(p.historico ?? []),
           { ano: prox.ano, posicao, campeao: tabela[0].id, divisao },
@@ -1189,21 +1201,15 @@ export function App() {
     mudar((p) => {
       const t = p.temporada;
       if (!t) return p;
-      const o = p.outraTemporada;
+      const outras = outrasDe(p);
       const antes = divisaoDe(t);
       let divisoes = p.divisoes ?? DIVISOES_INICIAIS;
-      if (
-        o &&
-        o.rodadaAtual >= o.rodadas.length &&
-        t.rodadaAtual >= t.rodadas.length
-      ) {
-        const [a, b] = antes === "A" ? [t, o] : [o, t];
-        divisoes = { ...divisoes, ...trocarDivisoes(a, b) };
-      }
+      if ([t, ...outras].every((x) => x.rodadaAtual >= x.rodadas.length))
+        divisoes = { ...divisoes, ...trocarDivisoes(t, ...outras) };
       const minha = divisoes[meuTimeId] ?? antes;
       const financas =
         p.financas && minha !== antes
-          ? financasAoMudarDeDivisao(p.financas, minha === "A")
+          ? financasAoMudarDeDivisao(p.financas, ligaDe(minha).nivel < ligaDe(antes).nivel)
           : p.financas;
       const sai = new Set(saidas.map((j) => j.id));
       const todos = CLUBES.map((c) => c.id);
@@ -1213,7 +1219,8 @@ export function App() {
         divisoes,
         financas,
         temporada: criarTemporada(ano, divisoes, minha),
-        outraTemporada: criarTemporada(ano, divisoes, outraDivisao(minha)),
+        outraTemporada: undefined,
+        outrasTemporadas: outrasTemporadasDe(ano, divisoes, minha),
         transferencias: {
           ...p.transferencias,
           ...Object.fromEntries(
@@ -1279,10 +1286,10 @@ export function App() {
         DIVISOES_INICIAIS,
         DIVISOES_INICIAIS[clubeId],
       ),
-      outraTemporada: criarTemporada(
+      outrasTemporadas: outrasTemporadasDe(
         ANO_INICIAL,
         DIVISOES_INICIAIS,
-        outraDivisao(DIVISOES_INICIAIS[clubeId]),
+        DIVISOES_INICIAIS[clubeId],
       ),
       financas: financasDoClube(clubeId),
       caixaUnico: true,
@@ -1508,7 +1515,7 @@ export function App() {
           <span className="clube-info">
             <b>{meuTime.nome}</b>
             <span className="suave">
-              Série {divisaoDe(temporada)} · {posicao}º · Técnico:{" "}
+              {nomeDaDivisao(divisaoDe(temporada))} · {posicao}º · Técnico:{" "}
               {progresso.manager.nome}
             </span>
           </span>
@@ -1598,7 +1605,7 @@ export function App() {
             ) : (
               <section className="tela">
                 <p className="vazio-partida">
-                  A Série {divisaoDe(temporada)} {temporada.ano} acabou.{" "}
+                  {nomeDaDivisao(divisaoDe(temporada))} {temporada.ano} acabou.{" "}
                   <button
                     className="link-nome"
                     onClick={() => setAba("campeonato")}
@@ -1614,7 +1621,7 @@ export function App() {
               meuTime={meuTime}
               times={mapaTimes}
               temporada={temporada}
-              outraTemporada={progresso.outraTemporada}
+              outrasTemporadas={outrasDe(progresso)}
               saidas={saidas}
               onRenovar={() => {
                 setModoMercadoJogadores("contratos");

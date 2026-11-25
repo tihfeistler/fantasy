@@ -10,6 +10,9 @@ import {
   simularRodada,
   trocarDivisoes,
   zona,
+  nomeDaZona,
+  divisoesVizinhas,
+  premioFinal,
 } from "./campeonato";
 
 const todos = montarTimesAtuais();
@@ -93,10 +96,44 @@ describe("Séries A e B", () => {
     expect(clubesDaDivisao(novo, "A")).toHaveLength(20);
     expect(clubesDaDivisao(novo, "B")).toHaveLength(20);
   });
-  it("zonas: acesso só na B", () => {
+  it("zonas: acesso e rebaixamento na B", () => {
     expect(zona(1, "B")).toBe("acesso");
     expect(zona(5, "B")).toBeNull();
-    expect(zona(20, "B")).toBeNull();
+    expect(zona(20, "B")).toBe("rebaixamento");
     expect(zona(18, "A")).toBe("rebaixamento");
+  });
+  it("ligas estrangeiras: vagas europeias, escada de divisões e Argentina em turno único", () => {
+    expect(zona(1, "ING")).toBe("libertadores");
+    expect(nomeDaZona(1, "ING")).toBe("Champions League");
+    expect(zona(18, "ING")).toBe("rebaixamento");
+    expect(zona(17, "ING")).toBeNull();
+    expect(zona(3, "ING4")).toBe("acesso");
+    expect(zona(24, "ING4")).toBeNull();
+    expect(divisoesVizinhas("ESP")).toEqual(["ESP2"]);
+    expect(divisoesVizinhas("B")).toEqual(["A", "C", "D"]);
+    expect(divisoesVizinhas("ING3")).toEqual(["ING", "ING2", "ING4"]);
+    const ids = Array.from({ length: 30 }, (_, i) => `c${i}`);
+    const t = novaTemporada(ids, 2026, 7, "ARG");
+    expect(t.rodadas).toHaveLength(29);
+    expect(t.rodadas.every((r) => r.length === 15)).toBe(true);
+    expect(premioFinal(30, "ARG", 30)).toBeGreaterThan(0);
+    expect(premioFinal(1, "ING")).toBe(4500);
+    expect(premioFinal(1, "ING2")).toBeLessThan(premioFinal(1, "ING"));
+  });
+  it("escada: quem cai da B vai para a C e quem sobe da C vai para a B", () => {
+    const m = new Map(todos.map((t) => [t.id, t]));
+    const jogar = (d: string, seed: number) => {
+      let x = novaTemporada(clubesDaDivisao(DIVISOES_INICIAIS, d), 2026, seed, d);
+      while (x.rodadaAtual < x.rodadas.length) x = jogarRodada(x, m);
+      return x;
+    };
+    const [a, b, c] = [jogar("A", 1), jogar("B", 2), jogar("C", 3)];
+    const ini = (d: string) => new Set(clubesDaDivisao(DIVISOES_INICIAIS, d));
+    const novo = trocarDivisoes(c, a, b);
+    const cont = (d: string) => Object.values(novo).filter((x) => x === d).length;
+    expect([cont("A"), cont("B"), cont("C")]).toEqual([20, 20, ini("C").size]);
+    const foram = (de: string, para: string) => Object.entries(novo).filter(([id, d]) => ini(de).has(id) && d === para).length;
+    expect([foram("C", "B"), foram("A", "B"), foram("B", "A"), foram("B", "C")]).toEqual([4, 4, 4, 4]);
+    expect(foram("A", "C")).toBe(0);
   });
 });

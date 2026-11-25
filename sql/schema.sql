@@ -243,7 +243,7 @@ CREATE TABLE IF NOT EXISTS carreiras (
   usuario_id      INT UNSIGNED PRIMARY KEY,
   dados           MEDIUMTEXT   NULL,               -- NULL: sem carreira (apagada)
   clube_id        VARCHAR(64)  NULL,
-  divisao         CHAR(1)      NOT NULL DEFAULT 'A',
+  divisao         VARCHAR(8)   NOT NULL DEFAULT 'A', -- A/B (Brasil) ou a liga estrangeira (ING, ESP...)
   ano             SMALLINT     NOT NULL DEFAULT 0,
   receita         INT          NOT NULL DEFAULT 0, -- TV e patrocínio por rodada (R$ mil)
   bilheteria      INT          NOT NULL DEFAULT 0,

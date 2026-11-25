@@ -25,16 +25,47 @@ $pdo = db();
 /** Prêmio máximo (vitória) de cada desafio em R$ mil; igual a src/engine/desafios.ts. */
 const PREMIO_DESAFIO = [
     'treino' => 150, 'nordeste' => 400, 'flamengo' => 800, 'brasileirao' => 1500,
-    'brasil-1970' => 1500, 'holanda' => 2500, 'milan' => 2500,
+    'brasil-1970' => 1500, 'holanda' => 2500, 'milan' => 2500, 'superclassico' => 800, 'europa' => 2500,
 ];
 /** Moedas máximas (vitória) de cada desafio; igual a src/engine/desafios.ts. */
 const MOEDAS_DESAFIO = [
     'treino' => 20, 'nordeste' => 60, 'flamengo' => 120, 'brasileirao' => 200,
-    'brasil-1970' => 200, 'holanda' => 300, 'milan' => 300,
+    'brasil-1970' => 200, 'holanda' => 300, 'milan' => 300, 'superclassico' => 120, 'europa' => 300,
 ];
-/** src/engine/pacotes.ts: PREMIO.vitoria; src/engine/campeonato.ts: premioFinal do campeão. */
+/** src/engine/pacotes.ts: PREMIO.vitoria; src/engine/campeonato.ts: premioFinal do campeão da liga que paga mais (Premier League, 1,5 x 3.000). */
 const MOEDAS_PARTIDA = 300;
-const MOEDAS_TEMPORADA = 3000;
+const MOEDAS_TEMPORADA = 4500;
+/**
+ * Divisão (src/engine/ligas.ts) pelo campo liga de data/clubes.json: [id, país, nível].
+ * A divisão só muda para a de cima ou a de baixo do mesmo país (acesso e rebaixamento).
+ */
+const DIVISAO_DA_LIGA = [
+    'brasileirao-a' => ['A', 'BRA', 1], 'brasileirao-b' => ['B', 'BRA', 2],
+    'brasileirao-c' => ['C', 'BRA', 3], 'brasileirao-d' => ['D', 'BRA', 4],
+    'premier-league' => ['ING', 'ENG', 1], 'championship' => ['ING2', 'ENG', 2],
+    'league-one' => ['ING3', 'ENG', 3], 'league-two' => ['ING4', 'ENG', 4],
+    'la-liga' => ['ESP', 'ESP', 1], 'segunda-division' => ['ESP2', 'ESP', 2],
+    'serie-a-italia' => ['ITA', 'ITA', 1], 'serie-b-italia' => ['ITA2', 'ITA', 2],
+    'bundesliga' => ['ALE', 'GER', 1], '2-bundesliga' => ['ALE2', 'GER', 2],
+    'ligue-1' => ['FRA', 'FRA', 1], 'ligue-2' => ['FRA2', 'FRA', 2],
+    'liga-portugal' => ['POR', 'POR', 1], 'liga-portugal-2' => ['POR2', 'POR', 2],
+    'eredivisie' => ['NED', 'NED', 1], 'eerste-divisie' => ['NED2', 'NED', 2],
+    'pro-league' => ['BEL', 'BEL', 1], 'challenger-pro-league' => ['BEL2', 'BEL', 2],
+    'liga-argentina' => ['ARG', 'ARG', 1], 'primera-nacional' => ['ARG2', 'ARG', 2],
+    'saudi-pro-league' => ['KSA', 'KSA', 1], 'saudi-first-division' => ['KSA2', 'KSA', 2],
+    'eliteserien' => ['NOR', 'NOR', 1], 'obos-ligaen' => ['NOR2', 'NOR', 2],
+    'superliga-dinamarca' => ['DEN', 'DEN', 1], '1-division-dinamarca' => ['DEN2', 'DEN', 2],
+    'scottish-premiership' => ['SCO', 'SCO', 1], 'scottish-championship' => ['SCO2', 'SCO', 2],
+    'bundesliga-austria' => ['AUT', 'AUT', 1], '2-liga-austria' => ['AUT2', 'AUT', 2],
+    'superliga-servia' => ['SRB', 'SRB', 1], 'prva-liga-servia' => ['SRB2', 'SRB', 2],
+];
+
+/** [país, nível] de uma divisão, ou null se não existir. */
+function infoDivisao(string $div): ?array
+{
+    foreach (DIVISAO_DA_LIGA as [$id, $pais, $nivel]) if ($id === $div) return [$pais, $nivel];
+    return null;
+}
 const TREINOS_PREMIADOS_POR_DIA = 10;
 /** Desafios que dão uma lenda do adversário na primeira vitória (src/engine/desafios.ts). */
 const DESAFIOS_COM_CARTA = ['brasil-1970', 'holanda', 'milan'];
@@ -142,7 +173,7 @@ switch ((string) ($d['acao'] ?? '')) {
                 receita = VALUES(receita), bilheteria = VALUES(bilheteria), posse = VALUES(posse), ultima_rodada = 0,
                 ultima_bilheteria = 0, ultimo_salario = 0, ultima_premiacao = 0, ultima_partida = 0, seq = 0,
                 desafio_pendente = NULL, bonus_inicial = 1')
-            ->execute([$eu, $clube, $liga === 'brasileirao-b' ? 'B' : 'A', (int) ($dados['temporada']['ano'] ?? 0),
+            ->execute([$eu, $clube, DIVISAO_DA_LIGA[$liga][0] ?? 'A', (int) ($dados['temporada']['ano'] ?? 0),
                 $receita, $bilheteria, '{}']);
         if ($bonus) {
             $pdo->prepare('UPDATE times_online SET caixa = caixa + ? WHERE usuario_id = ?')->execute([$bonus, $eu]);
@@ -175,9 +206,13 @@ switch ((string) ($d['acao'] ?? '')) {
         // Nova temporada: a divisão pode mudar (acesso ou rebaixamento) e as receitas mudam junto.
         $ano = (int) ($dados['temporada']['ano'] ?? 0);
         if ($ano > (int) $c['ano']) {
-            $div = ($dados['temporada']['divisao'] ?? 'A') === 'B' ? 'B' : 'A';
+            // A divisão só pode ir para a de cima ou a de baixo do mesmo país.
+            $div = (string) ($dados['temporada']['divisao'] ?? 'A');
+            $nova = infoDivisao($div);
+            $atual = infoDivisao((string) $c['divisao']);
+            if (!$nova || !$atual || $nova[0] !== $atual[0] || abs($nova[1] - $atual[1]) !== 1) $div = $c['divisao'];
             if ($div !== $c['divisao']) {
-                $sobe = $div === 'A';
+                $sobe = $nova[1] < $atual[1];
                 $c['receita'] = (int) round($c['receita'] * ($sobe ? 1 / FATOR_TV_B : FATOR_TV_B));
                 $c['bilheteria'] = (int) round($c['bilheteria'] * ($sobe ? 1 / FATOR_BILHETERIA_B : FATOR_BILHETERIA_B));
                 $c['divisao'] = $div;

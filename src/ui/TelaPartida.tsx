@@ -1,3 +1,4 @@
+import { nomeDaLiga } from "../engine/ligas";
 import { useEffect, useState } from "react";
 import { estiloEscudo } from "../data/clubes";
 import { chaveJogo, seedDoJogo, type Temporada } from "../engine/campeonato";
@@ -33,7 +34,7 @@ export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar }: Pro
   const incompleto = meuTime.titulares.length > 0 && meuTime.titulares.length < 11;
   const titulo = (
     <div className="rodada-titulo">
-      <span className="rotulo">Brasileirão Série {temporada.divisao ?? "A"} {temporada.ano}</span>
+      <span className="rotulo">{nomeDaLiga(temporada.divisao)} {temporada.ano}</span>
       <b>
         Rodada {r + 1} de {temporada.rodadas.length}
       </b>

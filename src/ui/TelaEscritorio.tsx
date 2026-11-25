@@ -1,5 +1,5 @@
 import { estiloEscudo } from "../data/clubes";
-import { chaveJogo, divisaoDe, zona, type LinhaTabela, type Temporada } from "../engine/campeonato";
+import { chaveJogo, divisaoDe, nomeDaDivisao, zona, type LinhaTabela, type Temporada } from "../engine/campeonato";
 import { formatarDinheiro, type Financas } from "../engine/mercado";
 import { escalar } from "../engine/ratings";
 import { ehLenda, type Time } from "../engine/types";
@@ -35,6 +35,7 @@ interface Aviso {
 export function TelaEscritorio(p: Props) {
   const { meuTime, times, temporada: t, tabela } = p;
   const div = divisaoDe(t);
+  const nomeDiv = nomeDaDivisao(div);
   const fim = t.rodadaAtual >= t.rodadas.length;
   const posicao = tabela.findIndex((l) => l.id === meuTime.id) + 1;
   const minha = tabela[posicao - 1];
@@ -68,7 +69,7 @@ export function TelaEscritorio(p: Props) {
     avisos.push({
       icone: "campeonato",
       tipo: "bom",
-      texto: <>A Série {div} {t.ano} acabou. Veja a tabela final e comece a próxima temporada.</>,
+      texto: <>A {nomeDiv} {t.ano} acabou. Veja a tabela final e comece a próxima temporada.</>,
       acao: { rotulo: "Ver tabela", onClick: () => p.onIr("campeonato") },
     });
   if (p.financas.caixa < 0)
@@ -129,10 +130,10 @@ export function TelaEscritorio(p: Props) {
       icone: "noticia",
       texto:
         tabela[0].id === meuTime.id ? (
-          <>Seu time lidera a Série {div} com {tabela[0].pts} pontos.</>
+          <>Seu time lidera a {nomeDiv} com {tabela[0].pts} pontos.</>
         ) : (
           <>
-            {times.get(tabela[0].id)!.nome} lidera a Série {div} com {tabela[0].pts} pontos, {tabela[0].pts - minha.pts} à sua
+            {times.get(tabela[0].id)!.nome} lidera a {nomeDiv} com {tabela[0].pts} pontos, {tabela[0].pts - minha.pts} à sua
             frente.
           </>
         ),
@@ -143,7 +144,7 @@ export function TelaEscritorio(p: Props) {
       <div className="esc-cabeca">
         <div>
           <span className="rotulo">
-            Escritório · Série {div} {t.ano}
+            Escritório · {nomeDiv} {t.ano}
           </span>
           <h1>{fim ? "Fim de temporada" : `Rodada ${t.rodadaAtual + 1} de ${t.rodadas.length}`}</h1>
         </div>
@@ -178,7 +179,7 @@ export function TelaEscritorio(p: Props) {
 
         <article className="esc-cartao esc-tabela">
           <h2>
-            Série {div}
+            {nomeDiv}
             <button className="link-nome" onClick={() => p.onIr("campeonato")}>
               Tabela completa
             </button>
@@ -186,7 +187,7 @@ export function TelaEscritorio(p: Props) {
           <ol className="mini-tabela">
             {trecho.map((l) => {
               const pos = tabela.indexOf(l) + 1;
-              const z = zona(pos, div);
+              const z = zona(pos, div, tabela.length);
               const time = times.get(l.id)!;
               return (
                 <li key={l.id} className={`${l.id === meuTime.id ? "meu" : ""} ${z ? `zona-${z}` : ""}`}>

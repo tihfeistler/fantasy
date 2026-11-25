@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 """
 Gera data/atuais.json (jogadores atuais) a partir de data/elencos-2026.txt
-(Série A) e data/elencos-serie-b-2026.txt (Série B).
+(Série A), data/elencos-serie-b-2026.txt (Série B) e
+data/elencos-estrangeiros-2026.txt (Inglaterra, Espanha, Itália, Alemanha,
+França, Portugal e Argentina) e data/elencos-divisoes-2026.txt (divisões de
+baixo e Holanda, Bélgica, Arábia Saudita, Noruega, Dinamarca, Escócia, Áustria
+e Sérvia).
 
 Formato do .txt, uma linha por jogador:
     clubeId | camisa | GK/DF/MF/FW | NAC | Nome [| POSICAO_FINA] [| geral]
 A 6ª coluna (opcional) força a posição do jogo (GOL/ZAG/LAT/VOL/MEI/ATA).
-A 7ª coluna (opcional) força o geral alvo (1-100).\ndata/destaques-2026.txt também define o geral alvo de jogadores conhecidos.
+A 7ª coluna (opcional) força o geral alvo (1-100).
+data/destaques-2026.txt também define o geral alvo (e, opcional, a posição)
+de jogadores conhecidos.
 
 RASCUNHO: as fontes públicas só dão posição genérica, sem atributos.
 Posição fina sai da numeração brasileira (2/6 laterais, 5/8 volantes...)
@@ -35,7 +41,19 @@ def slug(s):
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
-def posicoes_finas(jogadores):
+# Numeração típica de cada escola: (zagueiros, laterais, meias, volantes).
+# Brasil: 2/6 laterais, 3/4 zagueiros, 5/8 volantes, 10 meia.
+# Europa: 2/3 laterais, 4/5/6 zagueiros, 6/8 volantes, 7/10/11 meias.
+# Argentina: 2/6 zagueiros, 3/4 laterais, 5 volante, 10 meia.
+NUMERACAO = {
+    "BR": ({3, 4, 14, 15}, {2, 6, 13, 16}, {10, 20}, {5, 8}),
+    "EU": ({4, 5, 15, 24}, {2, 3, 12, 22}, {10, 7, 11, 20}, {6, 8, 16}),
+    "AR": ({2, 6, 26}, {3, 4, 13}, {10, 20}, {5, 8}),
+}
+ESCOLA = {"brasileirao-a": "BR", "brasileirao-b": "BR", "brasileirao-c": "BR", "brasileirao-d": "BR",
+          "liga-argentina": "AR", "primera-nacional": "AR"}
+
+def posicoes_finas(jogadores, escola="BR"):
     """Distribui DF em ZAG/LAT e MF em VOL/MEI pela numeração."""
     def divide(lista, fixos_a, fixos_b, pa, pb, frac_b):
         res = {}
@@ -52,8 +70,9 @@ def posicoes_finas(jogadores):
     dfs = [j for j in jogadores if j["gen"] == "DF" and not j["fina"]]
     mfs = [j for j in jogadores if j["gen"] == "MF" and not j["fina"]]
     m = {}
-    m.update(divide(dfs, {3, 4, 14, 15}, {2, 6, 13, 16}, "ZAG", "LAT", 0.4))
-    m.update(divide(mfs, {10, 20}, {5, 8}, "MEI", "VOL", 0.45))
+    zag, lat, mei, vol = NUMERACAO[escola]
+    m.update(divide(dfs, zag, lat, "ZAG", "LAT", 0.4))
+    m.update(divide(mfs, mei, vol, "MEI", "VOL", 0.45))
     for j in jogadores:
         if j["fina"]: continue
         j["fina"] = m.get(id(j)) or {"GK": "GOL", "FW": "ATA"}[j["gen"]]
@@ -62,7 +81,8 @@ def main():
     clubes = {c["id"]: c for c in json.loads((RAIZ / "data/clubes.json").read_text("utf-8"))}
     por_clube = {}
     linhas = []
-    for arq in ("data/elencos-2026.txt", "data/elencos-serie-b-2026.txt"):
+    for arq in ("data/elencos-2026.txt", "data/elencos-serie-b-2026.txt", "data/elencos-estrangeiros-2026.txt",
+                "data/elencos-divisoes-2026.txt"):
         if (RAIZ / arq).exists():
             linhas += [(f"{arq}:{n}", l) for n, l in enumerate((RAIZ / arq).read_text("utf-8").splitlines(), 1)]
     for n, linha in linhas:
@@ -77,20 +97,31 @@ def main():
             nac=nac.upper(), nome=nome, fina=(cols[5].upper() if len(cols) > 5 and cols[5] else None),
             alvo=(int(cols[6]) if len(cols) > 6 and cols[6] else None)))
     destaques = {}
-    arq_d = RAIZ / "data/destaques-2026.txt"
-    if arq_d.exists():
-        for linha in arq_d.read_text("utf-8").splitlines():
+    for arq_d in (RAIZ / "data/destaques-2026.txt", RAIZ / "data/destaques-estrangeiros-2026.txt"):
+        if not arq_d.exists(): continue
+        for n, linha in enumerate(arq_d.read_text("utf-8").splitlines(), 1):
             if linha.strip() and not linha.startswith("#"):
-                c, nome, g = [x.strip() for x in linha.split("|")]
-                destaques[(c, nome)] = int(g)
+                cols = [x.strip() for x in linha.split("|")]
+                c, nome, g = cols[:3]
+                if (c, nome) in destaques: sys.exit(f"{arq_d.name}:{n}: destaque repetido {nome}")
+                destaques[(c, nome)] = (int(g), cols[3].upper() if len(cols) > 3 and cols[3] else None)
+    usados = set()
+    for clube, js in por_clube.items():
+        for j in js:
+            d = destaques.get((clube, j["nome"]))
+            if d:
+                usados.add((clube, j["nome"]))
+                if d[1] and not j["fina"]: j["fina"] = d[1]
+    faltam = sorted(set(destaques) - usados)
+    if faltam: print(f"Aviso: {len(faltam)} destaques sem jogador no elenco: {faltam[:10]}")
     saida, ids = [], set()
     for clube, js in por_clube.items():
-        posicoes_finas(js)
+        posicoes_finas(js, ESCOLA.get(clubes[clube]["liga"], "EU"))
         nivel = clubes[clube]["nivel"]
         for j in js:
             pos = j["fina"]
             papel = 0 if j["camisa"] == 0 else 3 if j["camisa"] <= 11 else (-5 if j["camisa"] >= 40 else 0)
-            N = j["alvo"] or destaques.get((clube, j["nome"])) or nivel - 6 + papel + ruido(clube + j["nome"], -6, 3)
+            N = j["alvo"] or destaques.get((clube, j["nome"]), (None,))[0] or nivel - 6 + papel + ruido(clube + j["nome"], -6, 3)
             atr = {k: max(1, min(99, v)) for k, v in MODELOS[pos](N).items()}
             ajustar_ao_alvo(atr, pos, N)
             atr = {k: atr[k] for k in ATRIBUTOS}

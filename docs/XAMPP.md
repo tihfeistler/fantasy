@@ -158,3 +158,30 @@ clubes da Série B.
 - Conta nova já vem com o time de cartas escalado no 4-4-2 e pode procurar
   partida no ranqueado direto.
 - Comprar lenda no mercado respeita o limite da coleção (300, ampliável até 500).
+
+## Atualização de 25/11/2026 (ligas estrangeiras e divisões de baixo)
+
+O jogo agora tem 16 países e 36 divisões: Brasil (Séries A a D) e Inglaterra
+(Premier League a League Two) até a 4ª divisão; Espanha, Itália, Alemanha,
+França, Portugal, Holanda, Bélgica, Argentina, Arábia Saudita, Noruega,
+Dinamarca, Escócia, Áustria e Sérvia com 1ª e 2ª divisão. São 638 clubes e
+18.197 jogadores atuais, mais 85 lendas estrangeiras novas. Em cada país há
+acesso e rebaixamento entre todas as divisões. Para atualizar uma instalação
+que já existe:
+
+1. Baixe a versão nova (`git pull` na pasta do projeto, dentro de
+   `C:\xampp\htdocs\fantasy`).
+2. Com o Apache e o MySQL ligados no XAMPP, rode na pasta do projeto:
+
+   ```
+   C:\xampp\php\php.exe scripts\importar.php
+   ```
+
+   Ele importa os clubes e jogadores novos e ajusta sozinho a tabela
+   `carreiras` (a divisão passou de 1 letra para até 8, para guardar a liga).
+   Deve terminar com `Importados: 638 clubes, 18583 jogadores.`
+3. Gere o front de novo: `npm install` e `npm run build`.
+
+As carreiras e contas que já existem continuam valendo. Para treinar um clube
+estrangeiro ou de outra divisão, comece uma carreira nova e escolha o país na
+tela de clubes.

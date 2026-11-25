@@ -7222,5 +7222,2045 @@
       "goleiro": 10
     },
     "geral": 85
+  },
+  {
+    "id": "pat-jennings",
+    "nome": "Pat Jennings",
+    "nacionalidade": "NIR",
+    "posicao": "GOL",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1963,
+      "fim": 1986
+    },
+    "auge": 1973,
+    "clubeMarcante": "Tottenham Hotspur",
+    "atributos": {
+      "finalizacao": 5,
+      "passe": 50,
+      "drible": 25,
+      "velocidade": 45,
+      "defesa": 20,
+      "fisico": 78,
+      "mentalidade": 88,
+      "goleiro": 87
+    },
+    "geral": 83
+  },
+  {
+    "id": "neville-southall",
+    "nome": "Neville Southall",
+    "nacionalidade": "WAL",
+    "posicao": "GOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1980,
+      "fim": 2002
+    },
+    "auge": 1987,
+    "clubeMarcante": "Everton",
+    "atributos": {
+      "finalizacao": 5,
+      "passe": 45,
+      "drible": 20,
+      "velocidade": 45,
+      "defesa": 20,
+      "fisico": 78,
+      "mentalidade": 86,
+      "goleiro": 87
+    },
+    "geral": 82
+  },
+  {
+    "id": "walter-zenga",
+    "nome": "Walter Zenga",
+    "nacionalidade": "ITA",
+    "posicao": "GOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1977,
+      "fim": 1999
+    },
+    "auge": 1990,
+    "clubeMarcante": "Inter de Milão",
+    "atributos": {
+      "finalizacao": 5,
+      "passe": 50,
+      "drible": 25,
+      "velocidade": 50,
+      "defesa": 20,
+      "fisico": 72,
+      "mentalidade": 86,
+      "goleiro": 87
+    },
+    "geral": 82
+  },
+  {
+    "id": "fabien-barthez",
+    "nome": "Fabien Barthez",
+    "nacionalidade": "FRA",
+    "posicao": "GOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1990,
+      "fim": 2007
+    },
+    "auge": 1998,
+    "clubeMarcante": "Monaco",
+    "atributos": {
+      "finalizacao": 5,
+      "passe": 60,
+      "drible": 40,
+      "velocidade": 55,
+      "defesa": 20,
+      "fisico": 66,
+      "mentalidade": 86,
+      "goleiro": 85
+    },
+    "geral": 81
+  },
+  {
+    "id": "victor-valdes",
+    "nome": "Víctor Valdés",
+    "nacionalidade": "ESP",
+    "posicao": "GOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2002,
+      "fim": 2017
+    },
+    "auge": 2011,
+    "clubeMarcante": "Barcelona",
+    "atributos": {
+      "finalizacao": 5,
+      "passe": 75,
+      "drible": 40,
+      "velocidade": 55,
+      "defesa": 20,
+      "fisico": 66,
+      "mentalidade": 86,
+      "goleiro": 85
+    },
+    "geral": 82
+  },
+  {
+    "id": "thomas-n-kono",
+    "nome": "Thomas N'Kono",
+    "nacionalidade": "CMR",
+    "posicao": "GOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1971,
+      "fim": 1997
+    },
+    "auge": 1982,
+    "clubeMarcante": "Espanyol",
+    "atributos": {
+      "finalizacao": 5,
+      "passe": 45,
+      "drible": 25,
+      "velocidade": 50,
+      "defesa": 20,
+      "fisico": 74,
+      "mentalidade": 86,
+      "goleiro": 85
+    },
+    "geral": 81
+  },
+  {
+    "id": "sergio-goycochea",
+    "nome": "Sergio Goycochea",
+    "nacionalidade": "ARG",
+    "posicao": "GOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1983,
+      "fim": 2000
+    },
+    "auge": 1990,
+    "clubeMarcante": "Racing Club",
+    "atributos": {
+      "finalizacao": 5,
+      "passe": 45,
+      "drible": 25,
+      "velocidade": 50,
+      "defesa": 20,
+      "fisico": 70,
+      "mentalidade": 88,
+      "goleiro": 83
+    },
+    "geral": 79
+  },
+  {
+    "id": "nemanja-vidic",
+    "nome": "Nemanja Vidić",
+    "nacionalidade": "SRB",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2000,
+      "fim": 2016
+    },
+    "auge": 2009,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 60,
+      "drible": 40,
+      "velocidade": 70,
+      "defesa": 91,
+      "fisico": 92,
+      "mentalidade": 92,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "gerard-pique",
+    "nome": "Gerard Piqué",
+    "nacionalidade": "ESP",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2004,
+      "fim": 2022
+    },
+    "auge": 2011,
+    "clubeMarcante": "Barcelona",
+    "atributos": {
+      "finalizacao": 45,
+      "passe": 80,
+      "drible": 60,
+      "velocidade": 68,
+      "defesa": 89,
+      "fisico": 86,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "giorgio-chiellini",
+    "nome": "Giorgio Chiellini",
+    "nacionalidade": "ITA",
+    "posicao": "ZAG",
+    "pe": "E",
+    "epoca": {
+      "inicio": 2000,
+      "fim": 2023
+    },
+    "auge": 2012,
+    "clubeMarcante": "Juventus",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 60,
+      "drible": 40,
+      "velocidade": 74,
+      "defesa": 92,
+      "fisico": 90,
+      "mentalidade": 94,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "leonardo-bonucci",
+    "nome": "Leonardo Bonucci",
+    "nacionalidade": "ITA",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2005,
+      "fim": 2024
+    },
+    "auge": 2016,
+    "clubeMarcante": "Juventus",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 85,
+      "drible": 45,
+      "velocidade": 60,
+      "defesa": 88,
+      "fisico": 84,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "alessandro-costacurta",
+    "nome": "Alessandro Costacurta",
+    "nacionalidade": "ITA",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1985,
+      "fim": 2007
+    },
+    "auge": 1994,
+    "clubeMarcante": "Milan",
+    "atributos": {
+      "finalizacao": 25,
+      "passe": 65,
+      "drible": 45,
+      "velocidade": 70,
+      "defesa": 89,
+      "fisico": 80,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 83
+  },
+  {
+    "id": "mats-hummels",
+    "nome": "Mats Hummels",
+    "nacionalidade": "GER",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2006,
+      "fim": 2025
+    },
+    "auge": 2014,
+    "clubeMarcante": "Borussia Dortmund",
+    "atributos": {
+      "finalizacao": 40,
+      "passe": 84,
+      "drible": 55,
+      "velocidade": 60,
+      "defesa": 89,
+      "fisico": 84,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "raphael-varane",
+    "nome": "Raphaël Varane",
+    "nacionalidade": "FRA",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2010,
+      "fim": 2024
+    },
+    "auge": 2018,
+    "clubeMarcante": "Real Madrid",
+    "atributos": {
+      "finalizacao": 30,
+      "passe": 70,
+      "drible": 50,
+      "velocidade": 85,
+      "defesa": 89,
+      "fisico": 84,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "vincent-kompany",
+    "nome": "Vincent Kompany",
+    "nacionalidade": "BEL",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2003,
+      "fim": 2020
+    },
+    "auge": 2012,
+    "clubeMarcante": "Manchester City",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 70,
+      "drible": 50,
+      "velocidade": 70,
+      "defesa": 89,
+      "fisico": 89,
+      "mentalidade": 94,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "tony-adams",
+    "nome": "Tony Adams",
+    "nacionalidade": "ENG",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1983,
+      "fim": 2002
+    },
+    "auge": 1991,
+    "clubeMarcante": "Arsenal",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 60,
+      "drible": 35,
+      "velocidade": 60,
+      "defesa": 89,
+      "fisico": 88,
+      "mentalidade": 96,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "sol-campbell",
+    "nome": "Sol Campbell",
+    "nacionalidade": "ENG",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1992,
+      "fim": 2011
+    },
+    "auge": 2002,
+    "clubeMarcante": "Arsenal",
+    "atributos": {
+      "finalizacao": 30,
+      "passe": 60,
+      "drible": 40,
+      "velocidade": 78,
+      "defesa": 89,
+      "fisico": 92,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "ricardo-carvalho",
+    "nome": "Ricardo Carvalho",
+    "nacionalidade": "POR",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1997,
+      "fim": 2017
+    },
+    "auge": 2005,
+    "clubeMarcante": "Chelsea",
+    "atributos": {
+      "finalizacao": 30,
+      "passe": 70,
+      "drible": 50,
+      "velocidade": 70,
+      "defesa": 90,
+      "fisico": 82,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "pepe-portugal",
+    "nome": "Pepe (Portugal)",
+    "nacionalidade": "POR",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2001,
+      "fim": 2024
+    },
+    "auge": 2014,
+    "clubeMarcante": "Real Madrid",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 65,
+      "drible": 45,
+      "velocidade": 78,
+      "defesa": 89,
+      "fisico": 88,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "fernando-couto",
+    "nome": "Fernando Couto",
+    "nacionalidade": "POR",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1988,
+      "fim": 2008
+    },
+    "auge": 1996,
+    "clubeMarcante": "Porto",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 60,
+      "drible": 40,
+      "velocidade": 65,
+      "defesa": 87,
+      "fisico": 87,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 82
+  },
+  {
+    "id": "roberto-ayala",
+    "nome": "Roberto Ayala",
+    "nacionalidade": "ARG",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1991,
+      "fim": 2010
+    },
+    "auge": 2001,
+    "clubeMarcante": "Valencia",
+    "atributos": {
+      "finalizacao": 35,
+      "passe": 65,
+      "drible": 40,
+      "velocidade": 68,
+      "defesa": 90,
+      "fisico": 80,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 83
+  },
+  {
+    "id": "walter-samuel",
+    "nome": "Walter Samuel",
+    "nacionalidade": "ARG",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1996,
+      "fim": 2016
+    },
+    "auge": 2004,
+    "clubeMarcante": "Roma",
+    "atributos": {
+      "finalizacao": 30,
+      "passe": 55,
+      "drible": 35,
+      "velocidade": 62,
+      "defesa": 90,
+      "fisico": 92,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "diego-godin",
+    "nome": "Diego Godín",
+    "nacionalidade": "URU",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2003,
+      "fim": 2022
+    },
+    "auge": 2014,
+    "clubeMarcante": "Atlético de Madrid",
+    "atributos": {
+      "finalizacao": 40,
+      "passe": 60,
+      "drible": 40,
+      "velocidade": 60,
+      "defesa": 89,
+      "fisico": 86,
+      "mentalidade": 96,
+      "goleiro": 10
+    },
+    "geral": 83
+  },
+  {
+    "id": "ivan-cordoba",
+    "nome": "Iván Córdoba",
+    "nacionalidade": "COL",
+    "posicao": "ZAG",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1993,
+      "fim": 2012
+    },
+    "auge": 2003,
+    "clubeMarcante": "Inter de Milão",
+    "atributos": {
+      "finalizacao": 25,
+      "passe": 60,
+      "drible": 45,
+      "velocidade": 82,
+      "defesa": 88,
+      "fisico": 78,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 83
+  },
+  {
+    "id": "gary-neville",
+    "nome": "Gary Neville",
+    "nacionalidade": "ENG",
+    "posicao": "LAT",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1992,
+      "fim": 2011
+    },
+    "auge": 1999,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 40,
+      "passe": 78,
+      "drible": 55,
+      "velocidade": 72,
+      "defesa": 86,
+      "fisico": 76,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 75
+  },
+  {
+    "id": "patrice-evra",
+    "nome": "Patrice Evra",
+    "nacionalidade": "FRA",
+    "posicao": "LAT",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1998,
+      "fim": 2019
+    },
+    "auge": 2008,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 50,
+      "passe": 72,
+      "drible": 74,
+      "velocidade": 84,
+      "defesa": 84,
+      "fisico": 78,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 79
+  },
+  {
+    "id": "jordi-alba",
+    "nome": "Jordi Alba",
+    "nacionalidade": "ESP",
+    "posicao": "LAT",
+    "pe": "E",
+    "epoca": {
+      "inicio": 2007,
+      "fim": 2025
+    },
+    "auge": 2015,
+    "clubeMarcante": "Barcelona",
+    "atributos": {
+      "finalizacao": 60,
+      "passe": 84,
+      "drible": 80,
+      "velocidade": 92,
+      "defesa": 80,
+      "fisico": 66,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 81
+  },
+  {
+    "id": "denis-irwin",
+    "nome": "Denis Irwin",
+    "nacionalidade": "IRL",
+    "posicao": "LAT",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1983,
+      "fim": 2004
+    },
+    "auge": 1994,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 60,
+      "passe": 80,
+      "drible": 62,
+      "velocidade": 72,
+      "defesa": 84,
+      "fisico": 70,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 76
+  },
+  {
+    "id": "christian-panucci",
+    "nome": "Christian Panucci",
+    "nacionalidade": "ITA",
+    "posicao": "LAT",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1991,
+      "fim": 2010
+    },
+    "auge": 1999,
+    "clubeMarcante": "Milan",
+    "atributos": {
+      "finalizacao": 55,
+      "passe": 75,
+      "drible": 60,
+      "velocidade": 75,
+      "defesa": 85,
+      "fisico": 75,
+      "mentalidade": 85,
+      "goleiro": 10
+    },
+    "geral": 76
+  },
+  {
+    "id": "michael-essien",
+    "nome": "Michael Essien",
+    "nacionalidade": "GHA",
+    "posicao": "VOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2000,
+      "fim": 2020
+    },
+    "auge": 2007,
+    "clubeMarcante": "Chelsea",
+    "atributos": {
+      "finalizacao": 72,
+      "passe": 80,
+      "drible": 72,
+      "velocidade": 80,
+      "defesa": 86,
+      "fisico": 92,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "yaya-toure",
+    "nome": "Yaya Touré",
+    "nacionalidade": "CIV",
+    "posicao": "VOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2001,
+      "fim": 2019
+    },
+    "auge": 2012,
+    "clubeMarcante": "Manchester City",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 88,
+      "drible": 84,
+      "velocidade": 76,
+      "defesa": 80,
+      "fisico": 93,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "esteban-cambiasso",
+    "nome": "Esteban Cambiasso",
+    "nacionalidade": "ARG",
+    "posicao": "VOL",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1998,
+      "fim": 2017
+    },
+    "auge": 2008,
+    "clubeMarcante": "Inter de Milão",
+    "atributos": {
+      "finalizacao": 65,
+      "passe": 84,
+      "drible": 68,
+      "velocidade": 60,
+      "defesa": 87,
+      "fisico": 78,
+      "mentalidade": 92,
+      "goleiro": 10
+    },
+    "geral": 83
+  },
+  {
+    "id": "daniele-de-rossi",
+    "nome": "Daniele De Rossi",
+    "nacionalidade": "ITA",
+    "posicao": "VOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2001,
+      "fim": 2020
+    },
+    "auge": 2010,
+    "clubeMarcante": "Roma",
+    "atributos": {
+      "finalizacao": 72,
+      "passe": 85,
+      "drible": 68,
+      "velocidade": 65,
+      "defesa": 87,
+      "fisico": 85,
+      "mentalidade": 92,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "marco-verratti",
+    "nome": "Marco Verratti",
+    "nacionalidade": "ITA",
+    "posicao": "VOL",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2008,
+      "fim": 2025
+    },
+    "auge": 2016,
+    "clubeMarcante": "Paris Saint-Germain",
+    "atributos": {
+      "finalizacao": 60,
+      "passe": 90,
+      "drible": 88,
+      "velocidade": 66,
+      "defesa": 80,
+      "fisico": 62,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 80
+  },
+  {
+    "id": "mesut-ozil",
+    "nome": "Mesut Özil",
+    "nacionalidade": "GER",
+    "posicao": "MEI",
+    "pe": "E",
+    "epoca": {
+      "inicio": 2006,
+      "fim": 2023
+    },
+    "auge": 2013,
+    "clubeMarcante": "Real Madrid",
+    "atributos": {
+      "finalizacao": 78,
+      "passe": 94,
+      "drible": 90,
+      "velocidade": 76,
+      "defesa": 30,
+      "fisico": 62,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "david-silva",
+    "nome": "David Silva",
+    "nacionalidade": "ESP",
+    "posicao": "MEI",
+    "pe": "E",
+    "epoca": {
+      "inicio": 2004,
+      "fim": 2023
+    },
+    "auge": 2012,
+    "clubeMarcante": "Manchester City",
+    "atributos": {
+      "finalizacao": 78,
+      "passe": 94,
+      "drible": 92,
+      "velocidade": 72,
+      "defesa": 40,
+      "fisico": 58,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "cesc-fabregas",
+    "nome": "Cesc Fàbregas",
+    "nacionalidade": "ESP",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2003,
+      "fim": 2023
+    },
+    "auge": 2010,
+    "clubeMarcante": "Arsenal",
+    "atributos": {
+      "finalizacao": 80,
+      "passe": 94,
+      "drible": 82,
+      "velocidade": 68,
+      "defesa": 55,
+      "fisico": 65,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "wesley-sneijder",
+    "nome": "Wesley Sneijder",
+    "nacionalidade": "NED",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2002,
+      "fim": 2019
+    },
+    "auge": 2010,
+    "clubeMarcante": "Inter de Milão",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 92,
+      "drible": 86,
+      "velocidade": 70,
+      "defesa": 40,
+      "fisico": 62,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "rafael-van-der-vaart",
+    "nome": "Rafael van der Vaart",
+    "nacionalidade": "NED",
+    "posicao": "MEI",
+    "pe": "E",
+    "epoca": {
+      "inicio": 2000,
+      "fim": 2018
+    },
+    "auge": 2008,
+    "clubeMarcante": "Hamburgo",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 88,
+      "drible": 84,
+      "velocidade": 66,
+      "defesa": 40,
+      "fisico": 62,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "juan-carlos-valeron",
+    "nome": "Juan Carlos Valerón",
+    "nacionalidade": "ESP",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1995,
+      "fim": 2016
+    },
+    "auge": 2003,
+    "clubeMarcante": "Deportivo La Coruña",
+    "atributos": {
+      "finalizacao": 76,
+      "passe": 93,
+      "drible": 86,
+      "velocidade": 60,
+      "defesa": 35,
+      "fisico": 58,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "pablo-aimar",
+    "nome": "Pablo Aimar",
+    "nacionalidade": "ARG",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1996,
+      "fim": 2015
+    },
+    "auge": 2002,
+    "clubeMarcante": "Valencia",
+    "atributos": {
+      "finalizacao": 80,
+      "passe": 90,
+      "drible": 92,
+      "velocidade": 76,
+      "defesa": 35,
+      "fisico": 52,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "ariel-ortega",
+    "nome": "Ariel Ortega",
+    "nacionalidade": "ARG",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1991,
+      "fim": 2012
+    },
+    "auge": 1998,
+    "clubeMarcante": "River Plate",
+    "atributos": {
+      "finalizacao": 80,
+      "passe": 85,
+      "drible": 94,
+      "velocidade": 82,
+      "defesa": 30,
+      "fisico": 58,
+      "mentalidade": 82,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "norberto-alonso",
+    "nome": "Norberto Alonso",
+    "nacionalidade": "ARG",
+    "posicao": "MEI",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1970,
+      "fim": 1987
+    },
+    "auge": 1978,
+    "clubeMarcante": "River Plate",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 90,
+      "drible": 88,
+      "velocidade": 72,
+      "defesa": 30,
+      "fisico": 60,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "pedro-rocha",
+    "nome": "Pedro Rocha",
+    "nacionalidade": "URU",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1959,
+      "fim": 1980
+    },
+    "auge": 1966,
+    "clubeMarcante": "Peñarol",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 90,
+      "drible": 86,
+      "velocidade": 72,
+      "defesa": 40,
+      "fisico": 74,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "dejan-savicevic",
+    "nome": "Dejan Savićević",
+    "nacionalidade": "YUG",
+    "posicao": "MEI",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1982,
+      "fim": 2001
+    },
+    "auge": 1994,
+    "clubeMarcante": "Milan",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 88,
+      "drible": 94,
+      "velocidade": 78,
+      "defesa": 30,
+      "fisico": 62,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "dragan-stojkovic",
+    "nome": "Dragan Stojković",
+    "nacionalidade": "YUG",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1981,
+      "fim": 2001
+    },
+    "auge": 1990,
+    "clubeMarcante": "Estrela Vermelha",
+    "atributos": {
+      "finalizacao": 80,
+      "passe": 92,
+      "drible": 92,
+      "velocidade": 76,
+      "defesa": 35,
+      "fisico": 60,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "paul-gascoigne",
+    "nome": "Paul Gascoigne",
+    "nacionalidade": "ENG",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1985,
+      "fim": 2004
+    },
+    "auge": 1990,
+    "clubeMarcante": "Tottenham Hotspur",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 90,
+      "drible": 92,
+      "velocidade": 76,
+      "defesa": 45,
+      "fisico": 74,
+      "mentalidade": 82,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "glenn-hoddle",
+    "nome": "Glenn Hoddle",
+    "nacionalidade": "ENG",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1975,
+      "fim": 1995
+    },
+    "auge": 1983,
+    "clubeMarcante": "Tottenham Hotspur",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 94,
+      "drible": 86,
+      "velocidade": 66,
+      "defesa": 40,
+      "fisico": 66,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "eric-cantona",
+    "nome": "Eric Cantona",
+    "nacionalidade": "FRA",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1983,
+      "fim": 1997
+    },
+    "auge": 1994,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 88,
+      "passe": 88,
+      "drible": 86,
+      "velocidade": 74,
+      "defesa": 40,
+      "fisico": 84,
+      "mentalidade": 96,
+      "goleiro": 10
+    },
+    "geral": 88
+  },
+  {
+    "id": "alain-giresse",
+    "nome": "Alain Giresse",
+    "nacionalidade": "FRA",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1970,
+      "fim": 1988
+    },
+    "auge": 1982,
+    "clubeMarcante": "Bordeaux",
+    "atributos": {
+      "finalizacao": 78,
+      "passe": 92,
+      "drible": 88,
+      "velocidade": 76,
+      "defesa": 50,
+      "fisico": 58,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "franck-ribery",
+    "nome": "Franck Ribéry",
+    "nacionalidade": "FRA",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2000,
+      "fim": 2022
+    },
+    "auge": 2013,
+    "clubeMarcante": "Bayern de Munique",
+    "atributos": {
+      "finalizacao": 82,
+      "passe": 86,
+      "drible": 93,
+      "velocidade": 90,
+      "defesa": 35,
+      "fisico": 66,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 87
+  },
+  {
+    "id": "robert-pires",
+    "nome": "Robert Pires",
+    "nacionalidade": "FRA",
+    "posicao": "MEI",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1993,
+      "fim": 2011
+    },
+    "auge": 2002,
+    "clubeMarcante": "Arsenal",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 88,
+      "drible": 88,
+      "velocidade": 82,
+      "defesa": 35,
+      "fisico": 64,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "bernd-schuster",
+    "nome": "Bernd Schuster",
+    "nacionalidade": "FRG",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1978,
+      "fim": 1997
+    },
+    "auge": 1985,
+    "clubeMarcante": "Barcelona",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 94,
+      "drible": 84,
+      "velocidade": 68,
+      "defesa": 50,
+      "fisico": 72,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "pierre-littbarski",
+    "nome": "Pierre Littbarski",
+    "nacionalidade": "FRG",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1978,
+      "fim": 1997
+    },
+    "auge": 1986,
+    "clubeMarcante": "Colônia",
+    "atributos": {
+      "finalizacao": 80,
+      "passe": 86,
+      "drible": 92,
+      "velocidade": 82,
+      "defesa": 35,
+      "fisico": 58,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "eden-hazard",
+    "nome": "Eden Hazard",
+    "nacionalidade": "BEL",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2007,
+      "fim": 2023
+    },
+    "auge": 2015,
+    "clubeMarcante": "Chelsea",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 88,
+      "drible": 95,
+      "velocidade": 88,
+      "defesa": 30,
+      "fisico": 64,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 88
+  },
+  {
+    "id": "marek-hamsik",
+    "nome": "Marek Hamšík",
+    "nacionalidade": "SVK",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2004,
+      "fim": 2023
+    },
+    "auge": 2013,
+    "clubeMarcante": "Napoli",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 88,
+      "drible": 82,
+      "velocidade": 74,
+      "defesa": 55,
+      "fisico": 70,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "gareth-bale",
+    "nome": "Gareth Bale",
+    "nacionalidade": "WAL",
+    "posicao": "ATA",
+    "pe": "E",
+    "epoca": {
+      "inicio": 2006,
+      "fim": 2023
+    },
+    "auge": 2014,
+    "clubeMarcante": "Real Madrid",
+    "atributos": {
+      "finalizacao": 88,
+      "passe": 80,
+      "drible": 87,
+      "velocidade": 97,
+      "defesa": 40,
+      "fisico": 80,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 88
+  },
+  {
+    "id": "sergio-aguero",
+    "nome": "Sergio Agüero",
+    "nacionalidade": "ARG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2003,
+      "fim": 2021
+    },
+    "auge": 2014,
+    "clubeMarcante": "Manchester City",
+    "atributos": {
+      "finalizacao": 93,
+      "passe": 80,
+      "drible": 90,
+      "velocidade": 84,
+      "defesa": 25,
+      "fisico": 74,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 88
+  },
+  {
+    "id": "carlos-tevez",
+    "nome": "Carlos Tévez",
+    "nacionalidade": "ARG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2001,
+      "fim": 2022
+    },
+    "auge": 2009,
+    "clubeMarcante": "Boca Juniors",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 78,
+      "drible": 86,
+      "velocidade": 80,
+      "defesa": 45,
+      "fisico": 86,
+      "mentalidade": 94,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "gonzalo-higuain",
+    "nome": "Gonzalo Higuaín",
+    "nacionalidade": "ARG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2005,
+      "fim": 2022
+    },
+    "auge": 2016,
+    "clubeMarcante": "Napoli",
+    "atributos": {
+      "finalizacao": 91,
+      "passe": 70,
+      "drible": 80,
+      "velocidade": 72,
+      "defesa": 25,
+      "fisico": 82,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "martin-palermo",
+    "nome": "Martín Palermo",
+    "nacionalidade": "ARG",
+    "posicao": "ATA",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1992,
+      "fim": 2011
+    },
+    "auge": 1999,
+    "clubeMarcante": "Boca Juniors",
+    "atributos": {
+      "finalizacao": 90,
+      "passe": 55,
+      "drible": 60,
+      "velocidade": 64,
+      "defesa": 25,
+      "fisico": 86,
+      "mentalidade": 92,
+      "goleiro": 10
+    },
+    "geral": 80
+  },
+  {
+    "id": "carlos-bianchi",
+    "nome": "Carlos Bianchi",
+    "nacionalidade": "ARG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1967,
+      "fim": 1985
+    },
+    "auge": 1974,
+    "clubeMarcante": "Vélez Sarsfield",
+    "atributos": {
+      "finalizacao": 93,
+      "passe": 66,
+      "drible": 74,
+      "velocidade": 76,
+      "defesa": 20,
+      "fisico": 76,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "abel-balbo",
+    "nome": "Abel Balbo",
+    "nacionalidade": "ARG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1987,
+      "fim": 2002
+    },
+    "auge": 1995,
+    "clubeMarcante": "Roma",
+    "atributos": {
+      "finalizacao": 88,
+      "passe": 66,
+      "drible": 76,
+      "velocidade": 72,
+      "defesa": 20,
+      "fisico": 80,
+      "mentalidade": 82,
+      "goleiro": 10
+    },
+    "geral": 81
+  },
+  {
+    "id": "christian-vieri",
+    "nome": "Christian Vieri",
+    "nacionalidade": "ITA",
+    "posicao": "ATA",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1991,
+      "fim": 2009
+    },
+    "auge": 1999,
+    "clubeMarcante": "Inter de Milão",
+    "atributos": {
+      "finalizacao": 92,
+      "passe": 64,
+      "drible": 74,
+      "velocidade": 76,
+      "defesa": 20,
+      "fisico": 94,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 85
+  },
+  {
+    "id": "filippo-inzaghi",
+    "nome": "Filippo Inzaghi",
+    "nacionalidade": "ITA",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1991,
+      "fim": 2012
+    },
+    "auge": 2003,
+    "clubeMarcante": "Milan",
+    "atributos": {
+      "finalizacao": 92,
+      "passe": 55,
+      "drible": 70,
+      "velocidade": 76,
+      "defesa": 15,
+      "fisico": 64,
+      "mentalidade": 94,
+      "goleiro": 10
+    },
+    "geral": 82
+  },
+  {
+    "id": "gianfranco-zola",
+    "nome": "Gianfranco Zola",
+    "nacionalidade": "ITA",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1984,
+      "fim": 2005
+    },
+    "auge": 1995,
+    "clubeMarcante": "Parma",
+    "atributos": {
+      "finalizacao": 88,
+      "passe": 88,
+      "drible": 92,
+      "velocidade": 76,
+      "defesa": 25,
+      "fisico": 56,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "luca-toni",
+    "nome": "Luca Toni",
+    "nacionalidade": "ITA",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1994,
+      "fim": 2016
+    },
+    "auge": 2006,
+    "clubeMarcante": "Fiorentina",
+    "atributos": {
+      "finalizacao": 89,
+      "passe": 62,
+      "drible": 64,
+      "velocidade": 62,
+      "defesa": 20,
+      "fisico": 92,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 80
+  },
+  {
+    "id": "ruud-van-nistelrooy",
+    "nome": "Ruud van Nistelrooy",
+    "nacionalidade": "NED",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1993,
+      "fim": 2012
+    },
+    "auge": 2003,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 94,
+      "passe": 66,
+      "drible": 80,
+      "velocidade": 74,
+      "defesa": 20,
+      "fisico": 84,
+      "mentalidade": 90,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "robin-van-persie",
+    "nome": "Robin van Persie",
+    "nacionalidade": "NED",
+    "posicao": "ATA",
+    "pe": "E",
+    "epoca": {
+      "inicio": 2001,
+      "fim": 2019
+    },
+    "auge": 2012,
+    "clubeMarcante": "Arsenal",
+    "atributos": {
+      "finalizacao": 92,
+      "passe": 82,
+      "drible": 86,
+      "velocidade": 78,
+      "defesa": 25,
+      "fisico": 72,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "robbie-fowler",
+    "nome": "Robbie Fowler",
+    "nacionalidade": "ENG",
+    "posicao": "ATA",
+    "pe": "E",
+    "epoca": {
+      "inicio": 1993,
+      "fim": 2012
+    },
+    "auge": 1996,
+    "clubeMarcante": "Liverpool",
+    "atributos": {
+      "finalizacao": 92,
+      "passe": 70,
+      "drible": 80,
+      "velocidade": 76,
+      "defesa": 20,
+      "fisico": 68,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "andy-cole",
+    "nome": "Andy Cole",
+    "nacionalidade": "ENG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1989,
+      "fim": 2008
+    },
+    "auge": 1999,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 90,
+      "passe": 66,
+      "drible": 78,
+      "velocidade": 85,
+      "defesa": 20,
+      "fisico": 70,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "david-trezeguet",
+    "nome": "David Trezeguet",
+    "nacionalidade": "FRA",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1994,
+      "fim": 2014
+    },
+    "auge": 2002,
+    "clubeMarcante": "Juventus",
+    "atributos": {
+      "finalizacao": 92,
+      "passe": 60,
+      "drible": 70,
+      "velocidade": 70,
+      "defesa": 20,
+      "fisico": 82,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 82
+  },
+  {
+    "id": "rudi-voller",
+    "nome": "Rudi Völler",
+    "nacionalidade": "FRG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1977,
+      "fim": 1996
+    },
+    "auge": 1990,
+    "clubeMarcante": "Roma",
+    "atributos": {
+      "finalizacao": 90,
+      "passe": 70,
+      "drible": 78,
+      "velocidade": 82,
+      "defesa": 25,
+      "fisico": 74,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "fernando-morientes",
+    "nome": "Fernando Morientes",
+    "nacionalidade": "ESP",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1993,
+      "fim": 2010
+    },
+    "auge": 2002,
+    "clubeMarcante": "Real Madrid",
+    "atributos": {
+      "finalizacao": 88,
+      "passe": 66,
+      "drible": 70,
+      "velocidade": 70,
+      "defesa": 25,
+      "fisico": 84,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 81
+  },
+  {
+    "id": "predrag-mijatovic",
+    "nome": "Predrag Mijatović",
+    "nacionalidade": "YUG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1987,
+      "fim": 2004
+    },
+    "auge": 1997,
+    "clubeMarcante": "Real Madrid",
+    "atributos": {
+      "finalizacao": 88,
+      "passe": 76,
+      "drible": 84,
+      "velocidade": 82,
+      "defesa": 25,
+      "fisico": 70,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "brian-laudrup",
+    "nome": "Brian Laudrup",
+    "nacionalidade": "DEN",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1986,
+      "fim": 1999
+    },
+    "auge": 1995,
+    "clubeMarcante": "Rangers",
+    "atributos": {
+      "finalizacao": 82,
+      "passe": 84,
+      "drible": 90,
+      "velocidade": 86,
+      "defesa": 30,
+      "fisico": 68,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 83
+  },
+  {
+    "id": "allan-simonsen",
+    "nome": "Allan Simonsen",
+    "nacionalidade": "DEN",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1971,
+      "fim": 1989
+    },
+    "auge": 1977,
+    "clubeMarcante": "Borussia Mönchengladbach",
+    "atributos": {
+      "finalizacao": 88,
+      "passe": 78,
+      "drible": 88,
+      "velocidade": 90,
+      "defesa": 25,
+      "fisico": 56,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "jari-litmanen",
+    "nome": "Jari Litmanen",
+    "nacionalidade": "FIN",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1987,
+      "fim": 2011
+    },
+    "auge": 1995,
+    "clubeMarcante": "Ajax",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 88,
+      "drible": 84,
+      "velocidade": 70,
+      "defesa": 30,
+      "fisico": 64,
+      "mentalidade": 86,
+      "goleiro": 10
+    },
+    "geral": 81
+  },
+  {
+    "id": "nwankwo-kanu",
+    "nome": "Nwankwo Kanu",
+    "nacionalidade": "NGA",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1992,
+      "fim": 2012
+    },
+    "auge": 1999,
+    "clubeMarcante": "Arsenal",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 78,
+      "drible": 88,
+      "velocidade": 70,
+      "defesa": 20,
+      "fisico": 76,
+      "mentalidade": 82,
+      "goleiro": 10
+    },
+    "geral": 81
+  },
+  {
+    "id": "rashidi-yekini",
+    "nome": "Rashidi Yekini",
+    "nacionalidade": "NGA",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1981,
+      "fim": 2005
+    },
+    "auge": 1994,
+    "clubeMarcante": "Vitória de Setúbal",
+    "atributos": {
+      "finalizacao": 90,
+      "passe": 55,
+      "drible": 66,
+      "velocidade": 76,
+      "defesa": 20,
+      "fisico": 86,
+      "mentalidade": 82,
+      "goleiro": 10
+    },
+    "geral": 81
+  },
+  {
+    "id": "mohamed-aboutrika",
+    "nome": "Mohamed Aboutrika",
+    "nacionalidade": "EGY",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1997,
+      "fim": 2013
+    },
+    "auge": 2006,
+    "clubeMarcante": "Al Ahly",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 88,
+      "drible": 86,
+      "velocidade": 72,
+      "defesa": 35,
+      "fisico": 64,
+      "mentalidade": 92,
+      "goleiro": 10
+    },
+    "geral": 86
+  },
+  {
+    "id": "rabah-madjer",
+    "nome": "Rabah Madjer",
+    "nacionalidade": "ALG",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1975,
+      "fim": 1992
+    },
+    "auge": 1987,
+    "clubeMarcante": "Porto",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 78,
+      "drible": 90,
+      "velocidade": 82,
+      "defesa": 25,
+      "fisico": 64,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 84
+  },
+  {
+    "id": "park-ji-sung",
+    "nome": "Park Ji-sung",
+    "nacionalidade": "KOR",
+    "posicao": "MEI",
+    "pe": "D",
+    "epoca": {
+      "inicio": 2000,
+      "fim": 2014
+    },
+    "auge": 2008,
+    "clubeMarcante": "Manchester United",
+    "atributos": {
+      "finalizacao": 72,
+      "passe": 78,
+      "drible": 76,
+      "velocidade": 86,
+      "defesa": 72,
+      "fisico": 82,
+      "mentalidade": 92,
+      "goleiro": 10
+    },
+    "geral": 79
+  },
+  {
+    "id": "landon-donovan",
+    "nome": "Landon Donovan",
+    "nacionalidade": "USA",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1999,
+      "fim": 2018
+    },
+    "auge": 2010,
+    "clubeMarcante": "LA Galaxy",
+    "atributos": {
+      "finalizacao": 84,
+      "passe": 82,
+      "drible": 84,
+      "velocidade": 88,
+      "defesa": 30,
+      "fisico": 62,
+      "mentalidade": 84,
+      "goleiro": 10
+    },
+    "geral": 82
+  },
+  {
+    "id": "cuauhtemoc-blanco",
+    "nome": "Cuauhtémoc Blanco",
+    "nacionalidade": "MEX",
+    "posicao": "ATA",
+    "pe": "D",
+    "epoca": {
+      "inicio": 1992,
+      "fim": 2016
+    },
+    "auge": 1998,
+    "clubeMarcante": "América",
+    "atributos": {
+      "finalizacao": 86,
+      "passe": 84,
+      "drible": 88,
+      "velocidade": 70,
+      "defesa": 25,
+      "fisico": 68,
+      "mentalidade": 88,
+      "goleiro": 10
+    },
+    "geral": 82
   }
 ]

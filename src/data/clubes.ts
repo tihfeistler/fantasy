@@ -2,11 +2,12 @@ import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
 import clubesJson from "../../data/clubes.json";
 import atuaisJson from "../../data/atuais.json";
 import { FORMACOES } from "../engine/ratings";
-import type { Divisao } from "../engine/campeonato";
+import { divisaoDaChave, type Divisao } from "../engine/ligas";
 import type { Jogador, Time } from "../engine/types";
 
 /**
- * Clubes das Séries A e B com os elencos atuais (data/clubes.json + data/atuais.json),
+ * Clubes das Séries A e B e das ligas estrangeiras com os elencos atuais
+ * (data/clubes.json + data/atuais.json),
  * empacotados no front para o modo solo funcionar offline.
  * Os atributos são RASCUNHO: ver scripts/gerar_atuais.py.
  */
@@ -25,9 +26,9 @@ export const ATUAIS = atuaisJson as Jogador[];
 
 export const NIVEL = new Map(CLUBES.map((c) => [c.id, c.nivel]));
 
-/** Divisão de cada clube no começo da carreira (2026). */
+/** Divisão (liga) de cada clube no começo da carreira (2026). */
 export const DIVISOES_INICIAIS: Record<string, Divisao> = Object.fromEntries(
-  CLUBES.map((c) => [c.id, c.liga === "brasileirao-b" ? "B" : "A"]),
+  CLUBES.map((c) => [c.id, divisaoDaChave(c.liga)]),
 );
 /** Clubes de uma divisão, na ordem de data/clubes.json. */
 export const clubesDaDivisao = (divisoes: Record<string, Divisao>, d: Divisao) =>
@@ -38,13 +39,20 @@ export const clubesDaDivisao = (divisoes: Record<string, Divisao>, d: Divisao) =
  * aplica as compras e vendas feitas na carreira.
  */
 export function montarTimesAtuais(transferencias: Record<string, string> = {}): Time[] {
-  const clubeDe = (j: Jogador) => transferencias[j.id] ?? j.clubeId;
+  // Agrupa uma vez (são milhares de jogadores em centenas de clubes).
+  const porClube = new Map<string, Jogador[]>();
+  for (const j of ATUAIS) {
+    const c = transferencias[j.id] ?? j.clubeId ?? "";
+    const l = porClube.get(c);
+    if (l) l.push(j);
+    else porClube.set(c, [j]);
+  }
   return CLUBES.map((c) => ({
     id: c.id,
     nome: c.nome,
     sigla: c.sigla,
     cor: c.cor,
-    elenco: ATUAIS.filter((j) => clubeDe(j) === c.id),
+    elenco: porClube.get(c.id) ?? [],
     formacao: FORMACOES[0],
     titulares: [],
     maxLendas: MAX_LENDAS_EM_CAMPO,

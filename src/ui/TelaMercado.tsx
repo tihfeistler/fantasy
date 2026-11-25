@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { NIVEL } from "../data/clubes";
+import { DIVISOES_INICIAIS, NIVEL } from "../data/clubes";
+import { LIGAS } from "../engine/ligas";
 import type { Temporada } from "../engine/campeonato";
 import {
   formatarDinheiro,
@@ -70,6 +71,7 @@ export function TelaMercado(props: Props) {
   const [busca, setBusca] = useState("");
   const [posicao, setPosicao] = useState("");
   const [clube, setClube] = useState("");
+  const [liga, setLiga] = useState("");
   const [limite, setLimite] = useState(POR_PAGINA);
   const [confirmando, setConfirmando] = useState<string | null>(null);
   const [negociando, setNegociando] = useState<string | null>(null);
@@ -87,7 +89,7 @@ export function TelaMercado(props: Props) {
       .normalize("NFD")
       .replace(/[̀-ͯ]/g, "");
     return times
-      .filter((t) => t.id !== meuTime.id && (!clube || t.id === clube))
+      .filter((t) => t.id !== meuTime.id && (!clube || t.id === clube) && (!liga || DIVISOES_INICIAIS[t.id] === liga))
       .flatMap((t) => t.elenco.filter((j) => !ehLenda(j)).map((j) => ({ j, dono: t })))
       .filter(({ j }) => !posicao || j.posicao === posicao)
       .filter(
@@ -100,7 +102,7 @@ export function TelaMercado(props: Props) {
             .includes(termo),
       )
       .sort((a, b) => b.j.geral - a.j.geral);
-  }, [times, meuTime.id, busca, posicao, clube]);
+  }, [times, meuTime.id, busca, posicao, clube, liga]);
 
   const dois = (id: string, acao: () => void) => () => {
     if (confirmando === id) {
@@ -159,10 +161,27 @@ export function TelaMercado(props: Props) {
                 <option key={p}>{p}</option>
               ))}
             </select>
+            <select
+              aria-label="Liga"
+              value={liga}
+              onChange={(e) => {
+                setLiga(e.target.value);
+                setClube("");
+                setLimite(POR_PAGINA);
+              }}
+            >
+              <option value="">Todas as ligas</option>
+              {LIGAS.map((l) => (
+                <option key={l.id} value={l.id}>
+                  {l.nome}
+                </option>
+              ))}
+            </select>
             <select aria-label="Clube" value={clube} onChange={(e) => setClube(e.target.value)}>
               <option value="">Todos os clubes</option>
               {times
-                .filter((t) => t.id !== meuTime.id)
+                .filter((t) => t.id !== meuTime.id && (!liga || DIVISOES_INICIAIS[t.id] === liga))
+                .sort((a, b) => a.nome.localeCompare(b.nome))
                 .map((t) => (
                   <option key={t.id} value={t.id}>
                     {t.nome}
