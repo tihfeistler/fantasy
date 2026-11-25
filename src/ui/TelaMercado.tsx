@@ -79,8 +79,6 @@ export function TelaMercado(props: Props) {
   const meus = meuTime.elenco.filter((j) => !ehLenda(j)).sort((a, b) => b.geral - a.geral);
   const folha = folhaComContratos(meuTime.elenco, contratos, anoInicial);
   const terminando = contratosTerminando(meus, contratos, anoInicial, temporada.ano);
-  const ultimo = financas.extrato[0]?.rodada;
-  const saldoUltima = financas.extrato.filter((l) => l.rodada === ultimo).reduce((s, l) => s + l.valor, 0);
 
   const outros = useMemo(() => {
     const termo = busca
@@ -117,17 +115,10 @@ export function TelaMercado(props: Props) {
         <Indicador rotulo="Caixa" valor={formatarDinheiro(financas.caixa)} destaque />
         <Indicador rotulo="Folha mensal" valor={formatarDinheiro(folha)} />
         <Indicador rotulo="Valor do elenco" valor={formatarDinheiro(valorDoElenco(meuTime))} />
-        <Indicador
-          rotulo={ultimo ? `Saldo da rodada ${ultimo}` : "Saldo da última rodada"}
-          valor={ultimo ? formatarDinheiro(saldoUltima) : "–"}
-          sinal={ultimo ? Math.sign(saldoUltima) : 0}
-        />
       </div>
       <p className="suave nota-financas">
         Os preços seguem oferta e procura: posição e nível com muitos jogadores na liga saem mais baratos, e raros
-        saem mais caros. Clube com sobra na posição vende mais barato; com carência, cobra mais. A cada rodada entram {formatarDinheiro(financas.receitaPorRodada)} de TV e patrocínio, mais{" "}
-        {formatarDinheiro(financas.bilheteria)} de bilheteria nos jogos em casa. Saem os salários (um quarto da folha
-        mensal). No fim do campeonato há premiação pela posição. Lendas não recebem salário.
+        saem mais caros. Clube com sobra na posição vende mais barato; com carência, cobra mais.
       </p>
       {financas.caixa < 0 && (
         <p className="aviso">
@@ -346,20 +337,6 @@ export function TelaMercado(props: Props) {
         </>
       )}
 
-      {financas.extrato.length > 0 && (
-        <div className="extrato">
-          <h2>Extrato</h2>
-          <ul>
-            {financas.extrato.slice(0, 20).map((l, i) => (
-              <li key={i}>
-                <span className="suave">{l.rodada ? `R${l.rodada}` : ""}</span>
-                <span>{l.descricao}</span>
-                <b className={l.valor < 0 ? "sai" : "ent"}>{formatarDinheiro(l.valor)}</b>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </>
   );
 }

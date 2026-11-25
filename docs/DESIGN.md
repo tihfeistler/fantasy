@@ -34,6 +34,17 @@ clube compra jogadores atuais; moedas de coleção compram pacotes de lendas.
 Assim um clube pequeno não compra o Pelé com a renda da bilheteria, mas
 pode conquistá-lo jogando bem.
 
+### Navegação (prévia feita em 25/11/2026)
+
+O jogo abre num **lobby** com o escudo do clube e o menu principal:
+Carreira (com rodada, posição e próximo jogo), Desafios, Online e Coleção.
+Cada modo tem uma barra no topo com o botão Menu, o clube e os saldos. A
+carreira tem navegação lateral: **Escritório** (próximo jogo, trecho da
+tabela, finanças, caixa de entrada com avisos e notícias, destaques do
+elenco), Elenco e tática, Partida, Campeonato, Mercado e Finanças. A
+Coleção junta estoque e pacotes, mercado de lendas e álbum. No celular a
+navegação lateral vira uma faixa rolável.
+
 ## 2. Jogadores atuais e jogadores clássicos
 
 Os dois tipos usam o **mesmo formato** e o mesmo motor de partida
