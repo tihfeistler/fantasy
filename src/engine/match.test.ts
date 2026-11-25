@@ -142,3 +142,16 @@ describe("partida interativa", () => {
     expect(energia(forte, 90)).toBeGreaterThan(energia(fraco, 90));
   });
 });
+
+describe("posse do lance (para o campo 2D)", () => {
+  it("registra quem teve a posse em cada minuto, e gols e chances são do time da posse", async () => {
+    const { PartidaAoVivo } = await import("./match");
+    for (const seed of [3, 11, 99]) {
+      const p = new PartidaAoVivo(a, b, seed);
+      while (!p.encerrada) p.avancar();
+      for (let m = 1; m <= 90; m++) expect([a.id, b.id]).toContain(p.posse[m]);
+      for (const e of p.eventos.filter((x) => x.tipo === "gol" || x.tipo === "chance")) expect(e.timeId).toBe(p.posse[e.minuto]);
+      for (const e of p.eventos.filter((x) => x.tipo === "defesa")) expect(e.timeId).not.toBe(p.posse[e.minuto]);
+    }
+  });
+});

@@ -138,6 +138,7 @@ export function PartidaOnline({ inicial, onVoltar }: Props) {
       fimTexto={aviso ? <span className="aviso">{aviso}</span> : fimTexto}
       dica="Clique num jogador para substituir. A mudança vale para os dois técnicos a partir do próximo minuto."
       onDecidir={decidir}
+      msPorMinuto={ms}
       controles={
         <>
           <div className="rodada-titulo">

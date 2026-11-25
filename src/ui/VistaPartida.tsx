@@ -2,7 +2,17 @@ import { useState, type ReactNode } from "react";
 import { estiloEscudo } from "../data/clubes";
 import { MAX_SUBSTITUICOES, type NovaDecisao, type PartidaAoVivo, type Tatica } from "../engine/match";
 import type { Time, TipoEvento } from "../engine/types";
+import { CampoPartida } from "./CampoPartida";
 import { setor } from "./CartaJogador";
+
+const CHAVE_CAMPO = "fantasy.campo";
+const lerCampo = () => {
+  try {
+    return localStorage.getItem(CHAVE_CAMPO) !== "texto";
+  } catch {
+    return true;
+  }
+};
 
 const ROTULO: Partial<Record<TipoEvento, string>> = {
   gol: "Gol",
@@ -36,12 +46,25 @@ interface Props {
   onDecidir: (d: NovaDecisao) => string | null | Promise<string | null>;
   /** Mensagem fixa no painel (ex.: "Tática enviada, vale no próximo minuto"). */
   dica?: string;
+  /** Duração do minuto atual na tela, para o campo animar o lance nesse tempo. */
+  msPorMinuto: number;
 }
 
 /** Placar, narração e painel do técnico de uma partida (offline ou online). */
 export function VistaPartida(p: Props) {
   const [trocando, setTrocando] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [comCampo, setComCampo] = useState(lerCampo);
+  const alternarCampo = () => {
+    setComCampo((v) => {
+      try {
+        localStorage.setItem(CHAVE_CAMPO, v ? "texto" : "campo");
+      } catch {
+        /* sem armazenamento: só vale nesta tela */
+      }
+      return !v;
+    });
+  };
   const { partida } = p;
   const decidir = async (d: NovaDecisao) => {
     setTrocando(null);
@@ -82,7 +105,20 @@ export function VistaPartida(p: Props) {
       {p.fimTexto && <div className="premio">{p.fimTexto}</div>}
 
       <div className="partida-grade">
-        <ol className="narracao">
+        <div className="partida-jogo">
+          {comCampo && (
+            <CampoPartida
+              partida={partida}
+              mandante={p.mandante}
+              visitante={p.visitante}
+              meuTimeId={p.meuTimeId}
+              msPorMinuto={p.msPorMinuto}
+            />
+          )}
+          <button className="link alternar-campo" onClick={alternarCampo}>
+            {comCampo ? "Esconder o campo (só narração)" : "Mostrar o campo"}
+          </button>
+        <ol className={`narracao${comCampo ? " curta" : ""}`}>
           {[...eventos].reverse().map((e, i) => (
             <li key={eventos.length - i} className={`ev ev-${e.tipo}`}>
               <span className="min">{e.minuto}'</span>
@@ -97,6 +133,7 @@ export function VistaPartida(p: Props) {
             </li>
           ))}
         </ol>
+        </div>
 
         {fim && p.lateralFim ? (
           p.lateralFim

@@ -81,6 +81,8 @@ export class PartidaAoVivo {
   minuto = 0;
   readonly eventos: EventoPartida[] = [{ minuto: 0, tipo: "inicio", texto: "Bola rolando!" }];
   readonly decisoes: Decisao[] = [];
+  /** Time com a posse do lance em cada minuto (posse[m] = id do time no minuto m). Só para a tela. */
+  readonly posse: string[] = [];
   private rng: Rng;
   private lados: [Lado, Lado];
 
@@ -224,6 +226,7 @@ export class PartidaAoVivo {
     const fc = this.forca(casa);
     const ff = this.forca(fora);
     const [atk, def, fa, fd] = rng() < razao(fc.meio, ff.meio) ? [casa, fora, fc, ff] : [fora, casa, ff, fc];
+    this.posse[minuto] = atk.time.id;
 
     if (rng() < PARAMS.cartaoPorMinuto) {
       const v = def.vagas[1 + Math.floor(rng() * (def.vagas.length - 1))] ?? def.vagas[0];
