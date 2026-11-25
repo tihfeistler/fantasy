@@ -1,0 +1,60 @@
+# Geral alvo de jogadores conhecidos (RASCUNHO, opinião para calibrar o jogo).
+# Formato: clubeId | Nome | geral
+# Quem não está aqui recebe o geral automático (nível do clube + papel).
+santos | Neymar | 84
+santos | Philippe Coutinho | 78
+santos | Gabriel Barbosa | 76
+corinthians | Memphis Depay | 81
+corinthians | Hugo Souza | 79
+corinthians | Rodrigo Garro | 79
+corinthians | Yuri Alberto | 78
+corinthians | Jesse Lingard | 75
+fluminense | Thiago Silva | 80
+fluminense | Hulk | 77
+fluminense | Ganso | 75
+fluminense | Germán Cano | 76
+fluminense | Jefferson Savarino | 78
+fluminense | Fábio | 76
+palmeiras | Gustavo Gómez | 81
+palmeiras | Vitor Roque | 80
+palmeiras | Andreas Pereira | 80
+palmeiras | Jhon Arias | 82
+palmeiras | Carlos Miguel | 80
+palmeiras | Felipe Anderson | 78
+palmeiras | Joaquín Piquerez | 80
+cruzeiro | Gerson | 81
+cruzeiro | Kaio Jorge | 80
+cruzeiro | Cássio | 77
+cruzeiro | Matheus Pereira | 81
+cruzeiro | Fabrício Bruno | 79
+sao-paulo | Lucas Moura | 78
+sao-paulo | Jonathan Calleri | 77
+sao-paulo | Robert Arboleda | 77
+internacional | Alan Patrick | 80
+internacional | Sergio Rochet | 79
+internacional | Johan Carbonero | 77
+gremio | Weverton | 78
+gremio | Martin Braithwaite | 77
+gremio | Walter Kannemann | 76
+atletico-mg | Gustavo Scarpa | 79
+atletico-mg | Everson | 78
+atletico-mg | Renan Lodi | 77
+atletico-mg | Bernard | 76
+bahia | Éverton Ribeiro | 77
+bahia | Luciano Juba | 77
+botafogo | Alex Telles | 77
+botafogo | Arthur Cabral | 76
+vasco | Léo Jardim | 78
+vasco | Lucas Piton | 77
+flamengo | Giorgian de Arrascaeta | 84
+flamengo | Lucas Paquetá | 83
+flamengo | Agustín Rossi | 80
+flamengo | Jorginho | 80
+flamengo | Pedro | 80
+flamengo | Léo Ortiz | 80
+flamengo | Samuel Lino | 79
+flamengo | Erick Pulgar | 78
+flamengo | Danilo | 77
+flamengo | Bruno Henrique | 77
+flamengo | Saúl Ñíguez | 78
+flamengo | Alex Sandro | 76

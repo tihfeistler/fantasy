@@ -1,0 +1,144 @@
+import { describe, expect, it } from "vitest";
+import { TIMES_EXEMPLO } from "../data/exemplo";
+import { escalar } from "./ratings";
+import { simularPartida } from "./match";
+import type { Time } from "./types";
+
+const [a, b] = TIMES_EXEMPLO;
+
+describe("simularPartida", () => {
+  it("é determinística pela seed", () => {
+    expect(simularPartida(a, b, 42)).toEqual(simularPartida(a, b, 42));
+  });
+
+  it("gera placar coerente com os eventos de gol", () => {
+    const r = simularPartida(a, b, 7);
+    const gols = r.eventos.filter((e) => e.tipo === "gol");
+    expect(gols.filter((e) => e.timeId === a.id).length).toBe(r.golsMandante);
+    expect(gols.filter((e) => e.timeId === b.id).length).toBe(r.golsVisitante);
+  });
+
+  it("média de gols realista entre times parecidos", () => {
+    let total = 0;
+    const n = 2000;
+    for (let s = 1; s <= n; s++) {
+      const r = simularPartida(a, b, s);
+      total += r.golsMandante + r.golsVisitante;
+    }
+    const media = total / n;
+    expect(media).toBeGreaterThan(2);
+    expect(media).toBeLessThan(3.5);
+  });
+
+  it("time muito mais forte vence a maioria", () => {
+    const fraco: Time = {
+      ...b,
+      id: "fraco",
+      elenco: b.elenco.map((j) => ({
+        ...j,
+        geral: Math.round(j.geral * 0.6),
+        atributos: Object.fromEntries(
+          Object.entries(j.atributos).map(([k, v]) => [k, Math.round(v * 0.6)]),
+        ) as unknown as typeof j.atributos,
+      })),
+    };
+    let vitorias = 0;
+    for (let s = 1; s <= 500; s++) {
+      const r = simularPartida(a, fraco, s);
+      if (r.golsMandante > r.golsVisitante) vitorias++;
+    }
+    expect(vitorias / 500).toBeGreaterThan(0.75);
+  });
+});
+
+describe("escalar", () => {
+  it("com titulares escolhidos, usa só eles e deixa a vaga vazia", () => {
+    const auto = escalar(a).map((v) => v.jogador.id);
+    const semUm = { ...a, titulares: auto.slice(1) };
+    const v = escalar(semUm);
+    expect(v).toHaveLength(10);
+    expect(v.map((x) => x.jogador.id)).not.toContain(auto[0]);
+  });
+
+  it("escala 11 com um goleiro", () => {
+    const v = escalar(a);
+    expect(v).toHaveLength(11);
+    expect(v.filter((x) => x.pos === "GOL")).toHaveLength(1);
+    expect(new Set(v.map((x) => x.jogador.id)).size).toBe(11);
+  });
+});
+
+describe("banco de reservas", () => {
+  it("automático: até 12, com pelo menos um goleiro; escolhido: respeita a ordem e o limite", async () => {
+    const { montarBanco, VAGAS_BANCO, escalar } = await import("./ratings");
+    const { montarTimesAtuais } = await import("../data/clubes");
+    const t = montarTimesAtuais()[0];
+    const tit = new Set(escalar(t).map((v) => v.jogador.id));
+    const auto = montarBanco(t, tit);
+    expect(auto).toHaveLength(VAGAS_BANCO);
+    expect(auto.filter((j) => j.posicao === "GOL").length).toBeGreaterThanOrEqual(1);
+    expect(auto.some((j) => tit.has(j.id))).toBe(false);
+    const livres = t.elenco.filter((j) => !tit.has(j.id)).map((j) => j.id);
+    const escolhido = montarBanco({ ...t, banco: [...livres.slice(0, VAGAS_BANCO + 2), [...tit][0]] }, tit);
+    expect(escolhido.map((j) => j.id)).toEqual(livres.slice(0, VAGAS_BANCO));
+  });
+});
+
+describe("partida interativa", () => {
+  it("mesma seed e mesmas decisões dão a mesma partida", async () => {
+    const { PartidaAoVivo } = await import("./match");
+    const p = new PartidaAoVivo(a, b, 9, [a.id]);
+    while (p.minuto < 60) p.avancar();
+    expect(p.decidir({ timeId: a.id, tipo: "tatica", tatica: "ofensiva" })).toBeNull();
+    const est = p.estado(a.id);
+    const sai = est.emCampo.find((v) => v.pos === "ATA")!.jogador.id;
+    const entra = est.banco[0].id;
+    expect(p.decidir({ timeId: a.id, tipo: "sub", sai, entra })).toBeNull();
+    while (!p.encerrada) p.avancar();
+    const r = p.resultado();
+    expect(simularPartida(a, b, 9, p.decisoes)).toEqual(r);
+    expect(r.eventos.some((e) => e.tipo === "sub" && e.jogadorId === entra)).toBe(true);
+  });
+
+  it("limita 5 substituições e não deixa voltar quem saiu", async () => {
+    const { PartidaAoVivo, MAX_SUBSTITUICOES } = await import("./match");
+    const p = new PartidaAoVivo(a, b, 3, [a.id]);
+    p.avancar();
+    const est = p.estado(a.id);
+    const saiu = est.emCampo[1].jogador.id;
+    expect(p.decidir({ timeId: a.id, tipo: "sub", sai: saiu, entra: est.banco[0].id })).toBeNull();
+    expect(p.estado(a.id).banco.some((j) => j.id === saiu)).toBe(false);
+    for (let i = 1; i < MAX_SUBSTITUICOES; i++) {
+      const e = p.estado(a.id);
+      p.decidir({ timeId: a.id, tipo: "sub", sai: e.emCampo[i + 1].jogador.id, entra: e.banco[0].id });
+    }
+    const e = p.estado(a.id);
+    expect(e.subs).toBe(MAX_SUBSTITUICOES);
+    expect(p.decidir({ timeId: a.id, tipo: "sub", sai: e.emCampo[8].jogador.id, entra: e.banco[0]?.id ?? "x" })).toMatch(/Limite/);
+  });
+
+  it("time ofensivo cria mais chances e sofre mais", async () => {
+    const { simularPartida: sim } = await import("./match");
+    const golsPro = [0, 0];
+    const golsContra = [0, 0];
+    for (let s = 1; s <= 600; s++) {
+      for (const [k, tatica] of [[0, "equilibrada"], [1, "ofensiva"]] as const) {
+        const r = sim(a, b, s, [{ minuto: 0, timeId: a.id, tipo: "tatica", tatica }]);
+        golsPro[k] += r.golsMandante;
+        golsContra[k] += r.golsVisitante;
+      }
+    }
+    expect(golsPro[1]).toBeGreaterThan(golsPro[0]);
+    expect(golsContra[1]).toBeGreaterThan(golsContra[0]);
+  });
+
+  it("energia cai com o tempo e cai menos para quem tem mais físico", async () => {
+    const { energia } = await import("./match");
+    const j = a.elenco[0];
+    expect(energia(j, 10)).toBe(1);
+    expect(energia(j, 90)).toBeLessThan(1);
+    const forte = { ...j, atributos: { ...j.atributos, fisico: 95 } };
+    const fraco = { ...j, atributos: { ...j.atributos, fisico: 40 } };
+    expect(energia(forte, 90)).toBeGreaterThan(energia(fraco, 90));
+  });
+});
