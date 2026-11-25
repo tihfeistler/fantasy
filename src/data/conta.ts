@@ -13,7 +13,7 @@ export interface EstadoCarreira {
   caixa: number;
   moedas: number;
   seq: number;
-  /** Só ao criar: caixa inicial do clube dado na primeira carreira da conta. */
+  /** Só ao criar: caixa inicial do clube. */
   bonus?: number;
 }
 
@@ -44,7 +44,6 @@ export const conta = {
   criar: (dados: Progresso) => chamar<EstadoCarreira>({ acao: "criar", dados }),
   salvar: (dados: Progresso, lancamentos: Lancamento[]) =>
     chamar<RespostaSalvar>({ acao: "salvar", dados: semDerivados(dados), lancamentos }),
-  apagar: () => chamar<EstadoCarreira>({ acao: "apagar" }),
 };
 
 /** O que vem da conta (estoque e moedas) não vai no JSON da carreira. */

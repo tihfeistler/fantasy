@@ -49,6 +49,14 @@ CREATE TABLE IF NOT EXISTS usuarios (
   senha_hash      VARCHAR(255) NOT NULL,
   moedas          INT UNSIGNED NOT NULL DEFAULT 0,
   limite_cartas   SMALLINT UNSIGNED NOT NULL DEFAULT 300, -- lendas que cabem na coleção (até 500)
+  -- Cadastro completo (25/11/2026). Contas antigas ficam com NULL até completar.
+  email           VARCHAR(120) NULL UNIQUE,
+  tecnico         VARCHAR(40)  NULL,              -- nome do técnico na carreira
+  nascimento      DATE         NULL,
+  pais            VARCHAR(40)  NULL,
+  clube_coracao   VARCHAR(64)  NULL,
+  clube_carreira  VARCHAR(64)  NULL,              -- clube da única carreira da conta (não muda)
+  termos_em       DATETIME     NULL,              -- quando aceitou os termos
   criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -61,16 +69,6 @@ CREATE TABLE IF NOT EXISTS cartas (
   origem          ENUM('pacote','objetivo','troca','mercado') NOT NULL,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
   FOREIGN KEY (jogador_id) REFERENCES jogadores(id)
-) ENGINE=InnoDB;
-
--- Saves da carreira (estado do jogo em JSON)
-CREATE TABLE IF NOT EXISTS saves (
-  usuario_id      INT UNSIGNED NOT NULL,
-  slot            TINYINT UNSIGNED NOT NULL,
-  dados           LONGTEXT     NOT NULL,
-  atualizado_em   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (usuario_id, slot),
-  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -283,3 +281,21 @@ ALTER TABLE carreiras ADD COLUMN IF NOT EXISTS copas_pagas TEXT NULL AFTER bonus
 
 -- Dono da carta quando a proposta foi feita (para mostrar a quem foi a proposta depois da venda).
 ALTER TABLE propostas ADD COLUMN IF NOT EXISTS vendedor_id INT UNSIGNED NULL AFTER comprador_id;
+
+-- Cadastro completo e uma carreira por conta (25/11/2026).
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS email VARCHAR(120) NULL AFTER limite_cartas;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS tecnico VARCHAR(40) NULL AFTER email;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS nascimento DATE NULL AFTER tecnico;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS pais VARCHAR(40) NULL AFTER nascimento;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS clube_coracao VARCHAR(64) NULL AFTER pais;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS clube_carreira VARCHAR(64) NULL AFTER clube_coracao;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS termos_em DATETIME NULL AFTER clube_carreira;
+ALTER TABLE usuarios ADD UNIQUE INDEX IF NOT EXISTS email (email);
+-- Contas antigas: a carreira que está salva vira a única da conta (clube e técnico ficam presos a ela).
+-- Uma carreira apagada antes desta mudança deixa a conta escolher o clube uma última vez.
+UPDATE usuarios u JOIN carreiras c ON c.usuario_id = u.id
+  SET u.clube_carreira = c.clube_id,
+      u.tecnico = COALESCE(u.tecnico, LEFT(JSON_UNQUOTE(JSON_EXTRACT(c.dados, '$.manager.nome')), 40))
+  WHERE u.clube_carreira IS NULL AND c.dados IS NOT NULL;
+-- A tabela saves (vários espaços de carreira) nunca foi usada pelo jogo e sai.
+DROP TABLE IF EXISTS saves;

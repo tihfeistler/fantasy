@@ -52,8 +52,37 @@ async function chamar<T>(arquivo: string, corpo?: object, qs = ""): Promise<T> {
 
 export interface Usuario {
   id: number;
+  /** Usuário de login (também aparece no ranqueado e no mercado). */
   nome: string;
   moedas: number;
+  email: string | null;
+  /** Nome do técnico na carreira. */
+  tecnico: string | null;
+  nascimento: string | null;
+  pais: string | null;
+  clubeCoracao: string | null;
+  /** Clube da única carreira da conta, escolhido no cadastro. */
+  clubeCarreira: string | null;
+  /** Contas antigas sem e-mail ou sem aceite dos termos precisam completar o cadastro. */
+  completo: boolean;
+}
+
+/** Dados de perfil pedidos no cadastro e ao completar o cadastro. */
+export interface Perfil {
+  email: string;
+  tecnico: string;
+  nascimento: string;
+  pais: string;
+  clube_coracao: string;
+  termos: boolean;
+}
+
+export interface Cadastro extends Perfil {
+  usuario: string;
+  senha: string;
+  senha2: string;
+  /** Clube da carreira. */
+  clube: string;
 }
 
 export interface PerfilRanqueado {
@@ -141,7 +170,8 @@ export interface Ranking {
 
 export const online = {
   eu: () => chamar<Usuario | null>("auth.php"),
-  registrar: (nome: string, senha: string) => chamar<Usuario>("auth.php", { acao: "registrar", nome, senha }),
+  registrar: (c: Cadastro) => chamar<Usuario>("auth.php", { acao: "registrar", ...c }),
+  completar: (p: Perfil) => chamar<Usuario>("auth.php", { acao: "completar", ...p }),
   entrar: (nome: string, senha: string) => chamar<Usuario>("auth.php", { acao: "entrar", nome, senha }),
   sair: () => chamar<null>("auth.php", { acao: "sair" }),
 

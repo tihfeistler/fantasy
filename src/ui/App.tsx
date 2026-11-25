@@ -120,7 +120,8 @@ import {
 import { TelaMercadoCartas } from "./TelaMercadoCartas";
 import { TelaNovoManager } from "./TelaNovoManager";
 import { TelaInicio } from "./TelaInicio";
-import { completa, Entrar, TelaOnline, timeDe } from "./TelaOnline";
+import { completa, TelaOnline, timeDe } from "./TelaOnline";
+import { CompletarCadastro, Entrar } from "./TelaConta";
 import { LojaCartasBase } from "./LojaCartasBase";
 import { TelaMercadoOnline } from "./TelaMercadoOnline";
 import { conta, pendentes, type EstadoCarreira } from "../data/conta";
@@ -299,7 +300,6 @@ export function App() {
       };
     return p;
   });
-  const [confirmarNova, setConfirmarNova] = useState(false);
   const meuTimeId = progresso.manager?.clubeId ?? "";
   // Times atuais com as transferências da carreira; o do manager recebe a escalação salva.
   const times = useMemo(() => {
@@ -1399,7 +1399,7 @@ export function App() {
     return premio;
   };
 
-  const criarManager = (nome: string, clubeId: string) => {
+  const criarManager = (nome: string, clubeId: string, fim?: () => void) => {
     const primeira = criarTemporada(
       ANO_INICIAL,
       DIVISOES_INICIAIS,
@@ -1433,25 +1433,27 @@ export function App() {
           setProgresso(daConta(c, sit));
           if (c.bonus) setAvisoConta(null);
           setAba("escritorio");
+          fim?.();
         },
-        (e) => setAvisoConta((e as Error).message),
+        (e) => {
+          setAvisoConta((e as Error).message);
+          fim?.();
+        },
       );
       return;
     }
     setProgresso(nova);
     setAba("escritorio");
   };
-  const novaCarreira = () => {
-    setConfirmarNova(false);
-    if (naConta) {
-      conta.apagar().then(
-        (c) => setProgresso({ ...PROGRESSO_INICIAL, moedas: c.moedas }),
-        (e) => setAvisoConta((e as Error).message),
-      );
-      return;
-    }
-    setProgresso(PROGRESSO_INICIAL);
-  };
+  // Conta nova: a carreira nasce sozinha com o técnico e o clube do cadastro.
+  const criandoCarreira = useRef(false);
+  useEffect(() => {
+    if (!naConta || !usuario?.completo || progresso.manager || !usuario.clubeCarreira || !usuario.tecnico) return;
+    if (criandoCarreira.current) return;
+    criandoCarreira.current = true;
+    criarManager(usuario.tecnico, usuario.clubeCarreira, () => (criandoCarreira.current = false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [naConta, usuario, progresso.manager]);
   const sair = async () => {
     await online.sair().catch(() => null);
     setUsuario(null);
@@ -1482,8 +1484,37 @@ export function App() {
           ) : (
             <>
               {avisoConta && <p className="aviso">{avisoConta}</p>}
-              <Entrar onEntrou={entrarNaConta} />
+              <Entrar times={times} onEntrou={entrarNaConta} />
             </>
+          )}
+        </TelaInicio>
+      </div>
+    );
+  }
+
+  if (naConta && !usuario!.completo) {
+    return (
+      <div className="app">
+        <TelaInicio>
+          <CompletarCadastro usuario={usuario!} onPronto={setUsuario} />
+        </TelaInicio>
+      </div>
+    );
+  }
+
+  if (naConta && !progresso.manager && usuario!.clubeCarreira) {
+    return (
+      <div className="app">
+        <TelaInicio>
+          {avisoConta ? (
+            <div className="caixa-entrar">
+              <p className="aviso">{avisoConta}</p>
+              <button className="botao" onClick={sair}>
+                Sair
+              </button>
+            </div>
+          ) : (
+            <p className="suave">Preparando sua carreira…</p>
           )}
         </TelaInicio>
       </div>
@@ -1499,7 +1530,11 @@ export function App() {
             e o ranqueado.{avisoConta ? ` ${avisoConta}` : ""}
           </p>
         )}
-        <TelaNovoManager times={times} onCriar={criarManager} />
+        <TelaNovoManager
+          times={times}
+          nomeFixo={naConta ? usuario!.tecnico : null}
+          onCriar={(nome, clube) => criarManager(nome, clube)}
+        />
       </div>
     );
   }
@@ -1554,7 +1589,7 @@ export function App() {
                   : 0,
           }))
         : null;
-  const pedirNovaCarreira = (
+  const avisos = (
     <>
       {avisoConta && (
         <p className="aviso aviso-acao">
@@ -1564,28 +1599,13 @@ export function App() {
           </button>
         </p>
       )}
-      {confirmarNova && (
-        <div className="aviso aviso-acao">
-          <span>
-            {naConta
-              ? "Começar uma nova carreira apaga esta: campeonato, elenco e contratos. O caixa, as moedas e as cartas da conta continuam."
-              : "Começar uma nova carreira apaga esta: campeonato, caixa, contratações, moedas, estoque e lendas."}
-          </span>
-          <button className="botao" onClick={() => setConfirmarNova(false)}>
-            Cancelar
-          </button>
-          <button className="botao perigo" onClick={novaCarreira}>
-            Apagar e começar de novo
-          </button>
-        </div>
-      )}
     </>
   );
 
   if (modo === "menu")
     return (
       <div className="app">
-        {pedirNovaCarreira}
+        {avisos}
         <Lobby
           tecnico={progresso.manager.nome}
           meuTime={meuTime}
@@ -1624,7 +1644,6 @@ export function App() {
             propostas: propostasCartas,
           }}
           onEntrar={(m) => (m === "carreira" ? setAba(aba) : setModo(m))}
-          onNovaCarreira={() => setConfirmarNova(true)}
         />
       </div>
     );
@@ -1671,7 +1690,7 @@ export function App() {
           </div>
         </div>
       </header>
-      {pedirNovaCarreira}
+      {avisos}
       <div className={lateral ? "corpo com-lateral" : "corpo"}>
         {lateral && (
           <nav className="lateral" aria-label={TITULO_MODO[modo]}>
@@ -1930,11 +1949,6 @@ export function App() {
       <footer className="rodape">
         Carreira de {progresso.manager.nome} no {meuTime.nome}, desde{" "}
         {progresso.manager.criadoEm.split("-").reverse().join("/")}.
-        {!confirmarNova && (
-          <button className="link-nome" onClick={() => setConfirmarNova(true)}>
-            Nova carreira
-          </button>
-        )}
       </footer>
     </div>
   );

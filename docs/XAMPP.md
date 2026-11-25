@@ -5,7 +5,7 @@ O jogo tem duas partes:
 - **Front** (telas e motor de partidas): React + TypeScript, compilado para
   HTML/JS estático.
 - **API** (`api/*.php`) + **banco MySQL/MariaDB** (`sql/schema.sql`): guarda
-  jogadores, clubes e, mais adiante, contas, cartas e saves.
+  jogadores, clubes e, mais adiante, contas, cartas e carreiras.
 
 ## 1. Preparar (uma vez)
 
@@ -185,3 +185,14 @@ que já existe:
 As carreiras e contas que já existem continuam valendo. Para treinar um clube
 estrangeiro ou de outra divisão, comece uma carreira nova e escolha o país na
 tela de clubes.
+
+## Atualização de 25/11/2026 (uma carreira por conta e cadastro completo)
+
+Importe `sql/schema.sql` de novo no phpMyAdmin (ou
+`C:\xampp\mysql\bin\mysql -u root < sql\schema.sql`) e rode `npm run build`.
+Não precisa rodar `scripts/importar.php`. O banco ganha os campos do cadastro
+em `usuarios` (e-mail, técnico, nascimento, país, clube do coração, clube da
+carreira e aceite dos termos) e perde a tabela `saves`, que o jogo nunca usou.
+As contas que já existem continuam: a carreira salva vira a única da conta e,
+no próximo login, o jogo pede e-mail, nascimento, país e o aceite dos termos.
+

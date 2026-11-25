@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   nomeTemporada,
   online,
@@ -7,7 +7,6 @@ import {
   type PerfilRanqueado,
   type Ranking,
   type SituacaoOnline,
-  type Usuario,
 } from "../data/online";
 import { formatarDinheiro } from "../engine/mercado";
 import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
@@ -350,53 +349,3 @@ function Emblema({ perfil }: { perfil: PerfilRanqueado }) {
   );
 }
 
-export function Entrar({ onEntrou }: { onEntrou: (u: Usuario) => void }) {
-  const [nome, setNome] = useState("");
-  const [senha, setSenha] = useState("");
-  const [criar, setCriar] = useState(false);
-  const [erro, setErro] = useState<string | null>(null);
-  const valido = useMemo(() => nome.trim().length >= 3 && senha.length >= 6, [nome, senha]);
-  return (
-    <section className="tela online">
-      <form
-        className="entrar caixa-entrar"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setErro(null);
-          try {
-            onEntrou(await (criar ? online.registrar(nome.trim(), senha) : online.entrar(nome.trim(), senha)));
-          } catch (err) {
-            setErro((err as Error).message);
-          }
-        }}
-      >
-        <h2>{criar ? "Criar conta" : "Entrar"}</h2>
-        <p className="suave">
-          O jogo fica na sua conta: carreira, cartas, caixa e moedas. Um caixa só para contratar, pagar salários e jogar o
-          ranqueado.
-        </p>
-        <label>
-          Nome de técnico
-          <input id="online-nome" value={nome} onChange={(e) => setNome(e.target.value)} autoComplete="username" />
-        </label>
-        <label>
-          Senha
-          <input
-            id="online-senha"
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            autoComplete={criar ? "new-password" : "current-password"}
-          />
-        </label>
-        {erro && <p className="aviso">{erro}</p>}
-        <button className="botao primario" disabled={!valido}>
-          {criar ? "Criar conta" : "Entrar"}
-        </button>
-        <button type="button" className="link" onClick={() => setCriar((c) => !c)}>
-          {criar ? "Já tenho conta" : "Não tenho conta: criar uma"}
-        </button>
-      </form>
-    </section>
-  );
-}
