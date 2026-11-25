@@ -27,7 +27,6 @@ interface Props {
   conta: { nome: string; onSair: () => void } | null;
   colecao: { cartas: number; limite: number; noEstoque: number; propostas: number };
   onEntrar: (m: Modo) => void;
-  onNovaCarreira: () => void;
 }
 
 /** Tela inicial: menu principal com os modos de jogo e um resumo de cada um. */
@@ -126,12 +125,6 @@ export function Lobby(p: Props) {
           onClick={() => p.onEntrar("colecao")}
         />
       </div>
-
-      <footer className="lobby-rodape">
-        <button className="link-nome" onClick={p.onNovaCarreira}>
-          Nova carreira
-        </button>
-      </footer>
     </section>
   );
 }

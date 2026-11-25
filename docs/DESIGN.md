@@ -283,9 +283,17 @@ coleção, caixa e moedas ficam na conta, no servidor.
   rodada; prêmio de desafio só depois de pagar a partida, com no máximo 10
   treinos premiados por dia; lenda de desafio uma vez por desafio. O que
   não passa é recusado e o caixa volta ao valor do servidor.
-- Primeira carreira da conta: o caixa ganha o caixa inicial do clube (10%
-  do valor do elenco), uma vez só. Nova carreira apaga campeonato e
-  elenco, mas não o caixa, as moedas e as cartas.
+- **Uma carreira por conta** (decidido em 25/11/2026): o clube é escolhido
+  no cadastro e fica preso à conta (`usuarios.clube_carreira`). Não existe
+  "Nova carreira" nem apagar; o servidor recusa uma segunda carreira (409).
+  Para comandar outro clube, só criando outra conta. O caixa ganha o caixa
+  inicial do clube (10% do valor do elenco) uma vez.
+- **Cadastro completo**: usuário (login, também aceita o e-mail), e-mail
+  único, senha de 8+ caracteres com letra e número (com confirmação), nome
+  do técnico, data de nascimento (13 anos ou mais), país, clube do coração
+  (opcional), aceite dos termos e país/divisão/clube da carreira. O
+  servidor (`api/auth.php`) confere tudo. Contas antigas completam o
+  cadastro no próximo login; a carreira salva vira a única da conta.
 - Limite da coleção no servidor: 300 lendas, +10 por 1.000 moedas, até 500.
 - Limite que continua: o servidor não refaz as partidas, então não sabe se
   o placar é verdadeiro. Os tetos acima limitam o que dá para ganhar.
@@ -430,7 +438,7 @@ servidor dedicado.
   já incluso; falta service worker).
 - **Backend**: **PHP 8 + MySQL/MariaDB**, para rodar e testar fácil no
   XAMPP (ver [`XAMPP.md`](XAMPP.md)). API simples em `api/*.php` com PDO;
-  schema em `sql/schema.sql` (clubes, jogadores, usuários, cartas, saves);
+  schema em `sql/schema.sql` (clubes, jogadores, usuários, cartas, carreiras);
   importador `scripts/importar.php` carrega os JSON de `data/` no banco.
 - **Onde roda a partida**: no modo solo, o motor TypeScript roda no
   navegador (rápido, funciona offline). No modo online, o servidor precisa

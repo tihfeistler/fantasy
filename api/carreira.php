@@ -4,11 +4,13 @@
 //
 // GET  api/carreira.php                         -> {dados|null, caixa, seq}
 // POST api/carreira.php {acao:"criar", dados}   cria a carreira do clube de dados.manager.clubeId.
-//      Na primeira carreira da conta, o caixa ganha o caixa inicial do clube (10% do valor do elenco).
+//      Cada conta tem UMA carreira: o clube é o escolhido no cadastro (usuarios.clube_carreira) e uma
+//      conta que já tem carreira recebe 409. Para outro clube, só criando outra conta.
+//      O caixa ganha o caixa inicial do clube (10% do valor do elenco).
 // POST api/carreira.php {acao:"salvar", dados, lancamentos:[...]}
 //      Guarda o estado e aplica no caixa os lançamentos novos (seq maior que o último aceito),
 //      um por um, conferindo cada um pelas regras abaixo. Responde {caixa, seq, recusados}.
-// POST api/carreira.php {acao:"apagar"}         apaga a carreira (o caixa continua).
+// Não existe apagar: a carreira dura enquanto durar a conta.
 //
 // O jogo roda no navegador, então o servidor não refaz as partidas. Ele confere o que dá para
 // conferir: TV e bilheteria têm valor fixo e saem uma vez por rodada; o salário não pode ser
@@ -174,6 +176,15 @@ switch ((string) ($d['acao'] ?? '')) {
     case 'criar': {
         $dados = $d['dados'] ?? null;
         $clube = (string) ($dados['manager']['clubeId'] ?? '');
+        $q = $pdo->prepare('SELECT clube_carreira, tecnico FROM usuarios WHERE id = ?');
+        $q->execute([$eu]);
+        $perfil = $q->fetch();
+        if ($perfil['clube_carreira'] !== null && $perfil['clube_carreira'] !== $clube) {
+            erro('O clube desta conta já foi escolhido. Para comandar outro clube, crie outra conta.', 409);
+        }
+        $tecnico = $perfil['tecnico'] ?? preg_replace('/\s+/u', ' ', trim((string) ($dados['manager']['nome'] ?? '')));
+        if (!preg_match("/^[\\p{L}\\p{N}][\\p{L}\\p{N} .'-]{1,39}$/u", $tecnico)) erro('Nome do técnico inválido.');
+        $dados['manager']['nome'] = $tecnico;
         $q = $pdo->prepare('SELECT liga FROM clubes WHERE id = ?');
         $q->execute([$clube]);
         $liga = $q->fetchColumn();
@@ -188,6 +199,9 @@ switch ((string) ($d['acao'] ?? '')) {
         $pdo->beginTransaction();
         caixaDe($eu, true);
         $c = linhaCarreira($eu, true);
+        if ($c && $c['dados'] !== null) {
+            erro('Esta conta já tem uma carreira. Para começar outra, crie uma conta nova.', 409);
+        }
         $bonus = $c && $c['bonus_inicial'] ? 0 : (int) round($valor * 0.1);
         $pdo->prepare('INSERT INTO carreiras (usuario_id, clube_id, divisao, ano, receita, bilheteria, posse, ultima_rodada,
                 ultima_bilheteria, ultimo_salario, ultima_premiacao, seq, desafio_pendente, bonus_inicial, dados)
@@ -209,6 +223,7 @@ switch ((string) ($d['acao'] ?? '')) {
             'extrato' => [], 'seq' => 0];
         $pdo->prepare('UPDATE carreiras SET dados = ? WHERE usuario_id = ?')
             ->execute([json_encode($dados, JSON_UNESCAPED_UNICODE), $eu]);
+        $pdo->prepare('UPDATE usuarios SET clube_carreira = ?, tecnico = ? WHERE id = ?')->execute([$clube, $tecnico, $eu]);
         $pdo->commit();
         responderEstado($eu, ['bonus' => $bonus]);
     }
@@ -391,8 +406,7 @@ switch ((string) ($d['acao'] ?? '')) {
     }
 
     case 'apagar':
-        $pdo->prepare('UPDATE carreiras SET dados = NULL WHERE usuario_id = ?')->execute([$eu]);
-        responderEstado($eu);
+        erro('A carreira não pode ser apagada. Para começar outra, crie uma conta nova.', 403);
 
     default:
         erro('Ação desconhecida.');

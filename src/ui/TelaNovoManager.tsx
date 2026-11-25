@@ -6,12 +6,17 @@ import type { Time } from "../engine/types";
 
 interface Props {
   times: Time[];
+  /** Na conta, o nome do técnico vem do cadastro e não muda. */
+  nomeFixo?: string | null;
   onCriar: (nome: string, clubeId: string) => void;
 }
 
-/** Primeira tela da carreira: nome do técnico e o clube, escolhido uma única vez. */
-export function TelaNovoManager({ times, onCriar }: Props) {
-  const [nome, setNome] = useState("");
+/**
+ * Escolha do clube da carreira, uma única vez por conta. Contas novas já escolhem no cadastro;
+ * esta tela fica para a demonstração e para contas antigas sem carreira.
+ */
+export function TelaNovoManager({ times, nomeFixo, onCriar }: Props) {
+  const [nome, setNome] = useState(nomeFixo ?? "");
   const [clubeId, setClubeId] = useState<string | null>(null);
   const [confirmando, setConfirmando] = useState(false);
   const [pais, setPais] = useState("Brasil");
@@ -52,26 +57,30 @@ export function TelaNovoManager({ times, onCriar }: Props) {
         <div className="marca">
           Fantasy<span>Manager</span>
         </div>
-        <h1>Nova carreira</h1>
+        <h1>Sua carreira</h1>
         <p className="suave">
-          Escolha seu nome de técnico e o clube que vai comandar em 2026, em
-          qualquer divisão de {paises.length} países: Brasil e Inglaterra até a 4ª
-          divisão, os outros até a 2ª, todos com acesso e rebaixamento. O clube
-          fica com você até o fim da carreira, e o mercado compra de qualquer liga.
+          {nomeFixo ? "Escolha" : "Escolha seu nome de técnico e"} o clube que
+          vai comandar em 2026, em qualquer divisão de {paises.length} países:
+          Brasil e Inglaterra até a 4ª divisão, os outros até a 2ª, todos com
+          acesso e rebaixamento. O clube fica com você até o fim da carreira, e
+          o mercado compra de qualquer liga. Cada conta tem uma carreira só:
+          para comandar outro clube, só com outra conta.
         </p>
       </div>
 
-      <label className="nm-nome" htmlFor="nome-manager">
-        <span className="rotulo">Nome do técnico</span>
-        <input
-          id="nome-manager"
-          className="busca"
-          maxLength={40}
-          placeholder="Ex.: Tiago Feistler"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
-      </label>
+      {!nomeFixo && (
+        <label className="nm-nome" htmlFor="nome-manager">
+          <span className="rotulo">Nome do técnico</span>
+          <input
+            id="nome-manager"
+            className="busca"
+            maxLength={40}
+            placeholder="Ex.: Tiago Feistler"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+        </label>
+      )}
 
       <div className="alternar nm-paises" role="tablist" aria-label="País">
         {paises.map((p) => (
@@ -146,7 +155,7 @@ export function TelaNovoManager({ times, onCriar }: Props) {
           <>
             <span>
               Confirmar <b>{escolhido?.t.nome}</b>? Depois não dá para trocar de
-              clube nesta carreira.
+              clube nem começar outra carreira nesta conta.
             </span>
             <button className="botao" onClick={() => setConfirmando(false)}>
               Voltar

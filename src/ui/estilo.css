@@ -1098,8 +1098,6 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
   margin-left: auto; padding: 12px 22px; border-radius: 10px; background: var(--destaque); color: var(--destaque-texto);
   font-family: var(--fonte-titulo); font-size: 20px; font-weight: 800; text-transform: uppercase; white-space: nowrap;
 }
-.lobby-rodape { display: flex; justify-content: flex-end; }
-.lobby-rodape .link-nome { color: var(--suave); font-size: 12px; }
 
 /* ---------- Escritório ---------- */
 .esc-cabeca { margin-bottom: 14px; }
@@ -1206,6 +1204,17 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 .caixa-entrar h2 { margin: 0; font-family: var(--fonte-titulo); font-size: 30px; text-transform: uppercase; }
 .caixa-entrar p { margin: 0; }
 .caixa-entrar.entrar { max-width: none; margin: 0; background: #0b1324e6; }
+.inicio-corpo:has(.cadastro) { width: min(640px, 100%); }
+.cadastro fieldset { border: 1px solid var(--linha); border-radius: 12px; padding: 12px 14px 14px; margin: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.cadastro legend { padding: 0 6px; font-weight: 700; color: var(--texto); font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+.entrar select { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--linha); background: var(--fundo, #0b1430); color: inherit; min-width: 0; }
+.entrar input[type="date"] { color-scheme: dark; }
+.cad-linha { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.entrar label.com-erro input, .entrar label.com-erro select { border-color: var(--perigo, #e5484d); }
+.cad-erro { color: var(--perigo, #ff8a8a); font-size: 12px; }
+.cad-dica { font-size: 12px; }
+.entrar label.cad-termos { flex-direction: row; align-items: flex-start; gap: 10px; color: var(--texto); font-size: 13px; line-height: 1.4; }
+.cad-termos input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
 .lobby-conta { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #0b1324d9; border: 1px solid var(--linha); font-size: 13px; color: var(--suave); }
 .lobby-conta b { color: var(--texto); }
 .lobby-conta .link-nome { font-size: 12px; color: var(--suave); }
