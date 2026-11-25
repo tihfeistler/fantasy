@@ -3,3 +3,4 @@ dist
 *.local
 api/config.local.php
 __pycache__/
+*.tsbuildinfo
