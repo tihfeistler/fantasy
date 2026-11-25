@@ -1,5 +1,5 @@
+import { Escudo } from "./Emblema";
 import { useState, type ReactNode } from "react";
-import { estiloEscudo } from "../data/clubes";
 import {
   campanha,
   faseAtual,
@@ -237,9 +237,7 @@ export function TelaCopas(props: {
         </div>
         {copa.campeao && (
           <div className="copa-campeao">
-            <span className="escudo grande" style={estiloEscudo(times.get(copa.campeao)!.cor)}>
-              {times.get(copa.campeao)!.sigla}
-            </span>
+            <Escudo time={times.get(copa.campeao)!} className="escudo grande" />
             <b>{times.get(copa.campeao)!.nome}</b>
           </div>
         )}
@@ -304,9 +302,7 @@ export function TelaCopas(props: {
 function Lado({ time, rotulo, meu }: { time: Time; rotulo: string; meu: boolean }) {
   return (
     <div className={`lado${meu ? " meu" : ""}`}>
-      <span className="escudo" style={estiloEscudo(time.cor)}>
-        {time.sigla}
-      </span>
+      <Escudo time={time} className="escudo" />
       <span className="lado-nome">{time.nome}</span>
       <span className="rotulo">{meu ? "Seu time" : rotulo}</span>
     </div>

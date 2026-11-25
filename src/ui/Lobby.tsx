@@ -1,5 +1,5 @@
+import { Escudo } from "./Emblema";
 import { nomeCurto, nomeDaLiga } from "../engine/ligas";
-import { estiloEscudo } from "../data/clubes";
 import { formatarDinheiro } from "../engine/mercado";
 import type { Time } from "../engine/types";
 import { Icone, type NomeIcone } from "./Icones";
@@ -40,9 +40,7 @@ export function Lobby(p: Props) {
           Fantasy<span>Manager</span>
         </div>
         <div className="lobby-tecnico">
-          <span className="escudo" style={estiloEscudo(meuTime.cor)}>
-            {meuTime.sigla}
-          </span>
+          <Escudo time={meuTime} className="escudo" />
           <span className="clube-info">
             <b>{p.tecnico}</b>
             <span className="suave">Técnico do {meuTime.nome}</span>
@@ -72,9 +70,7 @@ export function Lobby(p: Props) {
       </header>
 
       <div className="lobby-heroi">
-        <span className="escudo enorme" style={estiloEscudo(meuTime.cor)}>
-          {meuTime.sigla}
-        </span>
+        <Escudo time={meuTime} className="escudo enorme" />
         <h1>{meuTime.nome}</h1>
         <p>
           {nomeDaLiga(c.divisao)} {c.ano} · <b>{c.posicao}º lugar</b>

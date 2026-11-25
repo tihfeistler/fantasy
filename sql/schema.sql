@@ -299,3 +299,18 @@ UPDATE usuarios u JOIN carreiras c ON c.usuario_id = u.id
   WHERE u.clube_carreira IS NULL AND c.dados IS NOT NULL;
 -- A tabela saves (vários espaços de carreira) nunca foi usada pelo jogo e sai.
 DROP TABLE IF EXISTS saves;
+
+-- Time próprio (25/11/2026): em vez de um clube existente, o técnico cria o seu e monta o
+-- elenco num draft de 30 escolhas. O time ocupa a vaga do clube mais fraco da divisão
+-- escolhida (usuarios.clube_carreira = vaga). Regras em api/time_proprio_lib.php.
+CREATE TABLE IF NOT EXISTS times_proprios (
+  usuario_id      INT UNSIGNED PRIMARY KEY,
+  identidade      TEXT         NOT NULL,           -- JSON: nome, sigla, país, cidade, estádio, cores, emblema, camisa
+  vaga            VARCHAR(64)  NOT NULL,           -- clube substituído
+  escolhas        TEXT         NOT NULL,           -- JSON [{funcao, jogadorId}, ...] (até 30)
+  opcoes          TEXT         NULL,               -- JSON {funcao, nacionalidade, ids}: sorteio esperando escolha
+  criado_em       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+-- Lendas que saem no draft viram cartas da conta.
+ALTER TABLE cartas MODIFY origem ENUM('pacote','objetivo','troca','mercado','sistema','kit','draft') NOT NULL;

@@ -260,6 +260,25 @@ um pouco mais **[suposição]**).
   cada temporada (`carreiras.copas_pagas`) e com teto pela fase. Como nas
   partidas da liga, o servidor não refaz os jogos.
 
+## 6d. Time próprio com draft de elenco (feito em 25/11/2026)
+
+No cadastro, o técnico escolhe entre **assumir um clube** existente ou **criar o próprio time**:
+nome, sigla, país, divisão, cidade, carta de estádio (5 cartas, do Municipal de 8 mil lugares
+à Arena Monumental de 60 mil: quanto maior, mais bilheteria e mais caro no caixa inicial),
+nome do estádio, duas cores, emblema (forma + símbolo) e camisa (6 modelos).
+
+O time ocupa a vaga do clube mais fraco da divisão escolhida; os jogadores desse clube vão
+para os outros da divisão. O elenco sai de um **draft de 30 escolhas**: 2 goleiros, 4 laterais
+(LD/LE), 4 zagueiros, 12 meias (VOL, MC, MEI, MD, ME) e 8 atacantes (C, PD, PE, SA). Em cada
+escolha o técnico define a função e a nacionalidade e recebe 5 jogadores sorteados; depois de
+sortear, precisa ficar com um. Chance de cada carta: bronze 35,09%, prata 50%, ouro 14%,
+especial (85+) 0,9%, lenda 0,01%. Sem jogador da raridade sorteada, vale a mais próxima abaixo.
+A função é um rótulo do draft: a base só tem as posições GOL/ZAG/LAT/VOL/MEI/ATA.
+
+O sorteio é feito no servidor (api/time_proprio.php); a lenda sorteada vira carta da conta e
+continua valendo o limite de 3 lendas entre os titulares. Regras em src/engine/timeProprio.ts
+e api/time_proprio_lib.php.
+
 ## 7. Modos de jogo (decidido em 24/11/2026)
 
 **Atualizado em 25/11/2026: o jogo todo é online, sempre com login.** Não

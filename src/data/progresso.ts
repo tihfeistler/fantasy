@@ -5,6 +5,7 @@ import type { MercadoCartas } from "../engine/mercadoCartas";
 import type { TimeCartas } from "../engine/desafios";
 import type { Copa } from "../engine/copas";
 import { LIMITE_CARTAS_INICIAL } from "../engine/pacotes";
+import type { ClubeProprio } from "../engine/timeProprio";
 
 /**
  * Progresso do jogador no modo solo: moedas, cartas no estoque e lendas
@@ -61,6 +62,8 @@ export interface Progresso {
   copas?: Copa[];
   /** Copas de temporadas encerradas: campeão e até onde o clube do técnico foi. */
   historicoCopas?: { ano: number; id: string; nome: string; campeao: string; campanha?: string }[];
+  /** Time criado pelo técnico: identidade e o clube cujo lugar ele ocupa (manager.clubeId = vaga). */
+  clubeProprio?: ClubeProprio;
   /** Temporadas encerradas. */
   historico?: { ano: number; posicao: number; campeao: string; divisao?: Divisao }[];
 }

@@ -4,13 +4,16 @@
 //
 // GET  api/auth.php                          -> usuário logado ou null
 // POST api/auth.php {acao:"registrar", usuario, email, senha, senha2, tecnico, nascimento, pais,
-//                    clube, clube_coracao?, termos:true}
+//                    clube | time_proprio, clube_coracao?, termos:true}
+//      time_proprio = {nome, sigla, pais, divisao, cidade, estadio, nomeEstadio, cor, corSecundaria, emblema, camisa}:
+//      em vez de um clube existente, cria o time do técnico; o elenco sai do draft (api/time_proprio.php).
 // POST api/auth.php {acao:"entrar", nome, senha}            nome = usuário ou e-mail
 // POST api/auth.php {acao:"completar", email, tecnico, nascimento, pais, clube_coracao?, termos:true}
 //      Contas de antes do cadastro completo preenchem o que falta.
 // POST api/auth.php {acao:"sair"}
 declare(strict_types=1);
 require __DIR__ . '/db.php';
+require __DIR__ . '/time_proprio_lib.php';
 iniciarApi();
 iniciarSessao();
 
@@ -30,6 +33,7 @@ function usuarioPublico(int $id): ?array
         'clubeCoracao' => $u['clube_coracao'], 'clubeCarreira' => $u['clube_carreira'],
         // Contas antigas (sem e-mail ou sem aceite dos termos) precisam completar o cadastro.
         'completo' => $u['email'] !== null && $u['termos_em'] !== null && $u['tecnico'] !== null,
+        'timeProprio' => clubeProprioPublico(timeProprio($id)),
     ];
 }
 
@@ -107,24 +111,40 @@ switch ($acao) {
 
         [$email, $tecnico, $nasc, $pais, $coracao] = perfilValido($d);
 
-        // Clube da carreira: escolhido aqui e preso à conta para sempre.
-        $clube = trim((string) ($d['clube'] ?? ''));
-        $s = db()->prepare("SELECT COUNT(*) FROM jogadores WHERE tipo = 'atual' AND clube_id = ?");
-        $s->execute([$clube]);
-        if ($clube === '' || !clubeExiste($clube) || (int) $s->fetchColumn() < 11) invalido('Escolha o clube da sua carreira.');
+        // Clube da carreira: escolhido aqui e preso à conta para sempre. Ou um time próprio,
+        // que fica com a vaga do clube mais fraco da divisão escolhida.
+        $proprio = null;
+        if (isset($d['time_proprio'])) {
+            $proprio = identidadeValida($d['time_proprio']);
+            $clube = vagaDoTimeProprio($proprio['divisao'], $proprio['pais']);
+            if ($clube === null) invalido('Essa divisão ainda não tem clubes no jogo.');
+        } else {
+            $clube = trim((string) ($d['clube'] ?? ''));
+            $s = db()->prepare("SELECT COUNT(*) FROM jogadores WHERE tipo = 'atual' AND clube_id = ?");
+            $s->execute([$clube]);
+            if ($clube === '' || !clubeExiste($clube) || (int) $s->fetchColumn() < 11) invalido('Escolha o clube da sua carreira.');
+        }
 
+        db()->beginTransaction();
         try {
             db()->prepare('INSERT INTO usuarios (nome, senha_hash, moedas, email, tecnico, nascimento, pais, clube_coracao,
                     clube_carreira, termos_em) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())')
                 ->execute([$nome, password_hash($senha, PASSWORD_DEFAULT), MOEDAS_INICIAIS, $email, $tecnico, $nasc,
                     $pais, $coracao, $clube]);
+            $novo = (int) db()->lastInsertId();
+            if ($proprio) {
+                db()->prepare('INSERT INTO times_proprios (usuario_id, identidade, vaga, escolhas) VALUES (?, ?, ?, ?)')
+                    ->execute([$novo, json_encode($proprio, JSON_UNESCAPED_UNICODE), $clube, '[]']);
+            }
+            db()->commit();
         } catch (PDOException $e) {
+            db()->rollBack();
             // Dois cadastros ao mesmo tempo com o mesmo usuário ou e-mail.
             if ($e->getCode() === '23000') invalido('Esse usuário ou e-mail acabou de ser usado. Tente outro.', 409);
             throw $e;
         }
         session_regenerate_id(true);
-        $_SESSION['usuario_id'] = (int) db()->lastInsertId();
+        $_SESSION['usuario_id'] = $novo;
         registrarDispositivo($_SESSION['usuario_id']);
         responder(usuarioPublico($_SESSION['usuario_id']), 201);
     }

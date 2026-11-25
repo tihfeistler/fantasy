@@ -1,4 +1,4 @@
-import { estiloEscudo } from "../data/clubes";
+import { Escudo } from "./Emblema";
 import { chaveJogo, divisaoDe, nomeDaDivisao, zona, type LinhaTabela, type Temporada } from "../engine/campeonato";
 import { formatarDinheiro, type Financas } from "../engine/mercado";
 import { escalar } from "../engine/ratings";
@@ -201,9 +201,7 @@ export function TelaEscritorio(p: Props) {
               return (
                 <li key={l.id} className={`${l.id === meuTime.id ? "meu" : ""} ${z ? `zona-${z}` : ""}`}>
                   <span className="pos-tab">{pos}</span>
-                  <span className="escudo mini" style={estiloEscudo(time.cor)}>
-                    {time.sigla}
-                  </span>
+                  <Escudo time={time} className="escudo mini" />
                   <span className="mt-nome">{time.nome}</span>
                   <span className="mt-j suave">{l.j} J</span>
                   <b>{l.pts}</b>
@@ -310,9 +308,7 @@ export function TelaEscritorio(p: Props) {
 function Lado({ time, forca }: { time: Time; forca: number }) {
   return (
     <div className="lado">
-      <span className="escudo grande" style={estiloEscudo(time.cor)}>
-        {time.sigla}
-      </span>
+      <Escudo time={time} className="escudo grande" />
       <b>{time.nome}</b>
       <span className="suave">{forca}</span>
     </div>

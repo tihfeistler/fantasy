@@ -1,3 +1,4 @@
+import type { ClubeProprio, EscolhaDraft, Funcao, Identidade } from "../engine/timeProprio";
 import type { Decisao } from "../engine/match";
 import type { Jogador, Time } from "../engine/types";
 
@@ -65,6 +66,8 @@ export interface Usuario {
   clubeCarreira: string | null;
   /** Contas antigas sem e-mail ou sem aceite dos termos precisam completar o cadastro. */
   completo: boolean;
+  /** Time criado pelo técnico (em vez de um clube existente), com a vaga que ele ocupa. */
+  timeProprio: (ClubeProprio & { draftCompleto: boolean }) | null;
 }
 
 /** Dados de perfil pedidos no cadastro e ao completar o cadastro. */
@@ -81,8 +84,17 @@ export interface Cadastro extends Perfil {
   usuario: string;
   senha: string;
   senha2: string;
-  /** Clube da carreira. */
-  clube: string;
+  /** Clube da carreira, ou o time próprio (o elenco sai do draft depois). */
+  clube?: string;
+  time_proprio?: Identidade;
+}
+
+/** Draft do time próprio (api/time_proprio.php). */
+export interface EstadoDraft extends ClubeProprio {
+  draftCompleto: boolean;
+  escolhas: EscolhaDraft[];
+  /** Sorteio esperando escolha. */
+  opcoes: { funcao: Funcao; nacionalidade: string; ids: string[] } | null;
 }
 
 export interface PerfilRanqueado {
@@ -174,6 +186,11 @@ export const online = {
   completar: (p: Perfil) => chamar<Usuario>("auth.php", { acao: "completar", ...p }),
   entrar: (nome: string, senha: string) => chamar<Usuario>("auth.php", { acao: "entrar", nome, senha }),
   sair: () => chamar<null>("auth.php", { acao: "sair" }),
+
+  draft: () => chamar<EstadoDraft | null>("time_proprio.php"),
+  sortearDraft: (funcao: Funcao, nacionalidade: string) =>
+    chamar<EstadoDraft>("time_proprio.php", { acao: "sortear", funcao, nacionalidade }),
+  escolherDraft: (jogador: string) => chamar<EstadoDraft>("time_proprio.php", { acao: "escolher", jogador }),
 
   situacao: () => chamar<SituacaoOnline>("online.php"),
   escalar: (formacao: string, titulares: string[], banco: string[]) =>

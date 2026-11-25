@@ -1,5 +1,5 @@
+import { Escudo } from "./Emblema";
 import { useState } from "react";
-import { estiloEscudo } from "../data/clubes";
 import {
   custoDaPartida,
   DESAFIOS,
@@ -123,9 +123,7 @@ export function TelaDesafios(p: Props) {
               return (
                 <div key={d.id} className="desafio">
                   <div className="desafio-topo">
-                    <span className="escudo" style={estiloEscudo(d.cor)}>
-                      {d.sigla}
-                    </span>
+                    <Escudo time={d} className="escudo" />
                     <div>
                       <h3>{d.nome}</h3>
                       <span className="dificuldade" aria-label={`Dificuldade ${d.dificuldade} de 5`}>

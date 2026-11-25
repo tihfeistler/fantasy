@@ -1,5 +1,5 @@
+import { Escudo } from "./Emblema";
 import { useState } from "react";
-import { estiloEscudo } from "../data/clubes";
 import {
   calcularTabela,
   chaveJogo,
@@ -149,9 +149,7 @@ export function TelaCampeonato(props: Props) {
                     <tr key={l.id} className={`${l.id === meuTime.id ? "meu" : ""} ${z ? `zona-${z}` : ""}`}>
                       <td className="pos-tab">{i + 1}</td>
                       <td className="nome">
-                        <span className="escudo mini" style={estiloEscudo(t.cor)}>
-                          {t.sigla}
-                        </span>
+                        <Escudo time={t} className="escudo mini" />
                         {t.nome}
                       </td>
                       <td className="pts">{l.pts}</td>
