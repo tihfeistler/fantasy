@@ -17,7 +17,7 @@ de confirmação. As perguntas em aberto estão na seção 9.
 
 ## 1. Loop de jogo
 
-1. Criar o manager: nome do técnico e um clube real da Série A, escolhido uma
+1. Criar o manager: nome do técnico e um clube real da Série A ou B, escolhido uma
    única vez por carreira (feito na prévia). Para trocar de clube, só começando
    uma nova carreira.
 2. Entre rodadas: ajustar formação e titulares, negociar no mercado de
@@ -25,8 +25,9 @@ de confirmação. As perguntas em aberto estão na seção 9.
 3. Rodada: todas as partidas são simuladas; a sua é narrada minuto a minuto.
 4. Resultados rendem **dinheiro do clube** (bilheteria, premiação) e
    **moedas de coleção** (vitórias, gols, objetivos, títulos).
-5. Fim de temporada: premiação, renovação de contratos, jogadores atuais
-   envelhecem, novos objetivos de coleção.
+5. Fim de temporada: premiação, acesso e rebaixamento, saída de quem não
+   renovou o contrato, novos objetivos de coleção. (Idade dos jogadores:
+   decidido em 25/11/2026 que não entra por enquanto.)
 
 As duas economias são separadas de propósito **[suposição]**: dinheiro do
 clube compra jogadores atuais; moedas de coleção compram pacotes de lendas.
@@ -191,8 +192,33 @@ um pouco mais **[suposição]**).
 - **Finanças** (prévia feita): caixa inicial de 10% do valor do elenco; por
   rodada entram TV/patrocínio (75% de um quarto da folha) e bilheteria nos
   jogos em casa, e saem os salários. Premiação em dinheiro pela posição.
-- Depois: empréstimos, contratos com duração, negociação de valor, IA
-  comprando e vendendo entre si.
+- **Contratos** (prévia feita): cada jogador do seu clube tem salário mensal
+  e último ano de contrato. Quem nunca negociou tem salário de tabela e
+  contrato até 2026 a 2029 (fixo por jogador). Para **comprar** ou
+  **renovar**, você propõe salário e duração (1 a 5 anos). O jogador pede o
+  salário de tabela, +4% por ano a mais de contrato, vezes um humor de 0,95
+  a 1,20 que muda a cada rodada. Abaixo do pedido ele faz contraproposta;
+  abaixo de 80% recusa. No fim da temporada, quem tem contrato terminando
+  naquele ano sai de graça para outro clube (a tela do campeonato avisa
+  antes de começar a temporada seguinte). A folha usa os salários de
+  contrato.
+- **Caixa negativo** (prévia feita): juros de 2% da dívida por rodada
+  (mínimo R$ 10 mil). Depois de 4 rodadas seguidas no vermelho, o clube
+  perde 3 pontos na tabela e a contagem recomeça.
+- Depois: empréstimos, IA comprando e vendendo entre si.
+
+## 6b. Séries A e B (prévia feita)
+
+- 40 clubes: os 20 da Série A e os 20 da Série B de 2026, com elencos da
+  Wikipédia (`data/elencos-serie-b-2026.txt`, rascunho; São Bernardo veio
+  da VAVEL, sem números de camisa). Nível dos clubes da B: 58 a 67.
+- As duas divisões jogam juntas, rodada a rodada; a tela do campeonato
+  mostra as duas tabelas. Os 4 últimos da A caem e os 4 primeiros da B
+  sobem. Não há Série C: quem termina embaixo na B fica na B.
+- Na B, TV e patrocínio valem metade e a bilheteria cai 25%; ao subir, as
+  receitas voltam a subir na mesma proporção. Premiação em moedas pela
+  metade.
+- Jogadores da B podem ser comprados no mercado como os da A.
 
 ## 7. Modos de jogo (decidido em 24/11/2026)
 
@@ -359,5 +385,5 @@ servidor dedicado.
    uso pessoal/gratuito), ou nomes fictícios desde já?
 2. Pretende monetizar o jogo um dia? Isso muda a decisão acima e a de
    pacotes.
-3. Quais ligas primeiro? Proposta: Série A do Brasileirão.
+3. Quais ligas primeiro? Feito: Séries A e B do Brasileirão.
 4. Limite de lendas em campo (proposta: 3) e economia separada de moedas.

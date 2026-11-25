@@ -59,17 +59,59 @@ export function financasIniciais(t: Time): Financas {
   };
 }
 
+/** TV e patrocínio na Série B valem metade; a bilheteria cai um quarto. */
+export const FATOR_TV_SERIE_B = 0.5;
+export const FATOR_BILHETERIA_SERIE_B = 0.75;
+
+/** Receitas ao subir (fator > 1) ou cair (fator < 1) de divisão. */
+export function financasAoMudarDeDivisao(f: Financas, subiu: boolean): Financas {
+  const tv = subiu ? 1 / FATOR_TV_SERIE_B : FATOR_TV_SERIE_B;
+  const bil = subiu ? 1 / FATOR_BILHETERIA_SERIE_B : FATOR_BILHETERIA_SERIE_B;
+  return { ...f, receitaPorRodada: Math.round(f.receitaPorRodada * tv), bilheteria: Math.round(f.bilheteria * bil) };
+}
+
 export function lancar(f: Financas, ls: Lancamento[]): Financas {
   const soma = ls.reduce((s, l) => s + l.valor, 0);
   return { ...f, caixa: f.caixa + soma, extrato: [...[...ls].reverse(), ...f.extrato].slice(0, 60) };
 }
 
 /** Lançamentos de uma rodada disputada. */
-export function balancoDaRodada(f: Financas, meuTime: Time, rodada: number, emCasa: boolean): Lancamento[] {
+export function balancoDaRodada(
+  f: Financas,
+  meuTime: Time,
+  rodada: number,
+  emCasa: boolean,
+  /** Folha mensal com os salários de contrato; sem ela, usa o salário de tabela. */
+  folha = folhaMensal(meuTime),
+): Lancamento[] {
   const ls: Lancamento[] = [{ rodada, descricao: "TV e patrocínio", valor: f.receitaPorRodada }];
   if (emCasa) ls.push({ rodada, descricao: "Bilheteria", valor: f.bilheteria });
-  ls.push({ rodada, descricao: "Salários", valor: -Math.round(folhaMensal(meuTime) / RODADAS_POR_MES) });
+  ls.push({ rodada, descricao: "Salários", valor: -Math.round(folha / RODADAS_POR_MES) });
   return ls;
+}
+
+/**
+ * Caixa negativo. Cada rodada no vermelho cobra 2% de juros sobre a dívida e
+ * trava as contratações. Quatro rodadas seguidas no vermelho custam 3 pontos
+ * na tabela (e a contagem recomeça).
+ */
+export const JUROS_DIVIDA = 0.02;
+export const RODADAS_ATE_PUNICAO = 4;
+export const PONTOS_DE_PUNICAO = 3;
+export function dividaDaRodada(
+  caixa: number,
+  rodada: number,
+  noVermelho: number,
+): { lancamentos: Lancamento[]; noVermelho: number; perdePontos: boolean } {
+  if (caixa >= 0) return { lancamentos: [], noVermelho: 0, perdePontos: false };
+  const juros = Math.max(10, Math.round((-caixa * JUROS_DIVIDA) / 10) * 10);
+  const n = noVermelho + 1;
+  const perdePontos = n >= RODADAS_ATE_PUNICAO;
+  return {
+    lancamentos: [{ rodada, descricao: "Juros da dívida", valor: -juros }],
+    noVermelho: perdePontos ? 0 : n,
+    perdePontos,
+  };
 }
 
 /** Premiação em dinheiro pela posição final: o campeão leva 10 rodadas de receita. */

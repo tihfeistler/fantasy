@@ -1,9 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { montarTimesAtuais } from "../data/clubes";
-import { calcularTabela, chaveJogo, gerarCalendario, novaTemporada, simularRodada } from "./campeonato";
+import { clubesDaDivisao, DIVISOES_INICIAIS, montarTimesAtuais } from "../data/clubes";
+import {
+  calcularTabela,
+  chaveJogo,
+  gerarCalendario,
+  idsDaTemporada,
+  jogarRodada,
+  novaTemporada,
+  simularRodada,
+  trocarDivisoes,
+  zona,
+} from "./campeonato";
 
-const times = montarTimesAtuais();
-const ids = times.map((t) => t.id);
+const todos = montarTimesAtuais();
+const ids = clubesDaDivisao(DIVISOES_INICIAIS, "A");
+const times = todos.filter((t) => ids.includes(t.id));
 
 describe("calendário", () => {
   const cal = gerarCalendario(ids, 42);
@@ -57,5 +68,35 @@ describe("temporada", () => {
     const t2 = simularRodada(t1, new Map(times.map((x) => [x.id, x])));
     expect(t2.placares[chaveJogo(0, 0)]).toEqual([9, 9]);
     expect(Object.keys(t2.placares)).toHaveLength(10);
+  });
+});
+
+describe("Séries A e B", () => {
+  const mapa = new Map(todos.map((t) => [t.id, t]));
+  it("cada divisão tem 20 clubes e nenhum está nas duas", () => {
+    const b = clubesDaDivisao(DIVISOES_INICIAIS, "B");
+    expect(ids).toHaveLength(20);
+    expect(b).toHaveLength(20);
+    expect(b.filter((x) => ids.includes(x))).toEqual([]);
+  });
+  it("4 últimos da A caem e 4 primeiros da B sobem", () => {
+    let a = novaTemporada(ids, 2026, 7, "A");
+    let b = novaTemporada(clubesDaDivisao(DIVISOES_INICIAIS, "B"), 2026, 8, "B");
+    while (a.rodadaAtual < 38) a = jogarRodada(a, mapa);
+    while (b.rodadaAtual < 38) b = jogarRodada(b, mapa);
+    expect(jogarRodada(a, mapa)).toBe(a);
+    const ta = calcularTabela(a, idsDaTemporada(a));
+    const tb = calcularTabela(b, idsDaTemporada(b));
+    const novo = trocarDivisoes(a, b);
+    expect(ta.slice(16).every((l) => novo[l.id] === "B")).toBe(true);
+    expect(tb.slice(0, 4).every((l) => novo[l.id] === "A")).toBe(true);
+    expect(clubesDaDivisao(novo, "A")).toHaveLength(20);
+    expect(clubesDaDivisao(novo, "B")).toHaveLength(20);
+  });
+  it("zonas: acesso só na B", () => {
+    expect(zona(1, "B")).toBe("acesso");
+    expect(zona(5, "B")).toBeNull();
+    expect(zona(20, "B")).toBeNull();
+    expect(zona(18, "A")).toBe("rebaixamento");
   });
 });

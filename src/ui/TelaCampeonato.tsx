@@ -1,30 +1,59 @@
+import { useState } from "react";
 import { estiloEscudo } from "../data/clubes";
-import { calcularTabela, chaveJogo, premioFinal, zona, type Temporada } from "../engine/campeonato";
-import type { Time } from "../engine/types";
+import {
+  calcularTabela,
+  chaveJogo,
+  divisaoDe,
+  idsDaTemporada,
+  premioFinal,
+  trocarDivisoes,
+  VAGAS_ACESSO,
+  zona,
+  type Zona,
+  type Temporada,
+} from "../engine/campeonato";
+import type { Jogador, Time } from "../engine/types";
 
 interface Props {
   meuTime: Time;
   times: Map<string, Time>;
   temporada: Temporada;
+  /** A outra divisão, simulada junto. */
+  outraTemporada?: Temporada;
+  /** Quem sai de graça no fim desta temporada (contrato terminando). */
+  saidas: Jogador[];
+  onRenovar: () => void;
   onNovaTemporada: () => void;
 }
 
-const NOME_ZONA = {
+const NOME_ZONA: Record<Zona, string> = {
   libertadores: "Libertadores",
   pre: "Pré-Libertadores",
   sula: "Sul-Americana",
-  rebaixamento: "Rebaixamento",
+  rebaixamento: "Rebaixamento para a Série B",
+  acesso: "Acesso à Série A",
 };
+const ZONAS_A: Zona[] = ["libertadores", "pre", "sula", "rebaixamento"];
 
-export function TelaCampeonato({ meuTime, times, temporada, onNovaTemporada }: Props) {
-  const ids = [...times.keys()];
+export function TelaCampeonato(props: Props) {
+  const { meuTime, times, temporada, outraTemporada, saidas, onRenovar, onNovaTemporada } = props;
+  const [verOutra, setVerOutra] = useState(false);
   const nomes = new Map([...times.values()].map((t) => [t.id, t.nome]));
-  const tabela = calcularTabela(temporada, ids, nomes);
+  const minhaDiv = divisaoDe(temporada);
+  const tabela = calcularTabela(temporada, idsDaTemporada(temporada), nomes);
   const minhaPos = tabela.findIndex((l) => l.id === meuTime.id) + 1;
   const fim = temporada.rodadaAtual >= temporada.rodadas.length;
-  const disputadas = temporada.rodadas.filter((jogos, r) =>
-    jogos.every((_, i) => temporada.placares[chaveJogo(r, i)]),
-  ).length;
+  // Tabela mostrada: a sua divisão ou a outra.
+  const vista = verOutra && outraTemporada ? outraTemporada : temporada;
+  const vistaDiv = divisaoDe(vista);
+  const tabelaVista = vista === temporada ? tabela : calcularTabela(vista, idsDaTemporada(vista), nomes);
+  const disputadasVista = vista.rodadas.filter((jogos, r) => jogos.every((_, i) => vista.placares[chaveJogo(r, i)])).length;
+  // Fim das duas divisões: quem sobe e quem cai.
+  const fimOutra = outraTemporada && outraTemporada.rodadaAtual >= outraTemporada.rodadas.length;
+  const novaDiv =
+    fim && fimOutra
+      ? trocarDivisoes(minhaDiv === "A" ? temporada : outraTemporada!, minhaDiv === "A" ? outraTemporada! : temporada)[meuTime.id]
+      : minhaDiv;
   const campeao = times.get(tabela[0].id)!;
 
   const meusJogos = temporada.rodadas.map((jogos, r) => {
@@ -43,15 +72,34 @@ export function TelaCampeonato({ meuTime, times, temporada, onNovaTemporada }: P
       {fim && (
         <div className="fim-temporada">
           <div>
-            <span className="rotulo">Fim do Brasileirão {temporada.ano}</span>
+            <span className="rotulo">Fim da Série {minhaDiv} {temporada.ano}</span>
             <h2>
               {campeao.id === meuTime.id ? `${meuTime.nome} campeão!` : `${campeao.nome} é o campeão`}
             </h2>
             <p>
-              Você terminou em <b>{minhaPos}º lugar</b>
-              {zona(minhaPos) ? ` (${NOME_ZONA[zona(minhaPos)!]})` : ""} e recebeu{" "}
-              <b>{premioFinal(minhaPos)} moedas</b> de premiação.
+              Você terminou a Série {minhaDiv} em <b>{minhaPos}º lugar</b>
+              {zona(minhaPos, minhaDiv) ? ` (${NOME_ZONA[zona(minhaPos, minhaDiv)!]})` : ""} e recebeu{" "}
+              <b>{premioFinal(minhaPos, minhaDiv)} moedas</b> de premiação.
             </p>
+            {novaDiv !== minhaDiv && (
+              <p className={novaDiv === "A" ? "acesso" : "queda"}>
+                {novaDiv === "A"
+                  ? `Acesso! Em ${temporada.ano + 1} o ${meuTime.nome} joga a Série A, e a receita de TV dobra.`
+                  : `Rebaixado. Em ${temporada.ano + 1} o ${meuTime.nome} joga a Série B, com metade da receita de TV.`}
+              </p>
+            )}
+            {saidas.length > 0 && (
+              <p className="saidas">
+                <b>
+                  {saidas.length} {saidas.length > 1 ? "jogadores saem" : "jogador sai"} de graça
+                </b>{" "}
+                quando a temporada {temporada.ano + 1} começar, porque o contrato termina em {temporada.ano}:{" "}
+                {saidas.map((j) => j.nome).join(", ")}.{" "}
+                <button className="link-nome" onClick={onRenovar}>
+                  Renovar contratos
+                </button>
+              </p>
+            )}
           </div>
           <button className="botao primario" onClick={onNovaTemporada}>
             Começar temporada {temporada.ano + 1}
@@ -62,8 +110,21 @@ export function TelaCampeonato({ meuTime, times, temporada, onNovaTemporada }: P
       <div className="campeonato">
         <div className="classificacao">
           <h2>
-            Classificação <span className="suave">{disputadas} de {temporada.rodadas.length} rodadas</span>
+            Série {vistaDiv}{" "}
+            <span className="suave">
+              {disputadasVista} de {vista.rodadas.length} rodadas
+            </span>
           </h2>
+          {outraTemporada && (
+            <div className="alternar" role="group" aria-label="Divisão">
+              <button className={!verOutra ? "ativo" : ""} onClick={() => setVerOutra(false)}>
+                Série {minhaDiv} (sua)
+              </button>
+              <button className={verOutra ? "ativo" : ""} onClick={() => setVerOutra(true)}>
+                Série {divisaoDe(outraTemporada)}
+              </button>
+            </div>
+          )}
           <div className="rolagem">
             <table className="tabela-classif">
               <thead>
@@ -82,9 +143,9 @@ export function TelaCampeonato({ meuTime, times, temporada, onNovaTemporada }: P
                 </tr>
               </thead>
               <tbody>
-                {tabela.map((l, i) => {
+                {tabelaVista.map((l, i) => {
                   const t = times.get(l.id)!;
-                  const z = zona(i + 1);
+                  const z = zona(i + 1, vistaDiv);
                   return (
                     <tr key={l.id} className={`${l.id === meuTime.id ? "meu" : ""} ${z ? `zona-${z}` : ""}`}>
                       <td className="pos-tab">{i + 1}</td>
@@ -118,11 +179,12 @@ export function TelaCampeonato({ meuTime, times, temporada, onNovaTemporada }: P
             </table>
           </div>
           <ul className="legenda-zonas">
-            {(Object.keys(NOME_ZONA) as (keyof typeof NOME_ZONA)[]).map((z) => (
+            {(vistaDiv === "A" ? ZONAS_A : (["acesso"] as Zona[])).map((z) => (
               <li key={z}>
                 <i className={`zona-cor zona-${z}`} /> {NOME_ZONA[z]}
               </li>
             ))}
+            {vistaDiv === "B" && <li className="suave">Os {VAGAS_ACESSO} últimos da A descem para a B.</li>}
           </ul>
         </div>
 

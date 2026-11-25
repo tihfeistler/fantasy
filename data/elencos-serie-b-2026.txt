@@ -1,0 +1,689 @@
+# Elencos atuais da Série B 2026 (RASCUNHO para revisar).
+# Fonte: seções de elenco da Wikipédia, lidas em 24-25/11/2026. Camisa 0 = número desconhecido.
+# Mesmo formato de elencos-2026.txt.
+
+america-mg | 1 | GK | BRA | Gustavo
+america-mg | 2 | DF | BRA | Emerson Santos
+america-mg | 3 | DF | BRA | Nathan Pelae
+america-mg | 4 | DF | BRA | Rafa Barcelos
+america-mg | 5 | MF | ARG | Fernando Elizari
+america-mg | 7 | FW | BRA | Guilherme Parede
+america-mg | 8 | MF | BRA | Felipe Amaral
+america-mg | 9 | FW | BRA | Willian Bigode
+america-mg | 10 | MF | BRA | Yago Souza
+america-mg | 11 | FW | BRA | Gabriel Barros
+america-mg | 12 | DF | BRA | Samuel Alves
+america-mg | 15 | DF | BRA | Alex Silva
+america-mg | 16 | MF | BRA | Alê
+america-mg | 17 | FW | URU | Gonzalo Mastriani
+america-mg | 19 | GK | BRA | William
+america-mg | 20 | FW | BRA | Paulo Victor
+america-mg | 21 | MF | BRA | Eduardo Person
+america-mg | 22 | DF | BRA | Léo Alaba
+america-mg | 27 | GK | BRA | Cássio
+america-mg | 29 | DF | BRA | Dalbert
+america-mg | 33 | MF | BRA | Yago Santos
+america-mg | 42 | DF | BRA | Jhonny
+america-mg | 43 | DF | BRA | Wesley
+america-mg | 44 | DF | BRA | Thallyson
+america-mg | 45 | DF | BRA | Ricardo Silva
+america-mg | 52 | GK | BRA | Ítalo Brito
+america-mg | 55 | MF | BRA | Otávio Gonçalves
+america-mg | 67 | FW | BRA | Yarlen
+america-mg | 77 | FW | PAR | Matías Segovia
+america-mg | 88 | MF | BRA | Jhonatan Lima
+america-mg | 96 | DF | BRA | Artur
+america-mg | 97 | MF | BRA | Val Soares
+america-mg | 0 | DF | BRA | Heitor
+america-mg | 0 | FW | BRA | Kaique Zizero
+america-mg | 0 | FW | BRA | Thauan Willians
+america-mg | 0 | FW | URU | Rodrigo Piñeiro
+
+athletic | 0 | GK | BRA | Eduardo Freire
+athletic | 0 | GK | BRA | Glauco
+athletic | 0 | GK | BRA | Jhonatan Luiz
+athletic | 0 | GK | BRA | Luan Polli
+athletic | 0 | DF | BRA | Gabriel Índio
+athletic | 0 | DF | BRA | Jhonatan Silva
+athletic | 0 | DF | BRA | Kazim
+athletic | 0 | DF | BRA | Lucas Belezi
+athletic | 0 | DF | BRA | Philipe Sampaio
+athletic | 0 | DF | BRA | Sidimar
+athletic | 0 | DF | BRA | Diogo Batista
+athletic | 0 | DF | BRA | Douglas Pelé
+athletic | 0 | DF | BRA | Enzo Santos
+athletic | 0 | DF | BRA | Felipe Vieira
+athletic | 0 | DF | BRA | Marcelo Henrique
+athletic | 0 | DF | BRA | Rodrigo Gelado
+athletic | 0 | DF | BRA | Zeca
+athletic | 0 | MF | BRA | Alexandre Pena
+athletic | 0 | MF | BRA | Fabrício Isidoro
+athletic | 0 | MF | COL | Gian Cabezas
+athletic | 0 | MF | BRA | Gustavinho
+athletic | 0 | MF | BRA | Ian Luccas
+athletic | 0 | MF | BRA | João Miguel
+athletic | 0 | MF | BRA | Jota
+athletic | 0 | MF | BRA | Kauan Lindes
+athletic | 0 | MF | BRA | Kauan Rodrigues
+athletic | 0 | MF | BRA | Pedro Oliveira
+athletic | 0 | FW | BRA | Bruninho
+athletic | 0 | FW | BRA | Cauã
+athletic | 0 | FW | ECU | Dixon Vera
+athletic | 0 | FW | BRA | Gabriel Moysés
+athletic | 0 | FW | BRA | Leandro Alves
+athletic | 0 | FW | BRA | Léo Chú
+athletic | 0 | FW | POR | Ronaldo Tavares
+athletic | 0 | FW | BRA | Ruan Assis
+athletic | 0 | FW | NGA | Samuel Otusanya
+
+atletico-go | 0 | GK | BRA | Léo Rosa
+atletico-go | 0 | GK | BRA | Paulo Henrique
+atletico-go | 0 | GK | BRA | Paulo Vítor
+atletico-go | 0 | GK | BRA | Vladimir
+atletico-go | 0 | DF | PAR | Junior Barreto
+atletico-go | 0 | DF | BRA | Natã Felipe
+atletico-go | 0 | DF | BRA | Adriano Martins
+atletico-go | 0 | DF | BRA | Tito
+atletico-go | 0 | DF | BRA | Gustavo Daniel
+atletico-go | 0 | DF | BRA | Ewerthon
+atletico-go | 0 | DF | BRA | Felipe Guimarães
+atletico-go | 0 | DF | BRA | Guilherme Lopes
+atletico-go | 0 | DF | BRA | Warley
+atletico-go | 0 | DF | BRA | Yuri
+atletico-go | 0 | MF | BRA | Cristiano
+atletico-go | 0 | MF | BRA | Henrique Freitas
+atletico-go | 0 | MF | BRA | Geovane
+atletico-go | 0 | MF | BRA | Igor Henrique
+atletico-go | 0 | MF | BRA | Cauã Marley
+atletico-go | 0 | MF | BRA | Guilherme Marques
+atletico-go | 0 | MF | BRA | Matheusinho
+atletico-go | 0 | MF | BRA | Netinho
+atletico-go | 0 | MF | BRA | Daniel Peixoto
+atletico-go | 0 | MF | URU | David Terans
+atletico-go | 0 | MF | BRA | Leandro Vilela
+atletico-go | 0 | FW | BRA | Gustavo Coutinho
+atletico-go | 0 | FW | BRA | Bruno José
+atletico-go | 0 | FW | PAN | Kahiser Lenis
+atletico-go | 0 | FW | BRA | Daniel Lima
+atletico-go | 0 | FW | BRA | Gustavo Maia
+atletico-go | 0 | FW | BRA | Marrony
+atletico-go | 0 | FW | GNB | João Pedro
+atletico-go | 0 | FW | BRA | Geovany Soares
+atletico-go | 0 | FW | BRA | Léo Tocantins
+
+avai | 1 | GK | BRA | Igor Bohn
+avai | 2 | DF | BRA | Wallison
+avai | 3 | DF | BRA | Allyson
+avai | 4 | DF | BRA | Gabriel Simples
+avai | 5 | MF | BRA | Romildo Del Piage
+avai | 7 | FW | BRA | Léo Chú
+avai | 8 | MF | BRA | Luiz Henrique
+avai | 9 | FW | BRA | Léo Gamalho
+avai | 10 | MF | BRA | Jean Lucas
+avai | 11 | FW | BRA | Felipe Vizeu
+avai | 14 | MF | BRA | Daniel Penha
+avai | 15 | DF | BRA | Guilherme Aquino
+avai | 17 | FW | BRA | Juan Rocha
+avai | 18 | MF | BRA | Hyan
+avai | 19 | FW | BRA | Caio Suassuna
+avai | 20 | FW | BRA | Isaías
+avai | 21 | GK | BRA | Otávio Passos
+avai | 22 | DF | BRA | João Vitor
+avai | 23 | FW | BRA | Gabriel Cipriano
+avai | 25 | MF | BRA | Paulo Vitor
+avai | 27 | MF | BRA | Pedro Cuiabá
+avai | 35 | DF | BRA | Pedrão
+avai | 36 | DF | BRA | Douglas Teixeira
+avai | 37 | MF | BRA | Rildo
+avai | 38 | DF | BRA | Jefferson Maciel
+avai | 40 | DF | BRA | Reynaldo
+avai | 56 | DF | BRA | William
+avai | 59 | FW | BRA | Filipinho
+avai | 66 | DF | BRA | Mateus Quaresma
+avai | 70 | FW | BRA | Gaspar
+avai | 77 | MF | BRA | Zé Ricardo
+avai | 90 | FW | BRA | Kevin
+avai | 94 | GK | BRA | Bruno Ferreira
+avai | 95 | MF | BRA | Wenderson
+
+botafogo-sp | 0 | GK | BRA | Adriano
+botafogo-sp | 0 | GK | BRA | Brenno
+botafogo-sp | 0 | GK | BRA | Jordan
+botafogo-sp | 0 | GK | BRA | Victor Souza
+botafogo-sp | 0 | DF | BRA | Badaró
+botafogo-sp | 0 | DF | BRA | Carlos Eduardo
+botafogo-sp | 0 | DF | BRA | Darlan
+botafogo-sp | 0 | DF | BRA | Ericson
+botafogo-sp | 0 | DF | BRA | Gui Mariano
+botafogo-sp | 0 | DF | BRA | Gustavo Vilar
+botafogo-sp | 0 | DF | BRA | Wallace
+botafogo-sp | 0 | DF | BRA | Felipe Vieira
+botafogo-sp | 0 | DF | BRA | Gabriel Inocêncio
+botafogo-sp | 0 | DF | BRA | Henrique Teles
+botafogo-sp | 0 | DF | BRA | Jonathan
+botafogo-sp | 0 | DF | BRA | Patrick Brey
+botafogo-sp | 0 | DF | BRA | Pedrinho
+botafogo-sp | 0 | MF | BRA | Erik
+botafogo-sp | 0 | MF | BRA | Everton Morelli
+botafogo-sp | 0 | MF | ARG | Leandro Maciel
+botafogo-sp | 0 | MF | BRA | Marco Antônio
+botafogo-sp | 0 | MF | BRA | Marquinho
+botafogo-sp | 0 | MF | BRA | Matheus Sales
+botafogo-sp | 0 | MF | BRA | Pedro Tortello
+botafogo-sp | 0 | MF | BRA | Penha
+botafogo-sp | 0 | MF | BRA | Rafael Gava
+botafogo-sp | 0 | MF | BRA | Thiago Moraes
+botafogo-sp | 0 | MF | BRA | Yuri Felipe
+botafogo-sp | 0 | FW | BRA | Guilherme Queiróz
+botafogo-sp | 0 | FW | BRA | Hygor
+botafogo-sp | 0 | FW | BRA | Jefferson Nem
+botafogo-sp | 0 | FW | BRA | Kelvin
+botafogo-sp | 0 | FW | BRA | Luizão
+botafogo-sp | 0 | FW | BRA | Márcio Maranhão
+botafogo-sp | 0 | FW | BRA | Ruan Pablo
+botafogo-sp | 0 | FW | BRA | Thalles
+botafogo-sp | 0 | FW | BRA | Wesley Santos
+botafogo-sp | 0 | FW | BRA | Zé Hugo
+
+ceara | 1 | GK | BRA | Richard Costa
+ceara | 2 | DF | POR | Rafael Ramos
+ceara | 4 | DF | BRA | Luizão
+ceara | 8 | MF | BRA | Matheus Araújo
+ceara | 11 | FW | BRA | Fernandinho
+ceara | 12 | DF | BRA | Sanchez
+ceara | 13 | DF | BRA | Luiz Otávio
+ceara | 17 | DF | BRA | Fernando
+ceara | 18 | DF | BRA | Júlio César
+ceara | 19 | DF | GHA | Stanley Boateng
+ceara | 21 | DF | BRA | Alex Silva
+ceara | 23 | GK | BRA | Jorge Meurer
+ceara | 25 | MF | BRA | Vinicius Zanocelo
+ceara | 26 | MF | BRA | Richardson
+ceara | 29 | MF | BRA | Vina
+ceara | 31 | MF | BRA | Lucas Lima
+ceara | 33 | DF | BRA | Éder
+ceara | 35 | FW | BRA | Giulio
+ceara | 40 | FW | BRA | Melk
+ceara | 41 | GK | BRA | Gustavo Martins
+ceara | 63 | DF | BRA | Pedro Gilmar
+ceara | 81 | MF | BRA | João Gabriel
+ceara | 94 | GK | BRA | Bruno Ferreira
+ceara | 99 | FW | BRA | Lucca
+
+crb | 1 | GK | BRA | Vitor Caetano
+crb | 7 | FW | BRA | Douglas Baggio
+crb | 10 | MF | BRA | Danielzinho
+crb | 11 | FW | BRA | Guilherme Pato
+crb | 12 | GK | BRA | Matheus Albino
+crb | 16 | MF | BRA | David Braw
+crb | 17 | FW | BRA | Thiaguinho
+crb | 19 | FW | BRA | Luiz Phellype
+crb | 20 | FW | BRA | Vinícius Nunes
+crb | 21 | MF | BRA | Pedro Castro
+crb | 22 | DF | BRA | Bressan
+crb | 23 | GK | BRA | Fábio Henrique
+crb | 27 | DF | BRA | Fábio Alemão
+crb | 28 | FW | BRA | Mikael
+crb | 31 | DF | BRA | Ruy
+crb | 32 | DF | BRA | Hereda
+crb | 36 | DF | BRA | Lucas Lovat
+crb | 44 | DF | BRA | Henri
+crb | 45 | MF | BRA | Patrick de Lucca
+crb | 50 | MF | BRA | Luizão
+crb | 60 | DF | BRA | Maycon
+crb | 77 | DF | BRA | Léo Campos
+crb | 82 | DF | BRA | Wallace
+crb | 97 | FW | BRA | Dadá Belmonte
+crb | 0 | GK | BRA | Cândido
+
+criciuma | 1 | GK | BRA | Alisson
+criciuma | 3 | DF | BRA | Rodrigo
+criciuma | 4 | DF | BRA | Luciano Castán
+criciuma | 5 | MF | BRA | Eduardo
+criciuma | 6 | DF | BRA | Marcinho
+criciuma | 7 | MF | BRA | Fellipe Mateus
+criciuma | 8 | MF | BRA | Gui Lobo
+criciuma | 9 | FW | BRA | Nicolas
+criciuma | 10 | MF | BRA | Jhonata Robert
+criciuma | 11 | FW | BRA | Romarinho
+criciuma | 13 | FW | BRA | Waguininho
+criciuma | 21 | FW | BRA | João Carlos
+criciuma | 22 | DF | BRA | Marcelo Hermes
+criciuma | 30 | DF | BRA | Octávio Henrique
+criciuma | 31 | DF | BRA | Hiago Alves
+criciuma | 32 | GK | BRA | Airton
+criciuma | 33 | FW | BRA | Yuri Tanque
+criciuma | 34 | DF | BRA | Bruno Alves
+criciuma | 37 | DF | BRA | César Martins
+criciuma | 39 | FW | BRA | Thales
+criciuma | 41 | MF | BRA | Jean Irmer
+criciuma | 43 | DF | BRA | Ruan Carvalho
+criciuma | 50 | MF | BRA | Thiaguinho
+criciuma | 70 | GK | BRA | Pedro Santos
+criciuma | 73 | GK | BRA | Kauã Moroso
+criciuma | 77 | FW | BRA | Diego Gonçalves
+criciuma | 88 | FW | BRA | Cauê
+
+cuiaba | 1 | GK | BRA | João Carlos
+cuiaba | 2 | DF | BRA | Igor Inocêncio
+cuiaba | 4 | DF | BRA | Vitor Mendes
+cuiaba | 5 | MF | BRA | Calebe
+cuiaba | 11 | FW | BRA | Eliel
+cuiaba | 12 | GK | BRA | Gustavo Busatto
+cuiaba | 13 | DF | BRA | João Basso
+cuiaba | 14 | DF | BRA | Eric Melo
+cuiaba | 20 | MF | BRA | David Miguel
+cuiaba | 23 | MF | BRA | Marcos Júnior
+cuiaba | 29 | FW | BRA | Vinícius Peixoto
+cuiaba | 31 | GK | BRA | Marcelo Carné
+cuiaba | 33 | DF | BRA | Alan Empereur
+cuiaba | 36 | DF | BRA | Lorenzo
+cuiaba | 37 | DF | BRA | Raylan
+cuiaba | 41 | FW | BRA | Kauan Cristtyan
+cuiaba | 53 | MF | BRA | Weverson
+cuiaba | 59 | DF | BRA | Tarcísio
+cuiaba | 70 | MF | BRA | Wesley Dias
+cuiaba | 77 | FW | BRA | Jean Dias
+cuiaba | 90 | FW | BRA | Fábio Gomes
+cuiaba | 91 | DF | BRA | Luis Soares
+cuiaba | 96 | FW | BRA | Pedro Henrique
+cuiaba | 97 | MF | BRA | Luiz Otávio
+
+fortaleza | 1 | GK | BRA | João Ricardo
+fortaleza | 4 | DF | BRA | Luan Freitas
+fortaleza | 5 | MF | BRA | Pierre
+fortaleza | 6 | DF | ARG | Tomás Cardona
+fortaleza | 10 | MF | BRA | Lucas Crispim
+fortaleza | 12 | DF | BRA | Kaio Henrique
+fortaleza | 15 | GK | BRA | Magrão
+fortaleza | 16 | FW | BRA | Pedro Henrique
+fortaleza | 17 | FW | BRA | Nathan Fogaça
+fortaleza | 19 | MF | BRA | Lucas Emanoel
+fortaleza | 20 | MF | BRA | Jaílson
+fortaleza | 21 | MF | COL | Juan Cantillo
+fortaleza | 25 | GK | BRA | Vinícius Silvestre
+fortaleza | 28 | DF | BRA | Paulinho
+fortaleza | 29 | MF | BRA | Rodrigo Santos
+fortaleza | 32 | FW | BRA | Luiz Fernando
+fortaleza | 33 | DF | BRA | Kauã Rocha
+fortaleza | 34 | DF | ANG | Bastos
+fortaleza | 35 | MF | BRA | Bruninho
+fortaleza | 38 | MF | BRA | Lucca Prior
+fortaleza | 41 | GK | BRA | Cássio
+fortaleza | 88 | MF | BRA | Lucas Sasha
+
+goias | 1 | GK | BRA | Thiago Rodrigues
+goias | 2 | DF | BRA | Rodrigo Soares
+goias | 3 | DF | BRA | Luiz Felipe
+goias | 4 | DF | BRA | Ramon Menezes
+goias | 5 | MF | BRA | Filipe Machado
+goias | 6 | DF | BRA | Nicolas Vichiatto
+goias | 8 | MF | BRA | Juninho
+goias | 9 | FW | BRA | Anselmo Ramon
+goias | 10 | MF | BRA | Lucas Lima
+goias | 11 | FW | BRA | Felipe Clemente
+goias | 14 | DF | BRA | Lucas Ribeiro
+goias | 15 | FW | VEN | Esli García
+goias | 17 | FW | BRA | Pedrinho
+goias | 18 | FW | BRA | Cadu
+goias | 21 | FW | BRA | Jean Carlos
+goias | 23 | GK | BRA | Tadeu
+goias | 25 | DF | BRA | Luisão
+goias | 27 | FW | BRA | Wellington Rato
+goias | 28 | MF | BRA | Gegê
+goias | 29 | DF | BRA | Murilo Câmara
+goias | 35 | MF | BRA | Lucas Rodrigues
+goias | 40 | FW | BRA | Kadu Souza
+goias | 41 | GK | BRA | Ezequiel Ribeiro
+goias | 54 | DF | BRA | Djalma Silva
+goias | 55 | MF | BRA | Baldória
+goias | 63 | DF | BRA | Marcos Vinícius
+goias | 66 | DF | BRA | Danilo Cunha
+goias | 77 | FW | BRA | Halerrandrio
+goias | 88 | MF | BRA | Brayann
+goias | 97 | MF | BRA | Lourenço
+goias | 19 | FW | BRA | Willie
+goias | 32 | GK | BRA | Murillo Victorio
+
+juventude | 2 | DF | BRA | Raí Ramos
+juventude | 3 | DF | BRA | Titi
+juventude | 4 | DF | BRA | Messias
+juventude | 5 | MF | BRA | Luan Martins
+juventude | 6 | DF | BRA | Wadson
+juventude | 7 | MF | BRA | Pablo Roberto
+juventude | 8 | MF | BRA | Lucas Mineiro
+juventude | 9 | FW | BRA | Alan Kardec
+juventude | 10 | FW | POR | Marcos Paulo Costa
+juventude | 11 | FW | BRA | Fábio Lima
+juventude | 12 | GK | BRA | Pedro Rocha
+juventude | 13 | DF | BRA | Aderlan
+juventude | 16 | DF | BRA | Diogo Barbosa
+juventude | 17 | FW | URU | Manuel Castro
+juventude | 18 | FW | PAR | Luis Amarilla
+juventude | 20 | FW | BRA | Allanzinho
+juventude | 21 | GK | BRA | Ruan Carneiro
+juventude | 22 | DF | BRA | Nathan Santos
+juventude | 25 | FW | BRA | Alisson Safira
+juventude | 26 | MF | SEN | Iba Ly
+juventude | 27 | MF | BRA | Ray Breno
+juventude | 28 | DF | BRA | Alan Ruschel
+juventude | 29 | MF | BRA | Gabriel Pires
+juventude | 30 | DF | BRA | Patryck Lanza
+juventude | 31 | GK | BRA | Zé Henrique
+juventude | 34 | DF | BRA | Rodrigo Sam
+juventude | 43 | DF | BRA | Bernardo
+juventude | 44 | MF | BRA | Luis Mandaca
+juventude | 47 | DF | BRA | Marcos Paulo Lima
+juventude | 72 | FW | BRA | Lucas Alves
+juventude | 73 | FW | BRA | Juan Christian
+juventude | 75 | MF | BRA | Raí Silva
+juventude | 88 | MF | BRA | Davi Góes
+juventude | 93 | GK | BRA | Jandrei
+juventude | 97 | DF | BRA | Gabriel Pinheiro
+juventude | 0 | DF | BRA | Luiz Eduardo
+juventude | 14 | DF | BRA | Mateus Schaffer
+juventude | 53 | MF | BRA | Kaynan
+
+londrina | 1 | GK | BRA | Luan Ribeiro
+londrina | 2 | DF | BRA | Nino Paraíba
+londrina | 4 | DF | BRA | Wallace
+londrina | 5 | MF | BRA | André Luiz
+londrina | 6 | DF | BRA | Rafael Monteiro
+londrina | 7 | FW | BRA | Vitinho Mota
+londrina | 8 | MF | BRA | Lucas Marques
+londrina | 9 | FW | BRA | Bruno Santos
+londrina | 11 | FW | BRA | Iago Teles
+londrina | 12 | GK | BRA | Zanella
+londrina | 13 | DF | BRA | André Dhominique
+londrina | 14 | DF | BRA | Yuri Lima
+londrina | 15 | DF | BRA | Gabriel Lacerda
+londrina | 17 | MF | BRA | André Cardoso
+londrina | 18 | FW | BRA | Paulinho Moccelin
+londrina | 20 | MF | BRA | João Vitor
+londrina | 23 | FW | BRA | William Pottker
+londrina | 27 | FW | BRA | Guilherme Cachoeira
+londrina | 28 | FW | BRA | Caio Maia
+londrina | 30 | GK | BRA | Maurício Kozlinski
+londrina | 32 | MF | BRA | João Tavares
+londrina | 33 | DF | BRA | Kevyn Lucas
+londrina | 34 | DF | BRA | Heron
+londrina | 39 | DF | BRA | Caio
+londrina | 53 | MF | BRA | Chumbinho
+londrina | 55 | MF | BRA | Caio Rafael
+londrina | 57 | MF | BRA | Cainã
+londrina | 70 | FW | BRA | Gilberto
+londrina | 77 | FW | BRA | Guilherme Portuga
+londrina | 96 | MF | BRA | Thalis
+londrina | 99 | FW | BRA | Igor Bahia
+londrina | 0 | GK | BRA | Thiago Parente
+londrina | 0 | GK | BRA | William Hartmann
+londrina | 0 | FW | BRA | Fernando Asafe
+londrina | 87 | FW | BRA | Kauã Jonathan
+londrina | 21 | FW | BRA | Fabrício
+londrina | 29 | FW | BRA | Vítor Jacaré
+
+nautico | 1 | GK | BRA | Muriel
+nautico | 2 | DF | BRA | Arnaldo
+nautico | 3 | DF | BRA | Betão
+nautico | 5 | MF | BRA | Auremir
+nautico | 6 | DF | BRA | Ryan Carlos
+nautico | 7 | FW | BRA | Vinícius
+nautico | 8 | MF | BRA | Wenderson
+nautico | 9 | FW | BRA | Paulo Sérgio
+nautico | 10 | MF | BRA | Jean Carlos
+nautico | 11 | FW | BRA | Victor Andrade
+nautico | 13 | DF | BRA | Índio
+nautico | 14 | DF | BRA | Matheus Ribeiro
+nautico | 15 | MF | BRA | Léo Oliveira
+nautico | 19 | FW | BRA | Kauã Maranhão
+nautico | 21 | MF | BRA | Felipe Redaelli
+nautico | 22 | MF | ARG | Patricio Núñez
+nautico | 23 | DF | BRA | Igor Fernandes
+nautico | 24 | FW | ARG | Benjamín Borasi
+nautico | 25 | DF | BRA | Mateus Silva
+nautico | 27 | MF | BRA | Luiz Felipe
+nautico | 29 | FW | BRA | Júnior Todinho
+nautico | 34 | DF | BRA | Wanderson
+nautico | 41 | MF | BRA | Samuel
+nautico | 46 | DF | BRA | Gustavo Henrique
+nautico | 55 | GK | URU | Gastón Guruceaga
+nautico | 60 | DF | BRA | Luiz Paulo
+nautico | 72 | FW | BRA | Derek
+nautico | 77 | MF | BRA | Juninho
+nautico | 93 | DF | BRA | Reginaldo
+nautico | 0 | GK | BRA | Léo Honorio
+nautico | 0 | FW | BRA | Danielzinho
+nautico | 16 | FW | BRA | Luiz Claudio
+nautico | 20 | FW | BRA | Kevyn
+nautico | 35 | MF | BRA | Pedro Ricardo
+nautico | 37 | DF | BRA | Juan Rikelme
+nautico | 99 | FW | BRA | Isaque Ferreira
+
+novorizontino | 1 | GK | BRA | Lucas Pereira
+novorizontino | 3 | DF | BRA | Carlinhos
+novorizontino | 4 | DF | BRA | Patrick
+novorizontino | 5 | DF | BRA | Sander
+novorizontino | 6 | MF | BRA | Luís Oyama
+novorizontino | 7 | FW | BRA | Ronald Barcellos
+novorizontino | 8 | FW | ARG | Tití Ortiz
+novorizontino | 9 | FW | BRA | Carlão
+novorizontino | 10 | MF | BRA | Rômulo
+novorizontino | 11 | FW | BRA | Robson
+novorizontino | 12 | GK | BRA | João Scapin
+novorizontino | 14 | DF | BRA | Eduardo Brock
+novorizontino | 15 | MF | BRA | Tavinho
+novorizontino | 16 | FW | BRA | Vinícius Paiva
+novorizontino | 17 | MF | BRA | Matheus Bianqui
+novorizontino | 18 | MF | BRA | Léo Naldi
+novorizontino | 19 | MF | BRA | Diego Galo
+novorizontino | 20 | DF | COL | Nilson Castrillón
+novorizontino | 21 | DF | BRA | Kauan Alemão
+novorizontino | 22 | DF | ARG | Iván Alvariño
+novorizontino | 23 | FW | BRA | Jhones Kauê
+novorizontino | 24 | DF | PER | Jhilmar Lora
+novorizontino | 25 | DF | BRA | Dantas
+novorizontino | 26 | DF | BRA | Gabriel Bahia
+novorizontino | 27 | FW | BRA | Diego Mathias
+novorizontino | 28 | MF | BRA | Marlon
+novorizontino | 30 | FW | BRA | Nicolas Careca
+novorizontino | 31 | GK | BRA | César Augusto
+novorizontino | 33 | DF | BRA | Renato Palm
+novorizontino | 34 | MF | BRA | Nogueira
+novorizontino | 35 | MF | BRA | Hector
+novorizontino | 38 | MF | BRA | Luiz Gabriel
+novorizontino | 40 | FW | BRA | Jardiel
+novorizontino | 41 | FW | BRA | Hélio Borges
+novorizontino | 50 | MF | BRA | Juninho
+novorizontino | 66 | DF | BRA | Maykon Jesus
+novorizontino | 78 | DF | BRA | Arthur Barbosa
+novorizontino | 93 | GK | BRA | Jordi
+novorizontino | 0 | GK | BRA | Paulo Henrique
+novorizontino | 0 | DF | BRA | Bruno Santana
+novorizontino | 32 | DF | BRA | Antony
+novorizontino | 36 | MF | BRA | Miguel Contiero
+novorizontino | 37 | MF | BRA | Esquerdinha
+novorizontino | 54 | MF | BRA | Bruno Santos
+novorizontino | 55 | FW | BRA | Leonardo Gonçalves
+novorizontino | 56 | MF | ARG | Matías Ludueña
+novorizontino | 60 | DF | BRA | Luiz Otávio
+novorizontino | 70 | MF | BRA | Matheus Geres
+novorizontino | 72 | MF | BRA | Tiago
+novorizontino | 82 | GK | BRA | Gustavo Hobold
+novorizontino | 90 | DF | BRA | Gabriel Correia
+
+operario-pr | 1 | GK | BRA | Elias Curzel
+operario-pr | 2 | DF | BRA | Mikael Doka
+operario-pr | 5 | MF | BRA | Índio
+operario-pr | 6 | DF | BRA | Moraes Júnior
+operario-pr | 7 | FW | BRA | Ángel Torres
+operario-pr | 8 | MF | COL | Juan Zuluaga
+operario-pr | 9 | FW | BRA | Vinícius Mingotti
+operario-pr | 10 | MF | BRA | Gabriel Boschilia
+operario-pr | 11 | FW | BRA | Aylon
+operario-pr | 12 | GK | BRA | Talles
+operario-pr | 14 | FW | CPV | Berto
+operario-pr | 16 | DF | BRA | Miranda
+operario-pr | 20 | MF | BRA | Vinícius Diniz
+operario-pr | 22 | DF | COL | José Cuenú
+operario-pr | 23 | DF | BRA | João Gabriel
+operario-pr | 26 | DF | BRA | Maguinho
+operario-pr | 27 | DF | BRA | Gabriel Feliciano
+operario-pr | 28 | MF | BRA | Dudu Mosconi
+operario-pr | 29 | FW | COL | Edwin Torres
+operario-pr | 30 | MF | BRA | Pedro Vilhena
+operario-pr | 32 | MF | BRA | Charles Raphael
+operario-pr | 33 | GK | BRA | Vagner
+operario-pr | 34 | DF | BRA | Renan Gustavo
+operario-pr | 39 | MF | BRA | Matheus Trindade
+operario-pr | 41 | GK | BRA | Diego Monteiro
+operario-pr | 43 | DF | BRA | Joseph
+operario-pr | 44 | DF | BRA | William Klaus
+operario-pr | 77 | FW | BRA | Maxwell
+operario-pr | 88 | MF | BRA | Neto Paraíba
+operario-pr | 92 | FW | BRA | Pablo
+operario-pr | 99 | FW | BRA | Caio Dantas
+
+ponte-preta | 1 | GK | BRA | Guilherme Viana
+ponte-preta | 2 | DF | BRA | Júlio
+ponte-preta | 3 | DF | BRA | Lucas Cunha
+ponte-preta | 4 | DF | BRA | Diego Leão
+ponte-preta | 5 | MF | BRA | Rodrigo Souza
+ponte-preta | 6 | DF | BRA | Jota
+ponte-preta | 7 | FW | BRA | Emanuell Ferreira
+ponte-preta | 8 | MF | BRA | André Lima
+ponte-preta | 9 | FW | BRA | Brandão
+ponte-preta | 10 | MF | BRA | Élvis
+ponte-preta | 13 | DF | BRA | Diego Porfírio
+ponte-preta | 14 | DF | BRA | Danilo Barcelos
+ponte-preta | 15 | DF | BRA | Gabriel Caran
+ponte-preta | 16 | MF | BRA | Karl
+ponte-preta | 17 | MF | BRA | Miguel Morais
+ponte-preta | 18 | FW | BRA | David da Hora
+ponte-preta | 19 | FW | BRA | Jonathan Cafú
+ponte-preta | 20 | MF | BRA | Murilo Cavalcante
+ponte-preta | 21 | FW | BRA | Vitor Ribeiro
+ponte-preta | 22 | MF | BRA | Denis
+ponte-preta | 23 | DF | COL | Sergio Palacios
+ponte-preta | 30 | GK | BRA | Vinicius Ferrari
+ponte-preta | 32 | DF | BRA | Kevyson
+ponte-preta | 35 | MF | BRA | Gustavo Telles
+ponte-preta | 44 | DF | BRA | Gustavo Almeida
+ponte-preta | 0 | GK | BRA | José Luiz
+ponte-preta | 0 | DF | BRA | Di Mauro
+ponte-preta | 0 | DF | BRA | Guilherme Martins
+ponte-preta | 0 | FW | BRA | Danilo Peu
+
+sport | 3 | DF | BRA | Marcelo Ajul
+sport | 5 | DF | BRA | Marcelo Benevenuto
+sport | 6 | MF | BRA | Biel
+sport | 7 | MF | BRA | Patrick de Paula
+sport | 8 | MF | BRA | Juan Alano
+sport | 9 | FW | BRA | Pedro Perotti
+sport | 10 | MF | URU | Carlos de Pena
+sport | 12 | GK | BRA | Denis
+sport | 15 | MF | BRA | Murilo Rhikman
+sport | 19 | FW | BRA | Neto Pessoa
+sport | 20 | FW | URU | Diego Hernández
+sport | 21 | GK | BRA | Brenno
+sport | 23 | MF | BRA | Zé Gabriel
+sport | 25 | FW | BRA | Clayson
+sport | 26 | GK | BRA | Thiago Couto
+sport | 27 | DF | BRA | Claudinho
+sport | 28 | DF | BRA | Habraão
+sport | 29 | MF | BRA | Willian Oliveira
+sport | 30 | FW | BRA | Chrystian Barletta
+sport | 31 | FW | BRA | Marlon Douglas
+sport | 33 | DF | BRA | Kayky Almeida
+sport | 42 | GK | BRA | Adriano
+sport | 47 | MF | BRA | Fábio Matheus
+sport | 54 | MF | BRA | Adriel
+sport | 60 | DF | BRA | Felipinho
+sport | 63 | DF | BRA | Patrick
+sport | 66 | DF | BRA | Rafinha
+sport | 68 | DF | BRA | Augusto Pucci
+sport | 76 | DF | BRA | Raí Lopes
+sport | 77 | FW | BRA | Dudu Teodora
+sport | 80 | MF | VEN | Kervin Andrade
+sport | 88 | MF | BRA | Fernando Sobral
+sport | 96 | DF | BRA | Edson Lucas
+
+vila-nova | 1 | GK | BRA | Helton Leite
+vila-nova | 2 | DF | BRA | Elias
+vila-nova | 3 | DF | BRA | Tiago Pagnussat
+vila-nova | 4 | DF | BRA | Pedro Romano
+vila-nova | 5 | MF | BRA | João Vieira
+vila-nova | 6 | DF | BRA | Higor Luiz
+vila-nova | 7 | FW | BRA | André Luis
+vila-nova | 8 | MF | BRA | Willian Maranhão
+vila-nova | 9 | FW | BRA | Rafa Silva
+vila-nova | 10 | MF | BRA | Marquinhos Gabriel
+vila-nova | 11 | FW | BRA | Ryan
+vila-nova | 13 | DF | BRA | Willian Formiga
+vila-nova | 14 | DF | BRA | Anderson Jesus
+vila-nova | 15 | MF | BRA | Dudu
+vila-nova | 17 | FW | BRA | Ruan Ribeiro
+vila-nova | 18 | MF | BRA | Enzo
+vila-nova | 20 | MF | BRA | Nathan Camargo
+vila-nova | 21 | MF | BRA | Dodô
+vila-nova | 22 | DF | BRA | Hayner
+vila-nova | 29 | GK | BRA | Dalberson
+vila-nova | 30 | GK | BRA | Gabriel Átila
+vila-nova | 33 | FW | BRA | Bruno Xavier
+vila-nova | 38 | DF | BRA | Caio Marcelo
+vila-nova | 49 | FW | BRA | Dellatorre
+vila-nova | 70 | FW | BRA | Emerson Urso
+vila-nova | 99 | FW | BRA | Janderson
+vila-nova | 16 | MF | BRA | Kerlon
+vila-nova | 19 | FW | BRA | Gustavo Puskas
+vila-nova | 23 | DF | BRA | Carlos Eduardo
+vila-nova | 25 | MF | BRA | Miguel Delfino
+vila-nova | 27 | MF | BRA | Felipe Faria
+vila-nova | 28 | FW | BRA | Rian Lucas
+vila-nova | 31 | MF | BRA | Jonas Barros
+vila-nova | 32 | MF | BRA | Gabriel Delfino
+vila-nova | 34 | DF | BRA | Alex Haren
+vila-nova | 35 | MF | BRA | Breno
+vila-nova | 39 | GK | BRA | Kauã Paes
+vila-nova | 41 | FW | BRA | Miguel Moreno
+vila-nova | 43 | DF | BRA | Lucas Paulino
+vila-nova | 77 | FW | BRA | Jackson
+vila-nova | 79 | FW | BRA | Leozão
+vila-nova | 97 | FW | BRA | Gabriel Dias
+
+sao-bernardo | 0 | GK | BRA | Alex Alves
+sao-bernardo | 0 | GK | BRA | Júnior Oliveira
+sao-bernardo | 0 | GK | BRA | Léo Lang
+sao-bernardo | 0 | DF | BRA | Pará
+sao-bernardo | 0 | DF | BRA | Rodrigo Ferreira
+sao-bernardo | 0 | DF | BRA | Jemerson
+sao-bernardo | 0 | DF | BRA | Augusto
+sao-bernardo | 0 | DF | BRA | Hélder Maciel
+sao-bernardo | 0 | DF | BRA | Hugo Sanches
+sao-bernardo | 0 | DF | BRA | Mário Sérgio
+sao-bernardo | 0 | DF | BRA | Luizão
+sao-bernardo | 0 | DF | BRA | Matheus Salustiano
+sao-bernardo | 0 | DF | BRA | Wellington
+sao-bernardo | 0 | DF | BRA | Jota
+sao-bernardo | 0 | MF | BRA | Dudu Miraíma
+sao-bernardo | 0 | MF | BRA | Foguinho
+sao-bernardo | 0 | MF | BRA | Romisson
+sao-bernardo | 0 | MF | BRA | Marcão
+sao-bernardo | 0 | MF | BRA | Hyoran
+sao-bernardo | 0 | MF | BRA | Lucas Fernandes
+sao-bernardo | 0 | MF | BRA | Breno
+sao-bernardo | 0 | MF | BRA | João Victor
+sao-bernardo | 0 | MF | BRA | Júnior Urso
+sao-bernardo | 0 | MF | BRA | Rodrigo Andrade
+sao-bernardo | 0 | MF | BRA | Vitinho
+sao-bernardo | 0 | MF | BRA | Caio
+sao-bernardo | 0 | FW | BRA | Felipe Garcia
+sao-bernardo | 0 | FW | BRA | Pedrinho
+sao-bernardo | 0 | FW | BRA | Pedro Vitor
+sao-bernardo | 0 | FW | BRA | Daniel Amorim
+sao-bernardo | 0 | FW | BRA | Fabrício Daniel
+sao-bernardo | 0 | FW | BRA | Echaporã
+sao-bernardo | 0 | FW | BRA | Daniel Davi
+sao-bernardo | 0 | FW | BRA | Lucas Rian
+sao-bernardo | 0 | FW | BRA | Léo Jabá
+sao-bernardo | 0 | FW | BRA | Lucas Reis
+sao-bernardo | 0 | FW | BRA | Neto Costa

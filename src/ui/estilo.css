@@ -985,3 +985,27 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 .mercado-online .ml-linha .ml-nome { flex: 1 1 200px; min-width: 0; }
 .mercado-online .ml-linha .botao { width: auto; grid-column: auto; }
 .mercado-online .ml-linha .ml-num { display: flex; }
+
+/* ---------- Contratos ---------- */
+.form-contrato {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 14px;
+  margin-top: 4px; padding: 12px 14px; border-radius: 10px; background: var(--fundo-2); border: 1px solid var(--linha);
+}
+.form-contrato > p { flex-basis: 100%; margin: 0; font-size: 13px; }
+.form-contrato label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--suave); }
+.form-contrato input, .form-contrato select {
+  height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--linha);
+  background: var(--painel); color: var(--texto); font: inherit; font-size: 14px;
+}
+.form-contrato input { width: 110px; }
+.form-contrato .botao { width: auto; }
+.mercado-online .form-contrato { flex-basis: 100%; }
+
+/* ---------- Séries A e B ---------- */
+.zona-acesso td.pos-tab { border-left-color: #4ea8ff; }
+.zona-cor.zona-acesso { background: #4ea8ff; }
+.classificacao .alternar { margin: 0 0 10px; }
+.fim-temporada p + p { margin-top: 8px; }
+.fim-temporada p.acesso { color: #8ff0c0; font-weight: 700; }
+.fim-temporada p.queda { color: #ff9b8f; font-weight: 700; }
+.fim-temporada p.saidas { max-width: 720px; }

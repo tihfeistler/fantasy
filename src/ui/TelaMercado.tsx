@@ -2,8 +2,10 @@ import { useMemo, useState } from "react";
 import { NIVEL } from "../data/clubes";
 import type { Temporada } from "../engine/campeonato";
 import {
-  folhaMensal,
   formatarDinheiro,
+  JUROS_DIVIDA,
+  PONTOS_DE_PUNICAO,
+  RODADAS_ATE_PUNICAO,
   MAX_ELENCO,
   MIN_ELENCO,
   criarOferta,
@@ -17,6 +19,7 @@ import {
   type MotivoRecusa,
 } from "../engine/mercado";
 import { ehLenda, POSICOES, type Jogador, type Time } from "../engine/types";
+import { contratoDe, contratosTerminando, DURACAO_MAXIMA, folhaComContratos, type Contrato } from "../engine/contratos";
 import { setor } from "./CartaJogador";
 
 interface Props {
@@ -24,13 +27,32 @@ interface Props {
   times: Time[];
   financas: Financas;
   temporada: Temporada;
-  onComprar: (jogadorId: string) => void;
+  /** Proposta de contrato: para contratar (renovar = false) ou renovar. */
+  onContrato: (jogadorId: string, salario: number, anos: number, renovar: boolean) => RespostaDoJogador;
+  contratos: Record<string, Contrato> | undefined;
+  /** Ano de referência dos contratos padrão. */
+  anoInicial: number;
+  /** Primeira temporada de um contrato assinado agora. */
+  anoDoContrato: number;
+  /** Rodadas seguidas com caixa negativo. */
+  noVermelho: number;
   onVender: (jogadorId: string) => void;
   /** Pede outro valor pela venda (contraproposta ao clube da IA). */
   onNegociar: (jogadorId: string, valor: number) => void;
   /** jogadorId -> rodada em que já negociou. */
   negociados: Record<string, number>;
   aviso: string | null;
+  modo: ModoMercado;
+  onModo: (m: ModoMercado) => void;
+}
+
+export type ModoMercado = "comprar" | "vender" | "contratos";
+
+export interface RespostaDoJogador {
+  ok: boolean;
+  texto: string;
+  /** Quanto o jogador pede, quando não aceitou. */
+  pedida?: number;
 }
 
 const POR_PAGINA = 40;
@@ -40,8 +62,11 @@ const MOTIVO: Record<Exclude<MotivoRecusa, null>, string> = {
   "elenco-dele-curto": "O clube não vende",
 };
 
-export function TelaMercado({ meuTime, times, financas, temporada, onComprar, onVender, onNegociar, negociados, aviso }: Props) {
-  const [modo, setModo] = useState<"comprar" | "vender">("comprar");
+export function TelaMercado(props: Props) {
+  const { meuTime, times, financas, temporada, onVender, onNegociar, negociados, aviso } = props;
+  const { contratos, anoInicial, anoDoContrato, noVermelho, onContrato } = props;
+  const { modo, onModo: setModo } = props;
+  const [contratando, setContratando] = useState<string | null>(null);
   const [busca, setBusca] = useState("");
   const [posicao, setPosicao] = useState("");
   const [clube, setClube] = useState("");
@@ -52,7 +77,8 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
 
   const oferta = useMemo(() => criarOferta(times), [times]);
   const meus = meuTime.elenco.filter((j) => !ehLenda(j)).sort((a, b) => b.geral - a.geral);
-  const folha = folhaMensal(meuTime);
+  const folha = folhaComContratos(meuTime.elenco, contratos, anoInicial);
+  const terminando = contratosTerminando(meus, contratos, anoInicial, temporada.ano);
   const ultimo = financas.extrato[0]?.rodada;
   const saldoUltima = financas.extrato.filter((l) => l.rodada === ultimo).reduce((s, l) => s + l.valor, 0);
 
@@ -103,6 +129,13 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
         {formatarDinheiro(financas.bilheteria)} de bilheteria nos jogos em casa. Saem os salários (um quarto da folha
         mensal). No fim do campeonato há premiação pela posição. Lendas não recebem salário.
       </p>
+      {financas.caixa < 0 && (
+        <p className="aviso">
+          Caixa negativo: contratações travadas e juros de {Math.round(JUROS_DIVIDA * 100)}% da dívida por rodada. Rodadas
+          seguidas no vermelho: {noVermelho} de {RODADAS_ATE_PUNICAO}. Na {RODADAS_ATE_PUNICAO}ª, o clube perde{" "}
+          {PONTOS_DE_PUNICAO} pontos na tabela. Venda jogadores para sair do vermelho.
+        </p>
+      )}
 
       <div className="barra">
         <div className="alternar" role="group" aria-label="Comprar ou vender">
@@ -111,6 +144,9 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
           </button>
           <button className={modo === "vender" ? "ativo" : ""} onClick={() => setModo("vender")}>
             Vender <span className="suave">{meus.length}</span>
+          </button>
+          <button className={modo === "contratos" ? "ativo" : ""} onClick={() => setModo("contratos")}>
+            Contratos {terminando.length > 0 && <span className="contador">{terminando.length}</span>}
           </button>
         </div>
         {modo === "comprar" && (
@@ -159,12 +195,22 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
                     {formatarDinheiro(d.preco)}
                   </span>
                   <button
-                    className={`botao${confirmando === j.id ? " primario" : ""}`}
+                    className={`botao${contratando === j.id ? " primario" : ""}`}
                     disabled={!!motivo}
-                    onClick={dois(j.id, () => onComprar(j.id))}
+                    onClick={() => setContratando(contratando === j.id ? null : j.id)}
                   >
-                    {motivo ? MOTIVO[motivo] : confirmando === j.id ? "Confirmar compra" : "Comprar"}
+                    {motivo ? MOTIVO[motivo] : contratando === j.id ? "Fechar" : "Comprar"}
                   </button>
+                  {contratando === j.id && !motivo && (
+                    <FormContrato
+                      j={j}
+                      titulo={`Contrato de ${j.nome}: o ${dono.nome} recebe ${formatarDinheiro(d.preco)} se ele assinar.`}
+                      anoInicio={anoDoContrato}
+                      botao="Propor contrato"
+                      onEnviar={(sal, anos) => onContrato(j.id, sal, anos, false)}
+                      onFechou={() => setContratando(null)}
+                    />
+                  )}
                 </Linha>
               );
             })}
@@ -175,6 +221,59 @@ export function TelaMercado({ meuTime, times, financas, temporada, onComprar, on
               Mostrar mais ({outros.length - limite} restantes)
             </button>
           )}
+        </>
+      ) : modo === "contratos" ? (
+        <>
+          <p className="suave">
+            Quem tiver contrato terminando em {temporada.ano} sai de graça no fim da temporada se não renovar. Para
+            renovar, proponha salário e duração: contratos longos custam um pouco mais por mês, e o humor do jogador muda
+            a cada rodada.
+          </p>
+          <ul className="mercado-lista">
+            {[...meus]
+              .sort(
+                (a, b) =>
+                  contratoDe(a, contratos, anoInicial).ate - contratoDe(b, contratos, anoInicial).ate || b.geral - a.geral,
+              )
+              .map((j) => {
+                const c = contratoDe(j, contratos, anoInicial);
+                const acaba = c.ate <= temporada.ano;
+                return (
+                  <Linha
+                    key={j.id}
+                    j={j}
+                    clube={meuTime}
+                    salario={c.salario}
+                    etiquetas={
+                      acaba
+                        ? [{ texto: "Termina nesta temporada", tipo: "caro", dica: "Sai de graça no fim da temporada se não renovar." }]
+                        : []
+                    }
+                  >
+                    <span className="ml-preco">
+                      <span className="rotulo">Contrato até</span>
+                      {c.ate}
+                    </span>
+                    <button
+                      className={`botao${acaba ? " primario" : ""}`}
+                      onClick={() => setContratando(contratando === j.id ? null : j.id)}
+                    >
+                      {contratando === j.id ? "Fechar" : "Renovar"}
+                    </button>
+                    {contratando === j.id && (
+                      <FormContrato
+                        j={j}
+                        titulo={`Renovação de ${j.nome} (hoje ${formatarDinheiro(c.salario)}/mês até ${c.ate}).`}
+                        anoInicio={anoDoContrato}
+                        botao="Propor renovação"
+                        onEnviar={(sal, anos) => onContrato(j.id, sal, anos, true)}
+                        onFechou={() => setContratando(null)}
+                      />
+                    )}
+                  </Linha>
+                );
+              })}
+          </ul>
         </>
       ) : (
         <>
@@ -283,7 +382,19 @@ function etiquetas(liga: number, clube: number): Etiqueta[] {
   return es;
 }
 
-function Linha({ j, clube, etiquetas = [], children }: { j: Jogador; clube: Time; etiquetas?: Etiqueta[]; children: React.ReactNode }) {
+function Linha({
+  j,
+  clube,
+  etiquetas = [],
+  salario = salarioMensal(j),
+  children,
+}: {
+  j: Jogador;
+  clube: Time;
+  etiquetas?: Etiqueta[];
+  salario?: number;
+  children: React.ReactNode;
+}) {
   return (
     <li className="ml-linha">
       <span className={`pos ml-pos setor-${setor(j.posicao)}`}>{j.posicao}</span>
@@ -305,7 +416,7 @@ function Linha({ j, clube, etiquetas = [], children }: { j: Jogador; clube: Time
       </span>
       <span className="ml-num">
         <span className="rotulo">Salário</span>
-        {formatarDinheiro(salarioMensal(j))}/mês
+        {formatarDinheiro(salario)}/mês
       </span>
       {children}
     </li>
@@ -318,5 +429,53 @@ function Indicador({ rotulo, valor, destaque, sinal = 0 }: { rotulo: string; val
       <span className="rotulo">{rotulo}</span>
       <b>{valor}</b>
     </div>
+  );
+}
+
+/** Proposta de contrato: salário mensal (R$ mil) e anos. Fica aberta até o jogador aceitar. */
+function FormContrato(p: {
+  j: Jogador;
+  titulo: string;
+  anoInicio: number;
+  botao: string;
+  onEnviar: (salario: number, anos: number) => RespostaDoJogador;
+  onFechou: () => void;
+}) {
+  const [salario, setSalario] = useState(String(salarioMensal(p.j)));
+  const [anos, setAnos] = useState(3);
+  const [resposta, setResposta] = useState<RespostaDoJogador | null>(null);
+  const valor = Number(salario.replace(",", "."));
+  return (
+    <form
+      className="form-contrato"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!(valor > 0)) return;
+        const r = p.onEnviar(Math.round(valor), anos);
+        setResposta(r);
+        if (r.pedida) setSalario(String(r.pedida));
+        if (r.ok) setTimeout(p.onFechou, 1800);
+      }}
+    >
+      <p className="suave">{p.titulo}</p>
+      <label>
+        Salário (R$ mil por mês)
+        <input inputMode="numeric" value={salario} onChange={(e) => setSalario(e.target.value)} aria-label="Salário por mês, em mil" />
+      </label>
+      <label>
+        Duração
+        <select value={anos} onChange={(e) => setAnos(Number(e.target.value))} aria-label="Duração do contrato">
+          {Array.from({ length: DURACAO_MAXIMA }, (_, i) => i + 1).map((n) => (
+            <option key={n} value={n}>
+              {n} {n > 1 ? "anos" : "ano"} (até {p.anoInicio + n - 1})
+            </option>
+          ))}
+        </select>
+      </label>
+      <button className="botao primario" disabled={!(valor > 0) || resposta?.ok}>
+        {p.botao}
+      </button>
+      {resposta && <p className={resposta.ok ? "premio" : "aviso"}>{resposta.texto}</p>}
+    </form>
   );
 }

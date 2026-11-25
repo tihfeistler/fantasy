@@ -178,5 +178,185 @@
     "corSecundaria": "#000000",
     "liga": "brasileirao-a",
     "nivel": 70
+  },
+  {
+    "id": "america-mg",
+    "nome": "América Mineiro",
+    "sigla": "AME",
+    "cor": "#00843d",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-b",
+    "nivel": 63
+  },
+  {
+    "id": "athletic",
+    "nome": "Athletic Club",
+    "sigla": "ATH",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 58
+  },
+  {
+    "id": "atletico-go",
+    "nome": "Atlético Goianiense",
+    "sigla": "ACG",
+    "cor": "#c8102e",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-b",
+    "nivel": 63
+  },
+  {
+    "id": "avai",
+    "nome": "Avaí",
+    "sigla": "AVA",
+    "cor": "#0055a4",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 61
+  },
+  {
+    "id": "botafogo-sp",
+    "nome": "Botafogo-SP",
+    "sigla": "BFC",
+    "cor": "#e30613",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 60
+  },
+  {
+    "id": "ceara",
+    "nome": "Ceará",
+    "sigla": "CEA",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 66
+  },
+  {
+    "id": "crb",
+    "nome": "CRB",
+    "sigla": "CRB",
+    "cor": "#c8102e",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 61
+  },
+  {
+    "id": "criciuma",
+    "nome": "Criciúma",
+    "sigla": "CRI",
+    "cor": "#f5d000",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-b",
+    "nivel": 62
+  },
+  {
+    "id": "cuiaba",
+    "nome": "Cuiabá",
+    "sigla": "CUI",
+    "cor": "#f5d000",
+    "corSecundaria": "#00843d",
+    "liga": "brasileirao-b",
+    "nivel": 62
+  },
+  {
+    "id": "fortaleza",
+    "nome": "Fortaleza",
+    "sigla": "FOR",
+    "cor": "#0055a4",
+    "corSecundaria": "#e30613",
+    "liga": "brasileirao-b",
+    "nivel": 67
+  },
+  {
+    "id": "goias",
+    "nome": "Goiás",
+    "sigla": "GOI",
+    "cor": "#00843d",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 64
+  },
+  {
+    "id": "juventude",
+    "nome": "Juventude",
+    "sigla": "JUV",
+    "cor": "#00843d",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 64
+  },
+  {
+    "id": "londrina",
+    "nome": "Londrina",
+    "sigla": "LON",
+    "cor": "#4aa3df",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 59
+  },
+  {
+    "id": "nautico",
+    "nome": "Náutico",
+    "sigla": "NAU",
+    "cor": "#c8102e",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 59
+  },
+  {
+    "id": "novorizontino",
+    "nome": "Novorizontino",
+    "sigla": "NOV",
+    "cor": "#f5d000",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-b",
+    "nivel": 63
+  },
+  {
+    "id": "operario-pr",
+    "nome": "Operário-PR",
+    "sigla": "OPE",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 61
+  },
+  {
+    "id": "ponte-preta",
+    "nome": "Ponte Preta",
+    "sigla": "PON",
+    "cor": "#000000",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 60
+  },
+  {
+    "id": "sao-bernardo",
+    "nome": "São Bernardo",
+    "sigla": "SBE",
+    "cor": "#f5d000",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-b",
+    "nivel": 59
+  },
+  {
+    "id": "sport",
+    "nome": "Sport",
+    "sigla": "SPT",
+    "cor": "#c8102e",
+    "corSecundaria": "#000000",
+    "liga": "brasileirao-b",
+    "nivel": 65
+  },
+  {
+    "id": "vila-nova",
+    "nome": "Vila Nova",
+    "sigla": "VIL",
+    "cor": "#c8102e",
+    "corSecundaria": "#ffffff",
+    "liga": "brasileirao-b",
+    "nivel": 61
   }
 ]

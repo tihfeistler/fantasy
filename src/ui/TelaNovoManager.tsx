@@ -1,4 +1,4 @@
-import { estiloEscudo } from "../data/clubes";
+import { DIVISOES_INICIAIS, estiloEscudo } from "../data/clubes";
 import { useMemo, useState } from "react";
 import { escalar } from "../engine/ratings";
 import type { Time } from "../engine/types";
@@ -20,7 +20,13 @@ export function TelaNovoManager({ times, onCriar }: Props) {
       times
         .map((t) => {
           const v = escalar({ ...t, titulares: [] });
-          return { t, forca: Math.round(v.reduce((s, x) => s + x.jogador.geral, 0) / Math.max(1, v.length)) };
+          return {
+            t,
+            forca: Math.round(
+              v.reduce((s, x) => s + x.jogador.geral, 0) /
+                Math.max(1, v.length),
+            ),
+          };
         })
         .sort((a, b) => b.forca - a.forca),
     [times],
@@ -28,7 +34,13 @@ export function TelaNovoManager({ times, onCriar }: Props) {
   const escolhido = lista.find((x) => x.t.id === clubeId);
   const nomeOk = nome.trim().length >= 2;
 
-  const dificuldade = (f: number) => (f >= 78 ? "Favorito" : f >= 72 ? "Meio de tabela" : "Desafio");
+  // Dificuldade pela posição na própria divisão: terço de cima, do meio e de baixo.
+  const porDivisao = (["A", "B"] as const).map((d) => ({
+    d,
+    clubes: lista.filter((x) => DIVISOES_INICIAIS[x.t.id] === d),
+  }));
+  const dificuldade = (i: number, n: number) =>
+    i < n / 3 ? "Favorito" : i < (2 * n) / 3 ? "Meio de tabela" : "Desafio";
 
   return (
     <section className="novo-manager">
@@ -38,8 +50,9 @@ export function TelaNovoManager({ times, onCriar }: Props) {
         </div>
         <h1>Nova carreira</h1>
         <p className="suave">
-          Escolha seu nome de técnico e o clube que vai comandar na Série A 2026. O clube fica com você até o fim da
-          carreira.
+          Escolha seu nome de técnico e o clube que vai comandar no Brasileirão
+          2026, na Série A ou na Série B. O clube fica com você até o fim da
+          carreira: os 4 últimos da A caem e os 4 primeiros da B sobem.
         </p>
       </div>
 
@@ -55,52 +68,74 @@ export function TelaNovoManager({ times, onCriar }: Props) {
         />
       </label>
 
-      <h2>Escolha o clube</h2>
-      <div className="nm-clubes" role="radiogroup" aria-label="Clubes">
-        {lista.map(({ t, forca }) => (
-          <button
-            key={t.id}
-            role="radio"
-            aria-checked={clubeId === t.id}
-            className={`nm-clube${clubeId === t.id ? " escolhido" : ""}`}
-            onClick={() => {
-              setClubeId(t.id);
-              setConfirmando(false);
-            }}
+      {porDivisao.map(({ d, clubes }) => (
+        <div key={d}>
+          <h2>Série {d}</h2>
+          <div
+            className="nm-clubes"
+            role="radiogroup"
+            aria-label={`Clubes da Série ${d}`}
           >
-            <span className="escudo" style={estiloEscudo(t.cor)}>
-              {t.sigla}
-            </span>
-            <span className="nm-clube-nome">{t.nome}</span>
-            <span className="nm-forca">
-              <b>{forca}</b> força média
-            </span>
-            <span className={`nm-dif dif-${dificuldade(forca) === "Favorito" ? "fav" : dificuldade(forca) === "Desafio" ? "des" : "meio"}`}>
-              {dificuldade(forca)}
-            </span>
-          </button>
-        ))}
-      </div>
+            {clubes.map(({ t, forca }, i) => (
+              <button
+                key={t.id}
+                role="radio"
+                aria-checked={clubeId === t.id}
+                className={`nm-clube${clubeId === t.id ? " escolhido" : ""}`}
+                onClick={() => {
+                  setClubeId(t.id);
+                  setConfirmando(false);
+                }}
+              >
+                <span className="escudo" style={estiloEscudo(t.cor)}>
+                  {t.sigla}
+                </span>
+                <span className="nm-clube-nome">{t.nome}</span>
+                <span className="nm-forca">
+                  <b>{forca}</b> força média
+                </span>
+                <span
+                  className={`nm-dif dif-${{ Favorito: "fav", Desafio: "des", "Meio de tabela": "meio" }[dificuldade(i, clubes.length)]}`}
+                >
+                  {dificuldade(i, clubes.length)}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
 
       <div className="nm-rodape">
         {!confirmando ? (
           <>
             <span className="suave">
-              {!nomeOk ? "Digite seu nome para continuar." : !escolhido ? "Escolha um clube." : `${nome.trim()} no ${escolhido.t.nome}.`}
+              {!nomeOk
+                ? "Digite seu nome para continuar."
+                : !escolhido
+                  ? "Escolha um clube."
+                  : `${nome.trim()} no ${escolhido.t.nome}.`}
             </span>
-            <button className="botao primario" disabled={!nomeOk || !escolhido} onClick={() => setConfirmando(true)}>
+            <button
+              className="botao primario"
+              disabled={!nomeOk || !escolhido}
+              onClick={() => setConfirmando(true)}
+            >
               Começar carreira
             </button>
           </>
         ) : (
           <>
             <span>
-              Confirmar <b>{escolhido?.t.nome}</b>? Depois não dá para trocar de clube nesta carreira.
+              Confirmar <b>{escolhido?.t.nome}</b>? Depois não dá para trocar de
+              clube nesta carreira.
             </span>
             <button className="botao" onClick={() => setConfirmando(false)}>
               Voltar
             </button>
-            <button className="botao primario" onClick={() => onCriar(nome.trim(), clubeId!)}>
+            <button
+              className="botao primario"
+              onClick={() => onCriar(nome.trim(), clubeId!)}
+            >
               Confirmar e começar
             </button>
           </>

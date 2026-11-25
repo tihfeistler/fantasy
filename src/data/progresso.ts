@@ -1,4 +1,5 @@
-import type { Temporada } from "../engine/campeonato";
+import type { Contrato } from "../engine/contratos";
+import type { Divisao, Temporada } from "../engine/campeonato";
 import type { Financas } from "../engine/mercado";
 import type { MercadoCartas } from "../engine/mercadoCartas";
 import type { TimeCartas } from "../engine/desafios";
@@ -41,10 +42,18 @@ export interface Progresso {
   cartasBase?: string[];
   /** Time de cartas dos desafios (e do online): caixa, escalação e histórico. */
   timeCartas?: TimeCartas;
-  /** Brasileirão em andamento (calendário, rodada atual e placares). */
+  /** Brasileirão em andamento na divisão do manager (calendário, rodada atual e placares). */
   temporada?: Temporada;
+  /** A outra divisão, simulada rodada a rodada junto com a do manager. */
+  outraTemporada?: Temporada;
+  /** Divisão de cada clube (muda com acesso e rebaixamento). Sem valor: a de data/clubes.json. */
+  divisoes?: Record<string, Divisao>;
+  /** Contratos dos jogadores atuais do clube (quem não está aqui tem o contrato padrão). */
+  contratos?: Record<string, Contrato>;
+  /** Rodadas seguidas com caixa negativo (4 = perde 3 pontos). */
+  noVermelho?: number;
   /** Temporadas encerradas. */
-  historico?: { ano: number; posicao: number; campeao: string }[];
+  historico?: { ano: number; posicao: number; campeao: string; divisao?: Divisao }[];
 }
 
 const CHAVE = "fantasy-progresso-v1";

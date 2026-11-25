@@ -6,8 +6,8 @@ import { simularPartida } from "./match";
 const times = montarTimesAtuais();
 
 describe("elencos atuais", () => {
-  it("tem 20 clubes com elenco para escalar 11 com goleiro", () => {
-    expect(times).toHaveLength(20);
+  it("tem 40 clubes (Séries A e B) com elenco para escalar 11 com goleiro", () => {
+    expect(times).toHaveLength(40);
     for (const t of times) {
       const v = escalar(t);
       expect(v, t.id).toHaveLength(11);

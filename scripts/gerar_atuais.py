@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Gera data/atuais.json (jogadores atuais) a partir de data/elencos-2026.txt.
+Gera data/atuais.json (jogadores atuais) a partir de data/elencos-2026.txt
+(Série A) e data/elencos-serie-b-2026.txt (Série B).
 
 Formato do .txt, uma linha por jogador:
     clubeId | camisa | GK/DF/MF/FW | NAC | Nome [| POSICAO_FINA] [| geral]
@@ -60,7 +61,11 @@ def posicoes_finas(jogadores):
 def main():
     clubes = {c["id"]: c for c in json.loads((RAIZ / "data/clubes.json").read_text("utf-8"))}
     por_clube = {}
-    for n, linha in enumerate((RAIZ / "data/elencos-2026.txt").read_text("utf-8").splitlines(), 1):
+    linhas = []
+    for arq in ("data/elencos-2026.txt", "data/elencos-serie-b-2026.txt"):
+        if (RAIZ / arq).exists():
+            linhas += [(f"{arq}:{n}", l) for n, l in enumerate((RAIZ / arq).read_text("utf-8").splitlines(), 1)]
+    for n, linha in linhas:
         linha = linha.strip()
         if not linha or linha.startswith("#"): continue
         cols = [c.strip() for c in linha.split("|")]
@@ -84,7 +89,7 @@ def main():
         nivel = clubes[clube]["nivel"]
         for j in js:
             pos = j["fina"]
-            papel = 3 if j["camisa"] <= 11 else (-5 if j["camisa"] >= 40 else 0)
+            papel = 0 if j["camisa"] == 0 else 3 if j["camisa"] <= 11 else (-5 if j["camisa"] >= 40 else 0)
             N = j["alvo"] or destaques.get((clube, j["nome"])) or nivel - 6 + papel + ruido(clube + j["nome"], -6, 3)
             atr = {k: max(1, min(99, v)) for k, v in MODELOS[pos](N).items()}
             ajustar_ao_alvo(atr, pos, N)

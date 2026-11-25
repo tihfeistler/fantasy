@@ -6,8 +6,15 @@ import type { ResultadoPartida, Time } from "./types";
 export type Jogo = [mandante: string, visitante: string];
 export type Placar = [golsMandante: number, golsVisitante: number];
 
+/** Divisão do Brasileirão. A Série C não existe no jogo: quem cai da B fica na B. */
+export type Divisao = "A" | "B";
+/** Quantos sobem da B e caem da A no fim da temporada. */
+export const VAGAS_ACESSO = 4;
+
 export interface Temporada {
   ano: number;
+  /** Sem valor (saves antigos): Série A. */
+  divisao?: Divisao;
   seed: number;
   /** 38 rodadas de 10 jogos (turno e returno). */
   rodadas: Jogo[][];
@@ -15,6 +22,8 @@ export interface Temporada {
   rodadaAtual: number;
   /** Placar de cada jogo já disputado, chave "rodada-jogo". */
   placares: Record<string, Placar>;
+  /** Pontos perdidos por punição (ex.: caixa negativo), por clube. */
+  punicoes?: Record<string, number>;
 }
 
 export const chaveJogo = (rodada: number, jogo: number) => `${rodada}-${jogo}`;
@@ -63,8 +72,34 @@ export function gerarCalendario(ids: string[], seed: number): Jogo[][] {
   return [...turno, ...returno];
 }
 
-export function novaTemporada(ids: string[], ano: number, seed: number): Temporada {
-  return { ano, seed, rodadas: gerarCalendario(ids, seed), rodadaAtual: 0, placares: {} };
+export function novaTemporada(ids: string[], ano: number, seed: number, divisao: Divisao = "A"): Temporada {
+  return { ano, divisao, seed, rodadas: gerarCalendario(ids, seed), rodadaAtual: 0, placares: {} };
+}
+
+export const divisaoDe = (t: Temporada): Divisao => t.divisao ?? "A";
+export const nomeDaDivisao = (d: Divisao) => `Série ${d}`;
+
+/** Clubes que disputam a temporada (os do primeiro turno). */
+export const idsDaTemporada = (t: Temporada) => t.rodadas[0].flat();
+
+/** Joga a rodada atual (o que faltar) e passa para a próxima. Temporada encerrada fica como está. */
+export function jogarRodada(t: Temporada, times: Map<string, Time>): Temporada {
+  if (t.rodadaAtual >= t.rodadas.length) return t;
+  const feita = simularRodada(t, times);
+  return { ...feita, rodadaAtual: feita.rodadaAtual + 1 };
+}
+
+/**
+ * Acesso e rebaixamento: os 4 últimos da A caem e os 4 primeiros da B sobem.
+ * Devolve o mapa clube -> divisão para a próxima temporada.
+ */
+export function trocarDivisoes(serieA: Temporada, serieB: Temporada): Record<string, Divisao> {
+  const a = calcularTabela(serieA, idsDaTemporada(serieA));
+  const b = calcularTabela(serieB, idsDaTemporada(serieB));
+  const novo: Record<string, Divisao> = {};
+  a.forEach((l, i) => (novo[l.id] = i >= a.length - VAGAS_ACESSO ? "B" : "A"));
+  b.forEach((l, i) => (novo[l.id] = i < VAGAS_ACESSO ? "A" : "B"));
+  return novo;
 }
 
 export function seedDoJogo(t: Temporada, rodada: number, jogo: number) {
@@ -116,7 +151,12 @@ export function calcularTabela(t: Temporada, ids: string[], nomes?: Map<string, 
       else { a.e++; b.e++; a.pts++; b.pts++; a.forma.push("E"); b.forma.push("E"); }
     }),
   );
-  const lista = [...linhas.values()].map((l) => ({ ...l, sg: l.gp - l.gc, forma: l.forma.slice(-5) }));
+  const lista = [...linhas.values()].map((l) => ({
+    ...l,
+    pts: l.pts - (t.punicoes?.[l.id] ?? 0),
+    sg: l.gp - l.gc,
+    forma: l.forma.slice(-5),
+  }));
   return lista.sort(
     (x, y) =>
       y.pts - x.pts || y.v - x.v || y.sg - x.sg || y.gp - x.gp ||
@@ -124,8 +164,11 @@ export function calcularTabela(t: Temporada, ids: string[], nomes?: Map<string, 
   );
 }
 
-/** Zonas da tabela do Brasileirão (simplificadas). */
-export function zona(posicao: number): "libertadores" | "pre" | "sula" | "rebaixamento" | null {
+export type Zona = "libertadores" | "pre" | "sula" | "rebaixamento" | "acesso";
+
+/** Zonas da tabela do Brasileirão (simplificadas). Na B só há a zona de acesso. */
+export function zona(posicao: number, divisao: Divisao = "A"): Zona | null {
+  if (divisao === "B") return posicao <= VAGAS_ACESSO ? "acesso" : null;
   if (posicao <= 4) return "libertadores";
   if (posicao <= 6) return "pre";
   if (posicao <= 12) return "sula";
@@ -133,7 +176,8 @@ export function zona(posicao: number): "libertadores" | "pre" | "sula" | "rebaix
   return null;
 }
 
-/** Moedas de premiação no fim da temporada pela posição. */
-export function premioFinal(posicao: number) {
-  return posicao === 1 ? 3000 : posicao <= 4 ? 1500 : posicao <= 12 ? 800 : posicao <= 16 ? 400 : 200;
+/** Moedas de premiação no fim da temporada pela posição (na Série B, metade). */
+export function premioFinal(posicao: number, divisao: Divisao = "A") {
+  const fator = divisao === "B" ? 0.5 : 1;
+  return fator * (posicao === 1 ? 3000 : posicao <= 4 ? 1500 : posicao <= 12 ? 800 : posicao <= 16 ? 400 : 200);
 }
