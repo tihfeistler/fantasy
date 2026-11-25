@@ -1,6 +1,6 @@
+import { Escudo } from "./Emblema";
 import { nomeDaLiga } from "../engine/ligas";
 import { useEffect, useState } from "react";
-import { estiloEscudo } from "../data/clubes";
 import { chaveJogo, seedDoJogo, type Temporada } from "../engine/campeonato";
 import { MAX_SUBSTITUICOES } from "../engine/match";
 import type { ResultadoPartida, Time } from "../engine/types";
@@ -134,9 +134,7 @@ export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar }: Pro
 function Lado({ time, rotulo, meu }: { time: Time; rotulo: string; meu: boolean }) {
   return (
     <div className={`lado${meu ? " meu" : ""}`}>
-      <span className="escudo" style={estiloEscudo(time.cor)}>
-        {time.sigla}
-      </span>
+      <Escudo time={time} className="escudo" />
       <span className="lado-nome">{time.nome}</span>
       <span className="rotulo">{meu ? "Seu time" : rotulo}</span>
     </div>

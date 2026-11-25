@@ -302,3 +302,37 @@ function contasLigadas(int $a, int $b): bool
     $s->execute([$a, $b]);
     return (bool) $s->fetch();
 }
+
+// ---------------------------------------------------------------- ligas
+
+/**
+ * Divisão (src/engine/ligas.ts) pelo campo liga de data/clubes.json: [id, país, nível].
+ * A divisão só muda para a de cima ou a de baixo do mesmo país (acesso e rebaixamento).
+ */
+const DIVISAO_DA_LIGA = [
+    'brasileirao-a' => ['A', 'BRA', 1], 'brasileirao-b' => ['B', 'BRA', 2],
+    'brasileirao-c' => ['C', 'BRA', 3], 'brasileirao-d' => ['D', 'BRA', 4],
+    'premier-league' => ['ING', 'ENG', 1], 'championship' => ['ING2', 'ENG', 2],
+    'league-one' => ['ING3', 'ENG', 3], 'league-two' => ['ING4', 'ENG', 4],
+    'la-liga' => ['ESP', 'ESP', 1], 'segunda-division' => ['ESP2', 'ESP', 2],
+    'serie-a-italia' => ['ITA', 'ITA', 1], 'serie-b-italia' => ['ITA2', 'ITA', 2],
+    'bundesliga' => ['ALE', 'GER', 1], '2-bundesliga' => ['ALE2', 'GER', 2],
+    'ligue-1' => ['FRA', 'FRA', 1], 'ligue-2' => ['FRA2', 'FRA', 2],
+    'liga-portugal' => ['POR', 'POR', 1], 'liga-portugal-2' => ['POR2', 'POR', 2],
+    'eredivisie' => ['NED', 'NED', 1], 'eerste-divisie' => ['NED2', 'NED', 2],
+    'pro-league' => ['BEL', 'BEL', 1], 'challenger-pro-league' => ['BEL2', 'BEL', 2],
+    'liga-argentina' => ['ARG', 'ARG', 1], 'primera-nacional' => ['ARG2', 'ARG', 2],
+    'saudi-pro-league' => ['KSA', 'KSA', 1], 'saudi-first-division' => ['KSA2', 'KSA', 2],
+    'eliteserien' => ['NOR', 'NOR', 1], 'obos-ligaen' => ['NOR2', 'NOR', 2],
+    'superliga-dinamarca' => ['DEN', 'DEN', 1], '1-division-dinamarca' => ['DEN2', 'DEN', 2],
+    'scottish-premiership' => ['SCO', 'SCO', 1], 'scottish-championship' => ['SCO2', 'SCO', 2],
+    'bundesliga-austria' => ['AUT', 'AUT', 1], '2-liga-austria' => ['AUT2', 'AUT', 2],
+    'superliga-servia' => ['SRB', 'SRB', 1], 'prva-liga-servia' => ['SRB2', 'SRB', 2],
+];
+
+/** [país, nível] de uma divisão, ou null se não existir. */
+function infoDivisao(string $div): ?array
+{
+    foreach (DIVISAO_DA_LIGA as [$id, $pais, $nivel]) if ($id === $div) return [$pais, $nivel];
+    return null;
+}

@@ -4,6 +4,8 @@ import { online, type Perfil, type Usuario } from "../data/online";
 import { LIGAS } from "../engine/ligas";
 import { escalar } from "../engine/ratings";
 import type { Time } from "../engine/types";
+import { problemaNaIdentidade, type Identidade } from "../engine/timeProprio";
+import { CamposTimeProprio, IDENTIDADE_INICIAL } from "./TelaTimeProprio";
 
 /** Países para o perfil do técnico (o país de onde ele joga, não o da carreira). */
 const PAISES = [
@@ -326,6 +328,9 @@ function Cadastro({
   const [paisCarreira, setPaisCarreira] = useState("Brasil");
   const [divisao, setDivisao] = useState("A");
   const [clube, setClube] = useState("");
+  /** Assumir um clube existente ou criar o próprio time. */
+  const [tipoTime, setTipoTime] = useState<"clube" | "proprio">("clube");
+  const [identidade, setIdentidade] = useState<Identidade>(IDENTIDADE_INICIAL);
   const [tocado, setTocado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
@@ -357,7 +362,7 @@ function Cadastro({
     !regras.senha(senha, usuario) &&
     !erroSenha2 &&
     perfilOk(perfil) &&
-    !!escolhido;
+    (tipoTime === "proprio" ? !problemaNaIdentidade(identidade) : !!escolhido);
 
   const enviar = async (e: FormEvent) => {
     e.preventDefault();
@@ -367,7 +372,11 @@ function Cadastro({
     setEnviando(true);
     try {
       onEntrou(
-        await online.registrar({ ...perfil, usuario, senha, senha2, clube }),
+        await online.registrar(
+          tipoTime === "proprio"
+            ? { ...perfil, usuario, senha, senha2, time_proprio: identidade }
+            : { ...perfil, usuario, senha, senha2, clube },
+        ),
       );
     } catch (err) {
       setErro((err as Error).message);
@@ -380,9 +389,9 @@ function Cadastro({
     <form className="entrar caixa-entrar cadastro" onSubmit={enviar} noValidate>
       <h2>Criar conta</h2>
       <p className="suave">
-        Cada conta tem uma única carreira, no clube que você escolher aqui. Ele
-        fica com você para sempre: para comandar outro clube, só com outra
-        conta.
+        Cada conta tem uma única carreira, num clube que você assume ou num time
+        que você cria aqui. Ele fica com você para sempre: para comandar outro
+        clube, só com outra conta.
       </p>
 
       <fieldset>
@@ -436,64 +445,96 @@ function Cadastro({
 
       <fieldset>
         <legend>Sua carreira</legend>
-        <div className="cad-linha">
-          <Campo rotulo="País da liga">
-            <select
-              id="cad-pais-carreira"
-              value={paisCarreira}
-              onChange={(e) => {
-                const p = e.target.value;
-                setPaisCarreira(p);
-                setDivisao(LIGAS.find((l) => l.pais === p)!.id);
-                setClube("");
-              }}
-            >
-              {paisesCarreira.map((p) => (
-                <option key={p}>{p}</option>
-              ))}
-            </select>
-          </Campo>
-          <Campo rotulo="Divisão">
-            <select
-              id="cad-divisao"
-              value={divisao}
-              onChange={(e) => {
-                setDivisao(e.target.value);
-                setClube("");
-              }}
-            >
-              {divisoes.map((l) => (
-                <option key={l.id} value={l.id}>
-                  {l.nome}
-                </option>
-              ))}
-            </select>
-          </Campo>
-        </div>
-        <Campo
-          rotulo="Clube"
-          erro={
-            tocado && !escolhido ? "Escolha o clube da sua carreira." : null
-          }
-        >
-          <select
-            id="cad-clube"
-            value={clube}
-            onChange={(e) => setClube(e.target.value)}
+        <div className="alternar" role="radiogroup" aria-label="Seu time">
+          <button
+            type="button"
+            id="cad-tipo-clube"
+            role="radio"
+            aria-checked={tipoTime === "clube"}
+            className={tipoTime === "clube" ? "ativo" : ""}
+            onClick={() => setTipoTime("clube")}
           >
-            <option value="">Escolha…</option>
-            {clubes.map((c, i) => (
-              <option key={c.id} value={c.id}>
-                {c.nome} · força {forca.get(c.id)} ·{" "}
-                {i < clubes.length / 3
-                  ? "favorito"
-                  : i < (2 * clubes.length) / 3
-                    ? "meio de tabela"
-                    : "desafio"}
-              </option>
-            ))}
-          </select>
-        </Campo>
+            Assumir um clube
+          </button>
+          <button
+            type="button"
+            id="cad-tipo-proprio"
+            role="radio"
+            aria-checked={tipoTime === "proprio"}
+            className={tipoTime === "proprio" ? "ativo" : ""}
+            onClick={() => setTipoTime("proprio")}
+          >
+            Criar meu time
+          </button>
+        </div>
+        {tipoTime === "proprio" ? (
+          <CamposTimeProprio
+            valor={identidade}
+            onChange={setIdentidade}
+            tocado={tocado}
+          />
+        ) : (
+          <>
+            <div className="cad-linha">
+              <Campo rotulo="País da liga">
+                <select
+                  id="cad-pais-carreira"
+                  value={paisCarreira}
+                  onChange={(e) => {
+                    const p = e.target.value;
+                    setPaisCarreira(p);
+                    setDivisao(LIGAS.find((l) => l.pais === p)!.id);
+                    setClube("");
+                  }}
+                >
+                  {paisesCarreira.map((p) => (
+                    <option key={p}>{p}</option>
+                  ))}
+                </select>
+              </Campo>
+              <Campo rotulo="Divisão">
+                <select
+                  id="cad-divisao"
+                  value={divisao}
+                  onChange={(e) => {
+                    setDivisao(e.target.value);
+                    setClube("");
+                  }}
+                >
+                  {divisoes.map((l) => (
+                    <option key={l.id} value={l.id}>
+                      {l.nome}
+                    </option>
+                  ))}
+                </select>
+              </Campo>
+            </div>
+            <Campo
+              rotulo="Clube"
+              erro={
+                tocado && !escolhido ? "Escolha o clube da sua carreira." : null
+              }
+            >
+              <select
+                id="cad-clube"
+                value={clube}
+                onChange={(e) => setClube(e.target.value)}
+              >
+                <option value="">Escolha…</option>
+                {clubes.map((c, i) => (
+                  <option key={c.id} value={c.id}>
+                    {c.nome} · força {forca.get(c.id)} ·{" "}
+                    {i < clubes.length / 3
+                      ? "favorito"
+                      : i < (2 * clubes.length) / 3
+                        ? "meio de tabela"
+                        : "desafio"}
+                  </option>
+                ))}
+              </select>
+            </Campo>
+          </>
+        )}
       </fieldset>
 
       {tocado && !tudoOk ? (
@@ -502,9 +543,11 @@ function Cadastro({
         erro && <p className="aviso">{erro}</p>
       )}
       <button className="botao primario" disabled={enviando}>
-        {escolhido
-          ? `Criar conta e assumir o ${escolhido.nome}`
-          : "Criar conta"}
+        {tipoTime === "proprio"
+          ? "Criar conta e montar o elenco"
+          : escolhido
+            ? `Criar conta e assumir o ${escolhido.nome}`
+            : "Criar conta"}
       </button>
       <button type="button" className="link" onClick={onVoltar}>
         Já tenho conta

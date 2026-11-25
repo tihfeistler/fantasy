@@ -1,5 +1,5 @@
+import { Escudo } from "./Emblema";
 import { useEffect, useState, type ReactNode } from "react";
-import { estiloEscudo } from "../data/clubes";
 import { MAX_SUBSTITUICOES, type NovaDecisao, type PartidaAoVivo, type Tatica } from "../engine/match";
 import type { Time, TipoEvento } from "../engine/types";
 import { setor } from "./CartaJogador";
@@ -70,9 +70,7 @@ export function VistaPartida(p: Props) {
       <div className="placar">
         {[p.mandante, p.visitante].map((t, i) => (
           <div key={t.id} className={`lado${t.id === p.meuTimeId ? " meu" : ""}`} style={{ order: i * 2 }}>
-            <span className="escudo" style={estiloEscudo(t.cor)}>
-              {t.sigla}
-            </span>
+            <Escudo time={t} className="escudo" />
             <span className="lado-nome">{t.nome}</span>
             <span className="rotulo">{t.id === p.meuTimeId ? "Seu time" : i === 0 ? "Mandante" : "Visitante"}</span>
           </div>

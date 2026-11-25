@@ -7,6 +7,8 @@
 //      Cada conta tem UMA carreira: o clube é o escolhido no cadastro (usuarios.clube_carreira) e uma
 //      conta que já tem carreira recebe 409. Para outro clube, só criando outra conta.
 //      O caixa ganha o caixa inicial do clube (10% do valor do elenco).
+//      Time próprio (api/time_proprio.php): exige o draft completo; o elenco é o do draft e o
+//      estádio escolhido muda a bilheteria e desconta o custo do caixa inicial.
 // POST api/carreira.php {acao:"salvar", dados, lancamentos:[...]}
 //      Guarda o estado e aplica no caixa os lançamentos novos (seq maior que o último aceito),
 //      um por um, conferindo cada um pelas regras abaixo. Responde {caixa, seq, recusados}.
@@ -20,7 +22,7 @@
 // por fase de cada copa na temporada, com o teto da fase (src/engine/copas.ts).
 declare(strict_types=1);
 require __DIR__ . '/db.php';
-require __DIR__ . '/online_lib.php';
+require_once __DIR__ . '/time_proprio_lib.php';
 iniciarApi();
 $eu = exigirUsuario();
 $pdo = db();
@@ -38,37 +40,6 @@ const MOEDAS_DESAFIO = [
 /** src/engine/pacotes.ts: PREMIO.vitoria; src/engine/campeonato.ts: premioFinal do campeão da liga que paga mais (Premier League, 1,5 x 3.000). */
 const MOEDAS_PARTIDA = 300;
 const MOEDAS_TEMPORADA = 4500;
-/**
- * Divisão (src/engine/ligas.ts) pelo campo liga de data/clubes.json: [id, país, nível].
- * A divisão só muda para a de cima ou a de baixo do mesmo país (acesso e rebaixamento).
- */
-const DIVISAO_DA_LIGA = [
-    'brasileirao-a' => ['A', 'BRA', 1], 'brasileirao-b' => ['B', 'BRA', 2],
-    'brasileirao-c' => ['C', 'BRA', 3], 'brasileirao-d' => ['D', 'BRA', 4],
-    'premier-league' => ['ING', 'ENG', 1], 'championship' => ['ING2', 'ENG', 2],
-    'league-one' => ['ING3', 'ENG', 3], 'league-two' => ['ING4', 'ENG', 4],
-    'la-liga' => ['ESP', 'ESP', 1], 'segunda-division' => ['ESP2', 'ESP', 2],
-    'serie-a-italia' => ['ITA', 'ITA', 1], 'serie-b-italia' => ['ITA2', 'ITA', 2],
-    'bundesliga' => ['ALE', 'GER', 1], '2-bundesliga' => ['ALE2', 'GER', 2],
-    'ligue-1' => ['FRA', 'FRA', 1], 'ligue-2' => ['FRA2', 'FRA', 2],
-    'liga-portugal' => ['POR', 'POR', 1], 'liga-portugal-2' => ['POR2', 'POR', 2],
-    'eredivisie' => ['NED', 'NED', 1], 'eerste-divisie' => ['NED2', 'NED', 2],
-    'pro-league' => ['BEL', 'BEL', 1], 'challenger-pro-league' => ['BEL2', 'BEL', 2],
-    'liga-argentina' => ['ARG', 'ARG', 1], 'primera-nacional' => ['ARG2', 'ARG', 2],
-    'saudi-pro-league' => ['KSA', 'KSA', 1], 'saudi-first-division' => ['KSA2', 'KSA', 2],
-    'eliteserien' => ['NOR', 'NOR', 1], 'obos-ligaen' => ['NOR2', 'NOR', 2],
-    'superliga-dinamarca' => ['DEN', 'DEN', 1], '1-division-dinamarca' => ['DEN2', 'DEN', 2],
-    'scottish-premiership' => ['SCO', 'SCO', 1], 'scottish-championship' => ['SCO2', 'SCO', 2],
-    'bundesliga-austria' => ['AUT', 'AUT', 1], '2-liga-austria' => ['AUT2', 'AUT', 2],
-    'superliga-servia' => ['SRB', 'SRB', 1], 'prva-liga-servia' => ['SRB2', 'SRB', 2],
-];
-
-/** [país, nível] de uma divisão, ou null se não existir. */
-function infoDivisao(string $div): ?array
-{
-    foreach (DIVISAO_DA_LIGA as [$id, $pais, $nivel]) if ($id === $div) return [$pais, $nivel];
-    return null;
-}
 /**
  * Copas (src/engine/copas.ts): prêmio da primeira fase vencida em R$ mil. Cada fase paga o dobro da
  * anterior e a final vencida paga o título junto, então a fase k paga no máximo base * 2^(k+1).
@@ -189,20 +160,37 @@ switch ((string) ($d['acao'] ?? '')) {
         $q->execute([$clube]);
         $liga = $q->fetchColumn();
         if ($liga === false) erro('Clube desconhecido.');
-        $elenco = atuais([], $clube);
+        // Time próprio: o elenco é o do draft (os jogadores do clube substituído saem) e o estádio
+        // escolhido mexe na bilheteria e no caixa inicial.
+        $proprio = timeProprio($eu);
+        $posse = [];
+        $fatorBilheteria = 1.0;
+        $custoEstadio = 0;
+        if ($proprio) {
+            if ($proprio['vaga'] !== $clube) erro('O clube desta conta é o seu time próprio.', 409);
+            if (count($proprio['escolhas']) < TOTAL_DRAFT) erro('Termine de montar o elenco no draft antes de começar.', 409);
+            foreach (atuais([], $clube) as $id => $_) $posse[$id] = 0;
+            $elenco = atuais(idsEscolhidos($proprio));
+            foreach ($elenco as $id => $_) $posse[$id] = 1;
+            [$fatorBilheteria, $custoEstadio] = ESTADIOS[$proprio['identidade']['estadio']] ?? [1.0, 0];
+            $dados['clubeProprio'] = clubeProprioPublico($proprio);
+        } else {
+            $elenco = atuais([], $clube);
+            unset($dados['clubeProprio']);
+        }
         if (count($elenco) < 11) erro('Elenco do clube não encontrado. Rode scripts/importar.php.');
         $folha = folha($elenco, []);
         $valor = array_sum(array_map(fn($j) => valorDeMercado($j['geral']), $elenco));
         // src/engine/mercado.ts, financasIniciais.
         $receita = (int) round($folha / 4 * 0.75);
-        $bilheteria = (int) round($folha / 4 * 0.6);
+        $bilheteria = (int) round($folha / 4 * 0.6 * $fatorBilheteria);
         $pdo->beginTransaction();
         caixaDe($eu, true);
         $c = linhaCarreira($eu, true);
         if ($c && $c['dados'] !== null) {
             erro('Esta conta já tem uma carreira. Para começar outra, crie uma conta nova.', 409);
         }
-        $bonus = $c && $c['bonus_inicial'] ? 0 : (int) round($valor * 0.1);
+        $bonus = $c && $c['bonus_inicial'] ? 0 : max(0, (int) round($valor * 0.1) - $custoEstadio);
         $pdo->prepare('INSERT INTO carreiras (usuario_id, clube_id, divisao, ano, receita, bilheteria, posse, ultima_rodada,
                 ultima_bilheteria, ultimo_salario, ultima_premiacao, seq, desafio_pendente, bonus_inicial, dados)
             VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, NULL, 1, NULL)
@@ -211,11 +199,13 @@ switch ((string) ($d['acao'] ?? '')) {
                 ultima_bilheteria = 0, ultimo_salario = 0, ultima_premiacao = 0, ultima_partida = 0, seq = 0,
                 desafio_pendente = NULL, bonus_inicial = 1, copas_pagas = NULL')
             ->execute([$eu, $clube, DIVISAO_DA_LIGA[$liga][0] ?? 'A', (int) ($dados['temporada']['ano'] ?? 0),
-                $receita, $bilheteria, '{}']);
+                $receita, $bilheteria, json_encode((object) $posse)]);
         if ($bonus) {
             $pdo->prepare('UPDATE times_online SET caixa = caixa + ? WHERE usuario_id = ?')->execute([$bonus, $eu]);
             $pdo->prepare('INSERT INTO lancamentos (usuario_id, tipo, descricao, valor) VALUES (?, ?, ?, ?)')
-                ->execute([$eu, 'inicial', "Caixa inicial do clube ($clube)", $bonus]);
+                ->execute([$eu, 'inicial', $proprio
+                    ? mb_substr("Caixa inicial do {$proprio['identidade']['nome']} (estádio: -$custoEstadio)", 0, 120)
+                    : "Caixa inicial do clube ($clube)", $bonus]);
         }
         $caixa = caixaDe($eu);
         // O estado guardado leva as finanças do servidor.
@@ -231,6 +221,10 @@ switch ((string) ($d['acao'] ?? '')) {
     case 'salvar': {
         $dados = $d['dados'] ?? null;
         if (!is_array($dados) || !isset($dados['manager']['clubeId'])) erro('Carreira inválida.');
+        // A identidade do time próprio é a do servidor.
+        $proprio = clubeProprioPublico(timeProprio($eu));
+        if ($proprio) $dados['clubeProprio'] = $proprio;
+        else unset($dados['clubeProprio']);
         $novos = is_array($d['lancamentos'] ?? null) ? $d['lancamentos'] : [];
         $pdo->beginTransaction();
         $caixa = caixaDe($eu, true);

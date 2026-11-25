@@ -4,6 +4,7 @@ import atuaisJson from "../../data/atuais.json";
 import { FORMACOES } from "../engine/ratings";
 import { divisaoDaChave, type Divisao } from "../engine/ligas";
 import type { Jogador, Time } from "../engine/types";
+import type { ClubeProprio } from "../engine/timeProprio";
 
 /**
  * Clubes das Séries A e B e das ligas estrangeiras com os elencos atuais
@@ -65,4 +66,24 @@ export function estiloEscudo(cor: string) {
   const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
   const claro = 0.299 * r + 0.587 * g + 0.114 * b > 160;
   return { background: cor, color: claro ? "#0b1324" : "#ffffff", textShadow: claro ? "none" : undefined };
+}
+
+/**
+ * Times próprios em jogo (vaga -> identidade). O time próprio usa o id do clube
+ * que ele substitui; aqui o nome, a sigla e as cores desse clube viram os do time.
+ */
+export const CLUBES_PROPRIOS = new Map<string, ClubeProprio>();
+const ORIGINAIS = new Map<string, Pick<Clube, "nome" | "sigla" | "cor" | "corSecundaria">>();
+
+/** Coloca (ou tira, com null) o time próprio da carreira no lugar do clube da vaga. */
+export function aplicarClubeProprio(cp: ClubeProprio | null | undefined) {
+  for (const [id, o] of ORIGINAIS) Object.assign(CLUBES.find((c) => c.id === id)!, o);
+  ORIGINAIS.clear();
+  CLUBES_PROPRIOS.clear();
+  if (!cp) return;
+  const c = CLUBES.find((x) => x.id === cp.vaga);
+  if (!c) return;
+  ORIGINAIS.set(c.id, { nome: c.nome, sigla: c.sigla, cor: c.cor, corSecundaria: c.corSecundaria });
+  Object.assign(c, { nome: cp.nome, sigla: cp.sigla, cor: cp.cor, corSecundaria: cp.corSecundaria });
+  CLUBES_PROPRIOS.set(c.id, cp);
 }

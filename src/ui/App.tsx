@@ -1,12 +1,13 @@
+import { Escudo } from "./Emblema";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { buscarJogadores, LENDAS_EMBUTIDAS } from "../data/api";
 import { ligaDe } from "../engine/ligas";
 import {
+  aplicarClubeProprio,
   ATUAIS,
   CLUBES,
   clubesDaDivisao,
   DIVISOES_INICIAIS,
-  estiloEscudo,
   montarTimesAtuais,
   NIVEL,
 } from "../data/clubes";
@@ -119,6 +120,8 @@ import {
 } from "./TelaMercado";
 import { TelaMercadoCartas } from "./TelaMercadoCartas";
 import { TelaNovoManager } from "./TelaNovoManager";
+import { entradaDoTime, fonteLocal, TelaDraft, type FonteDraft } from "./TelaTimeProprio";
+import { ESTADIOS, type ClubeProprio, type EscolhaDraft, type Identidade } from "../engine/timeProprio";
 import { TelaInicio } from "./TelaInicio";
 import { completa, TelaOnline, timeDe } from "./TelaOnline";
 import { CompletarCadastro, Entrar } from "./TelaConta";
@@ -236,6 +239,44 @@ function daConta(c: EstadoCarreira, s: SituacaoOnline | null): Progresso {
   };
 }
 
+/** Draft na conta: o servidor sorteia (api/time_proprio.php). */
+const FONTE_DRAFT_CONTA: FonteDraft = {
+  carregar: async () => (await online.draft()) ?? { escolhas: [], opcoes: null },
+  sortear: (f, nac) => online.sortearDraft(f, nac),
+  escolher: (id) => online.escolherDraft(id),
+};
+
+/**
+ * Começo de carreira de um time próprio: os jogadores do clube da vaga vão para os outros
+ * clubes da divisão, os do draft vêm para o time (lendas pelo elenco de cartas) e o estádio
+ * muda a bilheteria e o caixa inicial. Na conta, o servidor refaz as finanças.
+ */
+function carreiraDoTimeProprio(identidade: Identidade, escolhas: EscolhaDraft[], vaga: string): Partial<Progresso> {
+  const clubeProprio: ClubeProprio = { ...identidade, vaga };
+  aplicarClubeProprio(clubeProprio);
+  const ids = new Set(escolhas.map((e) => e.jogadorId));
+  const atuais = new Set(ATUAIS.map((j) => j.id));
+  const divisao = clubesDaDivisao(DIVISOES_INICIAIS, DIVISOES_INICIAIS[vaga]);
+  const transferencias: Record<string, string> = {};
+  for (const j of ATUAIS)
+    if (j.clubeId === vaga && !ids.has(j.id)) transferencias[j.id] = destinoDaSaida(j, divisao, vaga, ANO_INICIAL);
+  for (const id of ids) if (atuais.has(id)) transferencias[id] = vaga;
+  const lendasDoDraft = [...ids].filter((id) => !atuais.has(id));
+  const time = montarTimesAtuais(transferencias).find((t) => t.id === vaga)!;
+  const f = financasIniciais(time);
+  const estadio = ESTADIOS.find((e) => e.id === identidade.estadio) ?? ESTADIOS[0];
+  return {
+    clubeProprio,
+    transferencias,
+    noElenco: lendasDoDraft.length ? { [vaga]: lendasDoDraft } : {},
+    financas: {
+      ...f,
+      bilheteria: Math.round(f.bilheteria * estadio.fatorBilheteria),
+      caixa: Math.max(0, f.caixa - estadio.custo),
+    },
+  };
+}
+
 export function App() {
   const [aba, setAbaCarreira] = useState<AbaCarreira>("escritorio");
   const [modo, setModo] = useState<Modo | "menu">("menu");
@@ -301,6 +342,9 @@ export function App() {
     return p;
   });
   const meuTimeId = progresso.manager?.clubeId ?? "";
+  // Time próprio: toma o nome, a sigla e as cores do clube da vaga (antes de montar os times).
+  const clubeProprio = progresso.clubeProprio;
+  useMemo(() => aplicarClubeProprio(clubeProprio), [clubeProprio]);
   // Times atuais com as transferências da carreira; o do manager recebe a escalação salva.
   const times = useMemo(() => {
     const esc = progresso.escalacao;
@@ -315,9 +359,13 @@ export function App() {
           }
         : t,
     );
-  }, [progresso.transferencias, progresso.escalacao, meuTimeId]);
+  }, [progresso.transferencias, progresso.escalacao, meuTimeId, clubeProprio]);
   const [lendasLista, setLendasLista] = useState<Jogador[]>(LENDAS_EMBUTIDAS);
   const [pacoteAberto, setPacoteAberto] = useState<Jogador[] | null>(null);
+  /** Demonstração: time próprio criado, esperando o draft. */
+  const [demoProprio, setDemoProprio] = useState<{ nome: string; identidade: Identidade; fonte: FonteDraft } | null>(
+    null,
+  );
   const [modoMercadoJogadores, setModoMercadoJogadores] =
     useState<ModoMercado>("comprar");
   const [avisoCartas, setAvisoCartas] = useState<string | null>(null);
@@ -1399,7 +1447,13 @@ export function App() {
     return premio;
   };
 
-  const criarManager = (nome: string, clubeId: string, fim?: () => void) => {
+  const criarManager = (
+    nome: string,
+    clubeId: string,
+    fim?: () => void,
+    proprio?: { identidade: Identidade; escolhas: EscolhaDraft[] },
+  ) => {
+    const doTime = proprio ? carreiraDoTimeProprio(proprio.identidade, proprio.escolhas, clubeId) : {};
     const primeira = criarTemporada(
       ANO_INICIAL,
       DIVISOES_INICIAIS,
@@ -1423,6 +1477,7 @@ export function App() {
       financas: financasDoClube(clubeId),
       caixaUnico: true,
       ...timeCartasInicial(),
+      ...doTime,
     };
     if (naConta) {
       // Na conta, o servidor cria a carreira e define o caixa e as receitas.
@@ -1449,6 +1504,8 @@ export function App() {
   const criandoCarreira = useRef(false);
   useEffect(() => {
     if (!naConta || !usuario?.completo || progresso.manager || !usuario.clubeCarreira || !usuario.tecnico) return;
+    // Time próprio: a carreira começa quando o draft termina.
+    if (usuario.timeProprio) return;
     if (criandoCarreira.current) return;
     criandoCarreira.current = true;
     criarManager(usuario.tecnico, usuario.clubeCarreira, () => (criandoCarreira.current = false));
@@ -1502,6 +1559,46 @@ export function App() {
     );
   }
 
+  // Time próprio: monta o elenco no draft antes de começar a carreira.
+  if (naConta && !progresso.manager && usuario!.timeProprio) {
+    const tp = usuario!.timeProprio;
+    return (
+      <div className="app">
+        {avisoConta && <p className="aviso-conta">{avisoConta}</p>}
+        <TelaDraft
+          identidade={tp}
+          fonte={FONTE_DRAFT_CONTA}
+          atuais={ATUAIS}
+          lendas={lendas}
+          onSair={sair}
+          onConcluir={(escolhas) =>
+            criarManager(usuario!.tecnico ?? "", tp.vaga, undefined, { identidade: tp, escolhas })
+          }
+        />
+      </div>
+    );
+  }
+  if (demoProprio && !progresso.manager) {
+    return (
+      <div className="app">
+        <TelaDraft
+          identidade={demoProprio.identidade}
+          fonte={demoProprio.fonte}
+          atuais={ATUAIS}
+          lendas={lendas}
+          onSair={() => setDemoProprio(null)}
+          onConcluir={(escolhas) => {
+            criarManager(demoProprio.nome, entradaDoTime(demoProprio.identidade.divisao).vaga!, undefined, {
+              identidade: demoProprio.identidade,
+              escolhas,
+            });
+            setDemoProprio(null);
+          }}
+        />
+      </div>
+    );
+  }
+
   if (naConta && !progresso.manager && usuario!.clubeCarreira) {
     return (
       <div className="app">
@@ -1534,6 +1631,12 @@ export function App() {
           times={times}
           nomeFixo={naConta ? usuario!.tecnico : null}
           onCriar={(nome, clube) => criarManager(nome, clube)}
+          onCriarTime={
+            naConta
+              ? undefined
+              : (nome, identidade) =>
+                  setDemoProprio({ nome, identidade, fonte: fonteLocal(ATUAIS, lendasLista, novaSeed()) })
+          }
         />
       </div>
     );
@@ -1664,9 +1767,7 @@ export function App() {
         </div>
         <span className="modo-atual">{TITULO_MODO[modo]}</span>
         <div className="clube">
-          <span className="escudo" style={estiloEscudo(meuTime.cor)}>
-            {meuTime.sigla}
-          </span>
+          <Escudo time={meuTime} className="escudo" />
           <span className="clube-info">
             <b>{meuTime.nome}</b>
             <span className="suave">

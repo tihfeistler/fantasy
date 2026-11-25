@@ -1,21 +1,34 @@
-import { DIVISOES_INICIAIS, estiloEscudo } from "../data/clubes";
+import { Escudo } from "./Emblema";
+import { DIVISOES_INICIAIS } from "../data/clubes";
 import { useMemo, useState } from "react";
 import { escalar } from "../engine/ratings";
 import { LIGAS } from "../engine/ligas";
 import type { Time } from "../engine/types";
+import { problemaNaIdentidade, type Identidade } from "../engine/timeProprio";
+import { CamposTimeProprio, IDENTIDADE_INICIAL } from "./TelaTimeProprio";
 
 interface Props {
   times: Time[];
   /** Na conta, o nome do técnico vem do cadastro e não muda. */
   nomeFixo?: string | null;
   onCriar: (nome: string, clubeId: string) => void;
+  /** Demonstração: criar o próprio time (o elenco sai de um draft). */
+  onCriarTime?: (nome: string, identidade: Identidade) => void;
 }
 
 /**
  * Escolha do clube da carreira, uma única vez por conta. Contas novas já escolhem no cadastro;
  * esta tela fica para a demonstração e para contas antigas sem carreira.
  */
-export function TelaNovoManager({ times, nomeFixo, onCriar }: Props) {
+export function TelaNovoManager({
+  times,
+  nomeFixo,
+  onCriar,
+  onCriarTime,
+}: Props) {
+  const [proprio, setProprio] = useState(false);
+  const [identidade, setIdentidade] = useState<Identidade>(IDENTIDADE_INICIAL);
+  const [tocado, setTocado] = useState(false);
   const [nome, setNome] = useState(nomeFixo ?? "");
   const [clubeId, setClubeId] = useState<string | null>(null);
   const [confirmando, setConfirmando] = useState(false);
@@ -82,93 +95,138 @@ export function TelaNovoManager({ times, nomeFixo, onCriar }: Props) {
         </label>
       )}
 
-      <div className="alternar nm-paises" role="tablist" aria-label="País">
-        {paises.map((p) => (
+      {onCriarTime && (
+        <div className="alternar" role="tablist" aria-label="Seu time">
           <button
-            key={p}
             role="tab"
-            aria-selected={pais === p}
-            className={pais === p ? "ativo" : ""}
-            onClick={() => setPais(p)}
+            aria-selected={!proprio}
+            className={!proprio ? "ativo" : ""}
+            onClick={() => setProprio(false)}
           >
-            {p}
+            Assumir um clube
           </button>
-        ))}
-      </div>
-
-      {porDivisao.map(({ d, nome, clubes }) => (
-        <div key={d}>
-          <h2>{nome}</h2>
-          <div
-            className="nm-clubes"
-            role="radiogroup"
-            aria-label={`Clubes da ${nome}`}
+          <button
+            id="nm-criar-time"
+            role="tab"
+            aria-selected={proprio}
+            className={proprio ? "ativo" : ""}
+            onClick={() => setProprio(true)}
           >
-            {clubes.map(({ t, forca }, i) => (
+            Criar meu time
+          </button>
+        </div>
+      )}
+
+      {proprio && onCriarTime ? (
+        <div className="caixa-entrar cadastro nm-proprio">
+          <CamposTimeProprio
+            valor={identidade}
+            onChange={setIdentidade}
+            tocado={tocado}
+          />
+          <button
+            className="botao primario"
+            onClick={() => {
+              setTocado(true);
+              if (nomeOk && !problemaNaIdentidade(identidade))
+                onCriarTime(nome.trim(), identidade);
+            }}
+          >
+            Montar o elenco no draft
+          </button>
+          {tocado && !nomeOk && (
+            <span className="cad-erro">Digite seu nome de técnico.</span>
+          )}
+        </div>
+      ) : (
+        <>
+          <div className="alternar nm-paises" role="tablist" aria-label="País">
+            {paises.map((p) => (
               <button
-                key={t.id}
-                role="radio"
-                aria-checked={clubeId === t.id}
-                className={`nm-clube${clubeId === t.id ? " escolhido" : ""}`}
-                onClick={() => {
-                  setClubeId(t.id);
-                  setConfirmando(false);
-                }}
+                key={p}
+                role="tab"
+                aria-selected={pais === p}
+                className={pais === p ? "ativo" : ""}
+                onClick={() => setPais(p)}
               >
-                <span className="escudo" style={estiloEscudo(t.cor)}>
-                  {t.sigla}
-                </span>
-                <span className="nm-clube-nome">{t.nome}</span>
-                <span className="nm-forca">
-                  <b>{forca}</b> força média
-                </span>
-                <span
-                  className={`nm-dif dif-${{ Favorito: "fav", Desafio: "des", "Meio de tabela": "meio" }[dificuldade(i, clubes.length)]}`}
-                >
-                  {dificuldade(i, clubes.length)}
-                </span>
+                {p}
               </button>
             ))}
           </div>
-        </div>
-      ))}
 
-      <div className="nm-rodape">
-        {!confirmando ? (
-          <>
-            <span className="suave">
-              {!nomeOk
-                ? "Digite seu nome para continuar."
-                : !escolhido
-                  ? "Escolha um clube."
-                  : `${nome.trim()} no ${escolhido.t.nome}.`}
-            </span>
-            <button
-              className="botao primario"
-              disabled={!nomeOk || !escolhido}
-              onClick={() => setConfirmando(true)}
-            >
-              Começar carreira
-            </button>
-          </>
-        ) : (
-          <>
-            <span>
-              Confirmar <b>{escolhido?.t.nome}</b>? Depois não dá para trocar de
-              clube nem começar outra carreira nesta conta.
-            </span>
-            <button className="botao" onClick={() => setConfirmando(false)}>
-              Voltar
-            </button>
-            <button
-              className="botao primario"
-              onClick={() => onCriar(nome.trim(), clubeId!)}
-            >
-              Confirmar e começar
-            </button>
-          </>
-        )}
-      </div>
+          {porDivisao.map(({ d, nome, clubes }) => (
+            <div key={d}>
+              <h2>{nome}</h2>
+              <div
+                className="nm-clubes"
+                role="radiogroup"
+                aria-label={`Clubes da ${nome}`}
+              >
+                {clubes.map(({ t, forca }, i) => (
+                  <button
+                    key={t.id}
+                    role="radio"
+                    aria-checked={clubeId === t.id}
+                    className={`nm-clube${clubeId === t.id ? " escolhido" : ""}`}
+                    onClick={() => {
+                      setClubeId(t.id);
+                      setConfirmando(false);
+                    }}
+                  >
+                    <Escudo time={t} className="escudo" />
+                    <span className="nm-clube-nome">{t.nome}</span>
+                    <span className="nm-forca">
+                      <b>{forca}</b> força média
+                    </span>
+                    <span
+                      className={`nm-dif dif-${{ Favorito: "fav", Desafio: "des", "Meio de tabela": "meio" }[dificuldade(i, clubes.length)]}`}
+                    >
+                      {dificuldade(i, clubes.length)}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div className="nm-rodape">
+            {!confirmando ? (
+              <>
+                <span className="suave">
+                  {!nomeOk
+                    ? "Digite seu nome para continuar."
+                    : !escolhido
+                      ? "Escolha um clube."
+                      : `${nome.trim()} no ${escolhido.t.nome}.`}
+                </span>
+                <button
+                  className="botao primario"
+                  disabled={!nomeOk || !escolhido}
+                  onClick={() => setConfirmando(true)}
+                >
+                  Começar carreira
+                </button>
+              </>
+            ) : (
+              <>
+                <span>
+                  Confirmar <b>{escolhido?.t.nome}</b>? Depois não dá para
+                  trocar de clube nem começar outra carreira nesta conta.
+                </span>
+                <button className="botao" onClick={() => setConfirmando(false)}>
+                  Voltar
+                </button>
+                <button
+                  className="botao primario"
+                  onClick={() => onCriar(nome.trim(), clubeId!)}
+                >
+                  Confirmar e começar
+                </button>
+              </>
+            )}
+          </div>
+        </>
+      )}
     </section>
   );
 }
