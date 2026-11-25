@@ -1213,44 +1213,13 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 .aviso-conta { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--linha); background: var(--painel); font-size: 13px; color: var(--suave); }
 .aviso-conta b { color: var(--texto); }
 
-/* ---------- Campo 2D da partida ---------- */
-.partida-jogo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.campo-partida { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--linha); background: #1d5a2c; }
-.campo-partida svg { display: block; width: 100%; height: auto; }
-.campo-partida .gramado-borda { fill: #1d5a2c; }
-.campo-partida .gramado-a { fill: #2a7a3b; }
-.campo-partida .gramado-b { fill: #2f8541; }
-.campo-partida .linhas rect, .campo-partida .linhas line, .campo-partida .linhas circle { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 0.3; }
-.campo-partida .linhas .ponto { fill: rgba(255, 255, 255, 0.85); }
-.campo-partida .linhas .gol { fill: rgba(255, 255, 255, 0.25); stroke: #fff; stroke-width: 0.35; }
-.campo-partida .linhas .gol.balancando { fill: rgba(255, 233, 166, 0.85); animation: rede 0.35s ease-in-out 3; }
-@keyframes rede { 50% { fill: rgba(255, 255, 255, 0.2); } }
-.jogador-campo circle { stroke: rgba(0, 0, 0, 0.55); stroke-width: 0.3; }
-.jogador-campo circle.meu { stroke: var(--destaque); stroke-width: 0.45; }
-.jogador-campo .num { font: 800 1.9px/1 var(--fonte-titulo); text-anchor: middle; pointer-events: none; }
-.jogador-campo .amarelo { fill: #facc15; stroke: #7a5b00; stroke-width: 0.15; }
-.campo-partida .nome-dono {
-  font: 700 2.1px/1 var(--fonte-texto, system-ui); text-anchor: middle; fill: #fff;
-  paint-order: stroke; stroke: rgba(0, 0, 0, 0.7); stroke-width: 0.5px; pointer-events: none;
+/* ---------- Partida em tela única ---------- */
+/* Durante o jogo só ficam o placar, a narração e o painel do técnico. */
+body.com-partida { overflow: hidden; }
+.partida-tela {
+  position: fixed; inset: 0; z-index: 40; overflow-y: auto; overscroll-behavior: contain;
+  background: radial-gradient(1200px 500px at 50% -200px, #1a2d57 0%, var(--fundo) 60%), var(--fundo);
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
 }
-.campo-partida .bola { fill: #fff; stroke: #111; stroke-width: 0.2; }
-.campo-partida .sombra-bola { fill: rgba(0, 0, 0, 0.35); }
-.faixa-campo {
-  position: absolute; left: 50%; top: 10px; transform: translateX(-50%); max-width: calc(100% - 20px);
-  padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 14px; text-align: center;
-  background: rgba(11, 19, 36, 0.85); color: #fff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  animation: faixa-entra 0.25s ease-out;
-}
-.faixa-campo.gol { top: 50%; transform: translate(-50%, -50%); font-family: var(--fonte-titulo); font-size: clamp(24px, 4.5vw, 44px); text-transform: uppercase; padding: 8px 26px; letter-spacing: 1px; white-space: nowrap; animation: faixa-gol 0.4s ease-out; }
-.faixa-campo.cartao { background: #facc15; color: #1d1400; }
-.faixa-campo.troca { background: #12395f; color: #d7ebff; }
-.faixa-campo.aviso { background: rgba(11, 19, 36, 0.9); color: #ffe9a6; }
-@keyframes faixa-entra { from { opacity: 0; transform: translate(-50%, -6px); } }
-@keyframes faixa-gol { from { opacity: 0; transform: translate(-50%, -50%) scale(0.6); } }
-.legenda-campo { position: absolute; left: 10px; bottom: 6px; display: flex; gap: 12px; font-size: 11px; color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 2px #000; }
-.legenda-campo i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.5); vertical-align: -1px; }
-.alternar-campo { align-self: flex-end; font-size: 12px; }
-.narracao.curta { max-height: 26vh; }
-@media (prefers-reduced-motion: reduce) {
-  .faixa-campo, .faixa-campo.gol, .campo-partida .linhas .gol.balancando { animation: none; }
-}
+.partida-tela .partida-interativa { max-width: 1180px; margin: 0 auto; }
+.partida-tela .narracao { max-height: calc(100vh - 330px); min-height: 240px; }

@@ -172,22 +172,13 @@ técnico mexe durante a partida:
 - **Cansaço**: a energia cai a partir dos 30 minutos em campo, até 60%;
   quem tem mais físico cansa menos. Quem entra chega descansado.
 - O jogo pausa sozinho no intervalo; há pausa manual e "Ir para o fim".
+- A partida abre numa **tela única**, em todos os modos (carreira, desafios,
+  ranqueado e Amistoso): só placar, narração e painel do técnico, sem o menu
+  e os saldos. Depois do apito final, o botão da barra volta para o jogo.
 - **Técnico da IA**: fica ofensivo se perde a partir dos 65', defensivo se
   ganha a partir dos 75', e troca o mais cansado aos 60', 70' e 80'.
 - Cada decisão é guardada com o minuto. Seed + decisões reproduzem a
   partida exata, o que serve para o servidor do online validar o jogo.
-
-### Campo 2D
-
-A partida aparece num campo 2D (`src/ui/CampoPartida.tsx`) em todos os modos:
-carreira, desafios, ranqueado e Amistoso. O campo é só a tela: o motor
-continua decidindo tudo, e a cada minuto o campo monta o lance com o que o
-motor decidiu (quem teve a posse, chance, gol, defesa, cartão e trocas). Os
-22 jogadores ficam na formação de cada time, acompanham a bola e o adversário
-mais perto aperta quem está com ela. O sorteio do desenho é preso à seed e ao
-minuto e não mexe no placar. Na carreira e nos desafios, os minutos com lance
-de gol duram mais (velocidades lenta e normal) para dar tempo de ver. Quem
-preferir pode esconder o campo e ficar só com a narração.
 
 Evoluções previstas: expulsões, pênaltis, lesões, entrosamento (lendas da mesma época/seleção jogando juntas rendem
 um pouco mais **[suposição]**).

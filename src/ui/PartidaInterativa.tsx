@@ -3,9 +3,7 @@ import { PartidaAoVivo } from "../engine/match";
 import type { ResultadoPartida, Time } from "../engine/types";
 import { VistaPartida } from "./VistaPartida";
 
-/** Milissegundos por minuto de jogo. Minutos com chance, gol ou defesa duram mais (lenta e normal) para o lance aparecer no campo. */
-const VELOCIDADES = { lenta: 1400, normal: 650, rapida: 150 };
-const LANCE_LONGO = 2.2;
+const VELOCIDADES = { lenta: 500, normal: 200, rapida: 50 };
 
 interface Props {
   mandante: Time;
@@ -33,10 +31,6 @@ export function PartidaInterativa(p: Props) {
   const parouNoIntervalo = useRef(false);
   const pago = useRef(false);
   const atualizar = () => setTick((t) => t + 1);
-  const temLance = partida.eventos.some(
-    (e) => e.minuto === partida.minuto && (e.tipo === "gol" || e.tipo === "chance" || e.tipo === "defesa"),
-  );
-  const msPorMinuto = VELOCIDADES[velocidade] * (temLance && velocidade !== "rapida" ? LANCE_LONGO : 1);
 
   useEffect(() => {
     if (pausado || partida.encerrada) return;
@@ -48,7 +42,7 @@ export function PartidaInterativa(p: Props) {
         setPausado(true);
       }
       atualizar();
-    }, msPorMinuto);
+    }, VELOCIDADES[velocidade]);
     return () => clearTimeout(id);
   });
   useEffect(() => {
@@ -75,7 +69,6 @@ export function PartidaInterativa(p: Props) {
       travado={fim}
       fimTexto={fimTexto}
       lateralFim={p.lateralFim}
-      msPorMinuto={msPorMinuto}
       onDecidir={(d) => {
         const e = partida.decidir(d);
         atualizar();
