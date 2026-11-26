@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { chaveJogo, seedDoJogo, type Temporada } from "../engine/campeonato";
 import { MAX_SUBSTITUICOES } from "../engine/match";
 import type { ResultadoPartida, Time } from "../engine/types";
+import { formatarDinheiro } from "../engine/mercado";
 import { PartidaInterativa } from "./PartidaInterativa";
 
 interface Props {
   meuTime: Time;
   times: Map<string, Time>;
   temporada: Temporada;
-  /** Chamado uma vez quando o jogo do manager termina; devolve as moedas ganhas. */
+  /** Chamado uma vez quando o jogo do manager termina; devolve a bilheteria que entrou no caixa (0 fora de casa). */
   onFim: (r: ResultadoPartida) => number;
   onAvancar: () => void;
 }
@@ -75,12 +76,16 @@ export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar }: Pro
           titulo={titulo}
           depoisDoFim={avancar}
           lateralFim={outrosJogos}
-          onFim={(res) => (
-            <>
-              <span className="moeda" aria-hidden="true" /> Você ganhou <b>{onFim(res)} moedas</b>. Use no Estoque para
-              abrir pacotes de lendas.
-            </>
-          )}
+          onFim={(res) => {
+            const renda = onFim(res);
+            return renda > 0 ? (
+              <>
+                Bilheteria do jogo em casa: <b>{formatarDinheiro(renda)}</b> no caixa.
+              </>
+            ) : (
+              <>Jogo fora de casa: sem bilheteria. Moedas vêm das missões, dos desafios e do fim da temporada.</>
+            );
+          }}
         />
       </section>
     );

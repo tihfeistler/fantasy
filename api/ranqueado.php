@@ -125,7 +125,6 @@ function encerrar(int $id, string $placar): void
     }
     $deltas = [];
     foreach ([[$m, $pm, $pv, $pontosM], [$v, $pv, $pm, 1 - $pontosM]] as [$uid, $eu, $adv, $pontos]) {
-        $chave = $pontos === 1.0 ? 'vitoria' : ($pontos === 0.5 ? 'empate' : 'derrota');
         {
             $delta = variacaoPdl((int) $eu['tier'], (int) $eu['mmr'], $pontos);
             [$tier, $pdl] = aplicarPdl((int) $eu['tier'], (int) $eu['pdl'], $delta);
@@ -133,10 +132,10 @@ function encerrar(int $id, string $placar): void
             $pdo->prepare("UPDATE ranqueado SET tier = ?, tier_max = GREATEST(tier_max, ?), pdl = ?, mmr = ?, $col = $col + 1
                 WHERE usuario_id = ? AND temporada = ?")
                 ->execute([$tier, $tier, $pdl, novoMmr((int) $eu['mmr'], (int) $adv['mmr'], $pontos), $uid, $p['temporada']]);
-            [$dinheiro, $moedas] = PREMIO_RANQUEADO[$chave];
         }
-        $pdo->prepare('UPDATE times_online SET caixa = caixa + ? WHERE usuario_id = ?')->execute([$dinheiro, $uid]);
-        $pdo->prepare('UPDATE usuarios SET moedas = moedas + ? WHERE id = ?')->execute([$moedas, $uid]);
+        if ($uid === $m) {
+            $pdo->prepare('UPDATE times_online SET caixa = caixa + ? WHERE usuario_id = ?')->execute([BILHETERIA_RANQUEADO, $uid]);
+        }
         $deltas[] = $delta;
     }
     $pdo->prepare("UPDATE partidas_online SET status = 'encerrada', gols_mandante = ?, gols_visitante = ?,

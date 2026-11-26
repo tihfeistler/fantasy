@@ -274,8 +274,12 @@ function novoMmr(int $mmr, int $mmrAdv, float $pontos): int
     return (int) round($mmr + 32 * ($pontos - $esperado));
 }
 
-/** Prêmio por partida ranqueada: [R$ mil no caixa, moedas]. O amistoso entre amigos não paga nada. */
-const PREMIO_RANQUEADO = ['vitoria' => [800, 60], 'empate' => [400, 25], 'derrota' => [200, 10]];
+/**
+ * Renda da partida ranqueada (R$ mil): só o mandante recebe, a bilheteria do jogo em casa. O mando é
+ * sorteado em criarPartida. Partida não paga moedas (só a premiação do fim da temporada).
+ * O amistoso entre amigos não paga nada.
+ */
+const BILHETERIA_RANQUEADO = 900;
 
 /** Tira o jogador da escalação online se o usuário não tem mais nenhuma cópia da carta. */
 function tirarDaEscalacaoSeAcabou(int $uid, string $jogadorId): void

@@ -116,7 +116,6 @@ describe("andamento", () => {
     const final = premioDaFase(c, 6);
     expect(final.final).toBe(true);
     expect(final.valor).toBe(300 * 64 * 2);
-    expect(final.moedas).toBe(1050);
   });
 });
 

@@ -12,7 +12,7 @@ import { formatarDinheiro } from "../engine/mercado";
 import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
 import { escalar, FORMACOES, montarBanco } from "../engine/ratings";
 import { ehLenda, type Time } from "../engine/types";
-import { PartidaOnline, PREMIO_RANQUEADO } from "./PartidaOnline";
+import { BILHETERIA_RANQUEADO, PartidaOnline } from "./PartidaOnline";
 import { TelaElenco } from "./TelaElenco";
 
 const LIGAS = ["bronze", "prata", "ouro", "platina", "diamante", "elite"];
@@ -262,10 +262,9 @@ export function TelaOnline({ sit, onSit, secao }: Props) {
           </div>
           <p className="suave">
             Vitória vale de 12 a 30 pontos de liga, derrota tira de 12 a 28 e empate não mexe. Com 100 pontos você sobe de
-            divisão; abaixo de 0, desce. Prêmio por jogo: vitória {formatarDinheiro(PREMIO_RANQUEADO.vitoria[0])} e{" "}
-            {PREMIO_RANQUEADO.vitoria[1]} moedas, empate {formatarDinheiro(PREMIO_RANQUEADO.empate[0])} e{" "}
-            {PREMIO_RANQUEADO.empate[1]}, derrota {formatarDinheiro(PREMIO_RANQUEADO.derrota[0])} e{" "}
-            {PREMIO_RANQUEADO.derrota[1]}.
+            divisão; abaixo de 0, desce. O mando é sorteado: quem joga em casa recebe a bilheteria de{" "}
+            {formatarDinheiro(BILHETERIA_RANQUEADO)} no caixa; fora de casa não há renda. Partida não paga moedas: elas vêm
+            da premiação do fim da temporada.
           </p>
 
           {ranking && (

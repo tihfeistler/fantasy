@@ -54,7 +54,7 @@ export function TelaFinancas({ meuTime, financas, folha, noVermelho }: Props) {
               <b className="ent">{formatarDinheiro(financas.receitaPorRodada)}</b>
             </li>
             <li>
-              <span>Bilheteria (só em casa)</span>
+              <span>Bilheteria (no fim de cada jogo em casa)</span>
               <b className="ent">{formatarDinheiro(financas.bilheteria)}</b>
             </li>
             <li>
@@ -83,7 +83,11 @@ export function TelaFinancas({ meuTime, financas, folha, noVermelho }: Props) {
                 <li key={i}>
                   <span className="suave">{l.rodada ? `R${l.rodada}` : ""}</span>
                   <span>{l.descricao}</span>
-                  <b className={l.valor < 0 ? "sai" : "ent"}>{formatarDinheiro(l.valor)}</b>
+                  {l.valor === 0 && l.moedas ? (
+                    <b className="ent">+{l.moedas.toLocaleString("pt-BR")} moedas</b>
+                  ) : (
+                    <b className={l.valor < 0 ? "sai" : "ent"}>{formatarDinheiro(l.valor)}</b>
+                  )}
                 </li>
               ))}
             </ul>

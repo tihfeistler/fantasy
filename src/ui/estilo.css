@@ -1235,7 +1235,7 @@ button.vaga-vazia { cursor: pointer; font: inherit; }
 .copa-campeao { display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--fonte-titulo); font-size: 18px; text-transform: uppercase; }
 .copa-corpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); gap: 18px; align-items: start; }
 .copa-fases { flex-wrap: wrap; }
-.copa-corpo .calendario li { grid-template-columns: 26px 1fr auto auto; }
+.copa-corpo .calendario li { grid-template-columns: 26px 1fr auto; }
 .copa-nota, .copa-folgas { font-size: 12px; margin: 10px 0 0; }
 .oj-time.eliminado { color: var(--apagado); text-decoration: line-through; }
 .copa-historico { margin-top: 18px; border: 1px solid var(--linha); border-radius: 12px; background: var(--painel); padding: 14px; }
@@ -1334,3 +1334,13 @@ body.com-partida { overflow: hidden; }
 .est-camisas { display: flex; gap: 16px; }
 .est-camisas figure { margin: 0; display: grid; justify-items: center; gap: 2px; font-size: 0.85em; }
 .placar-estadio { font-size: 0.8em; margin-top: 4px; text-align: center; }
+
+/* Missões da carreira */
+.missoes { list-style: none; margin: 0; padding: 0; }
+.missoes li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--linha); }
+.missoes li:first-child { border-top: 0; }
+.missoes li.feita { opacity: 0.6; }
+.missao-texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.missao-texto .progresso { margin: 6px 0 0; }
+.missao-premio { min-width: 110px; text-align: right; white-space: nowrap; font-weight: 700; font-variant-numeric: tabular-nums; }
+.missoes li.feita .missao-premio { color: var(--destaque); }

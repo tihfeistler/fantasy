@@ -196,3 +196,11 @@ carreira e aceite dos termos) e perde a tabela `saves`, que o jogo nunca usou.
 As contas que já existem continuam: a carreira salva vira a única da conta e,
 no próximo login, o jogo pede e-mail, nascimento, país e o aceite dos termos.
 
+
+## Atualização de 26/11/2026 (ganhos de caixa e moedas, missões)
+
+Importe `sql/schema.sql` de novo (ele cria a coluna `carreiras.missoes_pagas`)
+e rode `npm run build`. Não precisa rodar `scripts/importar.php`. A bilheteria
+agora entra no fim de cada jogo em casa, partida não paga mais moedas e a
+carreira ganhou a aba **Missões**. Carreiras que já existem recebem na hora as
+missões que já tinham cumprido.

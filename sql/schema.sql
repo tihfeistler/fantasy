@@ -264,6 +264,7 @@ CREATE TABLE IF NOT EXISTS carreiras (
   treinos_hoje    TINYINT UNSIGNED NOT NULL DEFAULT 0,
   bonus_inicial   TINYINT(1)   NOT NULL DEFAULT 0, -- caixa inicial do clube já foi dado
   copas_pagas     TEXT         NULL,               -- JSON ["ano:copa:fase", ...] com prêmio de copa já pago
+  missoes_pagas   TEXT         NULL,               -- JSON ["ano:missao", "conquista", ...] com moedas já pagas
   atualizado_em   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -321,3 +322,6 @@ CREATE TABLE IF NOT EXISTS times_proprios (
 ) ENGINE=InnoDB;
 -- Lendas que saem no draft viram cartas da conta.
 ALTER TABLE cartas MODIFY origem ENUM('pacote','objetivo','troca','mercado','sistema','kit','draft') NOT NULL;
+
+-- Ganhos (26/11/2026): moedas só por missão, desafio e fim de temporada; bilheteria no fim do jogo em casa.
+ALTER TABLE carreiras ADD COLUMN IF NOT EXISTS missoes_pagas TEXT NULL AFTER copas_pagas;

@@ -117,7 +117,7 @@ export function PartidaCopa(props: {
       <div className="partida-corpo com-rodada">
         <p className="vazio-partida">
           Jogo único: quem vencer passa; empate vai para os pênaltis. Passar de fase vale{" "}
-          <b>{formatarDinheiro(premio.valor)}</b> no caixa e <b>{premio.moedas} moedas</b>
+          <b>{formatarDinheiro(premio.valor)}</b> no caixa
           {premio.final ? " (com o prêmio do título)" : ""}. Durante o jogo você pode mudar a tática e fazer até{" "}
           {MAX_SUBSTITUICOES} substituições.
         </p>
@@ -264,9 +264,6 @@ export function TelaCopas(props: {
                   <span className="cal-rod">{d}</span>
                   <span className="cal-adv">{nomesDasFases(copa.clubes.length)[k]}</span>
                   <span className="suave">{formatarDinheiro(p.valor)}</span>
-                  <span className="suave" title={`${p.moedas} moedas`}>
-                    <span className="moeda" aria-hidden="true" /> {p.moedas.toLocaleString("pt-BR")}
-                  </span>
                 </li>
               );
             })}

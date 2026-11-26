@@ -65,7 +65,8 @@ export function TelaEstoque(p: Props) {
             {pct(CHANCES.comum)}, rara (80 a 87) {pct(CHANCES.rara)}, ícone (88 ou mais) {pct(CHANCES.icone)}.
           </p>
           <p className="suave">
-            Você ganha moedas jogando: {300} por vitória, {150} por empate e {50} por derrota.
+            Moedas vêm das missões da carreira, dos desafios e da premiação do fim da temporada (no campeonato e no
+            ranqueado). Partida não paga moedas.
           </p>
         </div>
         <button className="botao primario" onClick={p.onComprar} disabled={semMoedas || semEspaco}>
