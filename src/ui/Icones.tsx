@@ -15,6 +15,7 @@ const CAMINHOS = {
   voltar: "M15 5l-7 7 7 7",
   alerta: "M12 4l9 16H3zM12 10v4M12 17v.5",
   copa: "M3 4h5v4H3zM3 16h5v4H3zM8 6h3v12H8M11 12h3M14 10h7v4h-7z",
+  missoes: "M5 21V4M5 4h12l-2.5 4 2.5 4H5",
   noticia: "M5 5h12v14H5zM17 9h2v8a2 2 0 0 1-2 2M8 9h6M8 12h6M8 15h4",
 } as const;
 

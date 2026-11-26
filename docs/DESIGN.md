@@ -23,8 +23,10 @@ de confirmação. As perguntas em aberto estão na seção 9.
 2. Entre rodadas: ajustar formação e titulares, negociar no mercado de
    jogadores atuais, abrir pacotes e montar a coleção de lendas.
 3. Rodada: todas as partidas são simuladas; a sua é narrada minuto a minuto.
-4. Resultados rendem **dinheiro do clube** (bilheteria, premiação) e
-   **moedas de coleção** (vitórias, gols, objetivos, títulos).
+4. Jogo em casa rende a **bilheteria** no caixa, no fim da partida (fora de
+   casa não há bilheteria). **Moedas de coleção** só vêm da premiação do fim
+   da temporada, dos desafios e das **missões** (ver 6d). Partida não paga
+   moedas.
 5. Fim de temporada: premiação, acesso e rebaixamento, saída de quem não
    renovou o contrato, novos objetivos de coleção. (Idade dos jogadores:
    decidido em 25/11/2026 que não entra por enquanto.)
@@ -254,11 +256,34 @@ um pouco mais **[suposição]**).
   as copas acabam.
 - Prêmios no caixa único: a primeira fase vencida paga R$ 300 mil x fator da
   liga na nacional (R$ 1 mi na Libertadores, R$ 2 mi na Champions), cada fase
-  seguinte paga o dobro e a final vencida paga o título junto. Moedas: 50 por
-  fase e 1.000 (nacional) ou 2.000 (continental) pelo título.
+  seguinte paga o dobro e a final vencida paga o título junto. Copa não paga
+  moedas por jogo: passar de fase e ser campeão são missões (6d).
 - Servidor: lançamento `copa` com ref `copa:fase`, pago uma vez por fase em
   cada temporada (`carreiras.copas_pagas`) e com teto pela fase. Como nas
   partidas da liga, o servidor não refaz os jogos.
+
+## 6d. Ganhos: caixa e moedas (pedido de 26/11/2026)
+
+- **Caixa**: a bilheteria entra no fim de cada jogo em casa (valor de
+  `financas.bilheteria`, que já leva capacidade, atmosfera e qualidade do
+  estádio). Fora de casa não há bilheteria. TV e patrocínio e salários
+  continuam por rodada; prêmios de copa e a premiação do campeonato
+  continuam no caixa. No ranqueado, só o mandante (mando sorteado) recebe a
+  bilheteria, R$ 900 mil; o visitante não recebe nada.
+- **Moedas**: só na premiação do fim da temporada (campeonato e ranqueado),
+  nos desafios e nas missões. Partida (carreira e ranqueado) e copa não
+  pagam moedas.
+- **Missões** (`src/engine/missoes.ts`, aba **Missões** da carreira). Da
+  temporada (valem de novo a cada ano): vencer 5 jogos (100), vencer 12
+  (250), marcar 25 gols (150), 5 jogos sem sofrer gol (150), 3 vitórias
+  seguidas (100), 6 vitórias em casa (150), passar de fase numa copa (100),
+  ser campeão de uma copa (800), terminar o campeonato com caixa positivo
+  (200). Conquistas (uma vez na carreira): primeira contratação (100), subir
+  de divisão (500), ser campeão da liga (1.000).
+- Servidor: lançamento `missao` com ref = id e as moedas; paga uma vez por
+  chave (`ano:id` nas da temporada, só a atual; `id` nas conquistas) em
+  `carreiras.missoes_pagas`, com o teto do catálogo (`MISSOES` em
+  `api/carreira.php`).
 
 ## 6d. Time próprio com draft de elenco (feito em 25/11/2026)
 
@@ -298,8 +323,8 @@ coleção, caixa e moedas ficam na conta, no servidor.
   TV e bilheteria com valor fixo e uma vez por rodada; salário não menor
   que a folha do elenco que o servidor sabe que é seu; compra e venda
   dentro do valor de mercado e só de quem é dono do jogador; premiação e
-  moedas da temporada uma vez por ano; moedas por partida até 300 por
-  rodada; prêmio de desafio só depois de pagar a partida, com no máximo 10
+  moedas da temporada uma vez por ano; moedas de missão uma vez por missão
+  (partida não paga moedas); prêmio de desafio só depois de pagar a partida, com no máximo 10
   treinos premiados por dia; lenda de desafio uma vez por desafio. O que
   não passa é recusado e o caixa volta ao valor do servidor.
 - **Uma carreira por conta** (decidido em 25/11/2026): o clube é escolhido
@@ -321,7 +346,7 @@ coleção, caixa e moedas ficam na conta, no servidor.
 
 | Modo | Contra quem | Time usado | Salário e caixa | Recompensa |
 | --- | --- | --- | --- | --- |
-| **Carreira** (PvE contra a IA) | IA, campeonato completo com tabela | elenco do seu clube + até 3 lendas | sim, por rodada | moedas por partida e por posição |
+| **Carreira** (PvE contra a IA) | IA, campeonato completo com tabela | elenco do seu clube + até 3 lendas | sim, por rodada | bilheteria em casa; moedas por missão e por posição |
 | **Desafios PvE** | times montados pela IA (ex.: "Seleção de 1970", "só jogadores do Nordeste") | seu time de cartas | sim, por partida | caixa, moedas, pacotes, carta específica |
 | **Desafios PvP** | outro técnico, sem ranking (inclui desafio de amigo por convite) | seu time de cartas | sim, por partida | caixa e moedas (menos que no ranqueado) |
 | **Ranqueado** (PvP online) | técnico real, por pareamento | seu time de cartas | sim, por partida | caixa, pontos de liga, prêmios de fim de temporada |
@@ -394,9 +419,9 @@ Inspirado no sistema de ligas dos jogos competitivos online:
   acesso da temporada nova. Ainda falta: classificatórias e carta exclusiva
   de temporada.
 - **Custo e prêmio**: ao parear, cada técnico paga o salário dos titulares
-  (um quarto do mensal, lendas em dobro) do caixa do time online. Prêmio:
-  vitória R$ 800 mil e 60 moedas, empate R$ 400 mil e 25, derrota R$ 200
-  mil e 10.
+  (um quarto do mensal, lendas em dobro) do caixa do time online. Renda:
+  só o mandante (sorteado) recebe a bilheteria de R$ 900 mil; partida não
+  paga moedas (26/11/2026).
 - **Partida em tempo real (feita)**: 90 minutos em 3 minutos de relógio
   (2 s por minuto), começando 8 s depois do pareamento. Cada técnico muda
   a tática e faz até 5 substituições.

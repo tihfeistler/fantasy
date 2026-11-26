@@ -4,8 +4,8 @@ import { formatarDinheiro } from "../engine/mercado";
 import { PartidaAoVivo } from "../engine/match";
 import { VistaPartida } from "./VistaPartida";
 
-/** Prêmio por resultado (igual a PREMIO_RANQUEADO em api/online_lib.php). */
-export const PREMIO_RANQUEADO = { vitoria: [800, 60], empate: [400, 25], derrota: [200, 10] } as const;
+/** Bilheteria do mandante na partida ranqueada (igual a BILHETERIA_RANQUEADO em api/online_lib.php). */
+export const BILHETERIA_RANQUEADO = 900;
 
 interface Props {
   inicial: PartidaServidor;
@@ -113,11 +113,12 @@ export function PartidaOnline({ inicial, onVoltar }: Props) {
     if (dados.tipo === "amistoso") {
       fimTexto = <>{titulo} Amistoso entre amigos: sem prêmio e sem pontos de liga.</>;
     } else {
-      const [dinheiro, moedas] = PREMIO_RANQUEADO[chave];
       fimTexto = (
         <>
-          {titulo} {pdl > 0 ? `+${pdl}` : pdl} pontos de liga. Prêmio: {formatarDinheiro(dinheiro)} no caixa e {moedas}{" "}
-          moedas.
+          {titulo} {pdl > 0 ? `+${pdl}` : pdl} pontos de liga.{" "}
+          {meuMandante
+            ? `Bilheteria do jogo em casa: ${formatarDinheiro(BILHETERIA_RANQUEADO)} no caixa.`
+            : "Jogo fora de casa: sem bilheteria."}
         </>
       );
     }

@@ -88,18 +88,19 @@ export const PREMIO_BASE_CONTINENTAL: Record<string, number> = { libertadores: 1
 /** Copa nacional: R$ 300 mil vezes o fator de premiação da primeira divisão do país. */
 export const premioBaseNacional = (sigla: string) =>
   Math.round(300 * (LIGAS.find((l) => l.sigla === sigla && l.nivel === 1)?.fatorPremio ?? 1));
-export const MOEDAS_POR_FASE = 50;
-export const MOEDAS_TITULO: Record<TipoCopa, number> = { nacional: 1000, continental: 2000 };
 
 export const idCopaNacional = (sigla: string) => `copa-${sigla}`;
 
-/** Prêmio por vencer a fase `fase` (0 = primeira). A final vencida paga também o título. */
+/**
+ * Prêmio em dinheiro por vencer a fase `fase` (0 = primeira). A final vencida paga também o título.
+ * Copa não paga moedas por jogo: passar de fase e ser campeão são missões (src/engine/missoes.ts).
+ */
 export function premioDaFase(c: Pick<Copa, "id" | "tipo" | "clubes">, fase: number) {
   const base =
     c.tipo === "continental" ? (PREMIO_BASE_CONTINENTAL[c.id] ?? 0) : premioBaseNacional(c.id.replace("copa-", ""));
   const final = fase === totalDeFases(c.clubes.length) - 1;
   const valor = base * 2 ** fase * (final ? 2 : 1);
-  return { valor, moedas: MOEDAS_POR_FASE + (final ? MOEDAS_TITULO[c.tipo] : 0), final };
+  return { valor, final };
 }
 
 const potenciaAbaixo = (n: number) => 2 ** Math.floor(Math.log2(Math.max(1, n)));

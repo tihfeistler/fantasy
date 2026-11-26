@@ -64,6 +64,8 @@ export interface Progresso {
   historicoCopas?: { ano: number; id: string; nome: string; campeao: string; campanha?: string }[];
   /** Time criado pelo técnico: identidade e o clube cujo lugar ele ocupa (manager.clubeId = vaga). */
   clubeProprio?: ClubeProprio;
+  /** Missões já pagas: "ano:id" (da temporada) ou "id" (conquista). Ver src/engine/missoes.ts. */
+  missoesPagas?: string[];
   /** Temporadas encerradas. */
   historico?: { ano: number; posicao: number; campeao: string; divisao?: Divisao }[];
 }

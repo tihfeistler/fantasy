@@ -27,8 +27,6 @@ export const LIMITE_CARTAS_INICIAL = 300;
 export const LIMITE_CARTAS_MAXIMO = 500;
 export const AMPLIACAO = { cartas: 10, preco: 1000 };
 
-/** Prêmio em moedas por resultado de partida. */
-export const PREMIO = { vitoria: 300, empate: 150, derrota: 50 };
 
 /** Sorteia as cartas de um pacote. Faixa sem cartas cai para a próxima disponível. */
 export function abrirPacote(lendas: Jogador[], rng: Rng, n = CARTAS_POR_PACOTE): Jogador[] {

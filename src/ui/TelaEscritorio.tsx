@@ -6,7 +6,15 @@ import { ehLenda, type Time } from "../engine/types";
 import { Icone, type NomeIcone } from "./Icones";
 import { CartaoEstadio } from "./Estadio";
 
-export type AbaCarreira = "escritorio" | "elenco" | "partida" | "campeonato" | "copas" | "mercado" | "financas";
+export type AbaCarreira =
+  | "escritorio"
+  | "elenco"
+  | "partida"
+  | "campeonato"
+  | "copas"
+  | "missoes"
+  | "mercado"
+  | "financas";
 
 interface Props {
   meuTime: Time;

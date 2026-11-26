@@ -71,11 +71,11 @@ import {
   CARTAS_POR_PACOTE,
   LIMITE_CARTAS_MAXIMO,
   PRECO_PACOTE,
-  PREMIO,
   valorDeVenda,
 } from "../engine/pacotes";
 import {
   balancoDaRodada,
+  bilheteriaDoJogo,
   dividaDaRodada,
   financasAoMudarDeDivisao,
   PONTOS_DE_PUNICAO,
@@ -98,6 +98,7 @@ import {
   seedDoMercado,
 } from "../engine/mercadoCartas";
 import { criarRng } from "../engine/rng";
+import { missoesParaPagar } from "../engine/missoes";
 import {
   ehLenda,
   type Jogador,
@@ -110,6 +111,7 @@ import { TelaCampeonato } from "./TelaCampeonato";
 import { PartidaCopa, TelaCopas } from "./TelaCopas";
 import { TelaEscritorio, type AbaCarreira } from "./TelaEscritorio";
 import { TelaFinancas } from "./TelaFinancas";
+import { TelaMissoes } from "./TelaMissoes";
 import { TelaDesafios } from "./TelaDesafios";
 import { TelaElenco } from "./TelaElenco";
 import { TelaEstoque } from "./TelaEstoque";
@@ -145,6 +147,7 @@ const ABAS_CARREIRA: { id: AbaCarreira; nome: string; icone: NomeIcone }[] = [
   { id: "partida", nome: "Partida", icone: "partida" },
   { id: "campeonato", nome: "Campeonato", icone: "campeonato" },
   { id: "copas", nome: "Copas", icone: "copa" },
+  { id: "missoes", nome: "Missões", icone: "missoes" },
   { id: "mercado", nome: "Mercado", icone: "mercado" },
   { id: "financas", nome: "Finanças", icone: "financas" },
 ];
@@ -219,6 +222,39 @@ function estoqueDaConta(s: SituacaoOnline, noElenco: string[] = []): string[] {
         else r.push(j.id);
       }
   return r;
+}
+/** A bilheteria do jogo em casa desta rodada já entrou no caixa? */
+const bilheteriaPaga = (f: Financas | undefined, ano: number, rodada: number) =>
+  !!f?.extrato.some((l) => l.tipo === "bilheteria" && l.rodada === rodada && (l.ano ?? ano) === ano);
+/** Paga as missões cumpridas (moedas) que ainda não foram pagas. */
+function pagarMissoes(p: Progresso): Progresso {
+  const t = p.temporada;
+  const f = p.financas;
+  const eu = p.manager?.clubeId;
+  if (!t || !f || !eu) return p;
+  const novas = missoesParaPagar(
+    { temporada: t, meuTimeId: eu, copas: p.copas, caixa: f.caixa, extrato: f.extrato, historico: p.historico },
+    p.missoesPagas ?? [],
+  );
+  if (!novas.length) return p;
+  const rodada = Math.min(t.rodadaAtual, t.rodadas.length);
+  return {
+    ...p,
+    moedas: p.moedas + novas.reduce((s, x) => s + x.missao.moedas, 0),
+    missoesPagas: [...(p.missoesPagas ?? []), ...novas.map((x) => x.chave)],
+    financas: lancar(
+      f,
+      novas.map(({ missao }) => ({
+        rodada,
+        ano: t.ano,
+        descricao: `Missão cumprida: ${missao.nome}`,
+        valor: 0,
+        tipo: "missao" as const,
+        ref: missao.id,
+        moedas: missao.moedas,
+      })),
+    ),
+  };
 }
 const somaPendente = (p: Progresso, seq: number) =>
   pendentes(p, seq).reduce(
@@ -843,7 +879,8 @@ export function App() {
       );
     });
 
-  const mudar = (f: (p: Progresso) => Progresso) => setProgresso((p) => f(p));
+  // Toda mudança na carreira confere as missões (moedas só por missão, desafio e fim de temporada).
+  const mudar = (f: (p: Progresso) => Progresso) => setProgresso((p) => pagarMissoes(f(p)));
 
   /** Ação na conta (pacote, ampliação, cartas base, escalação): o servidor responde a situação nova. */
   const naContaFaz = async (f: () => Promise<SituacaoOnline>) => {
@@ -1133,9 +1170,9 @@ export function App() {
       ),
     );
   };
-  /** Fim do jogo do manager: grava o placar, simula o resto da rodada e paga o prêmio. */
+  /** Fim do jogo do manager: grava o placar, simula o resto da rodada e, em casa, paga a bilheteria. */
   const fimDoJogo = (r: ResultadoPartida) => {
-    const premio = premiar(r);
+    const renda = pagarBilheteria(r);
     mudar((p) => {
       const t = p.temporada;
       if (!t) return p;
@@ -1152,7 +1189,7 @@ export function App() {
       };
       return { ...p, temporada: simularRodada(comMeu, mapaTimes) };
     });
-    return premio;
+    return renda;
   };
   const avancar = () => {
     mudar((p) => {
@@ -1168,8 +1205,11 @@ export function App() {
         while (o.rodadaAtual < alvo) o = jogarRodada(o, mapaTimes);
         return o;
       });
-      // Dinheiro da rodada: receitas, bilheteria em casa e salários.
-      const emCasa = t.rodadas[t.rodadaAtual].some(([m]) => m === meuTimeId);
+      // Dinheiro da rodada: receitas e salários. A bilheteria entra no fim do jogo em casa;
+      // aqui só entra se o jogo não passou pela tela de partida.
+      const emCasa =
+        t.rodadas[t.rodadaAtual].some(([m]) => m === meuTimeId) &&
+        !bilheteriaPaga(p.financas, t.ano, t.rodadaAtual + 1);
       let financas =
         p.financas && meuTime
           ? lancar(
@@ -1362,7 +1402,7 @@ export function App() {
 
   /**
    * Fim do jogo de copa do técnico: grava o placar (pênaltis se empatou) e,
-   * se ele passou, paga o prêmio da fase no caixa e as moedas.
+   * se ele passou, paga o prêmio da fase no caixa (moedas, só pelas missões).
    */
   const fimDoJogoCopa = (copaId: string, r: ResultadoPartida) => {
     const c = progresso.copas?.find((x) => x.id === copaId);
@@ -1380,7 +1420,6 @@ export function App() {
       return {
         ...p,
         copas: p.copas!.map((x) => (x.id === copaId ? feita : x)),
-        moedas: p.moedas + (passou ? premio.moedas : 0),
         financas:
           passou && p.financas
             ? lancar(p.financas, [
@@ -1391,7 +1430,6 @@ export function App() {
                   valor: premio.valor,
                   tipo: "copa",
                   ref: `${copaId}:${fase}`,
-                  moedas: premio.moedas,
                 },
               ])
             : p.financas,
@@ -1401,7 +1439,7 @@ export function App() {
     return passou ? (
       <span>
         {premio.final ? `Campeão da ${feita.nome}!` : `Classificado na ${feita.nome}!`}
-        {pen} Prêmio: <b>{formatarDinheiro(premio.valor)}</b> no caixa e <b>{premio.moedas} moedas</b>.
+        {pen} Prêmio: <b>{formatarDinheiro(premio.valor)}</b> no caixa.
       </span>
     ) : (
       <span>
@@ -1419,33 +1457,18 @@ export function App() {
       return { ...p, copas: avancarCopas(copas, p.temporada.rodadaAtual, mapaTimes, meuTimeId) };
     });
 
-  const premiar = (r: ResultadoPartida) => {
-    const meus = r.mandanteId === meuTimeId ? r.golsMandante : r.golsVisitante;
-    const deles = r.mandanteId === meuTimeId ? r.golsVisitante : r.golsMandante;
-    const premio =
-      meus > deles
-        ? PREMIO.vitoria
-        : meus === deles
-          ? PREMIO.empate
-          : PREMIO.derrota;
-    mudar((p) => ({
-      ...p,
-      moedas: p.moedas + premio,
-      financas:
-        p.financas &&
-        p.temporada &&
-        lancar(p.financas, [
-          {
-            rodada: p.temporada.rodadaAtual + 1,
-            ano: p.temporada.ano,
-            descricao: `Prêmio da partida: ${premio} moedas`,
-            valor: 0,
-            moedas: premio,
-            tipo: "partida",
-          },
-        ]),
-    }));
-    return premio;
+  /** Fim do jogo do técnico no campeonato: em casa, a bilheteria entra no caixa. Devolve o valor (0 fora de casa). */
+  const pagarBilheteria = (r: ResultadoPartida) => {
+    const f = progresso.financas;
+    const t = progresso.temporada;
+    if (r.mandanteId !== meuTimeId || !f || !t) return 0;
+    const rodada = t.rodadaAtual + 1;
+    mudar((p) =>
+      p.financas && p.temporada && !bilheteriaPaga(p.financas, p.temporada.ano, rodada)
+        ? { ...p, financas: lancar(p.financas, [{ ...bilheteriaDoJogo(p.financas, rodada), ano: p.temporada.ano }]) }
+        : p,
+    );
+    return f.bilheteria;
   };
 
   const criarManager = (
@@ -1838,6 +1861,19 @@ export function App() {
                 copaPendente={pendente?.nome}
               />
             )}
+          {modo === "carreira" && aba === "missoes" && progresso.financas && (
+            <TelaMissoes
+              contexto={{
+                temporada,
+                meuTimeId,
+                copas: progresso.copas,
+                caixa: progresso.financas.caixa,
+                extrato: progresso.financas.extrato,
+                historico: progresso.historico,
+              }}
+              pagas={progresso.missoesPagas ?? []}
+            />
+          )}
           {modo === "carreira" && aba === "financas" && progresso.financas && (
             <TelaFinancas
               meuTime={meuTime}

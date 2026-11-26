@@ -40,6 +40,7 @@ export type TipoLancamento =
   | "desafio-premio"
   | "partida"
   | "copa"
+  | "missao"
   | "aviso";
 
 export interface Lancamento {
@@ -114,7 +115,15 @@ export function lancar(f: Financas, ls: Lancamento[]): Financas {
   };
 }
 
-/** Lançamentos de uma rodada disputada. */
+/** Bilheteria de um jogo em casa: entra no caixa quando o jogo acaba. Fora de casa não há bilheteria. */
+export const bilheteriaDoJogo = (f: Financas, rodada: number): Lancamento => ({
+  rodada,
+  descricao: "Bilheteria do jogo em casa",
+  valor: f.bilheteria,
+  tipo: "bilheteria",
+});
+
+/** Lançamentos de uma rodada disputada (a bilheteria só entra se ainda não entrou no fim do jogo). */
 export function balancoDaRodada(
   f: Financas,
   meuTime: Time,
