@@ -5,7 +5,8 @@ import { chaveJogo, seedDoJogo, type Temporada } from "../engine/campeonato";
 import { MAX_SUBSTITUICOES } from "../engine/match";
 import type { ResultadoPartida, Time } from "../engine/types";
 import { formatarDinheiro } from "../engine/mercado";
-import { PartidaInterativa } from "./PartidaInterativa";
+import { PartidaInterativa, type ControleJogo } from "./PartidaInterativa";
+import { refJogoLiga } from "../engine/jogoEmAndamento";
 
 interface Props {
   meuTime: Time;
@@ -14,11 +15,13 @@ interface Props {
   /** Chamado uma vez quando o jogo do manager termina; devolve a bilheteria que entrou no caixa (0 fora de casa). */
   onFim: (r: ResultadoPartida) => number;
   onAvancar: () => void;
+  controle: ControleJogo;
 }
 
 /** O jogo do manager na rodada atual do campeonato. */
-export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar }: Props) {
+export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar, controle }: Props) {
   const [jogando, setJogando] = useState(false);
+  const [comecando, setComecando] = useState(false);
 
   const r = temporada.rodadaAtual;
   const jogos = temporada.rodadas[r] ?? [];
@@ -28,6 +31,21 @@ export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar }: Pro
   const mandante = idM === meuTime.id ? meuTime : times.get(idM)!;
   const visitante = idV === meuTime.id ? meuTime : times.get(idV)!;
   const jaJogado = !!temporada.placares[chaveJogo(r, meuIndice)];
+  const seed = seedDoJogo(temporada, r, meuIndice);
+  /** O jogo fica salvo na conta antes de começar: sair no meio não deixa jogar de novo. */
+  const comecar = async () => {
+    setComecando(true);
+    const ok = await controle.comecar({
+      tipo: "liga",
+      ref: refJogoLiga(temporada.ano, r, meuIndice),
+      mandante,
+      visitante,
+      seed,
+      meuTimeId: meuTime.id,
+    });
+    setComecando(false);
+    if (ok) setJogando(true);
+  };
 
   // Trocar de rodada limpa a tela.
   useEffect(() => setJogando(false), [r]);
@@ -71,8 +89,9 @@ export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar }: Pro
           key={r}
           mandante={mandante}
           visitante={visitante}
-          seed={seedDoJogo(temporada, r, meuIndice)}
+          seed={seed}
           meuTimeId={meuTime.id}
+          controle={controle}
           titulo={titulo}
           depoisDoFim={avancar}
           lateralFim={outrosJogos}
@@ -98,8 +117,8 @@ export function TelaPartida({ meuTime, times, temporada, onFim, onAvancar }: Pro
         {jaJogado ? (
           avancar
         ) : (
-          <button className="botao primario" onClick={() => setJogando(true)}>
-            Jogar partida
+          <button className="botao primario" disabled={comecando} onClick={comecar}>
+            {comecando ? "Começando…" : "Jogar partida"}
           </button>
         )}
       </div>

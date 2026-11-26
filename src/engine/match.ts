@@ -294,8 +294,13 @@ export class PartidaAoVivo {
  * Partida inteira de uma vez. `decisoes` (de técnicos humanos) são
  * reaplicadas nos seus minutos: mesma seed + mesmas decisões = mesma partida.
  */
-export function simularPartida(mandante: Time, visitante: Time, seed: number, decisoes: Decisao[] = []): ResultadoPartida {
-  const humanos = [...new Set(decisoes.map((d) => d.timeId))];
+export function simularPartida(
+  mandante: Time,
+  visitante: Time,
+  seed: number,
+  decisoes: Decisao[] = [],
+  humanos: string[] = [...new Set(decisoes.map((d) => d.timeId))],
+): ResultadoPartida {
   const p = new PartidaAoVivo(mandante, visitante, seed, humanos);
   while (!p.encerrada) {
     for (const d of decisoes.filter((x) => x.minuto === p.minuto)) p.decidir(d);

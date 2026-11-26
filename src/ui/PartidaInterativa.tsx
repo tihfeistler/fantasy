@@ -1,7 +1,19 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { PartidaAoVivo } from "../engine/match";
+import { PartidaAoVivo, type Decisao } from "../engine/match";
+import type { JogoEmAndamento } from "../engine/jogoEmAndamento";
 import type { ResultadoPartida, Time } from "../engine/types";
 import { VistaPartida } from "./VistaPartida";
+
+/**
+ * Liga a partida ao jogo em andamento salvo na conta (src/engine/jogoEmAndamento.ts).
+ * `comecar` grava o jogo antes da bola rolar (false: não deu, não começa); `decidiu` grava
+ * cada decisão; `naTela` avisa quando a partida sai da tela (aí o jogo é concluído sem o técnico).
+ */
+export interface ControleJogo {
+  comecar: (j: Omit<JogoEmAndamento, "decisoes">) => Promise<boolean>;
+  decidiu: (decisoes: Decisao[]) => void;
+  naTela: (sim: boolean) => void;
+}
 
 const VELOCIDADES = { lenta: 500, normal: 200, rapida: 50 };
 
@@ -19,6 +31,7 @@ interface Props {
   depoisDoFim?: ReactNode;
   /** Conteúdo ao lado da narração depois do fim (ex.: outros jogos). */
   lateralFim?: ReactNode;
+  controle?: ControleJogo;
 }
 
 /** Partida contra a IA: o relógio é local, com velocidade, pausa e intervalo. */
@@ -31,6 +44,13 @@ export function PartidaInterativa(p: Props) {
   const parouNoIntervalo = useRef(false);
   const pago = useRef(false);
   const atualizar = () => setTick((t) => t + 1);
+  const controle = useRef(p.controle);
+  controle.current = p.controle;
+
+  useEffect(() => {
+    controle.current?.naTela(true);
+    return () => controle.current?.naTela(false);
+  }, []);
 
   useEffect(() => {
     if (pausado || partida.encerrada) return;
@@ -71,6 +91,7 @@ export function PartidaInterativa(p: Props) {
       lateralFim={p.lateralFim}
       onDecidir={(d) => {
         const e = partida.decidir(d);
+        if (!e) p.controle?.decidiu([...partida.decisoes]);
         atualizar();
         return e;
       }}

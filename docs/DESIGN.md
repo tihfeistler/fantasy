@@ -181,6 +181,14 @@ técnico mexe durante a partida:
   ganha a partir dos 75', e troca o mais cansado aos 60', 70' e 80'.
 - Cada decisão é guardada com o minuto. Seed + decisões reproduzem a
   partida exata, o que serve para o servidor do online validar o jogo.
+- **Sem repetir jogo** (carreira, copas e desafios): ao clicar em "Jogar
+  partida", o jogo é salvo na conta antes da bola rolar (times, seed e cada
+  decisão tomada). Se o técnico fechar o navegador ou recarregar no meio (ou
+  logo depois do apito), ao voltar o jogo é concluído sem ele, com o mesmo
+  placar que teria sem novas mudanças, e o resultado vale. O servidor
+  (api/carreira.php) mantém o jogo na carreira até o resultado chegar, e não
+  deixa trocar os times nem apagar decisões. No ranqueado, o relógio já é do
+  servidor: quem sai continua na partida.
 
 Evoluções previstas: expulsões, pênaltis, lesões, entrosamento (lendas da mesma época/seleção jogando juntas rendem
 um pouco mais **[suposição]**).
