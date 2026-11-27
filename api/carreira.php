@@ -21,6 +21,8 @@
 // de mercado e quem é dono do jogador; premiação uma vez por temporada; prêmio de desafio só
 // depois de pagar a partida, com limite diário no treino (que é de graça); prêmio de copa uma vez
 // por fase de cada copa na temporada, com o teto da fase (src/engine/copas.ts).
+// Jogo em andamento (dados.jogoEmAndamento): o jogo contra a IA é salvo antes de começar e fica
+// até o resultado chegar; quem fecha o navegador no meio volta com o jogo concluído, não repete.
 declare(strict_types=1);
 require __DIR__ . '/db.php';
 require_once __DIR__ . '/time_proprio_lib.php';
@@ -76,6 +78,39 @@ const DESAFIOS_COM_CARTA = ['brasil-1970', 'holanda', 'milan'];
 /** Igual a src/engine/mercado.ts: FATOR_TV_SERIE_B e FATOR_BILHETERIA_SERIE_B. */
 const FATOR_TV_B = 0.5;
 const FATOR_BILHETERIA_B = 0.75;
+
+/**
+ * O jogo em andamento (src/engine/jogoEmAndamento.ts) já tem resultado gravado nos dados?
+ * liga: placar do jogo na temporada (ou a rodada/temporada já passou); copa: placar do jogo na fase
+ * (ou a copa já avançou ou saiu da temporada); desafio: o prêmio chegou neste envio ou não há
+ * desafio pago esperando resultado.
+ */
+function jogoResolvido(array $j, array $dados, ?string $desafioPendente, array $desafiosConcluidos): bool
+{
+    $ref = (string) ($j['ref'] ?? '');
+    switch ($j['tipo'] ?? '') {
+        case 'liga':
+            [$ano, $rodada, $jogo] = array_map('intval', explode(':', $ref) + [0, 0, 0]);
+            $t = is_array($dados['temporada'] ?? null) ? $dados['temporada'] : [];
+            $anoT = (int) ($t['ano'] ?? 0);
+            if ($anoT !== $ano) return $anoT > $ano;
+            return (int) ($t['rodadaAtual'] ?? 0) > $rodada || isset($t['placares']["$rodada-$jogo"]);
+        case 'copa':
+            $p = explode(':', $ref);
+            if (count($p) !== 4) return true;
+            [$id, $ano, $fase, $jogo] = [$p[0], (int) $p[1], (int) $p[2], (int) $p[3]];
+            foreach ((array) ($dados['copas'] ?? []) as $copa) {
+                if (!is_array($copa) || ($copa['id'] ?? '') !== $id || (int) ($copa['ano'] ?? 0) !== $ano) continue;
+                $fases = (array) ($copa['fases'] ?? []);
+                return count($fases) > $fase + 1 || isset($fases[$fase]['jogos'][$jogo]['placar']);
+            }
+            return true; // a copa já saiu da carreira (outra temporada)
+        case 'desafio':
+            return $desafioPendente !== $ref || in_array($ref, $desafiosConcluidos, true);
+        default:
+            return true;
+    }
+}
 
 function linhaCarreira(int $uid, bool $travar = false): ?array
 {
@@ -268,6 +303,7 @@ switch ((string) ($d['acao'] ?? '')) {
 
         $recusados = [];
         $aceitos = [];
+        $desafiosConcluidos = [];
         $moedasGanhas = 0;
         $copasPagas = json_decode((string) ($c['copas_pagas'] ?? ''), true) ?: [];
         $missoesPagas = json_decode((string) ($c['missoes_pagas'] ?? ''), true) ?: [];
@@ -279,6 +315,7 @@ switch ((string) ($d['acao'] ?? '')) {
             if ($n <= (int) $c['seq']) continue; // já aplicado
             $c['seq'] = $n;
             $tipo = (string) ($l['tipo'] ?? '');
+            if ($tipo === 'desafio-premio') $desafiosConcluidos[] = (string) ($l['ref'] ?? '');
             $valor = (int) ($l['valor'] ?? 0);
             $rodada = (int) ($l['ano'] ?? $c['ano']) * 100 + (int) ($l['rodada'] ?? 0);
             $ref = (string) ($l['ref'] ?? '');
@@ -400,6 +437,23 @@ switch ((string) ($d['acao'] ?? '')) {
             }
         }
 
+        // Jogo em andamento: salvo antes da bola rolar. Enquanto o resultado não estiver gravado, ele
+        // continua na carreira (o jogo o conclui quando o técnico volta), com os mesmos times e seed,
+        // e só aceita decisões novas depois das já salvas. Fechar o navegador não deixa jogar de novo.
+        $corrigidoJogo = false;
+        $jogoAntes = is_array($antes['jogoEmAndamento'] ?? null) ? $antes['jogoEmAndamento'] : null;
+        $jogoNovo = is_array($dados['jogoEmAndamento'] ?? null) ? $dados['jogoEmAndamento'] : null;
+        if ($jogoAntes && !jogoResolvido($jogoAntes, $dados, $c['desafio_pendente'], $desafiosConcluidos)) {
+            $mesmo = $jogoNovo && ($jogoNovo['tipo'] ?? null) === ($jogoAntes['tipo'] ?? null)
+                && ($jogoNovo['ref'] ?? null) === ($jogoAntes['ref'] ?? null)
+                && ($jogoNovo['seed'] ?? null) === ($jogoAntes['seed'] ?? null);
+            $decAntes = is_array($jogoAntes['decisoes'] ?? null) ? array_values($jogoAntes['decisoes']) : [];
+            $decNovas = $mesmo && is_array($jogoNovo['decisoes'] ?? null) ? array_values($jogoNovo['decisoes']) : [];
+            $continua = $mesmo && count($decNovas) >= count($decAntes) && array_slice($decNovas, 0, count($decAntes)) == $decAntes;
+            $dados['jogoEmAndamento'] = array_merge($jogoAntes, ['decisoes' => $continua ? $decNovas : $decAntes]);
+            $corrigidoJogo = !$continua;
+        }
+
         $pdo->prepare('UPDATE times_online SET caixa = ? WHERE usuario_id = ?')->execute([$caixa, $eu]);
         if ($moedasGanhas) $pdo->prepare('UPDATE usuarios SET moedas = moedas + ? WHERE id = ?')->execute([$moedasGanhas, $eu]);
         $ins = $pdo->prepare('INSERT INTO lancamentos (usuario_id, tipo, descricao, valor) VALUES (?, ?, ?, ?)');
@@ -417,7 +471,8 @@ switch ((string) ($d['acao'] ?? '')) {
                 $c['treinos_hoje'], json_encode(array_slice($copasPagas, -200)), json_encode($missoesPagas), $eu]);
         $pdo->commit();
         responder(['caixa' => $caixa, 'moedas' => moedasDe($eu), 'seq' => (int) $c['seq'], 'recusados' => $recusados,
-            'corrigido' => ($dados['transferencias'] ?? []) !== $transf || ($dados['contratos'] ?? []) !== $contratosDepois]);
+            'corrigido' => $corrigidoJogo || ($dados['transferencias'] ?? []) !== $transf
+                || ($dados['contratos'] ?? []) !== $contratosDepois]);
     }
 
     case 'apagar':

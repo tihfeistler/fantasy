@@ -6,6 +6,7 @@ import type { TimeCartas } from "../engine/desafios";
 import type { Copa } from "../engine/copas";
 import { LIMITE_CARTAS_INICIAL } from "../engine/pacotes";
 import type { ClubeProprio } from "../engine/timeProprio";
+import type { JogoEmAndamento } from "../engine/jogoEmAndamento";
 
 /**
  * Progresso do jogador no modo solo: moedas, cartas no estoque e lendas
@@ -66,6 +67,8 @@ export interface Progresso {
   clubeProprio?: ClubeProprio;
   /** Missões já pagas: "ano:id" (da temporada) ou "id" (conquista). Ver src/engine/missoes.ts. */
   missoesPagas?: string[];
+  /** Jogo contra a IA que começou e ainda não terminou (salvo antes da bola rolar). */
+  jogoEmAndamento?: JogoEmAndamento;
   /** Temporadas encerradas. */
   historico?: { ano: number; posicao: number; campeao: string; divisao?: Divisao }[];
 }

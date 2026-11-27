@@ -134,6 +134,9 @@ import { TelaMercadoOnline } from "./TelaMercadoOnline";
 import { conta, pendentes, type EstadoCarreira } from "../data/conta";
 import { online, type SituacaoOnline, type Usuario } from "../data/online";
 import { TelaPartida } from "./TelaPartida";
+import type { ControleJogo } from "./PartidaInterativa";
+import { concluirJogo, type JogoEmAndamento } from "../engine/jogoEmAndamento";
+import type { Decisao } from "../engine/match";
 
 type AbaColecao = "estoque" | "base" | "cartas" | "lendas";
 type AbaRanqueado = "ranqueado" | "time";
@@ -473,41 +476,58 @@ export function App() {
     if (naConta) atualizarConta();
   }, [modo, naConta, atualizarConta]);
   // Salva a carreira na conta e manda os lançamentos novos; o servidor devolve o caixa e as moedas que valem.
+  // Os envios vão em fila, para chegar ao servidor na ordem. Devolve false se não deu para salvar.
+  const filaEnvio = useRef<Promise<boolean>>(Promise.resolve(true));
+  const sitAtual = useRef(sit);
+  sitAtual.current = sit;
+  const enviar = useCallback(
+    (progresso: Progresso): Promise<boolean> =>
+      (filaEnvio.current = filaEnvio.current.then(async () => {
+        const novos = pendentes(progresso, seqConfirmado.current);
+        const chave = JSON.stringify({
+          ...progresso,
+          moedas: 0,
+          estoque: [],
+          financas: progresso.financas && { ...progresso.financas, caixa: 0 },
+        });
+        if (!novos.length && chave === ultimoEnvio.current) return true;
+        ultimoEnvio.current = chave;
+        try {
+          const r = await conta.salvar(progresso, novos);
+          seqConfirmado.current = Math.max(seqConfirmado.current, r.seq);
+          if (r.recusados.length)
+            setAvisoConta(
+              `O servidor não aceitou ${r.recusados.length} lançamento${r.recusados.length > 1 ? "s" : ""} e corrigiu o caixa.`,
+            );
+          if (novos.some((l) => l.carta)) atualizarConta();
+          if (r.corrigido) {
+            const c = await conta.carregar();
+            setProgresso(daConta(c, sitAtual.current));
+            return true;
+          }
+          setProgresso((p) => {
+            const pend = somaPendente(p, seqConfirmado.current);
+            return {
+              ...p,
+              moedas: r.moedas + pend.moedas,
+              financas: p.financas && { ...p.financas, caixa: r.caixa + pend.caixa },
+            };
+          });
+          return true;
+        } catch (e) {
+          ultimoEnvio.current = "";
+          setAvisoConta(`Não deu para salvar na conta: ${(e as Error).message}`);
+          return false;
+        }
+      })),
+    [atualizarConta],
+  );
   useEffect(() => {
     if (!naConta || !progresso.manager || !progresso.financas) return;
-    const id = setTimeout(async () => {
-      const novos = pendentes(progresso, seqConfirmado.current);
-      const chave = JSON.stringify({ ...progresso, moedas: 0, estoque: [], financas: { ...progresso.financas, caixa: 0 } });
-      if (!novos.length && chave === ultimoEnvio.current) return;
-      ultimoEnvio.current = chave;
-      try {
-        const r = await conta.salvar(progresso, novos);
-        seqConfirmado.current = Math.max(seqConfirmado.current, r.seq);
-        if (r.recusados.length)
-          setAvisoConta(
-            `O servidor não aceitou ${r.recusados.length} lançamento${r.recusados.length > 1 ? "s" : ""} e corrigiu o caixa.`,
-          );
-        if (novos.some((l) => l.carta)) atualizarConta();
-        if (r.corrigido) {
-          const c = await conta.carregar();
-          setProgresso(daConta(c, sit));
-          return;
-        }
-        setProgresso((p) => {
-          const pend = somaPendente(p, seqConfirmado.current);
-          return {
-            ...p,
-            moedas: r.moedas + pend.moedas,
-            financas: p.financas && { ...p.financas, caixa: r.caixa + pend.caixa },
-          };
-        });
-      } catch (e) {
-        ultimoEnvio.current = "";
-        setAvisoConta(`Não deu para salvar na conta: ${(e as Error).message}`);
-      }
-    }, 700);
+    // Durante um jogo, cada decisão vai na hora (é o que vale se o técnico sair no meio).
+    const id = setTimeout(() => enviar(progresso), progresso.jogoEmAndamento ? 0 : 700);
     return () => clearTimeout(id);
-  }, [progresso, naConta, sit, atualizarConta]);
+  }, [progresso, naConta, enviar]);
   // Sem lendas embutidas no build: busca na API PHP.
   useEffect(() => {
     if (lendasLista.length) return;
@@ -626,10 +646,14 @@ export function App() {
       };
     });
   /** Desafios usam o caixa único do clube (e da conta, quando logado). */
-  const iniciarDesafio = (id: string, custo: number) => {
-    if (!progresso.financas || progresso.financas.caixa < custo) return false;
+  const iniciarDesafio = (
+    id: string,
+    custo: number,
+    jogo: { mandante: Time; visitante: Time; seed: number; meuTimeId: string },
+  ) => {
+    if (!progresso.financas || progresso.financas.caixa < custo) return Promise.resolve(false);
     const d = DESAFIOS.find((x) => x.id === id);
-    mudar((p) =>
+    return comecarJogo({ tipo: "desafio", ref: id, ...jogo }, (p) =>
       p.financas
         ? {
             ...p,
@@ -645,13 +669,13 @@ export function App() {
           }
         : p,
     );
-    return true;
   };
   const concluirDesafio = (
     desafioId: string,
     r: ResultadoPartida,
     adversario: Time,
   ): string => {
+    semJogoEmAndamento();
     const d = DESAFIOS.find((x) => x.id === desafioId)!;
     const idCartas = naConta && sit ? sit.usuario.timeId : "time-cartas";
     const meus = r.mandanteId === idCartas ? r.golsMandante : r.golsVisitante;
@@ -881,6 +905,60 @@ export function App() {
 
   // Toda mudança na carreira confere as missões (moedas só por missão, desafio e fim de temporada).
   const mudar = (f: (p: Progresso) => Progresso) => setProgresso((p) => pagarMissoes(f(p)));
+
+  // ---- Jogo em andamento: salvo antes da bola rolar, para sair no meio não deixar jogar de novo ----
+  /** Uma partida contra a IA está na tela (enquanto estiver, o jogo em andamento é dela). */
+  const [jogoNaTela, setJogoNaTela] = useState(false);
+  /**
+   * Grava o jogo (e o que `antes` mudar, como o salário do desafio) e só então deixa começar.
+   * Na conta, espera o servidor confirmar; se não der, o jogo não começa.
+   */
+  const comecarJogo = async (
+    j: Omit<JogoEmAndamento, "decisoes">,
+    antes: (p: Progresso) => Progresso = (p) => p,
+  ): Promise<boolean> => {
+    if (progresso.jogoEmAndamento) return false;
+    const anterior = progresso;
+    const novo = pagarMissoes({ ...antes(progresso), jogoEmAndamento: { ...j, decisoes: [] } });
+    setJogoNaTela(true);
+    setProgresso(novo);
+    if (!naConta) return true;
+    if (await enviar(novo)) return true;
+    setJogoNaTela(false);
+    setProgresso((p) => (p === novo ? anterior : { ...p, jogoEmAndamento: undefined }));
+    return false;
+  };
+  /** O jogo acabou (na tela ou concluído sem o técnico): sai do jogo em andamento. */
+  const semJogoEmAndamento = () =>
+    setProgresso((p) => (p.jogoEmAndamento ? { ...p, jogoEmAndamento: undefined } : p));
+  const controleJogo: ControleJogo = {
+    comecar: (j) => comecarJogo(j),
+    decidiu: (decisoes: Decisao[]) =>
+      setProgresso((p) => (p.jogoEmAndamento ? { ...p, jogoEmAndamento: { ...p.jogoEmAndamento, decisoes } } : p)),
+    naTela: setJogoNaTela,
+  };
+  /**
+   * O técnico saiu no meio (fechou o navegador, recarregou ou trocou de tela): o jogo é concluído
+   * com a mesma seed, os mesmos times e as decisões que ele já tinha tomado, e o resultado vale.
+   */
+  const jogoConcluido = useRef("");
+  useEffect(() => {
+    const j = progresso.jogoEmAndamento;
+    if (!j || jogoNaTela || !progresso.manager || !(naConta || demo)) return;
+    if (j.tipo === "desafio" && naConta && !sit) return;
+    const chave = `${j.tipo}:${j.ref}:${j.seed}`;
+    if (jogoConcluido.current === chave) return;
+    jogoConcluido.current = chave;
+    const r = concluirJogo(j);
+    let extra = "";
+    if (j.tipo === "liga") fimDoJogo(r);
+    else if (j.tipo === "copa") fimDoJogoCopa(j.ref.split(":")[0], r);
+    else extra = ` ${concluirDesafio(j.ref, r, j.visitante)}`;
+    setAvisoConta(
+      `Você saiu antes do fim e o jogo foi concluído sem você: ${j.mandante.nome} ${r.golsMandante} × ${r.golsVisitante} ${j.visitante.nome}.${extra}`,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progresso.jogoEmAndamento, progresso.manager, jogoNaTela, naConta, demo, sit]);
 
   /** Ação na conta (pacote, ampliação, cartas base, escalação): o servidor responde a situação nova. */
   const naContaFaz = async (f: () => Promise<SituacaoOnline>) => {
@@ -1172,6 +1250,7 @@ export function App() {
   };
   /** Fim do jogo do manager: grava o placar, simula o resto da rodada e, em casa, paga a bilheteria. */
   const fimDoJogo = (r: ResultadoPartida) => {
+    semJogoEmAndamento();
     const renda = pagarBilheteria(r);
     mudar((p) => {
       const t = p.temporada;
@@ -1405,6 +1484,7 @@ export function App() {
    * se ele passou, paga o prêmio da fase no caixa (moedas, só pelas missões).
    */
   const fimDoJogoCopa = (copaId: string, r: ResultadoPartida) => {
+    semJogoEmAndamento();
     const c = progresso.copas?.find((x) => x.id === copaId);
     const i = c ? jogoDoClube(c, meuTimeId) : -1;
     if (!c || i < 0 || !temporada) return null;
@@ -1896,6 +1976,7 @@ export function App() {
                 times={mapaTimes}
                 onFim={(r) => fimDoJogoCopa(pendente.id, r)}
                 onContinuar={() => concluirCopa(pendente.id)}
+                controle={controleJogo}
               />
             ) : temporada.rodadaAtual < temporada.rodadas.length ? (
               <TelaPartida
@@ -1903,6 +1984,7 @@ export function App() {
                 times={mapaTimes}
                 temporada={temporada}
                 onFim={fimDoJogo}
+                controle={controleJogo}
                 onAvancar={avancar}
               />
             ) : (
@@ -2016,6 +2098,7 @@ export function App() {
                 onComprarBase={(id) => naContaFaz(() => online.comprarBase(id))}
                 onVenderBase={(id) => naContaFaz(() => online.venderBase(id))}
                 onIniciar={iniciarDesafio}
+                controle={controleJogo}
                 onConcluir={concluirDesafio}
               />
             </section>
@@ -2036,6 +2119,7 @@ export function App() {
                 onComprarBase={comprarBase}
                 onVenderBase={venderBase}
                 onIniciar={iniciarDesafio}
+                controle={controleJogo}
                 onConcluir={concluirDesafio}
               />
             </section>

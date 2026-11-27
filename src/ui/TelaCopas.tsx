@@ -14,7 +14,8 @@ import {
 import { formatarDinheiro } from "../engine/mercado";
 import { MAX_SUBSTITUICOES } from "../engine/match";
 import type { ResultadoPartida, Time } from "../engine/types";
-import { PartidaInterativa } from "./PartidaInterativa";
+import { PartidaInterativa, type ControleJogo } from "./PartidaInterativa";
+import { refJogoCopa } from "../engine/jogoEmAndamento";
 
 /** Título ganho pelo técnico (ou campanha de uma copa encerrada). */
 export interface CampanhaCopa {
@@ -38,9 +39,11 @@ export function PartidaCopa(props: {
   onFim: (r: ResultadoPartida) => ReactNode;
   /** Fecha a fase (simula os outros jogos) e volta para o calendário. */
   onContinuar: () => void;
+  controle: ControleJogo;
 }) {
   const { copa, meuTime, times } = props;
   const [jogando, setJogando] = useState(false);
+  const [comecando, setComecando] = useState(false);
   const fase = faseAtual(copa)!;
   const nFase = copa.fases.length - 1;
   const i = jogoDoClube(copa, meuTime.id);
@@ -73,6 +76,7 @@ export function PartidaCopa(props: {
             visitante={visitante}
             seed={seedDoJogoCopa(copa, nFase, i)}
             meuTimeId={meuTime.id}
+            controle={props.controle}
             titulo={titulo}
             depoisDoFim={continuar}
             lateralFim={outros}
@@ -98,8 +102,25 @@ export function PartidaCopa(props: {
     <section className="tela partida">
       <div className="barra">
         {titulo}
-        <button className="botao primario" onClick={() => setJogando(true)}>
-          Jogar partida
+        <button
+          className="botao primario"
+          disabled={comecando}
+          onClick={async () => {
+            // O jogo fica salvo na conta antes de começar: sair no meio não deixa jogar de novo.
+            setComecando(true);
+            const ok = await props.controle.comecar({
+              tipo: "copa",
+              ref: refJogoCopa(copa.id, copa.ano, nFase, i),
+              mandante,
+              visitante,
+              seed: seedDoJogoCopa(copa, nFase, i),
+              meuTimeId: meuTime.id,
+            });
+            setComecando(false);
+            if (ok) setJogando(true);
+          }}
+        >
+          {comecando ? "Começando…" : "Jogar partida"}
         </button>
       </div>
       <div className="placar">

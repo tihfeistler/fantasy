@@ -12,7 +12,7 @@ import { MAX_LENDAS_EM_CAMPO } from "../engine/pacotes";
 import { escalar } from "../engine/ratings";
 import { ehLenda, type Jogador, type ResultadoPartida, type Time } from "../engine/types";
 import { LojaCartasBase } from "./LojaCartasBase";
-import { PartidaInterativa } from "./PartidaInterativa";
+import { PartidaInterativa, type ControleJogo } from "./PartidaInterativa";
 import { TelaElenco } from "./TelaElenco";
 
 interface Props {
@@ -25,8 +25,16 @@ interface Props {
   onAtualizarTime: (t: Time) => void;
   onComprarBase: (id: string) => void;
   onVenderBase: (id: string) => void;
-  /** Cobra o salário da partida; false se não houver caixa. */
-  onIniciar: (desafioId: string, custo: number) => boolean;
+  /**
+   * Cobra o salário da partida e grava o jogo na conta antes de começar; false se não houver
+   * caixa ou se não deu para salvar.
+   */
+  onIniciar: (
+    desafioId: string,
+    custo: number,
+    jogo: { mandante: Time; visitante: Time; seed: number; meuTimeId: string },
+  ) => Promise<boolean>;
+  controle: ControleJogo;
   /** Paga os prêmios; devolve o texto do resultado. */
   onConcluir: (desafioId: string, r: ResultadoPartida, adversario: Time) => string;
 }
@@ -34,6 +42,7 @@ interface Props {
 export function TelaDesafios(p: Props) {
   const [modo, setModo] = useState<"desafios" | "time" | "loja">("desafios");
   const [jogo, setJogo] = useState<{ desafioId: string; adversario: Time; seed: number } | null>(null);
+  const [comecando, setComecando] = useState(false);
 
   const { meuTime, timeCartas } = p;
   const titulares = escalar(meuTime);
@@ -48,6 +57,7 @@ export function TelaDesafios(p: Props) {
         visitante={jogo.adversario}
         seed={jogo.seed}
         meuTimeId={meuTime.id}
+        controle={p.controle}
         titulo={
           <div className="rodada-titulo">
             <span className="rotulo">Desafio</span>
@@ -168,10 +178,13 @@ export function TelaDesafios(p: Props) {
                     </span>
                     <button
                       className="botao primario"
-                      disabled={!completo || semCaixa || !pronto}
-                      onClick={() => {
-                        if (!p.onIniciar(d.id, custoD)) return;
-                        setJogo({ desafioId: d.id, adversario: adv, seed: (Date.now() ^ (Math.random() * 2 ** 31)) >>> 0 });
+                      disabled={!completo || semCaixa || !pronto || comecando}
+                      onClick={async () => {
+                        const seed = (Date.now() ^ (Math.random() * 2 ** 31)) >>> 0;
+                        setComecando(true);
+                        const ok = await p.onIniciar(d.id, custoD, { mandante: meuTime, visitante: adv, seed, meuTimeId: meuTime.id });
+                        setComecando(false);
+                        if (ok) setJogo({ desafioId: d.id, adversario: adv, seed });
                       }}
                     >
                       {semCaixa
