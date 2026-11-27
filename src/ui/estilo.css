@@ -251,6 +251,18 @@ button.carta:hover { transform: translateY(-3px); box-shadow: 0 10px 22px #000a;
   hyphens: auto;
 }
 .carta-sub { font-size: 11px; font-weight: 600; opacity: 0.8; }
+/* Carta cheia com altura fixa: o nome sempre ocupa duas linhas (corta com "…" se passar)
+   e a origem fica em uma linha, para todas as cartas lado a lado terem o mesmo tamanho. */
+.carta-cheia .carta-nome {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  height: 2.1em;
+}
+.carta-cheia .carta-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.carta-cheia .carta-atrs { margin-top: auto; }
 .carta-atrs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1307,6 +1319,7 @@ body.com-partida { overflow: hidden; }
 .draft-chances { max-width: 560px; font-family: var(--fonte-texto); font-weight: 400; font-size: 12px; }
 .draft-cartas { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .draft-opcao { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
+.draft-opcao .carta { flex: 1; }
 .draft-rar { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
 .rar-txt-bronze { color: #e0a674; }
 .rar-txt-prata { color: #dfe6f0; }
